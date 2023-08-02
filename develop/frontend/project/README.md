@@ -18,5 +18,6 @@
     -   @fortawesome/free-regular-svg-icons
     -   @fortawesome/free-solid-svg-icons
     -   @fortawesome/react-fontawesome
-
+    -   react-icon
+    -   react-helmet
 -

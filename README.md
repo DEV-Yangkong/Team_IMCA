@@ -1,4 +1,4 @@
-# Team_IMCA : I am Calendar
+# Team_IMCA - I am Calendar
 
 ## 소개
 

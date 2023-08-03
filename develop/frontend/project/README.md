@@ -20,4 +20,5 @@
     -   @fortawesome/react-fontawesome
     -   react-icon
     -   react-helmet
+    -   react-calendar
 -

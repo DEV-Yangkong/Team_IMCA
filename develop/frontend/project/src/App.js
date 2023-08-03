@@ -10,11 +10,13 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header />
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/concert_act" element={<Act />} />
-          <Route path="/concert_musical" element={<Musical />} />
-        </Routes>
+        <div style={{ position: 'relative', zIndex: 1 }} className="test">
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/concert_act" element={<Act />} />
+            <Route path="/concert_musical" element={<Musical />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );

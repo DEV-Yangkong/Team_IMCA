@@ -60,6 +60,7 @@
   padding: 15px 0 15px 10px;
   color: black;
   z-index: 999;
+  background-color: white;
 }
 .nav_item:hover .item_menu {
   display: block;

@@ -39,7 +39,7 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>양예은(양콩)</h4>
-            <p>Frontend 개발자</p>
+            <p>🩷 Frontend 🩷</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/hi._.yangkong/"
@@ -68,7 +68,7 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>김희은</h4>
-            <p>Frontend 개발자</p>
+            <p>🩷 Frontend 🩷</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/_hiniminih_/"
@@ -97,7 +97,7 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>박민정</h4>
-            <p>Frontend 개발자</p>
+            <p>🩷 Frontend 🩷</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/minz0ey/"
@@ -126,7 +126,7 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>김산이</h4>
-            <p>Frontend 개발자</p>
+            <p>🩷 Frontend 🩷</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/_tancong_"
@@ -155,7 +155,7 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>김진우</h4>
-            <p>Backend 개발자</p>
+            <p>💙 Backend 💙</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/sds7629/"
@@ -184,7 +184,7 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>방민식</h4>
-            <p>Backend 개발자</p>
+            <p>💙 Backend 💙</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/spaceenterbs/"

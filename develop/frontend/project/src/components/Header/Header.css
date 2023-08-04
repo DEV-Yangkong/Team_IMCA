@@ -16,8 +16,8 @@
 /* Header - top */
 .top_wrapper {
   margin: 0 auto;
-  width: 100%;
-  max-width: 1240px;
+  width: 100vw;
+
   display: flex;
   justify-content: center;
   align-items: center;

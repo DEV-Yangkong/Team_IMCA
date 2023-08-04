@@ -41,14 +41,18 @@ const TeamIntroduction = () => {
             <h4>양예은(양콩)</h4>
             <p>Frontend 개발자</p>
             <div className="social-links">
-              {/* react-icons의 아이콘 사용 */}
               <a
                 href="https://www.instagram.com/hi._.yangkong/"
                 className="instagram"
+                target="_blank"
               >
                 <FaInstagram size={25} />
               </a>
-              <a href="https://github.com/DEV-Yangkong" className="github">
+              <a
+                href="https://github.com/DEV-Yangkong"
+                className="github"
+                target="_blank"
+              >
                 <FaGithub size={25} />
               </a>
             </div>
@@ -66,10 +70,18 @@ const TeamIntroduction = () => {
             <h4>김희은</h4>
             <p>Frontend 개발자</p>
             <div className="social-links">
-              <a href="https://www.instagram.com/_hiniminih_/">
+              <a
+                href="https://www.instagram.com/_hiniminih_/"
+                className="instagram"
+                target="_blank"
+              >
                 <FaInstagram size={25} />
               </a>
-              <a href="https://github.com/hiheeen">
+              <a
+                href="https://github.com/hiheeen"
+                className="github"
+                target="_blank"
+              >
                 <FaGithub size={25} />
               </a>
             </div>
@@ -87,10 +99,18 @@ const TeamIntroduction = () => {
             <h4>박민정</h4>
             <p>Frontend 개발자</p>
             <div className="social-links">
-              <a href="https://www.instagram.com/minz0ey/">
+              <a
+                href="https://www.instagram.com/minz0ey/"
+                className="instagram"
+                target="_blank"
+              >
                 <FaInstagram size={25} />
               </a>
-              <a href="https://github.com/MINZOEY">
+              <a
+                href="https://github.com/MINZOEY"
+                className="github"
+                target="_blank"
+              >
                 <FaGithub size={25} />
               </a>
             </div>
@@ -108,10 +128,18 @@ const TeamIntroduction = () => {
             <h4>김산이</h4>
             <p>Frontend 개발자</p>
             <div className="social-links">
-              <a href="https://www.instagram.com/_tancong_">
+              <a
+                href="https://www.instagram.com/_tancong_"
+                className="instagram"
+                target="_blank"
+              >
                 <FaInstagram size={25} />
               </a>
-              <a href="https://github.com/tanmtn">
+              <a
+                href="https://github.com/tanmtn"
+                className="github"
+                target="_blank"
+              >
                 <FaGithub size={25} />
               </a>
             </div>
@@ -129,10 +157,18 @@ const TeamIntroduction = () => {
             <h4>김진우</h4>
             <p>Backend 개발자</p>
             <div className="social-links">
-              <a href="https://www.instagram.com/sds7629/">
+              <a
+                href="https://www.instagram.com/sds7629/"
+                className="instagram"
+                target="_blank"
+              >
                 <FaInstagram size={25} />
               </a>
-              <a href="https://github.com/sds7629">
+              <a
+                href="https://github.com/sds7629"
+                className="github"
+                target="_blank"
+              >
                 <FaGithub size={25} />
               </a>
             </div>
@@ -150,10 +186,18 @@ const TeamIntroduction = () => {
             <h4>방민식</h4>
             <p>Backend 개발자</p>
             <div className="social-links">
-              <a href="https://www.instagram.com/spaceenterbs/">
+              <a
+                href="https://www.instagram.com/spaceenterbs/"
+                className="instagram"
+                target="_blank"
+              >
                 <FaInstagram size={25} />
               </a>
-              <a href="https://github.com/spaceenterbs">
+              <a
+                href="https://github.com/spaceenterbs"
+                className="github"
+                target="_blank"
+              >
                 <FaGithub size={25} />
               </a>
             </div>

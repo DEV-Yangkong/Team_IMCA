@@ -201,7 +201,10 @@
 }
 
 .addParagraph p {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.6;
-  margin-top: 10px; /* 간격을 조정합니다. */
+  margin-top: 10px;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: 800;
+  letter-spacing: 1.5px;
 }

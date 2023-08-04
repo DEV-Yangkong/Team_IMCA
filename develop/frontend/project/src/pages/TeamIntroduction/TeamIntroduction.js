@@ -47,6 +47,7 @@ const TeamIntroduction = () => {
       </div>
       {/* 프론트엔드 개발자 정보 */}
       <div className="team-members">
+        {/* 양예은 팀원 정보 */}
         <div className="team-member">
           <div
             className="team-member-container"
@@ -63,14 +64,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={25} />
+                <FaInstagram size={30} />
               </a>
               <a
                 href="https://github.com/DEV-Yangkong"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={25} />
+                <FaGithub size={30} />
               </a>
             </div>
           </div>
@@ -92,14 +93,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={25} />
+                <FaInstagram size={30} />
               </a>
               <a
                 href="https://github.com/hiheeen"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={25} />
+                <FaGithub size={30} />
               </a>
             </div>
           </div>
@@ -121,14 +122,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={25} />
+                <FaInstagram size={30} />
               </a>
               <a
                 href="https://github.com/MINZOEY"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={25} />
+                <FaGithub size={30} />
               </a>
             </div>
           </div>
@@ -150,14 +151,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={25} />
+                <FaInstagram size={30} />
               </a>
               <a
                 href="https://github.com/tanmtn"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={25} />
+                <FaGithub size={30} />
               </a>
             </div>
           </div>
@@ -200,14 +201,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={25} />
+                <FaInstagram size={30} />
               </a>
               <a
                 href="https://github.com/sds7629"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={25} />
+                <FaGithub size={30} />
               </a>
             </div>
           </div>
@@ -229,14 +230,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={25} />
+                <FaInstagram size={30} />
               </a>
               <a
                 href="https://github.com/spaceenterbs"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={25} />
+                <FaGithub size={30} />
               </a>
             </div>
           </div>

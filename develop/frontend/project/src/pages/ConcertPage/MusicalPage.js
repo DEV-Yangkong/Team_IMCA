@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import MusicalList from '../../components/ConcertPage/MusicalList';
-
+import './MusicalPage.css';
 const MusicalPage = () => {
   const [musicalArray, setMusicalArray] = useState([]);
   const callApi = async () => {
@@ -16,8 +16,7 @@ const MusicalPage = () => {
   }, []);
   return (
     <div>
-      <h2>Musical 화면입니다</h2>
-      <div style={{ display: 'flex' }}>
+      <div className="list_container">
         {musicalArray.map((it) => (
           <MusicalList
             title={it.prfnm._text}
@@ -32,3 +31,6 @@ const MusicalPage = () => {
   );
 };
 export default MusicalPage;
+
+// 페이지를 불러오는 중입니다... spinner
+// react query

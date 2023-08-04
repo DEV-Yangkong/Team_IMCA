@@ -214,3 +214,8 @@
 .highlight {
   color: #134f2c;
 }
+
+.boldSpan {
+  font-weight: 900;
+  font-size: 18px;
+}

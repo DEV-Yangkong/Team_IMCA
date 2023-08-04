@@ -17,15 +17,15 @@ const TeamIntroduction = () => {
   return (
     <div className="team-introduction">
       <h1>
-        Team_<span className="highlight">I</span> a
+        <span className="highlight">I</span> a
         <span className="highlight">M</span>
         <span className="highlight"> CA</span>lendar
       </h1>
       <div class="introParagraph">
         <p>
           <br />
-          Team_IMCA는 "I am Calendar"의 약자로, 예술 커뮤니티를 위한 서비스를
-          개발하는 팀입니다. <br />
+          IMCA는 <span className="boldSpan">"I am Calendar"</span>의 약자로,
+          예술 커뮤니티를 위한 서비스를 개발하는 팀입니다. <br />
           우리의 목표는 연극과 뮤지컬의 일정을 캘린더로 표시하고 정보를 제공하여
           <br />
           예술 관련 이벤트를 즐기는 사람들에게 유용한 서비스를 제공하는

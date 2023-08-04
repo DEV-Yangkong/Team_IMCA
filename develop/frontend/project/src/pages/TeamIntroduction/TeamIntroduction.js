@@ -1,4 +1,3 @@
-// src/components/TeamIntroduction.js
 import React from 'react';
 import './TeamIntroduction.css'; // TeamIntroduction 컴포넌트와 스타일을 연결하는 CSS 파일
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,17 +7,17 @@ import { FaInstagram, FaGithub } from 'react-icons/fa';
 const TeamIntroduction = () => {
   // 팀원들의 배경색 값을 담은 배열
   const memberBackgroundColors = [
-    '#ffc8dd', // 양예은
-    '#fefae0', // 김희은
-    '#a3b18a', // 박민정
-    '#cdb4db', // 김산이
+    '#ff9770', // 양예은
+    '#f7567c', // 김희은
+    '#52b69a', // 박민정
+    '#0582ca', // 김산이
     '#8ecae6', // 김진우
-    '#219ebc', // 방민식
+    '#0fa3b1', // 방민식
   ];
 
   return (
     <div className="team-introduction">
-      <h2>Team_IMCA - I am Calendar</h2>
+      <h1>Team_IMCA - I am Calendar</h1>
       <p>
         Team_IMCA는 "I am Calendar"의 약자로, 예술 커뮤니티를 위한 서비스를
         개발하는 팀입니다. <br /> <br />
@@ -27,9 +26,24 @@ const TeamIntroduction = () => {
         <br />
         <br />
       </p>
-      <h3>팀원 소개</h3>
+      <div className="frontEndDescription">
+        <h2>Frontend</h2>
+        <p>
+          프론트엔드는 사용자들이 웹 애플리케이션과 상호작용하는 부분을
+          담당합니다.
+          <br />
+          주로 클라이언트 사이드 개발로, 사용자 인터페이스를 구성하고 사용자가
+          웹 서비스를 편리하게 이용할 수 있도록 합니다.
+          <br />
+          우리 팀의 프론트엔드 개발자들은 다음과 같은 역할을 수행합니다.
+          <br />
+          <br />
+          사용자 인터페이스(UI) 설계 및 구현, 캘린더 뷰어 개발, 이벤트 정보
+          표시와 커뮤니티 기능 구현, 프론트엔드 테스팅
+        </p>
+      </div>
+      {/* 프론트엔드 개발자 정보 */}
       <div className="team-members">
-        {/* 양예은 팀원 정보 */}
         <div className="team-member">
           <div
             className="team-member-container"
@@ -64,7 +78,7 @@ const TeamIntroduction = () => {
             className="team-member-container"
             style={{ backgroundColor: memberBackgroundColors[1] }}
           >
-            <img src="/images/tancong.png" alt="희은" />
+            <img src="/images/hiheeen.png" alt="희은" />
           </div>
           <div className="team-member-content">
             <h4>김희은</h4>
@@ -122,7 +136,7 @@ const TeamIntroduction = () => {
             className="team-member-container"
             style={{ backgroundColor: memberBackgroundColors[3] }}
           >
-            <img src="/images/tancong.png" alt="탄산" />
+            <img src="/images/tanmtn.png" alt="탄산" />
           </div>
           <div className="team-member-content">
             <h4>김산이</h4>
@@ -145,6 +159,25 @@ const TeamIntroduction = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* 백엔드 개발자 정보 */}
+      <div className="backEndDescription">
+        <h2>Backend</h2>
+        <p>
+          백엔드는 웹 애플리케이션의 서버 측 개발을 담당합니다.
+          <br />
+          주로 서버 사이드 개발로, 프론트엔드와 사용자의 요청을 처리하고
+          데이터를 관리합니다.
+          <br />
+          우리 팀의 백엔드 개발자들은 다음과 같은 역할을 수행합니다.
+          <br />
+          <br />
+          서버 개발과 데이터베이스 설계, 캘린더와 이벤트 데이터 관리, 사용자
+          인증 및 보안 기능 구현, 백엔드 테스팅
+        </p>
+      </div>
+      <div className="team-members">
         {/* 김진우 팀원 정보 */}
         <div className="team-member">
           <div
@@ -204,7 +237,6 @@ const TeamIntroduction = () => {
           </div>
         </div>
       </div>
-      {/* 추가적인 팀원 소개 내용 */}
     </div>
   );
 };

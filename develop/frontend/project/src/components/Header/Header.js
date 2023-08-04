@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
-  
+
   return (
     <div className="Header">
       <div className="header_wrapper">
@@ -12,7 +12,7 @@ const Header = () => {
         </div>
         <div className="nav_container">
           <div className="nav_wrapper">
-             {/* 팀 소개 페이지로 이동 */}
+            {/* 팀 소개 페이지로 이동 */}
             <div className="nav_item">
               <div>팀 소개</div>
               <ul className="item_menu">

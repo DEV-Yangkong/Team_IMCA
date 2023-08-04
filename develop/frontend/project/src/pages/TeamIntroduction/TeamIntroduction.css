@@ -7,15 +7,17 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
+  max-width: 1200px; /* 추가된 스타일 */
+  margin: 0 auto; /* 추가된 스타일 */
 }
 
 .team-member {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
-  margin: 10px;
+  width: calc(50% - 15px);
+  margin: 5px;
 }
 
 .team-introduction h1 {
@@ -114,6 +116,12 @@
   letter-spacing: 2px;
 }
 
+@media screen and (min-width: 768px) {
+  .team-members {
+    justify-content: center;
+  }
+}
+
 @media screen and (max-width: 1365px) {
   .team-member {
     width: calc(50% - 20px);
@@ -140,7 +148,7 @@
 
 @media screen and (min-width: 1441px) {
   .team-member {
-    width: calc(33.333% - 20px);
+    width: calc(33.333% - 15px);
     margin: 5px;
   }
 

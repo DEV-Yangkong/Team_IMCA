@@ -6,12 +6,12 @@ import { FaInstagram, FaGithub } from 'react-icons/fa';
 
 const TeamIntroduction = () => {
   const memberBackgroundColors = [
-    '#ff9770', // 양예은
-    '#f7567c', // 김희은
+    '#ffe45e', // 양예은
+    '#a7c957', // 김희은
     '#52b69a', // 박민정
     '#0582ca', // 김산이
-    '#8ecae6', // 김진우
-    '#0fa3b1', // 방민식
+    '#fdc500', // 김진우
+    '#3dccc7', // 방민식
   ];
 
   return (

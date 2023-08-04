@@ -27,7 +27,7 @@ const TeamIntroduction = () => {
         <br />
       </p>
       <div className="frontEndDescription">
-        <h2>Frontend</h2>
+        <h2>" Frontend "</h2>
         <p>
           프론트엔드는 사용자들이 웹 애플리케이션과 상호작용하는 부분을
           담당합니다.
@@ -36,11 +36,13 @@ const TeamIntroduction = () => {
           웹 서비스를 편리하게 이용할 수 있도록 합니다.
           <br />
           우리 팀의 프론트엔드 개발자들은 다음과 같은 역할을 수행합니다.
-          <br />
-          <br />
-          사용자 인터페이스(UI) 설계 및 구현, 캘린더 뷰어 개발, 이벤트 정보
-          표시와 커뮤니티 기능 구현, 프론트엔드 테스팅
         </p>
+        <div class="frontEndDescription addParagraph">
+          <p>
+            사용자 인터페이스(UI) 설계 및 구현, 캘린더 뷰어 개발, 이벤트 정보
+            표시와 커뮤니티 기능 구현, 프론트엔드 테스팅
+          </p>
+        </div>
       </div>
       {/* 프론트엔드 개발자 정보 */}
       <div className="team-members">
@@ -163,7 +165,7 @@ const TeamIntroduction = () => {
 
       {/* 백엔드 개발자 정보 */}
       <div className="backEndDescription">
-        <h2>Backend</h2>
+        <h2>" Backend "</h2>
         <p>
           백엔드는 웹 애플리케이션의 서버 측 개발을 담당합니다.
           <br />
@@ -171,11 +173,13 @@ const TeamIntroduction = () => {
           데이터를 관리합니다.
           <br />
           우리 팀의 백엔드 개발자들은 다음과 같은 역할을 수행합니다.
-          <br />
-          <br />
-          서버 개발과 데이터베이스 설계, 캘린더와 이벤트 데이터 관리, 사용자
-          인증 및 보안 기능 구현, 백엔드 테스팅
         </p>
+        <div class="backEndDescription addParagraph">
+          <p>
+            서버 개발과 데이터베이스 설계, 캘린더와 이벤트 데이터 관리, 사용자
+            인증 및 보안 기능 구현, 백엔드 테스팅
+          </p>
+        </div>
       </div>
       <div className="team-members">
         {/* 김진우 팀원 정보 */}

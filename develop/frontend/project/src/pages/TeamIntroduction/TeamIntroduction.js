@@ -189,7 +189,7 @@ const TeamIntroduction = () => {
             className="team-member-container"
             style={{ backgroundColor: memberBackgroundColors[4] }}
           >
-            <img src="/images/tancong.png" alt="진우" />
+            <img src="/images/sds7629.png" alt="진우" />
           </div>
           <div className="team-member-content">
             <h4>김진우</h4>

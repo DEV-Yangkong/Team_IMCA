@@ -6,12 +6,12 @@ import { FaInstagram, FaGithub } from 'react-icons/fa';
 
 const TeamIntroduction = () => {
   const memberBackgroundColors = [
-    '#ffe45e', // 양예은
-    '#a7c957', // 김희은
-    '#52b69a', // 박민정
-    '#0582ca', // 김산이
-    '#fdc500', // 김진우
-    '#3dccc7', // 방민식
+    '#fe6d73', // 양예은
+    '#ffa200', // 김희은
+    '#a7c957', // 박민정
+    '#1768ac', // 김산이
+    '#6db1bf', // 김진우
+    '#f39a9d', // 방민식
   ];
 
   return (
@@ -64,14 +64,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={30} />
+                <FaInstagram size={35} />
               </a>
               <a
                 href="https://github.com/DEV-Yangkong"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={30} />
+                <FaGithub size={35} />
               </a>
             </div>
           </div>
@@ -93,14 +93,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={30} />
+                <FaInstagram size={35} />
               </a>
               <a
                 href="https://github.com/hiheeen"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={30} />
+                <FaGithub size={35} />
               </a>
             </div>
           </div>
@@ -111,10 +111,10 @@ const TeamIntroduction = () => {
             className="team-member-container"
             style={{ backgroundColor: memberBackgroundColors[2] }}
           >
-            <img src="/images/minz0ey.png" alt="민조이" />
+            <img src="/images/minz0ey.png" alt="민정잉" />
           </div>
           <div className="team-member-content">
-            <h4>박민정</h4>
+            <h4>박민정(민정잉)</h4>
             <p>🩷 Frontend 🩷</p>
             <div className="social-links">
               <a
@@ -122,14 +122,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={30} />
+                <FaInstagram size={35} />
               </a>
               <a
                 href="https://github.com/MINZOEY"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={30} />
+                <FaGithub size={35} />
               </a>
             </div>
           </div>
@@ -151,14 +151,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={30} />
+                <FaInstagram size={35} />
               </a>
               <a
                 href="https://github.com/tanmtn"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={30} />
+                <FaGithub size={35} />
               </a>
             </div>
           </div>
@@ -190,10 +190,10 @@ const TeamIntroduction = () => {
             className="team-member-container"
             style={{ backgroundColor: memberBackgroundColors[4] }}
           >
-            <img src="/images/sds7629.png" alt="진우" />
+            <img src="/images/sds7629.png" alt="지이누" />
           </div>
           <div className="team-member-content">
-            <h4>김진우</h4>
+            <h4>김진우(지이누)</h4>
             <p>💙 Backend 💙</p>
             <div className="social-links">
               <a
@@ -201,14 +201,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={30} />
+                <FaInstagram size={35} />
               </a>
               <a
                 href="https://github.com/sds7629"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={30} />
+                <FaGithub size={35} />
               </a>
             </div>
           </div>
@@ -222,7 +222,7 @@ const TeamIntroduction = () => {
             <img src="/images/spaceenterbs.png" alt="빵식" />
           </div>
           <div className="team-member-content">
-            <h4>방민식</h4>
+            <h4>방민식(빵식)</h4>
             <p>💙 Backend 💙</p>
             <div className="social-links">
               <a
@@ -230,14 +230,14 @@ const TeamIntroduction = () => {
                 className="instagram"
                 target="_blank"
               >
-                <FaInstagram size={30} />
+                <FaInstagram size={35} />
               </a>
               <a
                 href="https://github.com/spaceenterbs"
                 className="github"
                 target="_blank"
               >
-                <FaGithub size={30} />
+                <FaGithub size={35} />
               </a>
             </div>
           </div>

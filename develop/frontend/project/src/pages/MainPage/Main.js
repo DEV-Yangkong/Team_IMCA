@@ -1,8 +1,8 @@
 import Calendar from 'react-calendar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import './Main.css';
-
+import { Data } from '../../api';
 const dummyDateList = [
   {
     start: '2023-08-05',
@@ -20,6 +20,7 @@ const dummyDateList = [
 
 const Main = () => {
   const [date, setDate] = useState(new Date());
+
   const getTileContent = ({ date }) => {
     const dateString = date.toISOString().substring(0, 10); // 'YYYY-MM-DD' 형태로 변환
     for (const { start, end } of dummyDateList) {

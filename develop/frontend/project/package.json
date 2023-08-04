@@ -13,6 +13,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "prettier": "^3.0.0",
     "react": "^18.2.0",
     "react-calendar": "^4.6.0",
@@ -22,9 +24,11 @@
     "react-icon": "^1.0.0",
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
+    "request": "^2.88.2",
     "styled-components": "^6.0.6",
     "styled-reset": "^4.5.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xml-js": "^1.6.11"
   },
   "scripts": {
     "start": "react-scripts start",

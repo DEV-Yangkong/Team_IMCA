@@ -10,7 +10,9 @@
 
     -   styled-components@latest
     -   react-router-dom
+    -   react-dom
     -   axios
+    -   cors
     -   styled-reset
     -   @chakra-ui/react
     -   @fortawesome/fontawesome-svg-core
@@ -19,11 +21,15 @@
     -   @fortawesome/free-solid-svg-icons
     -   @fortawesome/react-fontawesome
     -   react-icon
+    -   react-icons
     -   react-helmet
+    -   react-hook-form
     -   react-calendar
+    -   react-scripts
     -   xml-js
     -   express
     -   request
+    -   prettier
 
 ## api 데이터 받아오기
 

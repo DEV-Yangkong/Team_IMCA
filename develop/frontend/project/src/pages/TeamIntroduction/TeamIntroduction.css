@@ -1,0 +1,112 @@
+/* 기본 스타일 */
+.team-introduction {
+  text-align: center; /* 팀 소개 글을 가운데 정렬 */
+  padding: 20px; /* 내용과 팀원들 사이의 간격을 조정 */
+}
+
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* 중앙 정렬을 위해 변경 */
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  margin: 20px;
+}
+
+/* 팀 소개 제목 스타일 */
+.team-introduction h2 {
+  font-size: 30px; /* 큰 글씨체로 변경 */
+  font-weight: bold; /* 굵은 글씨체로 변경 */
+  margin-bottom: 20px; /* 제목 아래 여백 추가 */
+}
+
+/* 팀원 소개 제목 스타일 */
+.team-introduction h3 {
+  font-size: 24px; /* 더 큰 글씨체로 변경 */
+  font-weight: bold; /* 굵은 글씨체로 변경 */
+  margin: 20px 0; /* 위와 아래 여백 추가 */
+}
+
+/* 이미지 컨테이너에 배경색 스타일을 설정 */
+.team-member-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.team-member img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-member-content {
+  margin-top: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-member-content .social-links {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 5px;
+}
+
+.team-member-content .social-links a {
+  color: #023047;
+  margin-bottom: 5px;
+  margin-right: 10px; /* 오른쪽 마진을 5px로 설정 */
+}
+
+.social-links a.instagram {
+  color: #023047;
+}
+
+.social-links a.github {
+  color: #000000;
+}
+
+.team-member h4 {
+  margin: 10px 0;
+}
+
+.team-member p {
+  margin: 2px 0;
+}
+
+/* 노트북 14인치 이하에 대한 미디어 쿼리 */
+@media screen and (max-width: 1365px) {
+  .team-member {
+    width: calc(
+      33.333% - 40px
+    ); /* 3명씩 한 줄에 떠야하므로 가로 공간을 33.333%로 조정 */
+    margin: 20px;
+  }
+}
+
+/* 노트북 15인치에 대한 미디어 쿼리 */
+@media screen and (min-width: 1366px) and (max-width: 1440px) {
+  .team-member {
+    width: calc(33.333% - 40px);
+    margin: 15px;
+  }
+}
+
+/* 노트북 16인치 이상에 대한 미디어 쿼리 */
+@media screen and (min-width: 1441px) {
+  .team-member {
+    width: calc(33.333% - 40px);
+    margin: 12.5px;
+  }
+}

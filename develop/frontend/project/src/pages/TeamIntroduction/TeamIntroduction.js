@@ -5,7 +5,6 @@ import { faInstagram, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FaInstagram, FaGithub } from 'react-icons/fa';
 
 const TeamIntroduction = () => {
-  // 팀원들의 배경색 값을 담은 배열
   const memberBackgroundColors = [
     '#ff9770', // 양예은
     '#f7567c', // 김희은
@@ -18,14 +17,16 @@ const TeamIntroduction = () => {
   return (
     <div className="team-introduction">
       <h1>Team_IMCA - I am Calendar</h1>
-      <p>
-        Team_IMCA는 "I am Calendar"의 약자로, 예술 커뮤니티를 위한 서비스를
-        개발하는 팀입니다. <br /> <br />
-        우리의 목표는 연극과 뮤지컬의 일정을 캘린더로 표시하고 정보를 제공하여
-        예술 관련 이벤트를 즐기는 사람들에게 유용한 서비스를 제공하는 것입니다.
-        <br />
-        <br />
-      </p>
+      <div class="introParagraph">
+        <p>
+          <br />
+          Team_IMCA는 "I am Calendar"의 약자로, 예술 커뮤니티를 위한 서비스를
+          개발하는 팀입니다. <br /> <br />
+          우리의 목표는 연극과 뮤지컬의 일정을 캘린더로 표시하고 정보를 제공하여
+          예술 관련 이벤트를 즐기는 사람들에게 유용한 서비스를 제공하는
+          것입니다.
+        </p>
+      </div>
       <div className="frontEndDescription">
         <h2>" Frontend "</h2>
         <p>

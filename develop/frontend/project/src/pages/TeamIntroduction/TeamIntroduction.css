@@ -42,11 +42,12 @@
 
 .team-member-container {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
   overflow: hidden;
   background-color: #f0f0f0;
+  margin-top: 30px;
 }
 
 .team-member img {
@@ -132,36 +133,54 @@
 .backEndDescription h2 {
   font-size: 40px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   font-family: 'Noto Serif Vithkuqi', serif;
   margin: 15px 0;
   text-align: center;
-  position: relative; /* 자식 요소에 대해 상대 위치 지정 */
-  display: inline-block; /* 인라인 블록 요소로 설정하여 텍스트 길이만큼 넓이를 가지도록 함 */
+  position: relative;
+  display: inline-block;
 }
 
 .frontEndDescription h2::before,
 .backEndDescription h2::before {
   content: '';
   position: absolute;
-  bottom: -2px; /* 밑줄 위치를 텍스트 아래로 수정 */
+  bottom: -5px;
   left: 0;
-  width: 100%; /* 밑줄의 기본 너비를 100%로 설정 */
+  width: 100%;
   height: 2px;
   background-color: #134f2c;
-  transform: scaleX(0); /* 초기에는 너비를 0으로 설정하여 숨김 */
-  transform-origin: left; /* 변환 기준점을 왼쪽으로 설정하여 왼쪽에서 오른쪽으로 커지도록 함 */
-  animation: underlineAnimation 3s linear infinite; /* 애니메이션 적용 */
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineAnimation 3s linear infinite;
 }
 
 @keyframes underlineAnimation {
   0% {
-    transform: scaleX(0); /* 시작할 때 너비 0 */
+    transform: scaleX(0);
   }
   50% {
-    transform: scaleX(1); /* 중간 지점에서 너비를 1로 (텍스트의 전체 길이) */
+    transform: scaleX(1);
   }
   100% {
-    transform: scaleX(0); /* 다시 너비 0으로 (처음으로 돌아가기) */
+    transform: scaleX(0);
   }
+}
+
+.frontEndDescription p,
+.backEndDescription p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-top: 15px;
+  letter-spacing: 1px;
+}
+
+.introParagraph {
+  font-size: 18px;
+}
+
+.addParagraph p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-top: 10px; /* 간격을 조정합니다. */
 }

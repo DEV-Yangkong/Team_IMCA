@@ -59,10 +59,12 @@
   text-align: center;
 }
 .react-calendar__tile--active {
-  background: var(--festie-primary-orange, #f8c736);
+  background: #f8c736;
+
   color: white;
 }
+/* 오버라이딩 해야만 적용됨 */
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background: var(--festie-primary-orange, #f8c736);
+  background: #f8c736;
 }

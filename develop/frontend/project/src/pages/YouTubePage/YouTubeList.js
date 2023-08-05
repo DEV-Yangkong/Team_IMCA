@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './YouTubeList.css';
+import 'font-awesome/css/font-awesome.min.css'; // font-awesome 스타일시트 임포트
 
 function getPostsForPage(posts, currentPage, postsPerPage) {
   const startIndex = (currentPage - 1) * postsPerPage;
@@ -9,6 +10,7 @@ function getPostsForPage(posts, currentPage, postsPerPage) {
 }
 
 const YouTubeList = () => {
+  const [searchTerm, setSearchTerm] = useState('');
   const youtubePosts = [
     {
       thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
@@ -155,19 +157,34 @@ const YouTubeList = () => {
   return (
     <div className="youtube-list">
       <h1>YouTube Contents</h1>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="제목 검색"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <span className="search-icon">
+          <i className="fa fa-search"></i>
+        </span>
+      </div>
       <div className="post-list">
-        {currentPosts.map((post, index) => (
-          <div className="post-item" key={index}>
-            <Link to={`/youtube/${index}`} className="post-title-link">
-              <img src={post.thumbnailUrl} alt={post.title} />
-              <div className="post-title">{post.title}</div>
-            </Link>
-            <div className="post-info">
-              <span className="post-date">{post.date}</span>
-              <span className="post-views">조회수 {post.views}</span>
+        {currentPosts
+          .filter((post) =>
+            post.title.toLowerCase().includes(searchTerm.toLowerCase()),
+          )
+          .map((post, index) => (
+            <div className="post-item" key={index}>
+              <Link to={`/youtube/${index}`} className="post-title-link">
+                <img src={post.thumbnailUrl} alt={post.title} />
+                <div className="post-title">{post.title}</div>
+              </Link>
+              <div className="post-info">
+                <span className="post-date">{post.date}</span>
+                <span className="post-views">조회수 {post.views}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <div className="page-navigation">
         {Array.from({ length: totalPageCount }, (_, i) => i + 1).map((page) => (

@@ -3,13 +3,13 @@
   padding: 0 20px;
   display: flex;
   flex-direction: column; /* 세로 방향으로 정렬 */
-  align-items: center; /* 가운데 정렬 */
+  align-items: center;
 }
 
 .youtube-list h1 {
   font-size: 60px;
   font-weight: bold;
-  margin: 50px auto 100px;
+  margin: 50px auto 0px;
   font-family: 'Nanum Myeongjo', serif;
   text-align: center;
 }
@@ -58,4 +58,31 @@
 .post-date {
   margin-right: 10px;
   margin-left: -10px;
+}
+
+.search-bar {
+  position: relative;
+  text-align: right;
+  margin: 50px 0 100px 1000px;
+}
+
+.search-bar input {
+  padding-right: 30px;
+  width: 250px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.search-icon i {
+  font-size: 18px;
 }

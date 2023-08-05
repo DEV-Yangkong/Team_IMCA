@@ -8,7 +8,9 @@ const Header = () => {
     <div className="Header">
       <div className="header_wrapper">
         <div className="top_wrapper">
-          <div className="top_logo">IMCA</div>
+          <div className="top_logo" onClick={() => navigate('/')}>
+            IMCA
+          </div>
         </div>
         <div className="nav_container">
           <div className="nav_wrapper">

@@ -23,7 +23,7 @@
   margin-bottom: 0.7em;
 }
 .react-calendar__tile {
-  padding: 0.8em 0 1.5em 0;
+  padding: 0.8em 0 1em 0;
 }
 
 .react-calendar__month-view__weekdays__weekday {
@@ -36,35 +36,66 @@
 .react-calendar__month-view__days__day {
   border: 1px solid black;
 }
-.start-date {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-.start-date::before {
-  content: '';
-  display: block;
-  height: 10px; /* 얇은 띠의 높이 조정 */
-  background-color: #134f2c; /* 얇은 띠의 스타일과 색깔 조정 */
-  position: absolute;
-  bottom: 8px;
-  width: 10px;
-  border-radius: 50%;
-}
+/* 현재 날짜의 css */
 .react-calendar__tile--now {
-  background-color: #f8c736;
+  background-color: #e6e6e6;
   color: white;
 }
 .react-calendar__tile {
   text-align: center;
 }
+/* 클릭되어있는 날짜의 css */
 .react-calendar__tile--active {
-  background: #f8c736;
-
+  background: #e6e6e6;
   color: white;
 }
 /* 오버라이딩 해야만 적용됨 */
+/* 당장 클릭한 날짜에 대한 css */
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background: #f8c736;
+  background: #e6e6e6;
+}
+/* #f8c736 노란색 */
+
+/* 날짜 tile에 대한 가상요소 */
+.react-calendar__tile--hasFirstEvent,
+.react-calendar__tile--hasSecondEvent {
+  position: relative;
+}
+.react-calendar__tile--hasFirstEvent::before {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: calc(50% - 8px);
+  width: 6px;
+  height: 6px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.react-calendar__tile--hasSecondEvent::before {
+  content: '';
+  position: absolute;
+  bottom: 8px;
+  left: calc(50% + 2px);
+  width: 6px;
+  height: 6px;
+  background-color: #f8c736;
+  border-radius: 50%;
+}
+.dot {
+  height: 6px;
+  width: 6px;
+  background-color: #f87171;
+  border-radius: 50%;
+  display: flex;
+  margin-left: 1px;
+}
+.triangle {
+  height: 6px;
+  width: 6px;
+  background-color: #f8c736;
+  border-radius: 50%;
+  display: flex;
+  margin-left: 1px;
 }

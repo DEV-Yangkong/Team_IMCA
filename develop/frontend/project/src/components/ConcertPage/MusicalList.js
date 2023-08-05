@@ -19,3 +19,4 @@ const MusicalList = ({ img, title, startDate, endDate, place }) => {
 };
 
 export default MusicalList;
+//백엔드에서 정보 가공하여 넘겨주면 다시 작업할 것.

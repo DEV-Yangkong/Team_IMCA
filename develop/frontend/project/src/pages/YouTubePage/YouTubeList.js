@@ -190,7 +190,7 @@ const YouTubeList = () => {
 
   return (
     <div className="youtube-list">
-      <h1>YouTube Contents</h1>
+      <h1>YouTube</h1>
       <div className="search-bar">
         <input
           type="text"

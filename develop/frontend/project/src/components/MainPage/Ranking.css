@@ -1,0 +1,23 @@
+.Ranking {
+}
+.act_ranking_title {
+  padding: 20px 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+  align-items: center;
+}
+.act_ranking_container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1240px;
+  height: 300px;
+}
+.act_ranking_line {
+  /* border-bottom: 1px solid black; */
+  height: 1px;
+  flex-grow: 1;
+  /* width: 100%; */
+  padding: 15px 0 15px 15px;
+}

@@ -8,7 +8,9 @@ const Header = () => {
     <div className="Header">
       <div className="header_wrapper">
         <div className="top_wrapper">
-          <div className="top_logo">IMCA</div>
+          <div className="top_logo" onClick={() => navigate('/')}>
+            IMCA
+          </div>
         </div>
         <div className="nav_container">
           <div className="nav_wrapper">
@@ -37,7 +39,7 @@ const Header = () => {
             <div className="nav_item">
               <div>콘텐츠</div>
               <ul className="item_menu">
-                <li>유튜브</li>
+                <li onClick={() => navigate('/youtube')}>유튜브</li>
               </ul>
             </div>
             <div className="nav_item">내 캘린더</div>

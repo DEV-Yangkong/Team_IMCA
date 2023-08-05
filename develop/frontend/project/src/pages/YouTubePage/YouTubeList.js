@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // useEffect를 임포트해야 합니다.
 import { Link } from 'react-router-dom';
 import './YouTubeList.css';
-import 'font-awesome/css/font-awesome.min.css'; // font-awesome 스타일시트 임포트
+import 'font-awesome/css/font-awesome.min.css';
 
 function getPostsForPage(posts, currentPage, postsPerPage) {
   const startIndex = (currentPage - 1) * postsPerPage;
@@ -11,6 +11,8 @@ function getPostsForPage(posts, currentPage, postsPerPage) {
 
 const YouTubeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [scrollButtonVisible, setScrollButtonVisible] = useState(false); // 스크롤 버튼을 위한 상태 추가
+
   const youtubePosts = [
     {
       thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
@@ -142,6 +144,13 @@ const YouTubeList = () => {
       date: '2023-07-20',
       views: '1200',
     },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
+      title:
+        '2023 진주M2 페스티벌 l다이나믹듀오, 김연자, 길구봉구, 트라이비, 케이시, 포마스 l MUSIC & MEDIA',
+      date: '2023-08-05',
+      views: '128',
+    },
   ];
 
   const postsPerPage = 9; // 페이지당 포스트 수
@@ -153,6 +162,31 @@ const YouTubeList = () => {
   };
 
   const currentPosts = getPostsForPage(youtubePosts, currentPage, postsPerPage);
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    if (window.pageYOffset > 130) {
+      setScrollButtonVisible(true);
+    } else {
+      setScrollButtonVisible(false);
+    }
+  };
+
+  // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 등록
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // 탑 버튼 클릭 시 페이지 상단으로 스크롤
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div className="youtube-list">
@@ -186,6 +220,12 @@ const YouTubeList = () => {
             </div>
           ))}
       </div>
+      {/* 상단으로 스크롤하는 탑 버튼 */}
+      {scrollButtonVisible && (
+        <button className="top-button" onClick={scrollToTop}>
+          TOP
+        </button>
+      )}
       <div className="page-navigation">
         {Array.from({ length: totalPageCount }, (_, i) => i + 1).map((page) => (
           <button

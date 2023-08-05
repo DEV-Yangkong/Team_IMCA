@@ -39,7 +39,7 @@ const Header = () => {
             <div className="nav_item">
               <div>콘텐츠</div>
               <ul className="item_menu">
-                <li>유튜브</li>
+                <li onClick={() => navigate('/youtube')}>유튜브</li>
               </ul>
             </div>
             <div className="nav_item">내 캘린더</div>

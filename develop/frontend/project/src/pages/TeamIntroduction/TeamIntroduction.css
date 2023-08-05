@@ -7,22 +7,24 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
+  max-width: 1200px; /* 추가된 스타일 */
+  margin: 0 auto; /* 추가된 스타일 */
 }
 
 .team-member {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
-  margin: 10px;
+  width: calc(50% - 15px);
+  margin: 5px;
 }
 
 .team-introduction h1 {
-  font-size: 60px;
+  font-size: 70px;
   font-weight: bold;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 50px;
+  margin-bottom: 15px;
 }
 
 .frontEndDescription,
@@ -30,7 +32,8 @@
   font-size: 16px;
   text-align: center;
   line-height: 1.6;
-  margin: 20px;
+  margin: 40px;
+  margin-top: 70px;
 }
 
 .team-member h3 {
@@ -72,25 +75,51 @@
 }
 
 .team-member-content .social-links a {
-  color: #023047;
-  margin-bottom: 5px;
-  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-right: 30px;
+  margin-left: 10px;
 }
 
 .social-links a.instagram {
-  color: #023047;
+  color: #000000;
+}
+
+.social-links a.instagram:hover {
+  transform: scale(1.5);
+  transition: transform 0.5s ease;
 }
 
 .social-links a.github {
   color: #000000;
 }
 
+.social-links a.github:hover {
+  transform: scale(1.5);
+  transition: transform 0.5s ease;
+}
+
 .team-member h4 {
-  margin: 10px 0;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 25px;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .team-member p {
   margin: 2px 0;
+  font-family: 'Noto Serif Vithkuqi', serif;
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+@media screen and (min-width: 768px) {
+  .team-members {
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 1365px) {
@@ -119,7 +148,7 @@
 
 @media screen and (min-width: 1441px) {
   .team-member {
-    width: calc(33.333% - 20px);
+    width: calc(33.333% - 15px);
     margin: 5px;
   }
 
@@ -177,10 +206,24 @@
 
 .introParagraph {
   font-size: 18px;
+  letter-spacing: 1.5px;
+  line-height: 35px;
 }
 
 .addParagraph p {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.6;
-  margin-top: 10px; /* 간격을 조정합니다. */
+  margin-top: 10px;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.highlight {
+  color: #134f2c;
+}
+
+.boldSpan {
+  font-weight: 900;
+  font-size: 18px;
 }

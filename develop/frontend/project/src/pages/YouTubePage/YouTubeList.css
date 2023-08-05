@@ -86,3 +86,19 @@
 .search-icon i {
   font-size: 18px;
 }
+
+.page-navigation {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-navigation button {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+  margin: 0 30px 50px 0;
+  padding: 0;
+}

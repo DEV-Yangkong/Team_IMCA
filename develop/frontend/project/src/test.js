@@ -5,7 +5,7 @@ const request = require('request');
 const converter = require('xml-js');
 const router = express.Router();
 const service = 'a587792556ca44c5af747c8652c82345';
-const url = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}&stdate=20230801&eddate=20230831&cpage=1&rows=10&shcate=AAAA&area=11`;
+const url = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}&stdate=20230801&eddate=20230831&cpage=1&rows=20&shcate=GGGA&signgucode=11&kidstate=N`;
 const axios = require('axios');
 
 // const baseUrl = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}`;

@@ -2,16 +2,17 @@
   margin-top: 10px;
   padding: 0 20px;
   display: flex;
-  flex-direction: column; /* 세로 방향으로 정렬 */
+  flex-direction: column;
   align-items: center;
 }
 
 .youtube-list h1 {
-  font-size: 60px;
-  font-weight: bold;
+  font-size: 50px;
+  font-weight: bolder;
   margin: 50px auto 0px;
   font-family: 'Nanum Myeongjo', serif;
   text-align: center;
+  letter-spacing: 1px;
 }
 
 .post-list {
@@ -27,6 +28,10 @@
   margin: 0 20px 80px;
   overflow: hidden;
   border: 1px solid #ddd;
+}
+
+.post-item:hover {
+  transform: scale(1.05);
 }
 
 .post-item img {
@@ -71,8 +76,14 @@
   width: 250px;
   height: 30px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 5px 10px;
+  transition: border-color 0.3s ease-in-out; /* 테두리 색 변경 애니메이션 */
+}
+
+.search-bar input:hover,
+.search-bar input:focus {
+  border: 2px solid #134f2c;
 }
 
 .search-icon {

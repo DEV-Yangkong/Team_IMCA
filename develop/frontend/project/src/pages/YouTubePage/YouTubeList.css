@@ -7,15 +7,15 @@
 }
 
 .youtube-list h1 {
-  font-size: 50px;
+  font-size: 45px;
   font-weight: bolder;
-  margin: 50px auto 0px;
-  font-family: 'Nanum Myeongjo', serif;
+  margin: 60px auto 200px;
   text-align: center;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
 }
 
 .post-list {
+  position: relative;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -25,9 +25,10 @@
 
 .post-item {
   width: calc(33.33% - 80px);
-  margin: 0 20px 80px;
+  margin: 0 10px 80px;
   overflow: hidden;
   border: 1px solid #ddd;
+  transition: transform 0.3s ease-in-out;
 }
 
 .post-item:hover {
@@ -66,16 +67,16 @@
 }
 
 .search-bar {
-  position: relative;
-  text-align: right;
-  margin: 50px 0 100px 1000px;
+  position: absolute;
+  top: 140px;
+  right: 100px;
 }
 
 .search-bar input {
   padding-right: 30px;
   width: 250px;
   height: 30px;
-  border: 1px solid #ccc;
+  border: 1.5px solid #ccc;
   border-radius: 8px;
   padding: 5px 10px;
   transition: border-color 0.3s ease-in-out;
@@ -83,7 +84,7 @@
 
 .search-bar input:hover,
 .search-bar input:focus {
-  border: 2px solid #134f2c;
+  border: 1.5px solid #134f2c;
 }
 
 .search-icon {
@@ -112,4 +113,62 @@
   cursor: pointer;
   margin: 0 30px 50px 0;
   padding: 0;
+}
+
+/* 미디어쿼리 */
+/* 14인치 노트북 화면 */
+@media screen and (max-width: 1366px) {
+  .post-item {
+    width: calc(50% - 80px);
+    margin: 0 10px 80px;
+  }
+  .search-bar {
+    top: 140px;
+    margin: 50px 0 100px;
+  }
+  .search-bar input {
+    width: 250px;
+    padding: 5px 10px;
+  }
+  .search-icon i {
+    font-size: 20px;
+  }
+}
+
+/* 15인치 노트북 화면 */
+@media screen and (min-width: 1367px) and (max-width: 1600px) {
+  .post-item {
+    width: calc(33.33% - 80px);
+    margin: 0 10px 80px;
+  }
+  .search-bar {
+    top: 140px;
+    margin: 50px 0 100px;
+  }
+  .search-bar input {
+    width: 250px;
+    padding: 5px 10px;
+  }
+  .search-icon i {
+    font-size: 20px;
+  }
+}
+
+/* 16인치 노트북 화면 */
+@media screen and (min-width: 1601px) {
+  .post-item {
+    width: calc(33.33% - 80px);
+    margin: 0 10px 80px;
+  }
+  .search-bar {
+    top: 140px;
+    margin: 50px 0 100px;
+  }
+  .search-bar input {
+    width: 250px;
+    padding: 5px 10px;
+  }
+  .search-icon i {
+    font-size: 20px;
+  }
 }

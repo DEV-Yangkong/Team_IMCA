@@ -5,30 +5,24 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* 뷰포트 높이 만큼 포스트 폼을 채우도록 설정 */
-  background-color: #f7f7f7;
-}
-
-.post-form {
-  width: 80%; /* 폼의 너비를 조정 */
+  min-height: 65vh;
+  border: 1px solid #ccc;
+  width: 60%;
+  margin: 50px auto;
   padding: 20px;
-  background-color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  border: 2px solid #ccc; /* 연회색 테두리 추가 */
-  border-radius: 10px;
-  text-align: center; /* 폼 내부 컨텐츠를 가운데 정렬 */
 }
 
-.post-form h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
-  color: #333;
+.post-title {
+  font-size: 60px;
+  letter-spacing: 1.5px;
+  margin-top: 50px;
+  margin-bottom: 80px;
 }
 
 .form-group {
   margin-bottom: 20px;
   width: 100%;
-  text-align: left; /* 폼 요소들을 왼쪽 정렬 */
+  text-align: left;
 }
 
 .form-group label {
@@ -40,22 +34,24 @@
 
 .form-group input,
 .form-group textarea {
-  width: 100%;
+  width: 500px;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .form-group textarea {
-  height: 150px;
+  height: 300px;
 }
 
 button[type='submit'] {
-  margin-top: 10px;
-  padding: 10px 20px;
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 12px 24px;
   font-size: 18px;
-  background-color: #007bff;
+  background-color: #134f2c;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -67,5 +63,24 @@ button[type='submit'] {
 
 button[type='submit']:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.cancel-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ccc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.cancel-button:hover {
+  background-color: #999;
   transform: scale(1.05);
 }

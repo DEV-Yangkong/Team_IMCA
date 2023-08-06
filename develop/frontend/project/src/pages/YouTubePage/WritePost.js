@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate를 임포트합니다.
+import './WritePost.css';
 
 const WritePost = () => {
   const [title, setTitle] = useState('');
@@ -25,9 +26,13 @@ const WritePost = () => {
     navigate('/youtube'); // useHistory 대신 useNavigate를 사용하여 페이지 이동합니다.
   };
 
+  const handleCancel = () => {
+    navigate('/youtube');
+  };
+
   return (
     <div className="write-post">
-      <h1>글쓰기</h1>
+      <h1 className="post-title">포스트 작성하기</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">제목</label>
@@ -49,6 +54,9 @@ const WritePost = () => {
           />
         </div>
         <button type="submit">작성 완료</button>
+        <button type="button" className="cancel-button" onClick={handleCancel}>
+          취소
+        </button>
       </form>
     </div>
   );

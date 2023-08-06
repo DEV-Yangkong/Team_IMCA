@@ -5,13 +5,14 @@ import 'font-awesome/css/font-awesome.min.css';
 
 function getPostsForPage(posts, currentPage, postsPerPage) {
   const startIndex = (currentPage - 1) * postsPerPage;
-  const endIndex = startIndex + postsPerPage;
+  const endIndex = Math.min(startIndex + postsPerPage, posts.length); // 수정된 부분
   return posts.slice(startIndex, endIndex);
 }
 
 const YouTubeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [scrollButtonVisible, setScrollButtonVisible] = useState(false); // 스크롤 버튼을 위한 상태 추가
+  const [scrollButtonVisible, setScrollButtonVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const youtubePosts = [
     {
@@ -270,34 +271,28 @@ const YouTubeList = () => {
     },
   ];
 
-  const postsPerPage = 9; // 페이지당 포스트 수
-  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 9;
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    scrollToTop();
-  };
-
-  const currentPosts = getPostsForPage(youtubePosts, currentPage, postsPerPage);
-
-  // 스크롤 이벤트 핸들러
-  const handleScroll = () => {
-    if (window.pageYOffset > 130) {
-      setScrollButtonVisible(true);
-    } else {
-      setScrollButtonVisible(false);
-    }
-  };
-
-  // 컴포넌트가 마운트될 때 스크롤 이벤트 리스너 등록
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 130) {
+        setScrollButtonVisible(true);
+      } else {
+        setScrollButtonVisible(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  // 탑 버튼 클릭 시 페이지 상단으로 스크롤
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    scrollToTop();
+  };
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -305,7 +300,7 @@ const YouTubeList = () => {
     });
   };
 
-  let filteredPosts = youtubePosts.filter(
+  const filteredPosts = youtubePosts.filter(
     (post) =>
       searchTerm === '' ||
       post.title.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -344,9 +339,8 @@ const YouTubeList = () => {
         ))}
       </div>
       <div className="post-list">
-        {filteredPosts
-          .slice(0, postsPerPage * currentPage)
-          .map((post, index) => (
+        {getPostsForPage(filteredPosts, currentPage, postsPerPage).map(
+          (post, index) => (
             <div className="post-item" key={index}>
               <Link to={`/youtube/${index}`} className="post-title-link">
                 <img src={post.thumbnailUrl} alt={post.title} />
@@ -357,8 +351,10 @@ const YouTubeList = () => {
                 <span className="post-views">조회수 {post.views}</span>
               </div>
             </div>
-          ))}
+          ),
+        )}
       </div>
+
       {/* 상단으로 스크롤하는 탑 버튼 */}
       {scrollButtonVisible && (
         <button className="top-button" onClick={scrollToTop}>

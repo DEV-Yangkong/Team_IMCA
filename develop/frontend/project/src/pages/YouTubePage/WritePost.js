@@ -6,6 +6,7 @@ const WritePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
 
   const navigate = useNavigate();
 
@@ -18,16 +19,27 @@ const WritePost = () => {
   };
 
   const handleVideoUrlChange = (e) => {
-    setVideoUrl(e.target.value);
+    const newVideoUrl = e.target.value;
+    setVideoUrl(newVideoUrl);
+    extractThumbnailUrl(newVideoUrl);
+  };
+
+  const extractThumbnailUrl = (url) => {
+    // 여기에 썸네일 URL 추출 로직을 작성합니다.
+    // 예: https://i.ytimg.com/vi/OX6u_W7rFAU/maxresdefault.jpg
+    // 추출한 URL을 setThumbnailUrl로 설정합니다.
+    const videoId = url.split('v=')[1];
+    if (videoId) {
+      const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+      setThumbnailUrl(thumbnailUrl);
+    } else {
+      setThumbnailUrl('');
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // 여기서 작성한 포스트를 서버에 저장하는 로직을 추가할 수 있습니다.
-    // ...
-
-    // 포스트 작성 후에 포스트 목록 페이지로 이동합니다.
+    // 포스트 작성 로직 추가
     navigate('/youtube');
   };
 
@@ -40,23 +52,34 @@ const WritePost = () => {
       <h1 className={styles['post-title']}>포스트 작성하기</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles['form-group']}>
-          <label htmlFor="title">제목</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={handleTitleChange}
-            required
-            className={styles.input}
-          />
-        </div>
-        <div className={styles['form-group']}>
           <label htmlFor="videoUrl">영상 주소</label>
           <input
             type="url"
             id="videoUrl"
             value={videoUrl}
             onChange={handleVideoUrlChange}
+            required
+            className={styles.input}
+          />
+        </div>
+        {thumbnailUrl && (
+          <div className={styles['form-group']}>
+            <label htmlFor="thumbnail">썸네일 미리보기</label>
+            <img
+              src={thumbnailUrl}
+              alt="Video Thumbnail"
+              className={styles.thumbnail}
+              style={{ maxWidth: '100%', maxHeight: '200px' }}
+            />
+          </div>
+        )}
+        <div className={styles['form-group']}>
+          <label htmlFor="title">제목</label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={handleTitleChange}
             required
             className={styles.input}
           />

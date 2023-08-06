@@ -30,7 +30,7 @@
   - express
   - request
   - prettier
-  - npm install --save font-awesome
+  - font-awesome
 
 ## api 데이터 받아오기
 

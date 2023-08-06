@@ -14,11 +14,10 @@ const Header = () => {
         </div>
         <div className="nav_container">
           <div className="nav_wrapper">
-            {/* 팀 소개 페이지로 이동 */}
             <div className="nav_item">
-              <div>팀 소개</div>
+              <div>IMCA</div>
               <ul className="item_menu">
-                <li onClick={() => navigate('/team-introduction')}>팀 소개</li>
+                <li onClick={() => navigate('/team-introduction')}>ABOUT US</li>
               </ul>
             </div>
             <div className="nav_item">
@@ -39,7 +38,7 @@ const Header = () => {
             <div className="nav_item">
               <div>콘텐츠</div>
               <ul className="item_menu">
-                <li onClick={() => navigate('/youtube')}>유튜브</li>
+                <li onClick={() => navigate('/youtube')}>YouTube</li>
               </ul>
             </div>
             <div className="nav_item">내 캘린더</div>

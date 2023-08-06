@@ -1,21 +1,32 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const YouTubeDetail = () => {
-  const { postId } = useParams(); // URL에서 게시글 ID 추출
+const YouTubeDetail = ({ youtubePosts }) => {
+  // youtubePosts를 프롭스로 받아옴
+  const { postId } = useParams();
 
-  // 선택한 게시글의 정보 (예시)
-  const selectedPost = {
-    // 게시글 정보 (썸네일, 제목, 날짜, 조회수, 좋아요, 댓글, 영상 URL 등)를 포함한 객체
-    // 예: { thumbnailUrl: '...', title: '...', date: '...', views: '...', likes: '...', comments: '...', videoUrl: '...', ... }
-  };
+  // postId와 일치하는 포스트를 찾음
+  const selectedPost = youtubePosts.find(
+    (post) => post.id.toString() === postId,
+  );
+
+  if (!selectedPost) {
+    return <div>포스트를 찾을 수 없습니다.</div>;
+  }
 
   return (
     <div className="youtube-detail">
       <h2>{selectedPost.title}</h2>
       <div className="video-container">
         {/* 유튜브 영상을 여기에 렌더링 */}
-        {/* 예: <iframe width="560" height="315" src={selectedPost.videoUrl} title={selectedPost.title} frameBorder="0" allowFullScreen></iframe> */}
+        <iframe
+          width="560"
+          height="315"
+          src={selectedPost.videoUrl}
+          title={selectedPost.title}
+          frameBorder="0"
+          allowFullScreen
+        ></iframe>
       </div>
       <div className="post-info">
         <span className="post-date">{selectedPost.date}</span>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate를 임포트합니다.
-import './WritePost.css';
+import styles from './WritePost.module.css';
 
 const WritePost = () => {
   const [title, setTitle] = useState('');
@@ -31,30 +31,42 @@ const WritePost = () => {
   };
 
   return (
-    <div className="write-post">
-      <h1 className="post-title">포스트 작성하기</h1>
+    <div className={styles['write-post']}>
+      <h1 className={styles['post-title']}>포스트 작성하기</h1>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">제목</label>
+        <div className={styles['form-group']}>
+          <label htmlFor="title" className={styles['label']}>
+            제목
+          </label>
           <input
             type="text"
             id="title"
+            className={styles['input']}
             value={title}
             onChange={handleTitleChange}
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="content">내용</label>
+        <div className={styles['form-group']}>
+          <label htmlFor="content" className={styles['label']}>
+            내용
+          </label>
           <textarea
             id="content"
+            className={styles['textarea']}
             value={content}
             onChange={handleContentChange}
             required
           />
         </div>
-        <button type="submit">작성 완료</button>
-        <button type="button" className="cancel-button" onClick={handleCancel}>
+        <button type="submit" className={styles['submit-button']}>
+          작성 완료
+        </button>
+        <button
+          type="button"
+          className={styles['cancel-button']}
+          onClick={handleCancel}
+        >
           취소
         </button>
       </form>

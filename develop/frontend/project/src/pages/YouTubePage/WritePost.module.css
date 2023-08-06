@@ -14,7 +14,7 @@
   font-size: 60px;
   letter-spacing: 1.5px;
   margin-top: 50px;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 
 .form-group {
@@ -35,9 +35,19 @@
   width: 500px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
+  border: 1.5px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+  max-width: 500px;
+  max-height: 300px;
+}
+
+.input:hover,
+.input:focus,
+.textarea:hover,
+.textarea:focus {
+  border-color: #134f2c;
 }
 
 .form-group textarea {

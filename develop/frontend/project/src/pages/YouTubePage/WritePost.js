@@ -5,6 +5,7 @@ import styles from './WritePost.module.css';
 const WritePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
 
   const navigate = useNavigate();
 
@@ -14,6 +15,10 @@ const WritePost = () => {
 
   const handleContentChange = (e) => {
     setContent(e.target.value);
+  };
+
+  const handleVideoUrlChange = (e) => {
+    setVideoUrl(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -35,28 +40,35 @@ const WritePost = () => {
       <h1 className={styles['post-title']}>포스트 작성하기</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles['form-group']}>
-          <label htmlFor="title" className={styles['label']}>
-            제목
-          </label>
+          <label htmlFor="title">제목</label>
           <input
             type="text"
             id="title"
-            className={styles['input']}
             value={title}
             onChange={handleTitleChange}
             required
+            className={styles.input}
           />
         </div>
         <div className={styles['form-group']}>
-          <label htmlFor="content" className={styles['label']}>
-            내용
-          </label>
+          <label htmlFor="videoUrl">영상 주소</label>
+          <input
+            type="url"
+            id="videoUrl"
+            value={videoUrl}
+            onChange={handleVideoUrlChange}
+            required
+            className={styles.input}
+          />
+        </div>
+        <div className={styles['form-group']}>
+          <label htmlFor="content">내용</label>
           <textarea
             id="content"
-            className={styles['textarea']}
             value={content}
             onChange={handleContentChange}
             required
+            className={styles.textarea}
           />
         </div>
         <button type="submit" className={styles['submit-button']}>

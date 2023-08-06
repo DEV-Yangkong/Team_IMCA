@@ -45,7 +45,7 @@ const TeamIntroduction = () => {
         <span className="highlight">M</span>
         <span className="highlight"> CA</span>lendar
       </h1>
-      <div class="introParagraph">
+      <div className="introParagraph">
         <p>
           <br />
           IMCA는 <span className="boldSpan">"I am Calendar"</span>의 약자로,
@@ -67,7 +67,7 @@ const TeamIntroduction = () => {
           <br />
           우리 팀의 프론트엔드 개발자들은 다음과 같은 역할을 수행합니다.
         </p>
-        <div class="frontEndDescription addParagraph">
+        <div className="frontEndDescription addParagraph">
           <p>
             사용자 인터페이스(UI) 설계 및 구현, 캘린더 뷰어 개발, 이벤트 정보
             표시와 커뮤니티 기능 구현, 프론트엔드 테스팅
@@ -205,7 +205,7 @@ const TeamIntroduction = () => {
           <br />
           우리 팀의 백엔드 개발자들은 다음과 같은 역할을 수행합니다.
         </p>
-        <div class="backEndDescription addParagraph">
+        <div className="backEndDescription addParagraph">
           <p>
             서버 개발과 데이터베이스 설계, 캘린더와 이벤트 데이터 관리, 사용자
             인증 및 보안 기능 구현, 백엔드 테스팅

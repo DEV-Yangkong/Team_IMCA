@@ -99,3 +99,13 @@
   display: flex;
   margin-left: 1px;
 }
+
+/* 메인 캘린더 */
+.big_calendar_container .react-calendar {
+  /* width: 100%;
+  max-width: 1240px; */
+
+  max-width: 1200px;
+  height: 500px;
+  margin: 0 auto;
+}

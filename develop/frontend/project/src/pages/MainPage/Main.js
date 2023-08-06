@@ -104,6 +104,17 @@ const Main = () => {
         <Ranking title="연극" />
         <Ranking title="뮤지컬" />
       </section>
+      <section>
+        <div className="big_calendar_container">
+          <Calendar
+            onChange={setDate}
+            value={date}
+            formatDay={(locale, date) =>
+              date.toLocaleString('en', { day: 'numeric' })
+            } //날짜에 숫자만 들어가게 하기
+          />
+        </div>
+      </section>
     </div>
   );
 };

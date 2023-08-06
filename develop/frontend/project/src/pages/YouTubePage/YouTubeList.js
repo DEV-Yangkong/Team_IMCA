@@ -238,6 +238,11 @@ const YouTubeList = () => {
           </button>
         ))}
       </div>
+      <div className="write-button-container">
+        <Link to="/write" className="write-button">
+          글쓰기
+        </Link>
+      </div>
     </div>
   );
 };

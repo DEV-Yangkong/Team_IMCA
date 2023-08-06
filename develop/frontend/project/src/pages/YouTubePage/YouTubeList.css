@@ -138,6 +138,29 @@
   color: #fff;
 }
 
+.write-button-container {
+  position: absolute;
+  bottom: 120px;
+  right: 120px;
+}
+
+.write-button {
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #ccc;
+}
+
+.write-button:hover {
+  background-color: #134f2c;
+  color: #fff;
+}
+
 /* 미디어쿼리 */
 /* 14인치 노트북 화면 */
 @media screen and (max-width: 1366px) {

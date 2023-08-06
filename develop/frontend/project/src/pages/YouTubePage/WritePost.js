@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate를 임포트합니다.
+import { useNavigate } from 'react-router-dom';
 import styles from './WritePost.module.css';
 
 const WritePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const navigate = useNavigate(); // useHistory 대신 useNavigate를 사용합니다.
+  const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -23,7 +23,7 @@ const WritePost = () => {
     // ...
 
     // 포스트 작성 후에 포스트 목록 페이지로 이동합니다.
-    navigate('/youtube'); // useHistory 대신 useNavigate를 사용하여 페이지 이동합니다.
+    navigate('/youtube');
   };
 
   const handleCancel = () => {

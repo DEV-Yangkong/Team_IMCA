@@ -265,9 +265,11 @@ const YouTubeList = () => {
         </span>
       </div>
       <div className="post-list">
-        {currentPosts
-          .filter((post) =>
-            post.title.toLowerCase().includes(searchTerm.toLowerCase()),
+        {youtubePosts
+          .filter(
+            (post) =>
+              searchTerm === '' ||
+              post.title.toLowerCase().includes(searchTerm.toLowerCase()),
           )
           .map((post, index) => (
             <div className="post-item" key={index}>

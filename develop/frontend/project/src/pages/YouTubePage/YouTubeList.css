@@ -164,6 +164,14 @@
   color: #fff;
 }
 
+.search-result {
+  margin-top: 0px;
+  margin-bottom: 50px;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  font-weight: bold;
+}
+
 /* 미디어쿼리 */
 /* 14인치 노트북 화면 */
 @media screen and (max-width: 1366px) {

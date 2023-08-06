@@ -212,11 +212,66 @@ const YouTubeList = () => {
       date: '2022-08-31',
       views: '78',
     },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
+    },
   ];
 
   const postsPerPage = 9; // 페이지당 포스트 수
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPageCount = Math.ceil(youtubePosts.length / postsPerPage);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -250,6 +305,14 @@ const YouTubeList = () => {
     });
   };
 
+  let filteredPosts = youtubePosts.filter(
+    (post) =>
+      searchTerm === '' ||
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
+
+  const totalPageCount = Math.ceil(filteredPosts.length / postsPerPage);
+
   return (
     <div className="youtube-list">
       <h1>YouTube</h1>
@@ -265,12 +328,8 @@ const YouTubeList = () => {
         </span>
       </div>
       <div className="post-list">
-        {youtubePosts
-          .filter(
-            (post) =>
-              searchTerm === '' ||
-              post.title.toLowerCase().includes(searchTerm.toLowerCase()),
-          )
+        {filteredPosts
+          .slice(0, postsPerPage * currentPage)
           .map((post, index) => (
             <div className="post-item" key={index}>
               <Link to={`/youtube/${index}`} className="post-title-link">
@@ -290,17 +349,21 @@ const YouTubeList = () => {
           TOP
         </button>
       )}
-      <div className="page-navigation">
-        {Array.from({ length: totalPageCount }, (_, i) => i + 1).map((page) => (
-          <button
-            key={page}
-            className={page === currentPage ? 'active' : ''}
-            onClick={() => handlePageChange(page)}
-          >
-            {page}
-          </button>
-        ))}
-      </div>
+      {totalPageCount > 1 && (
+        <div className="page-navigation">
+          {Array.from({ length: totalPageCount }, (_, i) => i + 1).map(
+            (page) => (
+              <button
+                key={page}
+                className={page === currentPage ? 'active' : ''}
+                onClick={() => handlePageChange(page)}
+              >
+                {page}
+              </button>
+            ),
+          )}
+        </div>
+      )}
       <div className="write-button-container">
         <Link to="/write" className="write-button">
           UPLOAD

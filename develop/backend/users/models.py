@@ -49,7 +49,7 @@ class UserManager(BaseUserManager):
         name=None,
         **extra_fields,
     ):
-        superuser = self.create_user(
+        user = self.create_user(
             login_id=login_id,
             email=email,
             password=password,
@@ -58,11 +58,11 @@ class UserManager(BaseUserManager):
             gender=gender,
             name=name,
         )
-        superuser.is_staff = True
-        superuser.is_superuser = True
-        superuser.is_active = True
-        superuser.save(using=self._db)
-        return superuser
+        user.is_staff = True
+        user.is_superuser = True
+        user.is_active = True
+        user.save(using=self._db)
+        return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -89,9 +89,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_ad = models.DateTimeField(auto_now=True)
 
-    object = UserManager()
+    objects = UserManager()
 
-    USERNAME_FIELD = "login_id"
+    USERNAME_FIELD = "login_id"  # 로그인에 사용되는 필드입니당
     REQUIRED_FIELDS = ["email"]
 
     class Meta:

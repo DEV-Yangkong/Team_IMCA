@@ -63,10 +63,14 @@
   color: black;
   z-index: 999;
   background-color: white;
+  /* 폰트 볼드하게, 글자 여백 수정 - 예은 - */
+  font-weight: bold;
+  letter-spacing: 0.5px;
 }
 .nav_item:hover .item_menu {
   display: block;
 }
+
 .item_menu li {
   padding: 10px 0;
 }

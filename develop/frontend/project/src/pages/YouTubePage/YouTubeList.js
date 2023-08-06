@@ -48,18 +48,6 @@ const YouTubeList = () => {
       views: '82',
     },
     {
-      thumbnailUrl: 'https://i.ytimg.com/vi/mJ6zmMOUaU8/maxresdefault.jpg',
-      title: '엘르가든(Ellegarden) FULL VER. @ 2023 인천펜타포트락페스티벌',
-      date: '2023-08-01',
-      views: '50',
-    },
-    {
-      thumbnailUrl: 'https://i.ytimg.com/vi/NmioE2aapRM/maxresdefault.jpg',
-      title: '2023 펜타포트 락 페스티벌 Day 1 - Ellegarden(엘르가든)',
-      date: '2023-07-29',
-      views: '78',
-    },
-    {
       thumbnailUrl: 'https://i.ytimg.com/vi/f0wrYy-qHgQ/maxresdefault.jpg',
       title:
         '2023 펜타포트 락 페스티벌 라인업 읽어주는 남자🎸 Feat. 스트록스, 엘르가든, 검정치마',
@@ -78,6 +66,19 @@ const YouTubeList = () => {
       title: '크리스토퍼(Christopher) - BAD | 서울재즈페스티벌 2023',
       date: '2023-07-20',
       views: '1200',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/zoceIksCY9E/maxresdefault.jpg',
+      title: '본격 음악 페스티벌 리뷰 채널 페벌리버!',
+      date: '2022-09-01',
+      views: '2123',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
     },
     {
       thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
@@ -113,16 +114,70 @@ const YouTubeList = () => {
       views: '82',
     },
     {
-      thumbnailUrl: 'https://i.ytimg.com/vi/mJ6zmMOUaU8/maxresdefault.jpg',
-      title: '엘르가든(Ellegarden) FULL VER. @ 2023 인천펜타포트락페스티벌',
-      date: '2023-08-01',
-      views: '50',
+      thumbnailUrl: 'https://i.ytimg.com/vi/f0wrYy-qHgQ/maxresdefault.jpg',
+      title:
+        '2023 펜타포트 락 페스티벌 라인업 읽어주는 남자🎸 Feat. 스트록스, 엘르가든, 검정치마',
+      date: '2023-07-28',
+      views: '597',
     },
     {
-      thumbnailUrl: 'https://i.ytimg.com/vi/NmioE2aapRM/maxresdefault.jpg',
-      title: '2023 펜타포트 락 페스티벌 Day 1 - Ellegarden(엘르가든)',
-      date: '2023-07-29',
+      thumbnailUrl: 'https://i.ytimg.com/vi/73Yg3h35-Co/maxresdefault.jpg',
+      title:
+        '올해도 대박난 라인업! 2023 펜타포트 락페스티벌 하이라이트 미리듣기',
+      date: '2023-07-21',
+      views: '720',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/TlKqiV-cENM/maxresdefault.jpg',
+      title: '크리스토퍼(Christopher) - BAD | 서울재즈페스티벌 2023',
+      date: '2023-07-20',
+      views: '1200',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/zoceIksCY9E/maxresdefault.jpg',
+      title: '본격 음악 페스티벌 리뷰 채널 페벌리버!',
+      date: '2022-09-01',
+      views: '2123',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
       views: '78',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
+      title:
+        '2023 진주M2 페스티벌 l다이나믹듀오, 김연자, 길구봉구, 트라이비, 케이시, 포마스 l MUSIC & MEDIA',
+      date: '2023-08-05',
+      views: '128',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/XtEhGI6Ka9g/maxresdefault.jpg',
+      title: '[LIVE] 2023 경포썸머페스티벌 Day 6 경포 K-POP 콘서트 ',
+      date: '2023-08-05',
+      views: '1000',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/CL1SkluCpnQ/maxresdefault.jpg',
+      title: '이건 좋았고, 저건 실망스러웠던 ‘서울재즈페스티벌 2023’',
+      date: '2023-08-05',
+      views: '34',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/Tv68IxCjDhY/maxresdefault.jpg',
+      title:
+        '2023년 EDM 페스티벌의 모든 것! (UMF / EDC / Cream Field Festival )',
+      date: '2023-08-03',
+      views: '100',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/lKqGJelgm6s/maxresdefault.jpg',
+      title:
+        '2023 펜타포트 락페 예습 플리 (토요일) 🤘| 스트록스, 검정치마, 이디오테잎',
+      date: '2023-08-02',
+      views: '82',
     },
     {
       thumbnailUrl: 'https://i.ytimg.com/vi/f0wrYy-qHgQ/maxresdefault.jpg',
@@ -145,11 +200,17 @@ const YouTubeList = () => {
       views: '1200',
     },
     {
-      thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
+      thumbnailUrl: 'https://i.ytimg.com/vi/zoceIksCY9E/maxresdefault.jpg',
+      title: '본격 음악 페스티벌 리뷰 채널 페벌리버!',
+      date: '2022-09-01',
+      views: '2123',
+    },
+    {
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
       title:
-        '2023 진주M2 페스티벌 l다이나믹듀오, 김연자, 길구봉구, 트라이비, 케이시, 포마스 l MUSIC & MEDIA',
-      date: '2023-08-05',
-      views: '128',
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      date: '2022-08-31',
+      views: '78',
     },
   ];
 

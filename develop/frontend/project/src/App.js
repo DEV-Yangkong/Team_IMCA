@@ -7,6 +7,7 @@ import Act from './components/ConcertPage/Act';
 import TeamIntroduction from './pages/TeamIntroduction/TeamIntroduction';
 import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
+import WritePost from './pages/YouTubePage/WritePost';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element={<YouTubeList />} />
             <Route path="/youtube" element={<YouTubeList />} />
             <Route path="/youtube/:postId" element={<YouTubeDetail />} />
+            <Route path="/write" element={<WritePost />} />
           </Routes>
         </div>
       </div>

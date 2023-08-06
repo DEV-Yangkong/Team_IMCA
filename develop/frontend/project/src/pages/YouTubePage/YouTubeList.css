@@ -145,12 +145,15 @@
 }
 
 .write-button {
-  padding: 10px 20px;
+  padding: 10px 12px;
   background-color: #fff;
   color: #000;
   border-radius: 5px;
   text-align: center;
   text-decoration: none;
+  letter-spacing: 1.2px;
+  font-size: 13px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
   border: 1px solid #ccc;

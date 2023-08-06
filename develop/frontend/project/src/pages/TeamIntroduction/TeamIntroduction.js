@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './TeamIntroduction.css'; // TeamIntroduction 컴포넌트와 스타일을 연결하는 CSS 파일
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faGithub } from '@fortawesome/free-brands-svg-icons';
@@ -13,6 +13,30 @@ const TeamIntroduction = () => {
     '#6db1bf', // 김진우
     '#f39a9d', // 방민식
   ];
+
+  const [showTopButton, setShowTopButton] = useState(false);
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = () => {
+    if (window.scrollY > 200) {
+      setShowTopButton(true);
+    } else {
+      setShowTopButton(false);
+    }
+  };
+
+  // 스크롤 이벤트 리스너 등록
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // 탑 버튼 클릭 핸들러
+  const handleTopButtonClick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="team-introduction">
@@ -248,6 +272,11 @@ const TeamIntroduction = () => {
           </div>
         </div>
       </div>
+      {showTopButton && (
+        <button className="top-button" onClick={handleTopButtonClick}>
+          TOP
+        </button>
+      )}
     </div>
   );
 };

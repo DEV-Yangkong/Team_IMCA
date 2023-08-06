@@ -327,6 +327,22 @@ const YouTubeList = () => {
           <i className="fa fa-search"></i>
         </span>
       </div>
+      {searchTerm && (
+        <div className="search-result">
+          <p>검색 결과: "{searchTerm}"</p>
+        </div>
+      )}
+      <div className="search-results">
+        {filteredPosts.length === 0 && searchTerm !== '' && (
+          <div className="no-results">검색 결과가 없습니다.</div>
+        )}
+        {/* 검색 결과를 표시하는 부분 */}
+        {filteredPosts.map((post, index) => (
+          <div key={index} className="search-result-item">
+            {/* 검색 결과 아이템을 렌더링하는 JSX */}
+          </div>
+        ))}
+      </div>
       <div className="post-list">
         {filteredPosts
           .slice(0, postsPerPage * currentPage)

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './TeamIntroduction.css'; // TeamIntroduction 컴포넌트와 스타일을 연결하는 CSS 파일
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FaInstagram, FaGithub } from 'react-icons/fa';
 
 const TeamIntroduction = () => {
@@ -93,6 +91,7 @@ const TeamIntroduction = () => {
                 href="https://www.instagram.com/hi._.yangkong/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -100,6 +99,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/DEV-Yangkong"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -123,6 +123,7 @@ const TeamIntroduction = () => {
                 href="https://www.instagram.com/_hiniminih_/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -130,6 +131,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/hiheeen"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -153,6 +155,7 @@ const TeamIntroduction = () => {
                 href="https://www.instagram.com/minz0ey/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -160,6 +163,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/MINZOEY"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -183,6 +187,7 @@ const TeamIntroduction = () => {
                 href="https://www.instagram.com/_tancong_"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -190,6 +195,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/tanmtn"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -234,6 +240,7 @@ const TeamIntroduction = () => {
                 href="https://www.instagram.com/sds7629/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -241,6 +248,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/sds7629"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -264,6 +272,7 @@ const TeamIntroduction = () => {
                 href="https://www.instagram.com/spaceenterbs/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -271,6 +280,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/spaceenterbs"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>

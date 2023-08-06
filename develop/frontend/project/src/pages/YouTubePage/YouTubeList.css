@@ -1,6 +1,6 @@
 .youtube-list {
   margin-top: 10px;
-  padding: 0 20px;
+  padding: 0 20px 120px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,7 +140,7 @@
 
 .write-button-container {
   position: absolute;
-  bottom: 120px;
+  top: 270px;
   right: 120px;
 }
 

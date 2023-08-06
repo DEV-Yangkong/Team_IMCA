@@ -159,6 +159,7 @@ const YouTubeList = () => {
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    scrollToTop();
   };
 
   const currentPosts = getPostsForPage(youtubePosts, currentPage, postsPerPage);

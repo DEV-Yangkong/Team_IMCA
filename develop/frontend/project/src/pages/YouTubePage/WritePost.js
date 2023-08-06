@@ -25,12 +25,9 @@ const WritePost = () => {
   };
 
   const extractThumbnailUrl = (url) => {
-    // 여기에 썸네일 URL 추출 로직을 작성합니다.
-    // 예: https://i.ytimg.com/vi/OX6u_W7rFAU/maxresdefault.jpg
-    // 추출한 URL을 setThumbnailUrl로 설정합니다.
-    const videoId = url.split('v=')[1];
+    const videoId = url.match(/v=([^&]+)/);
     if (videoId) {
-      const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+      const thumbnailUrl = `https://i.ytimg.com/vi/${videoId[1]}/maxresdefault.jpg`;
       setThumbnailUrl(thumbnailUrl);
     } else {
       setThumbnailUrl('');

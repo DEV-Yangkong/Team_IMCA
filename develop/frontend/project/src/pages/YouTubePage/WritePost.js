@@ -49,8 +49,13 @@ const WritePost = () => {
       });
 
       if (response.status === 201) {
+        const newPostId = response.data.id; // 예시: 응답 데이터에서 생성된 포스트의 ID를 가져옴
         // 작성 완료 후 필요한 동작 수행
         navigate('/youtube');
+
+        // 응답 데이터 활용 예시: 포스트 생성 후의 동작 수행
+        console.log('새로 생성된 포스트의 ID:', newPostId);
+        // 여기에서 newPostId를 활용하여 프론트엔드 UI 업데이트 등을 수행할 수 있음
       } else {
         // API 요청이 성공하지만 응답 상태가 201가 아닌 경우 처리
         setModalMessage('작성에 실패하였습니다.');

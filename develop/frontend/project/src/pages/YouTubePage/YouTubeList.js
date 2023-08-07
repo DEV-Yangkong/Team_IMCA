@@ -4,12 +4,6 @@ import axios from 'axios';
 import './YouTubeList.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-function getPostsForPage(posts, currentPage, postsPerPage) {
-  const startIndex = (currentPage - 1) * postsPerPage;
-  const endIndex = Math.min(startIndex + postsPerPage, posts.length);
-  return posts.slice(startIndex, endIndex);
-}
-
 const YouTubeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [scrollButtonVisible, setScrollButtonVisible] = useState(false);
@@ -68,6 +62,10 @@ const YouTubeList = () => {
 
   const totalPageCount = Math.ceil(filteredPosts.length / postsPerPage);
 
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = Math.min(startIndex + postsPerPage, filteredPosts.length);
+  const postsToShow = filteredPosts.slice(startIndex, endIndex);
+
   return (
     <div className="youtube-list">
       <h1>YouTube</h1>
@@ -91,8 +89,7 @@ const YouTubeList = () => {
         <div className="no-results">검색 결과가 없습니다.</div>
       ) : (
         <div className="post-list">
-          {/* Rendering the filtered posts */}
-          {filteredPosts.map((post) => (
+          {postsToShow.map((post) => (
             <div className="post-item" key={post.id}>
               <Link to={`/youtube/${post.id}`} className="post-title-link">
                 <img src={post.thumbnail_url} alt={post.title} />

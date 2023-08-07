@@ -26,14 +26,18 @@ const App = () => {
             <Route path="/concert_act" element={<Act />} />
             <Route path="/concert_musical" element={<MusicalPage />} />
             <Route path="/team-introduction" element={<TeamIntroduction />} />
+            <Route path="/" element={<YouTubeList />} />
+            <Route path="/youtube" element={<YouTubeList />} />
             <Route
-              path="/youtube"
-              element={<YouTubeList youtubePosts={youtubePosts} />}
+              exact
+              path="/"
+              render={() => <YouTubeList youtubePosts={youtubePosts} />}
             />
-            <Route path="/write" element={<WritePost />} />
             <Route
               path="/youtube/:postId"
-              element={<YouTubeDetail youtubePosts={youtubePosts} />}
+              render={(props) => (
+                <YouTubeDetail {...props} youtubePosts={youtubePosts} />
+              )}
             />
           </Routes>
         </div>

@@ -6,7 +6,6 @@ import { Data } from '../../api';
 import dayjs from 'dayjs';
 import Ranking from '../../components/MainPage/Ranking';
 import CurCalendar from '../../components/MainPage/CurCalendar';
-import axios from 'axios';
 const dummyDateList = [
   {
     start: '2023-08-05',
@@ -26,14 +25,7 @@ const Main = () => {
   const [date, setDate] = useState(new Date());
   const [data, setData] = useState([]);
   const [curDate, setCurDate] = useState(false);
-  const [musicalArray, setMusicalArray] = useState([]);
-  const [curDayList, setCurDayList] = useState({
-    startDate: '',
-    endDate: '',
-    title: '',
-    place: '',
-    img: '',
-  });
+
   const getTileContent = ({ date }) => {
     const dateString = dayjs(date).format('YYYY-MM-DD'); // 'YYYY-MM-DD' 형태로 변환
     for (const { start, end } of dummyDateList) {
@@ -74,36 +66,6 @@ const Main = () => {
   // 연극, 뮤지컬 일정 배열 (중복 요소 어떻게 제거?)
   const mark = ['2023-08-12', '2023-08-20', '2023-08-25'];
   const mark2 = ['2023-08-12', '2023-08-15', '2023-08-16', '2023-08-17'];
-
-  const callApi = async () => {
-    axios.get('http://localhost:5000/api').then((res) => {
-      console.log(res.data.dbs.db);
-      setMusicalArray(res.data.dbs.db);
-    });
-  };
-  useEffect(() => {
-    callApi();
-  }, []);
-  const dateStr = dayjs(date).format('YYYY.MM.DD');
-  useEffect(() => {
-    const curDayFunc = () => {
-      console.log(dateStr);
-      musicalArray.map((it) => {
-        console.log(it.prfpdfrom._text);
-        if (it.prfpdfrom._text <= dateStr && dateStr <= it.prfpdto._text) {
-          setCurDayList({
-            startDate: it.prfpdfrom._text,
-            endDate: it.prfpdto._text,
-            title: it.prfnm._text,
-            place: it.fcltynm._text,
-            img: it.poster._text,
-          });
-        }
-      });
-      console.log(curDayList);
-    };
-    curDayFunc();
-  }, []);
 
   const hasMark = (date, markArray) => {
     return markArray.find((x) => x === dayjs(date).format('YYYY-MM-DD'));
@@ -147,44 +109,13 @@ const Main = () => {
       </div>
     );
   };
-  const onClickWholeCalendar = () => {
-    setCurDate(false);
-  };
-
-  // const service = '585f52f2749f40d28894a4df722075be';
-  // const service = 'b14e78c0be214bfab93cc4988904cbb9';
-  // const service = '8e554316a3c34e3d9aae2b7c4f0a752b';
-  // const url = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}&stdate=20230801&eddate=20230831&cpage=1&rows=20&shcate=GGGA&signgucode=11`;
-  // useEffect(() => {
-  //   axios.get(url).then((res) => res.data);
-  // }, []);
   return (
     <div className="Main">
       <section className="mini_calendar">
         <div className="add_container"></div>
         <div className="calendar_container">
           {curDate ? (
-            <div className="current_calendar">
-              <div className="current_calendar_header">
-                <div className="current_date">8월 7일</div>
-                <div onClick={onClickWholeCalendar} className="whole_btn">
-                  전체 달력
-                </div>
-              </div>
-              {musicalArray.map(
-                (it) =>
-                  it.prfpdfrom._text <= dateStr &&
-                  dateStr <= it.prfpdto._text && (
-                    <CurCalendar
-                      startDate={it.prfpdfrom._text}
-                      endDate={it.prfpdto._text}
-                      title={it.prfnm._text}
-                      place={it.fcltynm._text}
-                      img={it.poster._text}
-                    />
-                  ),
-              )}
-            </div>
+            <CurCalendar />
           ) : (
             <Calendar
               onChange={setDate}

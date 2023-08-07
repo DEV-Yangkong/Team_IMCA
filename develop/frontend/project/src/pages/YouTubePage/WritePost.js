@@ -12,6 +12,7 @@ const WritePost = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [isPostSuccess, setIsPostSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -61,11 +62,12 @@ const WritePost = () => {
 
       if (response.status === 201) {
         // 작성 완료 후 필요한 동작 수행
-        // 모달을 열고 메시지 설정
+        setIsPostSuccess(true); // 작성 성공한 경우 상태 변경
         setModalMessage('작성이 완료되었습니다.');
         setModalIsOpen(true);
       } else {
         // 응답 상태 코드가 201이 아닌 경우 처리
+        setIsPostSuccess(false);
         console.error('작성에 실패하였습니다.');
         setModalMessage('작성에 실패하였습니다.'); // 모달 메시지 설정
         setModalIsOpen(true); // 모달 열기
@@ -156,7 +158,14 @@ const WritePost = () => {
         </button>
         <AlertModal
           isOpen={modalIsOpen}
-          onClose={closeModal}
+          onClose={() => {
+            setModalIsOpen(false);
+            setModalMessage('');
+            if (isPostSuccess) {
+              setIsPostSuccess(false); // 확인 후 작성 완료 상태 초기화
+              navigate('/youtube'); // 작성 성공한 경우 페이지 이동
+            }
+          }}
           message={modalMessage}
         />
       </form>

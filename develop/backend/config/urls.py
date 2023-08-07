@@ -22,4 +22,5 @@ urlpatterns = [
     path("api/v1/users/", include("users.urls")),
     path("api/v1/youtube_videos/", include("youtube_videos.urls")),
     path("API/", include("apis.urls")),
+    path("api/v1/reports/", include("reports.urls")),
 ]

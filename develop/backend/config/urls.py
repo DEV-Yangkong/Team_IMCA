@@ -21,5 +21,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/users/", include("users.urls")),
     path("api/v1/youtube_videos/", include("youtube_videos.urls")),
+<<<<<<< HEAD
+=======
     path("API/", include("apis.urls")),
+    path("api/v1/reports/", include("reports.urls")),
+>>>>>>> be7af367e709fed35ca8339e2d806ee3f2a413cf
 ]

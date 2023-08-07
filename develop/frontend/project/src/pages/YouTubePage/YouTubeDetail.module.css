@@ -1,3 +1,5 @@
+/* YouTubeDetail.module.css */
+
 .youtube-detail {
   max-width: 800px;
   margin: 0 auto;
@@ -37,7 +39,7 @@
   margin-right: 10px;
 }
 
-.original-video-link {
+/* .original-video-link {
   display: block;
   font-size: 16px;
   margin-top: 20px;
@@ -47,4 +49,4 @@
 
 .original-video-link:hover {
   text-decoration: underline;
-}
+} */

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; // useEffect를 임포트해야 합니다.
 import { Link } from 'react-router-dom';
 import './YouTubeList.css';
-import 'font-awesome/css/font-awesome.min.css';
+// import 'font-awesome/css/font-awesome.min.css';
 
 function getPostsForPage(posts, currentPage, postsPerPage) {
   const startIndex = (currentPage - 1) * postsPerPage;

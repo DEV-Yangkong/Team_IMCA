@@ -7,6 +7,9 @@ import Act from './components/ConcertPage/Act';
 import TeamIntroduction from './pages/TeamIntroduction/TeamIntroduction';
 import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
+import Login from './pages/LoginPage/Login';
+import SignUp from './pages/SignUpPage/SignUp';
+import MyPage from './pages/Mypage/MyPage';
 
 function App() {
   return (
@@ -22,6 +25,10 @@ function App() {
             <Route path="/" element={<YouTubeList />} />
             <Route path="/youtube" element={<YouTubeList />} />
             <Route path="/youtube/:postId" element={<YouTubeDetail />} />
+            <Route path="/myCalender" element={<myCalender />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/mypage" element={<MyPage />} />
           </Routes>
         </div>
       </div>

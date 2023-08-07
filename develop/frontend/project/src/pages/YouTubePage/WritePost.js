@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './WritePost.module.css';
+import AlertModal from './AlertModal';
+import axios from 'axios';
 
 const WritePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -34,10 +38,47 @@ const WritePost = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 포스트 작성 로직 추가
-    navigate('/youtube');
+    try {
+      const response = await axios.post('/api/posts/', {
+        title,
+        content,
+        videoUrl,
+        thumbnailUrl,
+      });
+
+      if (response.status === 201) {
+        // 작성 완료 후 필요한 동작 수행
+        navigate('/youtube');
+      } else {
+        // API 요청이 성공하지만 응답 상태가 201가 아닌 경우 처리
+        setModalMessage('작성에 실패하였습니다.');
+        setModalIsOpen(true);
+      }
+    } catch (error) {
+      // API 요청이 실패한 경우 처리
+      console.error('API request error:', error);
+      setModalMessage('작성에 실패하였습니다.');
+      setModalIsOpen(true);
+
+      // 에러 상태에 따라 사용자에게 알림을 제공하거나 적절한 조치를 취할 수 있음
+      if (error.response) {
+        // 응답이 도착했지만 응답 상태가 에러인 경우 (e.g. 4xx, 5xx)
+        console.error('API response error:', error.response.data);
+      } else if (error.request) {
+        // 응답이 도착하지 않은 경우 (e.g. 네트워크 오류)
+        console.error('No API response:', error.request);
+      } else {
+        // 그 외의 에러 (e.g. 코드 실행 중 예외 발생)
+        console.error('Other error:', error.message);
+      }
+    }
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setModalMessage('');
   };
 
   const handleCancel = () => {
@@ -101,6 +142,11 @@ const WritePost = () => {
         >
           취소
         </button>
+        <AlertModal
+          isOpen={modalIsOpen}
+          onClose={closeModal}
+          message={modalMessage}
+        />
       </form>
     </div>
   );

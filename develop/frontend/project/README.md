@@ -31,6 +31,7 @@
   - request
   - prettier
   - font-awesome
+  - axios
 
 ## api 데이터 받아오기
 

@@ -1,38 +1,77 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import styles from './YouTubeDetail.module.css';
 
-const YouTubeDetail = ({ youtubePosts }) => {
+const YouTubeDetail = () => {
   const { postId } = useParams();
-  const selectedPost = youtubePosts.find(
-    (post) => post.id.toString() === postId,
-  );
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [embedCode, setEmbedCode] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  if (!selectedPost) {
-    return <div>포스트를 찾을 수 없습니다.</div>;
+  // 임베드 코드 생성 함수를 함수 외부로 이동
+  const generateEmbedCode = (videoUrl) => {
+    const videoId = videoUrl.split('v=')[1];
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+    return (
+      <iframe
+        className={styles['video-frame']}
+        src={embedUrl}
+        title={selectedPost.title}
+        frameBorder="0"
+        allowFullScreen
+        width="100%"
+        height="500"
+      ></iframe>
+    );
+  };
+
+  useEffect(() => {
+    const fetchPostDetail = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
+        );
+        console.log('Response:', response.data);
+        setSelectedPost(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching post detail:', error);
+      }
+    };
+
+    fetchPostDetail();
+  }, [postId]);
+
+  // 로딩 중이면 로딩 메시지 표시
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  return (
-    <div className={styles['youtube-detail']}>
-      <h2>{selectedPost.title}</h2>
-      <div className={styles['post-info']}>
-        <span className={styles['post-date']}>{selectedPost.date}</span>
-        <span className={styles['post-views']}>{selectedPost.views} views</span>
+  // selectedPost가 null이 아닌 경우에만 임베드 코드 생성
+  if (selectedPost) {
+    const embedCode = generateEmbedCode(selectedPost.video_url);
+
+    return (
+      <div className={styles['youtube-detail']}>
+        <h2>{selectedPost.title}</h2>
+        <div className={styles['post-info']}>
+          <span className={styles['post-date']}>{selectedPost.date}</span>
+          <span className={styles['post-views']}>
+            {selectedPost.views} views
+          </span>
+        </div>
+        <div className={styles['video-container']}>{embedCode}</div>
+        <div className={styles['post-content']}>
+          <p>{selectedPost.content}</p>
+        </div>
       </div>
-      <div className={styles['video-container']}>
-        <iframe
-          className={styles['video-frame']}
-          src={selectedPost.videoUrl}
-          title={selectedPost.title}
-          frameBorder="0"
-          allowFullScreen
-        ></iframe>
-      </div>
-      <div className={styles['post-content']}>
-        <p>{selectedPost.content}</p>
-      </div>
-    </div>
-  );
+    );
+  }
+
+  // selectedPost가 null이면 에러 메시지 표시
+  console.log('Selected post is null.');
+  return <div>포스트를 찾을 수 없습니다.</div>;
 };
 
 export default YouTubeDetail;

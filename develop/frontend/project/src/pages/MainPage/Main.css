@@ -13,10 +13,11 @@
   width: 700px;
   border: 1px solid black;
 }
+/* 전체 캘린더 크기 */
 .react-calendar {
   width: 100%;
-  max-width: 500px;
-  height: 350px;
+  max-width: 432px;
+  height: 380px;
 }
 .react-calendar__navigation {
   height: 60px;
@@ -104,7 +105,27 @@
   display: flex;
   margin-left: 1px;
 }
+/* 현재 날짜 일정 */
+.current_calendar {
+  width: 432px;
+  height: 380px;
+  border: 1px solid black;
+}
+.current_calendar_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+  font-size: 15px;
+}
 
+.whole_btn {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+}
 /* 메인 캘린더 */
 .big_calendar_container .react-calendar {
   /* width: 100%;

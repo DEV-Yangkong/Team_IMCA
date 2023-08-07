@@ -4,10 +4,10 @@ const request = require('request');
 // import { xml2json } from 'xml-js';
 const converter = require('xml-js');
 const router = express.Router();
-const service = 'a587792556ca44c5af747c8652c82345';
-const url = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}&stdate=20230801&eddate=20230831&cpage=1&rows=20&shcate=GGGA&signgucode=11&kidstate=N`;
+const service = '585f52f2749f40d28894a4df722075be'; // env 로 가리기
+const url = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}&stdate=20230801&eddate=20230831&cpage=1&rows=20&shcate=GGGA&signgucode=11`;
 const axios = require('axios');
-
+// const url = `http://www.kopis.or.kr/openApi/restful/boxoffice?service=${service}&ststype=day&date=20230731&catecode=AAAA&area=11`; //boxOffice
 // const baseUrl = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}`;
 
 router.get('/', (req, res) => {

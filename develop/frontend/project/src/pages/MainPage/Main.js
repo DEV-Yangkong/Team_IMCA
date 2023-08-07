@@ -150,6 +150,14 @@ const Main = () => {
   const onClickWholeCalendar = () => {
     setCurDate(false);
   };
+
+  // const service = '585f52f2749f40d28894a4df722075be';
+  // const service = 'b14e78c0be214bfab93cc4988904cbb9';
+  // const service = '8e554316a3c34e3d9aae2b7c4f0a752b';
+  // const url = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}&stdate=20230801&eddate=20230831&cpage=1&rows=20&shcate=GGGA&signgucode=11`;
+  // useEffect(() => {
+  //   axios.get(url).then((res) => res.data);
+  // }, []);
   return (
     <div className="Main">
       <section className="mini_calendar">

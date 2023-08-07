@@ -109,13 +109,16 @@ const Main = () => {
       </div>
     );
   };
+  const onClickWholeCalendar = () => {
+    setCurDate(false);
+  };
   return (
     <div className="Main">
       <section className="mini_calendar">
         <div className="add_container"></div>
         <div className="calendar_container">
           {curDate ? (
-            <CurCalendar />
+            <CurCalendar onClick={onClickWholeCalendar} />
           ) : (
             <Calendar
               onChange={setDate}

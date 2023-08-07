@@ -4,6 +4,12 @@ import axios from 'axios';
 import './YouTubeList.css';
 import 'font-awesome/css/font-awesome.min.css';
 
+function getPostsForPage(posts, currentPage, postsPerPage) {
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = Math.min(startIndex + postsPerPage, posts.length);
+  return posts.slice(startIndex, endIndex);
+}
+
 const YouTubeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [scrollButtonVisible, setScrollButtonVisible] = useState(false);

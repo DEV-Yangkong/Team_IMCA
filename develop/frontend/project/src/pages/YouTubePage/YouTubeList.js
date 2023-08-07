@@ -64,7 +64,8 @@ const YouTubeList = () => {
 
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = Math.min(startIndex + postsPerPage, filteredPosts.length);
-  const postsToShow = filteredPosts.slice(startIndex, endIndex);
+  const reversedFilteredPosts = [...filteredPosts].reverse();
+  const postsToShow = reversedFilteredPosts.slice(startIndex, endIndex);
 
   return (
     <div className="youtube-list">

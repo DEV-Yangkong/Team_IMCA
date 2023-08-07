@@ -24,6 +24,9 @@ const YouTubeDetail = ({ youtubePosts }) => {
           allowFullScreen
         ></iframe>
       </div>
+      <div className={styles['post-content']}>
+        <p>{selectedPost.content}</p> {/* 이 부분 추가 */}
+      </div>
       <div className={styles['post-info']}>
         <span className={styles['post-date']}>{selectedPost.date}</span>
         <span className={styles['post-views']}>{selectedPost.views} views</span>

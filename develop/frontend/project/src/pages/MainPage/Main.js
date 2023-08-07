@@ -5,6 +5,7 @@ import './Main.css';
 import { Data } from '../../api';
 import dayjs from 'dayjs';
 import Ranking from '../../components/MainPage/Ranking';
+import CurCalendar from '../../components/MainPage/CurCalendar';
 const dummyDateList = [
   {
     start: '2023-08-05',
@@ -23,6 +24,7 @@ const dummyDateList = [
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [data, setData] = useState([]);
+  const [curDate, setCurDate] = useState(false);
 
   const getTileContent = ({ date }) => {
     const dateString = dayjs(date).format('YYYY-MM-DD'); // 'YYYY-MM-DD' 형태로 변환
@@ -112,16 +114,21 @@ const Main = () => {
       <section className="mini_calendar">
         <div className="add_container"></div>
         <div className="calendar_container">
-          <Calendar
-            onChange={setDate}
-            value={date}
-            formatDay={(locale, date) =>
-              date.toLocaleString('en', { day: 'numeric' })
-            } //날짜에 숫자만 들어가게 하기
-            tileContent={tileContent}
-            next2Label={null} // 다음 년도 화살표
-            prev2Label={null} // 이전 년도 화살표
-          />
+          {curDate ? (
+            <CurCalendar />
+          ) : (
+            <Calendar
+              onChange={setDate}
+              value={date}
+              formatDay={(locale, date) =>
+                date.toLocaleString('en', { day: 'numeric' })
+              } //날짜에 숫자만 들어가게 하기
+              tileContent={tileContent}
+              next2Label={null} // 다음 년도 화살표
+              prev2Label={null} // 이전 년도 화살표
+              onClickDay={() => setCurDate(true)}
+            />
+          )}
         </div>
       </section>
       <section className="ranking">

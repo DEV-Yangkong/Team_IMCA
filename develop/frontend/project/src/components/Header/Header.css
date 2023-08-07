@@ -52,6 +52,9 @@
   align-items: center;
   cursor: pointer;
 }
+.nav_item:nth-child(1) {
+  padding: 0 10px 0 0;
+}
 .item_menu {
   display: none;
   position: absolute;

@@ -16,7 +16,8 @@ class Youtube_Videos(APIView):
         if serializer.is_valid():
             content = serializer.save()
             return Response(Youtube_VideoSerializer(content).data)
-        return Response(serializer.errors)
+        else:
+            return Response(serializer.errors)
 
 
 class Youtube_VideoDetail(APIView):

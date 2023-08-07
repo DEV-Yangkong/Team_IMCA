@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './WritePost.module.css';
 import AlertModal from './AlertModal';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 const WritePost = () => {
   const [title, setTitle] = useState('');
@@ -13,6 +14,11 @@ const WritePost = () => {
   const [modalMessage, setModalMessage] = useState('');
 
   const navigate = useNavigate();
+
+  // 모달이 열릴 때 스크린 리더가 메인 컨텐츠를 인식하지 못하도록 설정
+  useEffect(() => {
+    Modal.setAppElement('#root');
+  }, []);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -41,21 +47,23 @@ const WritePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/posts/', {
-        title,
-        content,
-        videoUrl,
-        thumbnailUrl,
-      });
-
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/v1/youtube_videos/',
+        {
+          title,
+          content,
+          video_url: videoUrl, // 수정된 필드명
+          thumbnail_url: thumbnailUrl, // 수정된 필드명
+        },
+      );
+      console.log(response);
       if (response.status === 201) {
-        const newPostId = response.data.id; // 예시: 응답 데이터에서 생성된 포스트의 ID를 가져옴
         // 작성 완료 후 필요한 동작 수행
         navigate('/youtube');
 
-        // 응답 데이터 활용 예시: 포스트 생성 후의 동작 수행
-        console.log('새로 생성된 포스트의 ID:', newPostId);
-        // 여기에서 newPostId를 활용하여 프론트엔드 UI 업데이트 등을 수행할 수 있음
+        // 응답 데이터 활용 예시: 비디오 생성 후의 동작 수행
+        console.log('새로 생성된 비디오의 ID:', response.data.id);
+        // 여기에서 생성된 비디오의 ID를 활용하여 프론트엔드 UI 업데이트 등을 수행할 수 있음
       } else {
         // API 요청이 성공하지만 응답 상태가 201가 아닌 경우 처리
         setModalMessage('작성에 실패하였습니다.');

@@ -44,6 +44,7 @@ THIRDPARTY_APPS = [
     "youtube_videos.apps.YoutubeVideosConfig",
     "corsheaders",
     "apis.apps.ApisConfig",
+    "reports.apps.ReportsConfig",
 ]
 
 DEFAULT_APPS = [

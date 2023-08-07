@@ -8,6 +8,9 @@ import TeamIntroduction from './pages/TeamIntroduction/TeamIntroduction';
 import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
 import WritePost from './pages/YouTubePage/WritePost';
+import Login from './pages/LoginPage/Login';
+import SignUp from './pages/SignUpPage/SignUp';
+import MyPage from './pages/Mypage/MyPage';
 import React, { useState } from 'react';
 
 const App = () => {
@@ -26,20 +29,19 @@ const App = () => {
             <Route path="/concert_act" element={<Act />} />
             <Route path="/concert_musical" element={<MusicalPage />} />
             <Route path="/team-introduction" element={<TeamIntroduction />} />
-            <Route path="/" element={<YouTubeList />} />
-            <Route path="/youtube" element={<YouTubeList />} />
             <Route
-              exact
-              path="/"
-              render={() => <YouTubeList youtubePosts={youtubePosts} />}
-            />
-            <Route
-              path="/youtube/:postId"
-              render={(props) => (
-                <YouTubeDetail {...props} youtubePosts={youtubePosts} />
-              )}
+              path="/youtube"
+              element={<YouTubeList youtubePosts={youtubePosts} />}
             />
             <Route path="/write" element={<WritePost />} />
+            <Route
+              path="/youtube/:postId"
+              element={<YouTubeDetail youtubePosts={youtubePosts} />}
+            />
+            <Route path="/myCalender" element={<myCalender />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/mypage" element={<MyPage />} />
           </Routes>
         </div>
       </div>

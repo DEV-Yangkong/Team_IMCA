@@ -105,27 +105,7 @@
   display: flex;
   margin-left: 1px;
 }
-/* 현재 날짜 일정 */
-.current_calendar {
-  width: 432px;
-  height: 380px;
-  border: 1px solid black;
-}
-.current_calendar_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid lightgray;
-  font-size: 15px;
-}
 
-.whole_btn {
-  border: 1px solid gray;
-  border-radius: 10px;
-  padding: 5px;
-  font-size: 12px;
-}
 /* 메인 캘린더 */
 .big_calendar_container .react-calendar {
   /* width: 100%;
@@ -187,4 +167,31 @@
   font-size: 25px;
   font-weight: 500;
   line-height: 140%;
+}
+
+/* 날짜별 정보 */
+.current_calendar {
+  width: 432px;
+  height: 380px;
+  border: 1px solid black;
+}
+.current_calendar_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #134f2c;
+  font-weight: bold;
+}
+
+.whole_btn {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+  font-family: 'Roboto Condensed', sans-serif;
+  cursor: pointer;
 }

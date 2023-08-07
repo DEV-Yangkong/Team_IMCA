@@ -5,7 +5,6 @@ import './Main.css';
 import { Data } from '../../api';
 import dayjs from 'dayjs';
 import Ranking from '../../components/MainPage/Ranking';
-
 const dummyDateList = [
   {
     start: '2023-08-05',

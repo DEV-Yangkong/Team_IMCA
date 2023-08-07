@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './WritePost.module.css';
 import AlertModal from './AlertModal';
 import axios from 'axios';
 import Modal from 'react-modal';
@@ -11,8 +12,14 @@ const WritePost = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [isPostSuccess, setIsPostSuccess] = useState(false);
 
   const navigate = useNavigate();
+
+  // 모달이 열릴 때 스크린 리더가 메인 컨텐츠를 인식하지 못하도록 설정
+  useEffect(() => {
+    Modal.setAppElement(null); // 모달의 앱 엘리먼트 설정을 제거
+  }, []);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -41,32 +48,34 @@ const WritePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/posts/', {
-        title,
-        content,
-        videoUrl,
-        thumbnailUrl,
-      });
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/v1/youtube_videos/',
+        {
+          title,
+          content,
+          video_url: videoUrl,
+          thumbnail_url: thumbnailUrl,
+        },
+      );
+
+      console.log(response.data); // 응답 데이터 출력
 
       if (response.status === 201) {
-        const newPostId = response.data.id; // 예시: 응답 데이터에서 생성된 포스트의 ID를 가져옴
         // 작성 완료 후 필요한 동작 수행
-        navigate('/youtube');
-
-        // 응답 데이터 활용 예시: 포스트 생성 후의 동작 수행
-        console.log('새로 생성된 포스트의 ID:', newPostId);
-        // 여기에서 newPostId를 활용하여 프론트엔드 UI 업데이트 등을 수행할 수 있음
-      } else {
-        // API 요청이 성공하지만 응답 상태가 201가 아닌 경우 처리
-        setModalMessage('작성에 실패하였습니다.');
+        setIsPostSuccess(true); // 작성 성공한 경우 상태 변경
+        setModalMessage('작성이 완료되었습니다.');
         setModalIsOpen(true);
+      } else {
+        // 응답 상태 코드가 201이 아닌 경우 처리
+        setIsPostSuccess(false);
+        console.error('작성에 실패하였습니다.');
+        setModalMessage('작성에 실패하였습니다.'); // 모달 메시지 설정
+        setModalIsOpen(true); // 모달 열기
       }
     } catch (error) {
       // API 요청이 실패한 경우 처리
       console.error('API request error:', error);
-      setModalMessage('작성에 실패하였습니다.');
-      setModalIsOpen(true);
-
+      console.error('작성에 실패하였습니다.');
       // 에러 상태에 따라 사용자에게 알림을 제공하거나 적절한 조치를 취할 수 있음
       if (error.response) {
         // 응답이 도착했지만 응답 상태가 에러인 경우 (e.g. 4xx, 5xx)
@@ -149,7 +158,14 @@ const WritePost = () => {
         </button>
         <AlertModal
           isOpen={modalIsOpen}
-          onClose={closeModal}
+          onClose={() => {
+            setModalIsOpen(false);
+            setModalMessage('');
+            if (isPostSuccess) {
+              setIsPostSuccess(false); // 확인 후 작성 완료 상태 초기화
+              navigate('/youtube'); // 작성 성공한 경우 페이지 이동
+            }
+          }}
           message={modalMessage}
         />
       </form>

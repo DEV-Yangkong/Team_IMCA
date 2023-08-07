@@ -5,7 +5,7 @@ import 'font-awesome/css/font-awesome.min.css';
 
 function getPostsForPage(posts, currentPage, postsPerPage) {
   const startIndex = (currentPage - 1) * postsPerPage;
-  const endIndex = Math.min(startIndex + postsPerPage, posts.length); // 수정된 부분
+  const endIndex = Math.min(startIndex + postsPerPage, posts.length);
   return posts.slice(startIndex, endIndex);
 }
 

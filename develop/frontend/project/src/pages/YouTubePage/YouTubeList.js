@@ -22,8 +22,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=BYhttUcMkYM',
       date: '2023-08-05',
       views: 128,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 2, // 각 포스트에 고유한 ID 추가
@@ -32,8 +30,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=BYhttUcMkYM',
       date: '2023-08-05',
       views: 128,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 3,
@@ -43,8 +39,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=BYhttUcMkYM',
       date: '2023-08-05',
       views: 128,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 4,
@@ -53,8 +47,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=XtEhGI6Ka9g',
       date: '2023-08-05',
       views: 128,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 5,
@@ -63,8 +55,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=CL1SkluCpnQ',
       date: '2023-08-05',
       views: 128,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 6,
@@ -74,8 +64,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=Tv68IxCjDhY/',
       date: '2023-08-03',
       views: 128,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 7,
@@ -85,8 +73,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=lKqGJelgm6s/',
       date: '2023-08-02',
       views: 82,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 8,
@@ -96,8 +82,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=f0wrYy-qHgQ/',
       date: '2023-07-28',
       views: 597,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 9,
@@ -107,8 +91,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=73Yg3h35-Co/',
       date: '2023-07-21',
       views: 597,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 10,
@@ -117,8 +99,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=TlKqiV-cENM/',
       date: '2023-07-20',
       views: 1200,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 11,
@@ -127,8 +107,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=zoceIksCY9E/',
       date: '2022-09-01',
       views: 2123,
-      likes: 50,
-      comments: 10,
     },
     {
       id: 12,
@@ -138,8 +116,6 @@ const YouTubeList = () => {
       videoUrl: 'https://www.youtube.com/watch?v=7cbFZiS-syo/',
       date: '2022-08-31',
       views: 78,
-      likes: 50,
-      comments: 10,
     },
   ];
 

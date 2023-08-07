@@ -15,6 +15,10 @@ const YouTubeDetail = ({ youtubePosts }) => {
   return (
     <div className={styles['youtube-detail']}>
       <h2>{selectedPost.title}</h2>
+      <div className={styles['post-info']}>
+        <span className={styles['post-date']}>{selectedPost.date}</span>
+        <span className={styles['post-views']}>{selectedPost.views} views</span>
+      </div>
       <div className={styles['video-container']}>
         <iframe
           className={styles['video-frame']}
@@ -25,20 +29,8 @@ const YouTubeDetail = ({ youtubePosts }) => {
         ></iframe>
       </div>
       <div className={styles['post-content']}>
-        <p>{selectedPost.content}</p> {/* 이 부분 추가 */}
+        <p>{selectedPost.content}</p>
       </div>
-      <div className={styles['post-info']}>
-        <span className={styles['post-date']}>{selectedPost.date}</span>
-        <span className={styles['post-views']}>{selectedPost.views} views</span>
-      </div>
-      <a
-        href={selectedPost.videoUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles['original-video-link']}
-      >
-        원본 동영상 보기
-      </a>
     </div>
   );
 };

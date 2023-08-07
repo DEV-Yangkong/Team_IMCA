@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './TeamIntroduction.css'; // TeamIntroduction 컴포넌트와 스타일을 연결하는 CSS 파일
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FaInstagram, FaGithub } from 'react-icons/fa';
 
 const TeamIntroduction = () => {
@@ -45,7 +43,7 @@ const TeamIntroduction = () => {
         <span className="highlight">M</span>
         <span className="highlight"> CA</span>lendar
       </h1>
-      <div class="introParagraph">
+      <div className="introParagraph">
         <p>
           <br />
           IMCA는 <span className="boldSpan">"I am Calendar"</span>의 약자로,
@@ -67,7 +65,7 @@ const TeamIntroduction = () => {
           <br />
           우리 팀의 프론트엔드 개발자들은 다음과 같은 역할을 수행합니다.
         </p>
-        <div class="frontEndDescription addParagraph">
+        <div className="frontEndDescription addParagraph">
           <p>
             사용자 인터페이스(UI) 설계 및 구현, 캘린더 뷰어 개발, 이벤트 정보
             표시와 커뮤니티 기능 구현, 프론트엔드 테스팅
@@ -86,12 +84,14 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>양예은(양콩)</h4>
-            <p>🩷 Frontend 🩷</p>
+            <p className="role">💛 Frontend 💛</p>
+            <p className="roleDevelop">" IMCA 소개 & 콘텐츠 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/hi._.yangkong/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -99,6 +99,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/DEV-Yangkong"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -115,12 +116,14 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>김희은</h4>
-            <p>🩷 Frontend 🩷</p>
+            <p className="role">💛 Frontend 💛</p>
+            <p className="roleDevelop">" 메인페이지 & 공연소식 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/_hiniminih_/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -128,6 +131,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/hiheeen"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -144,12 +148,14 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>박민정(민정잉)</h4>
-            <p>🩷 Frontend 🩷</p>
+            <p className="role">💛 Frontend 💛</p>
+            <p className="roleDevelop">" 내 캘린더 및 회원관리 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/minz0ey/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -157,6 +163,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/MINZOEY"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -173,12 +180,14 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>김산이</h4>
-            <p>🩷 Frontend 🩷</p>
+            <p className="role">💛 Frontend 💛</p>
+            <p className="roleDevelop">" 커뮤니티 & 관리자페이지 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/_tancong_"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -186,6 +195,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/tanmtn"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -205,7 +215,7 @@ const TeamIntroduction = () => {
           <br />
           우리 팀의 백엔드 개발자들은 다음과 같은 역할을 수행합니다.
         </p>
-        <div class="backEndDescription addParagraph">
+        <div className="backEndDescription addParagraph">
           <p>
             서버 개발과 데이터베이스 설계, 캘린더와 이벤트 데이터 관리, 사용자
             인증 및 보안 기능 구현, 백엔드 테스팅
@@ -223,12 +233,14 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>김진우(지이누)</h4>
-            <p>💙 Backend 💙</p>
+            <p className="role">💙 Backend 💙</p>
+            <p className="roleDevelop">" 회원정보 & 캘린더 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/sds7629/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -236,6 +248,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/sds7629"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>
@@ -252,12 +265,14 @@ const TeamIntroduction = () => {
           </div>
           <div className="team-member-content">
             <h4>방민식(빵식)</h4>
-            <p>💙 Backend 💙</p>
+            <p className="role">💙 Backend 💙</p>
+            <p className="roleDevelop">" 커뮤니티 & 컨텐츠 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/spaceenterbs/"
                 className="instagram"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaInstagram size={35} />
               </a>
@@ -265,6 +280,7 @@ const TeamIntroduction = () => {
                 href="https://github.com/spaceenterbs"
                 className="github"
                 target="_blank"
+                rel="noreferrer"
               >
                 <FaGithub size={35} />
               </a>

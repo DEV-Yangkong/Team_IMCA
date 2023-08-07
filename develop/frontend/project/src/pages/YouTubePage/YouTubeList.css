@@ -1,6 +1,6 @@
 .youtube-list {
   margin-top: 10px;
-  padding: 0 20px;
+  padding: 0 20px 120px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,17 +140,20 @@
 
 .write-button-container {
   position: absolute;
-  bottom: 120px;
+  top: 270px;
   right: 120px;
 }
 
 .write-button {
-  padding: 10px 20px;
+  padding: 10px 12px;
   background-color: #fff;
   color: #000;
   border-radius: 5px;
   text-align: center;
   text-decoration: none;
+  letter-spacing: 1.2px;
+  font-size: 13px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
   border: 1px solid #ccc;
@@ -159,6 +162,14 @@
 .write-button:hover {
   background-color: #134f2c;
   color: #fff;
+}
+
+.search-result {
+  margin-top: 0px;
+  margin-bottom: 50px;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  font-weight: bold;
 }
 
 /* 미디어쿼리 */

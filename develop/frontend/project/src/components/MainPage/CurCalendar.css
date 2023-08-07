@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Yeon+Sung&display=swap');
+
+/* 현재 날짜 일정 */
+.current_calendar {
+  width: 432px;
+  height: 380px;
+  border: 1px solid black;
+}
+.current_calendar_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #134f2c;
+  font-weight: bold;
+}
+
+.whole_btn {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+  font-family: 'Roboto Condensed', sans-serif;
+  cursor: pointer;
+}
+.cur_content {
+  padding: 5px 10px;
+}
+.current_contents_item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding-right: 10px;
+}
+.cur_content_info {
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+}

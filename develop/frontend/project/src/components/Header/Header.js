@@ -17,7 +17,7 @@ const Header = () => {
             <div className="nav_item">
               <div>IMCA</div>
               <ul className="item_menu">
-                <li onClick={() => navigate('/team-introduction')}>ABOUT US</li>
+                <li onClick={() => navigate('/team-introduction')}>팀 소개</li>
               </ul>
             </div>
             <div className="nav_item">

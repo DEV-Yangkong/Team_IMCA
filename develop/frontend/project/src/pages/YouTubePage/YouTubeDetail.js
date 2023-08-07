@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 const YouTubeDetail = ({ youtubePosts }) => {
-  // youtubePosts를 프롭스로 받아옴
+  // postId를 URL 파라미터에서 가져옴
   const { postId } = useParams();
 
   // postId와 일치하는 포스트를 찾음

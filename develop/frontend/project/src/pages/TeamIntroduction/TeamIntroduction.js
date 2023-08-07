@@ -181,7 +181,7 @@ const TeamIntroduction = () => {
           <div className="team-member-content">
             <h4>김산이</h4>
             <p className="role">💛 Frontend 💛</p>
-            <p className="roleDevelop">" null "</p>
+            <p className="roleDevelop">" 커뮤니티 전체, 관리자페이지 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/_tancong_"

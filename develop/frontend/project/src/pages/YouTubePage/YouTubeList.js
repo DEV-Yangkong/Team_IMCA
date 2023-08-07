@@ -199,46 +199,26 @@ const YouTubeList = () => {
           <p>검색 결과: "{searchTerm}"</p>
         </div>
       )}
-      <div className="search-results">
-        {filteredPosts.length === 0 && searchTerm !== '' ? (
-          <div className="no-results">검색 결과가 없습니다.</div>
-        ) : (
-          <div className="post-list">
-            {getPostsForPage(filteredPosts, currentPage, postsPerPage).map(
-              (post) => (
-                <div className="post-item" key={post.id}>
-                  <Link to={`/youtube/${post.id}`} className="post-title-link">
-                    <img src={post.thumbnailUrl} alt={post.title} />
-                    <div className="post-title">{post.title}</div>
-                  </Link>
-                  <div className="post-info">
-                    <span className="post-date">{post.date}</span>
-                    <span className="post-views">조회수 {post.views}</span>
-                  </div>
+      {filteredPosts.length === 0 && searchTerm !== '' ? (
+        <div className="no-results">검색 결과가 없습니다.</div>
+      ) : (
+        <div className="post-list">
+          {getPostsForPage(filteredPosts, currentPage, postsPerPage).map(
+            (post, index) => (
+              <div className="post-item" key={post.id}>
+                <Link to={`/youtube/${post.id}`} className="post-title-link">
+                  <img src={post.thumbnailUrl} alt={post.title} />
+                  <div className="post-title">{post.title}</div>
+                </Link>
+                <div className="post-info">
+                  <span className="post-date">{post.date}</span>
+                  <span className="post-views">조회수 {post.views}</span>
                 </div>
-              ),
-            )}
-          </div>
-        )}
-      </div>
-      <div className="post-list">
-        {getPostsForPage(filteredPosts, currentPage, postsPerPage).map(
-          (post, index) => (
-            <div className="post-item" key={index}>
-              <Link to={`/youtube/${post.id}`} className="post-title-link">
-                <img src={post.thumbnailUrl} alt={post.title} />
-                <div className="post-title">{post.title}</div>
-              </Link>
-              <div className="post-info">
-                <span className="post-date">{post.date}</span>
-                <span className="post-views">조회수 {post.views}</span>
               </div>
-            </div>
-          ),
-        )}
-      </div>
-
-      {/* 상단으로 스크롤하는 탑 버튼 */}
+            ),
+          )}
+        </div>
+      )}
       {scrollButtonVisible && (
         <button className="top-button" onClick={scrollToTop}>
           TOP

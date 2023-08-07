@@ -15,6 +15,7 @@ const App = () => {
   const [youtubePosts, setYoutubePosts] = useState([
     // 포스트 정보들...
   ]);
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -34,9 +35,10 @@ const App = () => {
             />
             <Route
               path="/youtube/:postId"
-              element={<YouTubeDetail youtubePosts={youtubePosts} />}
+              render={(props) => (
+                <YouTubeDetail {...props} youtubePosts={youtubePosts} />
+              )}
             />
-
             <Route path="/write" element={<WritePost />} />
           </Routes>
         </div>

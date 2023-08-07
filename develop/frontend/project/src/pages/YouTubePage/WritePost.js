@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './WritePost.module.css';
 import AlertModal from './AlertModal';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 const WritePost = () => {
   const [title, setTitle] = useState('');

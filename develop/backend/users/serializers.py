@@ -9,7 +9,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fiels = "__all__"
+        fields = "__all__"
 
     def create(self, validated_data):
         login_id = validated_data.get("login_id")
@@ -31,3 +31,13 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """
+    유저의 모든정보를 나타내 주는 시리얼라이저
+    """
+
+    class Meta:
+        model = User
+        fields = "__all__"

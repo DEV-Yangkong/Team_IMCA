@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import environ
+from datetime import timedelta
 
 env = environ.Env()
 
@@ -38,6 +39,7 @@ THIRDPARTY_APPS = [
     "rest_framework_simplejwt",
     "users.apps.UsersConfig",
     "calenders.apps.CalendersConfig",
+    "corsheaders",
 ]
 
 DEFAULT_APPS = [
@@ -52,6 +54,7 @@ DEFAULT_APPS = [
 INSTALLED_APPS = DEFAULT_APPS + THIRDPARTY_APPS
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -62,9 +65,17 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
+    # "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-    )
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "BLACKLIST_AFTER_ROTATION": False,
 }
 
 ROOT_URLCONF = "config.urls"
@@ -140,3 +151,13 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3080",
+    "http://127.0.0.1:3000",
+]
+
+AUTHENTICATION_BACKENDS = [
+    "users.custom_auth.CustomBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]

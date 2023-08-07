@@ -1,14 +1,14 @@
 .youtube-list {
   margin-top: 10px;
-  padding: 0 20px;
+  padding: 0 20px 120px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .youtube-list h1 {
-  font-size: 45px;
-  font-weight: bolder;
+  font-size: 70px;
+  font-weight: bold;
   margin: 60px auto 200px;
   text-align: center;
   letter-spacing: 1.2px;
@@ -24,6 +24,7 @@
 }
 
 .post-item {
+  position: relative;
   width: calc(33.33% - 80px);
   margin: 0 10px 80px;
   overflow: hidden;
@@ -115,6 +116,62 @@
   padding: 0;
 }
 
+.top-button {
+  position: sticky;
+  bottom: 500px;
+  left: calc(100% + 100px);
+  width: 50px;
+  height: 50px;
+  padding: 8px 12px;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 12px;
+  font-weight: bolder;
+}
+
+.top-button:hover {
+  background-color: #134f2c;
+  color: #fff;
+}
+
+.write-button-container {
+  position: absolute;
+  top: 270px;
+  right: 120px;
+}
+
+.write-button {
+  padding: 10px 12px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 1.2px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #ccc;
+}
+
+.write-button:hover {
+  background-color: #134f2c;
+  color: #fff;
+}
+
+.search-result {
+  margin-top: 0px;
+  margin-bottom: 50px;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  font-weight: bold;
+}
+
 /* 미디어쿼리 */
 /* 14인치 노트북 화면 */
 @media screen and (max-width: 1366px) {
@@ -132,6 +189,22 @@
   }
   .search-icon i {
     font-size: 20px;
+  }
+  .top-button {
+    position: sticky;
+    bottom: 500px;
+    left: calc(100% + 100px);
+    width: 50px;
+    height: 50px;
+    padding: 8px 12px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 12px;
+    font-weight: bolder;
   }
 }
 
@@ -152,6 +225,22 @@
   .search-icon i {
     font-size: 20px;
   }
+  .top-button {
+    position: sticky;
+    bottom: 500px;
+    left: calc(100% + 100px);
+    width: 50px;
+    height: 50px;
+    padding: 8px 12px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 12px;
+    font-weight: bolder;
+  }
 }
 
 /* 16인치 노트북 화면 */
@@ -170,5 +259,21 @@
   }
   .search-icon i {
     font-size: 20px;
+  }
+  .top-button {
+    position: sticky;
+    bottom: 500px;
+    left: calc(100% + 100px);
+    width: 50px;
+    height: 50px;
+    padding: 8px 12px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 12px;
+    font-weight: bolder;
   }
 }

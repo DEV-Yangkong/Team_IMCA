@@ -40,6 +40,8 @@ THIRDPARTY_APPS = [
     "rest_framework_simplejwt",
     "users.apps.UsersConfig",
     "calenders.apps.CalendersConfig",
+    "common.apps.CommonConfig",
+    "youtube_videos.apps.YoutubeVideosConfig",
     "corsheaders",
 ]
 

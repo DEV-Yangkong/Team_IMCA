@@ -30,7 +30,16 @@
   - express
   - request
   - prettier
-  - npm install --save font-awesome
+  - font-awesome
+  - axios
+  - react-modal
+
+<!--(알림) 'One of your dependencies, babel-preset-react-app...'라는 메시지가 떠서 해결.
+  'babel-preset-react-app' 패키지의 의존성 문제와 관련된 경고 메시지입니다.
+  이 패키지는 현재 유지되지 않는 프로젝트인데, '@babel/plugin-proposal-private-property-in-object' 패키지를 의존성으로 추가해주면 해당 경고 메시지가 해결될 것입니다.
+  아래 방법 사용 👇🏻
+- npm install --save-dev @babel/plugin-proposal-private-property-in-object
+- touch .babelrc  -->
 
 ## api 데이터 받아오기
 

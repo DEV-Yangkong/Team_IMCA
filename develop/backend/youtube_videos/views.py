@@ -14,8 +14,8 @@ class Youtube_Videos(APIView):
     def post(self, request):
         serializer = Youtube_VideoSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
+            content = serializer.save()
+            return Response(Youtube_VideoSerializer(content).data)
         return Response(serializer.errors)
 
 

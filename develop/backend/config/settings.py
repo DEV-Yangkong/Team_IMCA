@@ -43,11 +43,7 @@ THIRDPARTY_APPS = [
     "common.apps.CommonConfig",
     "youtube_videos.apps.YoutubeVideosConfig",
     "corsheaders",
-<<<<<<< HEAD
-=======
     "apis.apps.ApisConfig",
-    "reports.apps.ReportsConfig",
->>>>>>> be7af367e709fed35ca8339e2d806ee3f2a413cf
 ]
 
 DEFAULT_APPS = [
@@ -160,6 +156,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

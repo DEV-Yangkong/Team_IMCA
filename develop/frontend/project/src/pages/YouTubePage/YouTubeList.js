@@ -143,6 +143,9 @@ const YouTubeList = () => {
     },
   ];
 
+  // id의 숫자를 기준으로 역순으로 정렬
+  youtubePosts.sort((a, b) => b.id - a.id);
+
   const postsPerPage = 9;
 
   useEffect(() => {

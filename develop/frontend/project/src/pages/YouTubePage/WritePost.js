@@ -17,7 +17,7 @@ const WritePost = () => {
 
   // 모달이 열릴 때 스크린 리더가 메인 컨텐츠를 인식하지 못하도록 설정
   useEffect(() => {
-    Modal.setAppElement('#root');
+    Modal.setAppElement(null); // 모달의 앱 엘리먼트 설정을 제거
   }, []);
 
   const handleTitleChange = (e) => {
@@ -52,29 +52,28 @@ const WritePost = () => {
         {
           title,
           content,
-          video_url: videoUrl, // 수정된 필드명
-          thumbnail_url: thumbnailUrl, // 수정된 필드명
+          video_url: videoUrl,
+          thumbnail_url: thumbnailUrl,
         },
       );
-      console.log(response);
+
+      console.log(response.data); // 응답 데이터 출력
+
       if (response.status === 201) {
         // 작성 완료 후 필요한 동작 수행
-        navigate('/youtube');
-
-        // 응답 데이터 활용 예시: 비디오 생성 후의 동작 수행
-        console.log('새로 생성된 비디오의 ID:', response.data.id);
-        // 여기에서 생성된 비디오의 ID를 활용하여 프론트엔드 UI 업데이트 등을 수행할 수 있음
-      } else {
-        // API 요청이 성공하지만 응답 상태가 201가 아닌 경우 처리
-        setModalMessage('작성에 실패하였습니다.');
+        // 모달을 열고 메시지 설정
+        setModalMessage('작성이 완료되었습니다.');
         setModalIsOpen(true);
+      } else {
+        // 응답 상태 코드가 201이 아닌 경우 처리
+        console.error('작성에 실패하였습니다.');
+        setModalMessage('작성에 실패하였습니다.'); // 모달 메시지 설정
+        setModalIsOpen(true); // 모달 열기
       }
     } catch (error) {
       // API 요청이 실패한 경우 처리
       console.error('API request error:', error);
-      setModalMessage('작성에 실패하였습니다.');
-      setModalIsOpen(true);
-
+      console.error('작성에 실패하였습니다.');
       // 에러 상태에 따라 사용자에게 알림을 제공하거나 적절한 조치를 취할 수 있음
       if (error.response) {
         // 응답이 도착했지만 응답 상태가 에러인 경우 (e.g. 4xx, 5xx)

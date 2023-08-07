@@ -3,6 +3,11 @@ from rest_framework.status import HTTP_204_NO_CONTENT
 from rest_framework.response import Response
 from .models import Youtube_Video
 from .serializers import Youtube_VideoSerializer
+from rest_framework.status import (
+    HTTP_201_CREATED,
+    HTTP_400_BAD_REQUEST,
+    HTTP_500_INTERNAL_SERVER_ERROR,
+)
 
 
 class Youtube_Videos(APIView):
@@ -12,12 +17,15 @@ class Youtube_Videos(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = Youtube_VideoSerializer(data=request.data)
-        if serializer.is_valid():
-            content = serializer.save()
-            return Response(Youtube_VideoSerializer(content).data)
-        else:
-            return Response(serializer.errors)
+        try:
+            serializer = Youtube_VideoSerializer(data=request.data)
+            if serializer.is_valid():
+                content = serializer.save()
+                return Response(Youtube_VideoSerializer(content).data, status=HTTP_201_CREATED)
+            else:
+                return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': str(e)}, status=HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class Youtube_VideoDetail(APIView):

@@ -11,9 +11,11 @@ const AlertModal = ({ isOpen, onClose, message }) => {
       overlayClassName={styles['modal-overlay']}
     >
       <div className={styles['modal-body']}>
-        <h2>알림</h2>
+        <h2>⚠️알림⚠️</h2>
         <p>{message}</p>
-        <button onClick={onClose}>확인</button>
+        <div className={styles['modal-button-container']}>
+          <button onClick={onClose}>확인</button>
+        </div>
       </div>
     </Modal>
   );

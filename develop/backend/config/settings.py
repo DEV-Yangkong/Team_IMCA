@@ -46,6 +46,7 @@ THIRDPARTY_APPS = [
     "apis.apps.ApisConfig",
     "reports.apps.ReportsConfig",
     "boards.apps.BoardsConfig",
+    'drf_yasg',
 ]
 
 DEFAULT_APPS = [
@@ -76,6 +77,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
 SIMPLE_JWT = {

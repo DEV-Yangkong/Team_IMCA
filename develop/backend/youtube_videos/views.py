@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Youtube_Video
 from .serializers import Youtube_VideoSerializer
 from rest_framework.status import (
+    HTTP_200_OK,
     HTTP_201_CREATED,
     HTTP_400_BAD_REQUEST,
     HTTP_500_INTERNAL_SERVER_ERROR,
@@ -23,7 +24,8 @@ class Youtube_Videos(APIView):
             if serializer.is_valid():
                 content = serializer.save()
                 return Response(
-                    Youtube_VideoSerializer(content).data, status=HTTP_201_CREATED
+                    Youtube_VideoSerializer(
+                        content).data, status=HTTP_201_CREATED
                 )
             else:
                 return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
@@ -42,7 +44,8 @@ class Youtube_VideoDetail(APIView):
         youtube_video = self.get_object(pk)
         # youtube_video.views_count += 1  # Increase the views_count
         # youtube_video.save()  # Save the changes to the database
-        Youtube_Video.objects.filter(pk=pk).update(views_count=F("views_count") + 1)
+        Youtube_Video.objects.filter(pk=pk).update(
+            views_count=F("views_count") + 1)
         serializer = Youtube_VideoSerializer(youtube_video)
         return Response(serializer.data)
 
@@ -58,7 +61,6 @@ class Youtube_VideoDetail(APIView):
         youtube_video = self.get_object(pk)
         youtube_video.delete()
         return Response(status=HTTP_404_NOT_FOUND)
-
 
 # class CountResult(APIView):
 #     def get(self, request):

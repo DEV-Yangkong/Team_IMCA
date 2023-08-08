@@ -64,7 +64,7 @@ const YouTubeDetail = () => {
             {formatDate(selectedPost.created_at)}
           </span>
           <span className={styles['post-views']}>
-            {selectedPost.views} 조회수
+            조회수 {selectedPost.views_count}
           </span>
         </div>
         <div className={styles['video-content-container']}>

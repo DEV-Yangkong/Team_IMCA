@@ -1,17 +1,21 @@
-import './CurCalendar.css';
+import styles from './CurCalendar.module.css';
 
 const CurCalendar = ({ title, startDate, endDate, place, img }) => {
   return (
-    <div className="current_contents">
-      <div className="current_contents_item">
-        <div className="cur_content_info">
-          <div className="cur_content info_title">{title}</div>
-          <div className="cur_content info_period">
+    <div className={styles.current_contents}>
+      <div className={styles.current_contents_item}>
+        <div className={styles.cur_content_info}>
+          <div className={`${styles.cur_content} ${styles.info_title}`}>
+            {title}
+          </div>
+          <div className={`${styles.cur_content} ${styles.info_period}`}>
             {startDate} - {endDate}
           </div>
-          <div className="cur_content info_place">{place}</div>
+          <div className={`${styles.cur_content} ${styles.info_place}`}>
+            {place}
+          </div>
         </div>
-        <div className="cur_content_img">
+        <div className={styles.cur_content_img}>
           <img style={{ width: '100%', height: '90px' }} alt="" src={img} />
         </div>
       </div>

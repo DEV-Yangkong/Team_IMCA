@@ -8,6 +8,8 @@ import Ranking from '../../components/MainPage/Ranking';
 import CurCalendar from '../../components/MainPage/CurCalendar';
 import axios from 'axios';
 import { xml2js } from 'xml-js';
+// import Calendar from '@toast-ui/calendar';
+
 const dummyDateList = [
   {
     start: '2023-08-05',
@@ -35,15 +37,15 @@ const Main = () => {
     place: '',
     img: '',
   });
-  const getTileContent = ({ date }) => {
-    const dateString = dayjs(date).format('YYYY-MM-DD'); // 'YYYY-MM-DD' 형태로 변환
-    for (const { start, end } of dummyDateList) {
-      if (dateString >= start && dateString <= end) {
-        return <div className="date-range"></div>;
-      }
-    }
-    return null;
-  }; // 기간을 계산하여 커스텀컨텐츠 생성
+  // const getTileContent = ({ date }) => {
+  //   const dateString = dayjs(date).format('YYYY-MM-DD'); // 'YYYY-MM-DD' 형태로 변환
+  //   for (const { start, end } of dummyDateList) {
+  //     if (dateString >= start && dateString <= end) {
+  //       return <div className={styles.date - range}></div>;
+  //     }
+  //   }
+  //   return null;
+  // }; // 기간을 계산하여 커스텀컨텐츠 생성
 
   // const mark = ['2023-08-12', '2023-08-20', '2023-08-25'];
 
@@ -178,6 +180,36 @@ const Main = () => {
       })
       .catch((error) => console.log('err', error));
   }, []);
+
+  // const container = document.getElementById('calendar'); //캘린더 요소  지정
+  // const options = {  // 캘린더 옵션 정보
+  //   defaultView: 'week',
+  //   timezone: {
+  //     zones: [
+  //       {
+  //         timezoneName: 'Asia/Seoul',
+  //         displayLabel: 'Seoul',
+  //       },
+  //     ],
+  //   },
+  //   calendars: [
+  //     {
+  //       id: 'cal1',
+  //       name: '개인',
+  //       backgroundColor: '#03bd9e',
+  //     },
+  //     {
+  //       id: 'cal2',
+  //       name: '직장',
+  //       backgroundColor: '#00a9ff',
+  //     },
+  //   ],
+  // };
+
+  // const calendar = new Calendar(container, options);
+  // useEffect(() => {
+  //   calendar.render();
+  // });
   return (
     <div className="Main">
       <section className="mini_calendar">

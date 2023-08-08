@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import MusicalList from '../../components/ConcertPage/MusicalList';
-import './MusicalPage.css';
+import styles from './MusicalPage.module.css';
 const MusicalPage = () => {
   const [musicalArray, setMusicalArray] = useState([]);
   const callApi = async () => {
@@ -16,7 +16,7 @@ const MusicalPage = () => {
   }, []);
   return (
     <div>
-      <div className="list_container">
+      <div className={styles.list_container}>
         {musicalArray.map((it) => (
           <MusicalList
             title={it.prfnm._text}

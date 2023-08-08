@@ -27,17 +27,9 @@ const YouTubeDetail = () => {
 
   // 날짜를 원하는 형식으로 변환하는 함수
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-
     const isoDateString = dateString; // 예: '2023-08-08T11:59:01.894580+09:00'
     const formattedDateString = isoDateString.split('T')[0]; // '2023-08-08'
-    const date = new Date(formattedDateString);
-
-    if (isNaN(date)) {
-      return 'Invalid Date';
-    }
-
-    return date.toLocaleDateString('ko-KR', options); // 한국식 날짜 형식인 'ko-KR'로 변경
+    return formattedDateString.replace(/\./g, '-'); // '.'을 '-'로 변경
   };
 
   useEffect(() => {

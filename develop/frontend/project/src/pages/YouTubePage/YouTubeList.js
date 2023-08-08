@@ -55,9 +55,9 @@ const YouTubeList = () => {
   };
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', options);
+    const isoDateString = dateString; // 예: '2023-08-08T11:59:01.894580+09:00'
+    const formattedDateString = isoDateString.split('T')[0]; // '2023-08-08'
+    return formattedDateString.replace(/\./g, '-'); // '.'을 '-'로 변경
   };
 
   const filteredPosts = youtubePosts.filter(

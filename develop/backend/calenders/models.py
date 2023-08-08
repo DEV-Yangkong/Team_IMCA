@@ -5,8 +5,8 @@ from users.models import User
 class PrivateCalender(models.Model):
     start_date = models.DateTimeField(null=False, blank=False)
     end_date = models.DateTimeField(null=False, blank=False)
-    poster = models.URLField(nul=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    poster = models.URLField(null=True, blank=True)
+    owner = models.OneToOneField("users.User", on_delete=models.CASCADE)
     place = models.CharField(max_length=15)
     state = models.CharField(max_length=7)
     genre = models.CharField(max_length=7)

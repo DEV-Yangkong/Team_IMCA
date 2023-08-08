@@ -6,7 +6,6 @@ import styles from './YouTubeDetail.module.css';
 const YouTubeDetail = () => {
   const { postId } = useParams();
   const [selectedPost, setSelectedPost] = useState(null);
-  const [embedCode, setEmbedCode] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // 임베드 코드 생성 함수를 함수 외부로 이동
@@ -24,6 +23,21 @@ const YouTubeDetail = () => {
         height="500"
       ></iframe>
     );
+  };
+
+  // 날짜를 원하는 형식으로 변환하는 함수
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+    const isoDateString = dateString; // 예: '2023-08-08T11:59:01.894580+09:00'
+    const formattedDateString = isoDateString.split('T')[0]; // '2023-08-08'
+    const date = new Date(formattedDateString);
+
+    if (isNaN(date)) {
+      return 'Invalid Date';
+    }
+
+    return date.toLocaleDateString('ko-KR', options); // 한국식 날짜 형식인 'ko-KR'로 변경
   };
 
   useEffect(() => {
@@ -56,9 +70,11 @@ const YouTubeDetail = () => {
       <div className={styles['youtube-detail']}>
         <h2>{selectedPost.title}</h2>
         <div className={styles['post-info']}>
-          <span className={styles['post-date']}>{selectedPost.date}</span>
+          <span className={styles['post-date']}>
+            {formatDate(selectedPost.created_at)}
+          </span>
           <span className={styles['post-views']}>
-            {selectedPost.views} views
+            {selectedPost.views} 조회수
           </span>
         </div>
         <div className={styles['video-container']}>{embedCode}</div>

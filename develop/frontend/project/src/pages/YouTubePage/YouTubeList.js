@@ -54,6 +54,12 @@ const YouTubeList = () => {
     });
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ko-KR', options);
+  };
+
   const filteredPosts = youtubePosts.filter(
     (post) =>
       searchTerm === '' ||
@@ -100,7 +106,9 @@ const YouTubeList = () => {
                 <div className={styles['post-title']}>{post.title}</div>
               </Link>
               <div className={styles['post-info']}>
-                <span className={styles['post-date']}>{post.created_at}</span>
+                <span className={styles['post-date']}>
+                  {formatDate(post.created_at)}
+                </span>
                 <span className={styles['post-views']}>
                   조회수 {post.views}
                 </span>

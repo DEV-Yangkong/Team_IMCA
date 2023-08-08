@@ -8,10 +8,6 @@ import TeamIntroduction from './pages/TeamIntroduction/TeamIntroduction';
 import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
 import WritePost from './pages/YouTubePage/WritePost';
-import Login from './pages/LoginPage/Login';
-import SignUp from './pages/SignUpPage/SignUp';
-import MyPage from './pages/Mypage/MyPage';
-import MyCalender from './pages/MyCalendarPage/MyCalendar'
 import React, { useState } from 'react';
 
 const App = () => {
@@ -39,10 +35,6 @@ const App = () => {
               path="/youtube/:postId"
               element={<YouTubeDetail youtubePosts={youtubePosts} />}
             />
-            <Route path="/myCalender" element={<MyCalender />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/mypage" element={<MyPage />} />
           </Routes>
         </div>
       </div>

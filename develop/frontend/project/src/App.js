@@ -9,6 +9,8 @@ import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
 import WritePost from './pages/YouTubePage/WritePost';
 import React, { useState } from 'react';
+// 민정 추가 파일👇🏻 오류해결필요
+import Login from './pages/LoginPage/Login';
 
 const App = () => {
   // YouTube 포스트 데이터
@@ -26,20 +28,17 @@ const App = () => {
             <Route path="/concert_act" element={<Act />} />
             <Route path="/concert_musical" element={<MusicalPage />} />
             <Route path="/team-introduction" element={<TeamIntroduction />} />
-            <Route path="/" element={<YouTubeList />} />
-            <Route path="/youtube" element={<YouTubeList />} />
             <Route
-              exact
-              path="/"
-              render={() => <YouTubeList youtubePosts={youtubePosts} />}
-            />
-            <Route
-              path="/youtube/:postId"
-              render={(props) => (
-                <YouTubeDetail {...props} youtubePosts={youtubePosts} />
-              )}
+              path="/youtube"
+              element={<YouTubeList youtubePosts={youtubePosts} />}
             />
             <Route path="/write" element={<WritePost />} />
+            <Route
+              path="/youtube/:postId"
+              element={<YouTubeDetail youtubePosts={youtubePosts} />}
+            />
+            {/* 민정 추가 파일👇🏻 오류해결필요 */}
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>

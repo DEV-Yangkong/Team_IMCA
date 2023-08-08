@@ -25,7 +25,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
-API_KEY = env("API_KEY")
+# API_KEY = env("API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,6 +82,7 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "BLACKLIST_AFTER_ROTATION": False,
+    "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
 }
 
 ROOT_URLCONF = "config.urls"
@@ -159,11 +160,8 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3080",
+    "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
 
-AUTHENTICATION_BACKENDS = [
-    "users.custom_auth.CustomBackend",
-    "django.contrib.auth.backends.ModelBackend",
-]
+CORS_ALLOW_CREDENTIALS = True

@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from .models import Youtube_Video
 from .serializers import Youtube_VideoSerializer
 from rest_framework.status import (
-    HTTP_200_OK,
     HTTP_201_CREATED,
+    HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
     HTTP_500_INTERNAL_SERVER_ERROR,
 )
@@ -60,7 +60,8 @@ class Youtube_VideoDetail(APIView):
     def delete(self, request, pk):
         youtube_video = self.get_object(pk)
         youtube_video.delete()
-        return Response(status=HTTP_404_NOT_FOUND)
+        return Response(status=HTTP_204_NO_CONTENT)
+
 
 # class CountResult(APIView):
 #     def get(self, request):

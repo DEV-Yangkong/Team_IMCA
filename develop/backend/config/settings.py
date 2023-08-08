@@ -48,7 +48,6 @@ THIRDPARTY_APPS = [
     "corsheaders",
     "apis.apps.ApisConfig",
     "reports.apps.ReportsConfig",
-    "boards.apps.BoardsConfig",
     "drf_yasg",
 ]
 

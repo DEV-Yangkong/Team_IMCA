@@ -25,7 +25,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
-# API_KEY = env("API_KEY")
+API_KEY = env("API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -46,6 +46,10 @@ THIRDPARTY_APPS = [
     "reviews.apps.ReviewsConfig",
     "reviews_reviews.apps.ReviewsReviewsConfig",
     "corsheaders",
+    "apis.apps.ApisConfig",
+    "reports.apps.ReportsConfig",
+    "boards.apps.BoardsConfig",
+    "drf_yasg",
 ]
 
 DEFAULT_APPS = [
@@ -76,6 +80,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
 
 SIMPLE_JWT = {
@@ -162,6 +167,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
 ]
 
 CORS_ALLOW_CREDENTIALS = True

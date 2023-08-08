@@ -141,6 +141,9 @@
   background-color: rgb(252, 213, 141);
 }
 
+.big_calendar_container {
+  margin-top: 30px;
+}
 .big_calendar_container .react-calendar__month-view__weekdays__weekday {
   font-size: 20px;
   font-weight: 500;
@@ -180,6 +183,7 @@
   width: 432px;
   height: 380px;
   border: 1px solid black;
+  overflow-y: scroll;
 }
 .current_calendar_header {
   display: flex;
@@ -200,4 +204,11 @@
   font-size: 12px;
   font-family: 'Roboto Condensed', sans-serif;
   cursor: pointer;
+}
+.big_calendar_container .react-calendar__navigation__label > span {
+  padding: 10px;
+  border-radius: 15px;
+  background-color: rgba(5, 182, 49, 0.8);
+  color: white;
+  font-size: 20px;
 }

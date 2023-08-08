@@ -8,8 +8,14 @@ import Ranking from '../../components/MainPage/Ranking';
 import CurCalendar from '../../components/MainPage/CurCalendar';
 import axios from 'axios';
 import { xml2js } from 'xml-js';
-// import Calendar from '@toast-ui/calendar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCircleChevronRight } from '@fortawesome/free-regular-svg-icons'; // import Calendar from '@toast-ui/calendar';
+import {
+  faCircleChevronLeft,
+  faCircleChevronRight,
+} from '@fortawesome/free-solid-svg-icons'; // import Calendar from '@toast-ui/calendar';
 
+import { far } from '@fortawesome/free-regular-svg-icons';
 const dummyDateList = [
   {
     start: '2023-08-05',
@@ -24,7 +30,9 @@ const dummyDateList = [
     end: '2023-08-10',
   },
 ];
-
+const customPrevIcon = () => {
+  return <span className="custom-prev-icon">ㅇ</span>;
+};
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [data, setData] = useState([]);
@@ -269,6 +277,20 @@ const Main = () => {
             tileContent={mainTileContent}
             next2Label={null}
             prev2Label={null}
+            nextLabel={
+              <FontAwesomeIcon
+                size="2xl"
+                icon={faCircleChevronRight}
+                style={{ color: 'rgba(5, 182, 49, 0.8)' }}
+              />
+            }
+            prevLabel={
+              <FontAwesomeIcon
+                size="2xl"
+                icon={faCircleChevronLeft}
+                style={{ color: 'rgba(5, 182, 49, 0.8)' }}
+              />
+            }
           />
         </div>
       </section>

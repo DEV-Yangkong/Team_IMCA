@@ -92,6 +92,12 @@ const YouTubeDetail = () => {
         <button className={styles['delete-button']} onClick={handleDelete}>
           삭제
         </button>
+        <button
+          className={styles['list-button']}
+          onClick={() => navigate('../youtube')}
+        >
+          목록
+        </button>
       </div>
       {isDeleteModalVisible && (
         <AlertModal

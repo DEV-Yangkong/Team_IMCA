@@ -2,16 +2,18 @@
   max-width: 800px;
   margin: 50px auto;
   padding: 20px;
-  text-align: center;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .youtube-detail h2 {
   font-size: 28px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   color: #333;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 1.5px;
+  font-weight: 500;
 }
 
 .video-content-container {
@@ -44,15 +46,18 @@
   line-height: 1.6;
   color: #444;
   margin: 20px 0;
-  text-align: left;
+  text-align: justify;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .post-info {
   font-size: 14px;
   color: #777;
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.post-info span {
-  margin-right: 10px;
+.post-views {
+  margin-left: 10px;
 }

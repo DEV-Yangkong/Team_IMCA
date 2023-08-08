@@ -74,19 +74,27 @@ const WritePost = () => {
       }
     } catch (error) {
       // API 요청이 실패한 경우 처리
-      console.error('API request error:', error);
-      console.error('작성에 실패하였습니다.');
+      console.error('에러의 원인을 추적합니다');
       // 에러 상태에 따라 사용자에게 알림을 제공하거나 적절한 조치를 취할 수 있음
-      if (error.response) {
+      if (error.response.data.thumbnail_url) {
+        console.error('영상의 URL이 유효하지 않습니다.');
+        setModalMessage(
+          '작성에 실패하였습니다. 영상의 URL이 유효하지 않습니다.',
+        );
+      } else if (error.response) {
         // 응답이 도착했지만 응답 상태가 에러인 경우 (e.g. 4xx, 5xx)
         console.error('API response error:', error.response.data);
+        setModalMessage('작성에 실패하였습니다. 응답 에러');
       } else if (error.request) {
         // 응답이 도착하지 않은 경우 (e.g. 네트워크 오류)
         console.error('No API response:', error.request);
+        setModalMessage('작성에 실패하였습니다. 네트워크 오류');
       } else {
         // 그 외의 에러 (e.g. 코드 실행 중 예외 발생)
         console.error('Other error:', error.message);
+        setModalMessage('작성에 실패하였습니다.');
       }
+      setModalIsOpen(true);
     }
   };
 

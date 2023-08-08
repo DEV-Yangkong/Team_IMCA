@@ -54,6 +54,12 @@ const YouTubeList = () => {
     });
   };
 
+  const formatDate = (dateString) => {
+    const isoDateString = dateString; // 예: '2023-08-08T11:59:01.894580+09:00'
+    const formattedDateString = isoDateString.split('T')[0]; // '2023-08-08'
+    return formattedDateString.replace(/\./g, '-'); // '.'을 '-'로 변경
+  };
+
   const filteredPosts = youtubePosts.filter(
     (post) =>
       searchTerm === '' ||
@@ -100,7 +106,9 @@ const YouTubeList = () => {
                 <div className={styles['post-title']}>{post.title}</div>
               </Link>
               <div className={styles['post-info']}>
-                <span className={styles['post-date']}>{post.created_at}</span>
+                <span className={styles['post-date']}>
+                  {formatDate(post.created_at)}
+                </span>
                 <span className={styles['post-views']}>
                   조회수 {post.views}
                 </span>

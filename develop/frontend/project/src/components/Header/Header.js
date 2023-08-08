@@ -41,7 +41,11 @@ const Header = () => {
                 <li onClick={() => navigate('/youtube')}>YouTube</li>
               </ul>
             </div>
-            <div className={styles.nav_item}>내 캘린더</div>
+            <div className="nav_item">내 캘린더</div>
+            {/* 민정 추가 파일👇🏻 오류해결필요 */}
+            <div className="nav_item" onClick={() => navigate('/login')}>
+              로그인
+            </div>
           </div>
         </div>
       </div>

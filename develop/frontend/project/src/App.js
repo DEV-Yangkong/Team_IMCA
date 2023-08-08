@@ -9,6 +9,8 @@ import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
 import WritePost from './pages/YouTubePage/WritePost';
 import React, { useState } from 'react';
+// 민정 추가 파일👇🏻 오류해결필요
+import Login from './pages/LoginPage/Login';
 
 const App = () => {
   // YouTube 포스트 데이터
@@ -35,6 +37,8 @@ const App = () => {
               path="/youtube/:postId"
               element={<YouTubeDetail youtubePosts={youtubePosts} />}
             />
+            {/* 민정 추가 파일👇🏻 오류해결필요 */}
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>

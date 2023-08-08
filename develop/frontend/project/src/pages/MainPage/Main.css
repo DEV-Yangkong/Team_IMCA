@@ -119,7 +119,7 @@
   padding: 1em 0 1em 0;
   border-top: 0.5px solid black;
   /* height: 100px; */
-  border-left: 0.5px solid black;
+
   /* border-right: 0.5px solid black; */
 }
 .date_contents_container {
@@ -140,9 +140,15 @@
 .date_contents_act {
   background-color: rgb(252, 213, 141);
 }
+
 .big_calendar_container .react-calendar__month-view__weekdays__weekday {
   font-size: 20px;
   font-weight: 500;
+  text-align: left;
+  padding: 16px 0;
+}
+.big_calendar_container .react-calendar__tile {
+  text-align: left;
 }
 /* 당장 클릭한 날짜에 대한 css */
 .big_calendar_container .react-calendar__tile:enabled:hover,

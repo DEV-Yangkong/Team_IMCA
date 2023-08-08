@@ -9,7 +9,7 @@ class Youtube_Video(CommonModel):
     content = models.TextField()
     video_url = models.URLField()
     thumbnail_url = models.URLField()
-    views_count = models.PositiveIntegerField(default=0)
+    views_count = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.title

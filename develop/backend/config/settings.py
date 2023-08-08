@@ -42,6 +42,9 @@ THIRDPARTY_APPS = [
     "calenders.apps.CalendersConfig",
     "common.apps.CommonConfig",
     "youtube_videos.apps.YoutubeVideosConfig",
+    "community_boards.apps.CommunityBoardsConfig",
+    "reviews.apps.ReviewsConfig",
+    "reviews_reviews.apps.ReviewsReviewsConfig",
     "corsheaders",
 ]
 

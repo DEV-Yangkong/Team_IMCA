@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import Ranking from '../../components/MainPage/Ranking';
 import CurCalendar from '../../components/MainPage/CurCalendar';
 import axios from 'axios';
+import { xml2js } from 'xml-js';
 const dummyDateList = [
   {
     start: '2023-08-05',
@@ -75,15 +76,15 @@ const Main = () => {
   const mark = ['2023-08-12', '2023-08-20', '2023-08-25'];
   const mark2 = ['2023-08-12', '2023-08-15', '2023-08-16', '2023-08-17'];
 
-  const callApi = async () => {
-    axios.get('http://localhost:5000/api').then((res) => {
-      console.log(res.data.dbs.db);
-      setMusicalArray(res.data.dbs.db);
-    });
-  };
-  useEffect(() => {
-    callApi();
-  }, []);
+  // const callApi = async () => {
+  //   axios.get('http://localhost:5000/api').then((res) => {
+  //     console.log(res.data.dbs.db);
+  //     setMusicalArray(res.data.dbs.db);
+  //   });
+  // };
+  // useEffect(() => {
+  //   callApi();
+  // }, []);
   const dateStr = dayjs(date).format('YYYY.MM.DD');
   useEffect(() => {
     const curDayFunc = () => {
@@ -158,6 +159,25 @@ const Main = () => {
   // useEffect(() => {
   //   axios.get(url).then((res) => res.data);
   // }, []);
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/API/public', {
+        params: {
+          cpage: 1,
+          rows: 5,
+          shcate: 'GGGA',
+          prfstate: '01',
+        },
+      })
+      .then((res) => {
+        // console.log(res.data);
+        const options = { compact: true, spaces: 2 };
+        const result = xml2js(res.data, options);
+        console.log(result);
+        setMusicalArray(result.dbs.db);
+      })
+      .catch((error) => console.log('err', error));
+  }, []);
   return (
     <div className="Main">
       <section className="mini_calendar">

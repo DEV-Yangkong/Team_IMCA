@@ -19,8 +19,6 @@ const YouTubeDetail = () => {
         title={selectedPost.title}
         frameBorder="0"
         allowFullScreen
-        width="100%"
-        height="500"
       ></iframe>
     );
   };
@@ -69,9 +67,11 @@ const YouTubeDetail = () => {
             {selectedPost.views} 조회수
           </span>
         </div>
-        <div className={styles['video-container']}>{embedCode}</div>
-        <div className={styles['post-content']}>
-          <p>{selectedPost.content}</p>
+        <div className={styles['video-content-container']}>
+          <div className={styles['video-container']}>{embedCode}</div>
+          <div className={styles['post-content']}>
+            <p>{selectedPost.content}</p>
+          </div>
         </div>
       </div>
     );

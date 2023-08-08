@@ -1,6 +1,6 @@
 .youtube-detail {
   max-width: 800px;
-  margin: 50px auto; /* 추가: 전체 요소에 마진 탑 적용 */
+  margin: 50px auto;
   padding: 20px;
   text-align: center;
   background-color: #f9f9f9;
@@ -14,13 +14,28 @@
   color: #333;
 }
 
-.video-container {
+.video-content-container {
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.video-container iframe {
+.video-container {
   width: 100%;
-  height: 400px;
+  padding-bottom: 56.25%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.video-frame {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: none;
   border-radius: 10px;
 }
 

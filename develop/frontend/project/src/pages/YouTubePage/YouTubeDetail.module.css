@@ -66,3 +66,26 @@
   color: #999;
   font-size: 14px;
 }
+
+.delete-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.delete-button {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #134f2c;
+  color: white;
+}

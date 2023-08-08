@@ -1,13 +1,13 @@
-import './Ranking.css';
+import styles from './Ranking.module.css';
 
 const Ranking = ({ title }) => {
   return (
-    <div className="Ranking">
-      <div className="act_ranking_title">
+    <div className={styles.Ranking}>
+      <div className={styles.act_ranking_title}>
         <div style={{ fontSize: '20px', color: '#134f2c', fontWeight: 'bold' }}>
           {title}
         </div>
-        <div className="act_ranking_line">
+        <div className={styles.act_ranking_line}>
           <div
             style={{
               border: '0.5px solid black',
@@ -18,11 +18,11 @@ const Ranking = ({ title }) => {
         </div>
       </div>
 
-      <div className="act_ranking_container">
-        <div className="act_ranking_wrapper">
-          <div className="act_ranking_item"></div>
-          <div className="act_ranking_item"></div>
-          <div className="act_ranking_item"></div>
+      <div className={styles.act_ranking_container}>
+        <div className={styles.act_ranking_wrapper}>
+          <div className={styles.act_ranking_item}></div>
+          <div className={styles.act_ranking_item}></div>
+          <div className={styles.act_ranking_item}></div>
         </div>
       </div>
     </div>

@@ -35,15 +35,15 @@ const Main = () => {
     place: '',
     img: '',
   });
-  const getTileContent = ({ date }) => {
-    const dateString = dayjs(date).format('YYYY-MM-DD'); // 'YYYY-MM-DD' 형태로 변환
-    for (const { start, end } of dummyDateList) {
-      if (dateString >= start && dateString <= end) {
-        return <div className="date-range"></div>;
-      }
-    }
-    return null;
-  }; // 기간을 계산하여 커스텀컨텐츠 생성
+  // const getTileContent = ({ date }) => {
+  //   const dateString = dayjs(date).format('YYYY-MM-DD'); // 'YYYY-MM-DD' 형태로 변환
+  //   for (const { start, end } of dummyDateList) {
+  //     if (dateString >= start && dateString <= end) {
+  //       return <div className={styles.date - range}></div>;
+  //     }
+  //   }
+  //   return null;
+  // }; // 기간을 계산하여 커스텀컨텐츠 생성
 
   // const mark = ['2023-08-12', '2023-08-20', '2023-08-25'];
 

@@ -5,6 +5,7 @@
   width: 432px;
   height: 380px;
   border: 1px solid black;
+  overflow-y: scroll;
 }
 .current_calendar_header {
   display: flex;
@@ -36,6 +37,6 @@
   padding-right: 10px;
 }
 .cur_content_info {
-  font-size: 18px;
+  font-size: 16px;
   font-family: 'Roboto Condensed', sans-serif;
 }

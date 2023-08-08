@@ -42,7 +42,7 @@ class BoxOfficeAPI(APIView):
             "service": API_KEY,
             "area": "11",
             "ststype": "week",
-            "catecode": request.GET["catecode"],
+            "catecode": request.GET["catecode"], # 장르 구분 코드
             "date": str(self.get_time().date().year)
             + str(self.get_time().date().month).zfill(2)
             + str(self.get_time().date().day),

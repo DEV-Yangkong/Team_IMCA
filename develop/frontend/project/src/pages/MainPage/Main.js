@@ -28,6 +28,8 @@ const Main = () => {
   const [data, setData] = useState([]);
   const [curDate, setCurDate] = useState(false);
   const [musicalArray, setMusicalArray] = useState([]);
+  const [boxOfMusical, setBoxOfMusical] = useState([]);
+  const [boxOfAct, setBoxOfAct] = useState([]);
   const [curDayList, setCurDayList] = useState({
     startDate: '',
     endDate: '',
@@ -164,9 +166,11 @@ const Main = () => {
       .get('http://localhost:8000/API/public', {
         params: {
           cpage: 1,
-          rows: 5,
+          rows: 30,
           shcate: 'GGGA',
           prfstate: '01',
+          prfpdfrom: '20230801',
+          prfpdto: '20230831',
         },
       })
       .then((res) => {
@@ -177,6 +181,34 @@ const Main = () => {
         setMusicalArray(result.dbs.db);
       })
       .catch((error) => console.log('err', error));
+  }, []);
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/API/boxoffice', {
+        params: {
+          catecode: 'GGGA',
+        },
+      })
+      .then((res) => {
+        const options = { compact: true, spaces: 2 };
+        const result = xml2js(res.data, options);
+        console.log('boxofficeM', result);
+        setBoxOfMusical(result.boxofs.boxof.slice(0, 5));
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/API/boxoffice', {
+        params: {
+          catecode: 'AAAA',
+        },
+      })
+      .then((res) => {
+        const options = { compact: true, spaces: 2 };
+        const result = xml2js(res.data, options);
+        console.log('boxofficeA', result);
+        setBoxOfAct(result.boxofs.boxof.slice(0, 5));
+      });
   }, []);
   return (
     <div className="Main">
@@ -221,8 +253,8 @@ const Main = () => {
         </div>
       </section>
       <section className="ranking">
-        <Ranking title="연극" />
-        <Ranking title="뮤지컬" />
+        <Ranking title="연극" boxOfArray={boxOfAct} />
+        <Ranking title="뮤지컬" boxOfArray={boxOfMusical} />
       </section>
       <section>
         <div className="big_calendar_container">

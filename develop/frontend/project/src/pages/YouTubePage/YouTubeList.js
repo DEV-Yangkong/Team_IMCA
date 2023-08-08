@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './YouTubeList.css';
+import styles from './YouTubeList.module.css';
 import 'font-awesome/css/font-awesome.min.css';
 
 const YouTubeList = () => {
@@ -68,54 +68,59 @@ const YouTubeList = () => {
   const postsToShow = reversedFilteredPosts.slice(startIndex, endIndex);
 
   return (
-    <div className="youtube-list">
+    <div className={styles['youtube-list']}>
       <h1>YouTube</h1>
-      <div className="search-bar">
+      <div className={styles['search-bar']}>
         <input
           type="text"
           placeholder="제목 검색"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <span className="search-icon">
+        <span className={styles['search-icon']}>
           <i className="fa fa-search"></i>
         </span>
       </div>
       {searchTerm && (
-        <div className="search-result">
+        <div className={styles['search-result']}>
           <p>검색 결과: "{searchTerm}"</p>
         </div>
       )}
       {filteredPosts.length === 0 && searchTerm !== '' ? (
-        <div className="no-results">검색 결과가 없습니다.</div>
+        <div className={styles['no-results']}>검색 결과가 없습니다.</div>
       ) : (
-        <div className="post-list">
+        <div className={styles['post-list']}>
           {postsToShow.map((post) => (
-            <div className="post-item" key={post.id}>
-              <Link to={`/youtube/${post.id}`} className="post-title-link">
+            <div className={styles['post-item']} key={post.id}>
+              <Link
+                to={`/youtube/${post.id}`}
+                className={styles['post-title-link']}
+              >
                 <img src={post.thumbnail_url} alt={post.title} />
-                <div className="post-title">{post.title}</div>
+                <div className={styles['post-title']}>{post.title}</div>
               </Link>
-              <div className="post-info">
-                <span className="post-date">{post.created_at}</span>
-                <span className="post-views">조회수 {post.views}</span>
+              <div className={styles['post-info']}>
+                <span className={styles['post-date']}>{post.created_at}</span>
+                <span className={styles['post-views']}>
+                  조회수 {post.views}
+                </span>
               </div>
             </div>
           ))}
         </div>
       )}
       {scrollButtonVisible && (
-        <button className="top-button" onClick={scrollToTop}>
+        <button className={styles['top-button']} onClick={scrollToTop}>
           TOP
         </button>
       )}
       {totalPageCount > 1 && (
-        <div className="page-navigation">
+        <div className={styles['page-navigation']}>
           {Array.from({ length: totalPageCount }, (_, i) => i + 1).map(
             (page) => (
               <button
                 key={page}
-                className={page === currentPage ? 'active' : ''}
+                className={page === currentPage ? styles['active'] : ''}
                 onClick={() => handlePageChange(page)}
               >
                 {page}
@@ -124,8 +129,8 @@ const YouTubeList = () => {
           )}
         </div>
       )}
-      <div className="write-button-container">
-        <Link to="/write" className="write-button">
+      <div className={styles['write-button-container']}>
+        <Link to="/write" className={styles['write-button']}>
           UPLOAD
         </Link>
       </div>

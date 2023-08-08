@@ -85,7 +85,7 @@ const YouTubeList = () => {
             if (post.id === videoId) {
               return {
                 ...post,
-                views: post.views + 1, // 조회수 증가
+                views_count: post.views_count + 1, // 조회수 증가
               };
             }
             return post;
@@ -125,6 +125,7 @@ const YouTubeList = () => {
               <Link
                 to={`/youtube/${post.id}`}
                 className={styles['post-title-link']}
+                onClick={() => handleViewCountClick(post.id)}
               >
                 <img src={post.thumbnail_url} alt={post.title} />
                 <div className={styles['post-title']}>{post.title}</div>

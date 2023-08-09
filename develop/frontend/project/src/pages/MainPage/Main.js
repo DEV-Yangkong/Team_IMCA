@@ -16,23 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'; // import Calendar from '@toast-ui/calendar';
 
 import { far } from '@fortawesome/free-regular-svg-icons';
-const dummyDateList = [
-  {
-    start: '2023-08-05',
-    end: '2023-08-10',
-  },
-  {
-    start: '2023-08-02',
-    end: '2023-08-10',
-  },
-  {
-    start: '2023-08-05',
-    end: '2023-08-10',
-  },
-];
-const customPrevIcon = () => {
-  return <span className="custom-prev-icon">ㅇ</span>;
-};
+
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [data, setData] = useState([]);
@@ -40,13 +24,7 @@ const Main = () => {
   const [musicalArray, setMusicalArray] = useState([]);
   const [boxOfMusical, setBoxOfMusical] = useState([]);
   const [boxOfAct, setBoxOfAct] = useState([]);
-  const [curDayList, setCurDayList] = useState({
-    startDate: '',
-    endDate: '',
-    title: '',
-    place: '',
-    img: '',
-  });
+  const [curDayList, setCurDayList] = useState([]);
   // const getTileContent = ({ date }) => {
   //   const dateString = dayjs(date).format('YYYY-MM-DD'); // 'YYYY-MM-DD' 형태로 변환
   //   for (const { start, end } of dummyDateList) {
@@ -97,34 +75,65 @@ const Main = () => {
   // useEffect(() => {
   //   callApi();
   // }, []);
-  const dateStr = dayjs(date).format('YYYY.MM.DD');
+  const dateStr = dayjs(date).format('YYYY-MM-DD');
+  // useEffect(() => {
+  //   const curDayFunc = () => {
+  //     console.log(dateStr);
+  //     musicalArray.map((it) => {
+  //       console.log(it.prfpdfrom._text);
+  //       if (it.prfpdfrom._text <= dateStr && dateStr <= it.prfpdto._text) {
+  //         // setCurDayList({
+  //         //   startDate: it.prfpdfrom._text,
+  //         //   endDate: it.prfpdto._text,
+  //         //   title: it.prfnm._text,
+  //         //   place: it.fcltynm._text,
+  //         //   img: it.poster._text,
+  //         // });
+  //         setCurDayList([it.prfpdfrom._text, ...curDayList]);
+  //       }
+  //       console.log(curDayList);
+  //     }); // for문 돌리던지 , ...스프레드 써서 어떻게 해보자 curDayList라는 배열 안에 객체가 여러개 생성되도록
+  //   };
+  //   curDayFunc();
+  // }, []);
+  // useEffect(() => {
+  //   const curDayFunc = () => {
+  //     const newCurDayList = musicalArray.reduce((accumulator, it) => {
+  //       const formattedStartDate = it.prfpdfrom._text.split('.').join('');
+  //       const formattedEndDate = it.prfpdto._text.split('.').join('');
+  //       const formattedDateStr = dateStr.split('-').join('');
+  //       console.log('start date', formattedStartDate);
+  //       console.log('end date', formattedEndDate);
+  //       console.log('dateStr', formattedDateStr);
+  //       if (
+  //         formattedStartDate <= formattedDateStr &&
+  //         formattedDateStr <= formattedEndDate
+  //       ) {
+  //         console.log(it.prfpdfrom._text);
+  //         return [...accumulator, it.prfpdfrom._text];
+  //       }
+  //       return accumulator;
+  //     }, []);
+  //     setCurDayList(newCurDayList);
+  //     console.log(newCurDayList);
+  //   };
+  //   curDayFunc();
+  // }, []);
   useEffect(() => {
     const curDayFunc = () => {
-      console.log(dateStr);
-      musicalArray.map((it) => {
-        console.log(it.prfpdfrom._text);
-        if (it.prfpdfrom._text <= dateStr && dateStr <= it.prfpdto._text) {
-          setCurDayList({
-            startDate: it.prfpdfrom._text,
-            endDate: it.prfpdto._text,
-            title: it.prfnm._text,
-            place: it.fcltynm._text,
-            img: it.poster._text,
-          });
-        }
-      });
-      console.log(curDayList);
+      const newCurDayList = musicalArray.map((it) => it.prfpdfrom._text);
+      setCurDayList(newCurDayList);
     };
     curDayFunc();
   }, []);
-
+  console.log(curDayList);
   const hasMark = (date, markArray) => {
-    return markArray.find((x) => x === dayjs(date).format('YYYY-MM-DD'));
+    return markArray.find((x) => x === dayjs(date).format('YYYY.MM.DD'));
   };
 
   const tileContent = ({ date, view }) => {
-    const dateStr = dayjs(date).format('YYYY-MM-DD');
-    const hasMark1 = hasMark(dateStr, mark);
+    const dateStr = dayjs(date).format('YYYY.MM.DD');
+    const hasMark1 = hasMark(dateStr, curDayList);
     const hasMark2 = hasMark(dateStr, mark2);
 
     return (
@@ -140,8 +149,8 @@ const Main = () => {
   };
   // 메인 캘린더 날짜별 요소 추가, 일정 데이터 받아와서 들어가야함
   const mainTileContent = ({ date, view }) => {
-    const dateStr = dayjs(date).format('YYYY-MM-DD');
-    const hasMark1 = hasMark(dateStr, mark);
+    const dateStr = dayjs(date).format('YYYY.MM.DD');
+    const hasMark1 = hasMark(dateStr, curDayList);
     const hasMark2 = hasMark(dateStr, mark2);
     return (
       <div className="date_contents_container">
@@ -187,39 +196,39 @@ const Main = () => {
         // console.log(res.data);
         const options = { compact: true, spaces: 2 };
         const result = xml2js(res.data, options);
-        console.log(result);
+        console.log('musicalArray', result);
         setMusicalArray(result.dbs.db);
       })
       .catch((error) => console.log('err', error));
   }, []);
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/boxoffice', {
-        params: {
-          catecode: 'GGGA',
-        },
-      })
-      .then((res) => {
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        console.log('boxofficeM', result);
-        setBoxOfMusical(result.boxofs.boxof.slice(0, 5));
-      });
-  }, []);
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/boxoffice', {
-        params: {
-          catecode: 'AAAA',
-        },
-      })
-      .then((res) => {
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        console.log('boxofficeA', result);
-        setBoxOfAct(result.boxofs.boxof.slice(0, 5));
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:8000/API/boxoffice', {
+  //       params: {
+  //         catecode: 'GGGA',
+  //       },
+  //     })
+  //     .then((res) => {
+  //       const options = { compact: true, spaces: 2 };
+  //       const result = xml2js(res.data, options);
+  //       console.log('boxofficeM', result);
+  //       setBoxOfMusical(result.boxofs.boxof.slice(0, 5));
+  //     });
+  // }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:8000/API/boxoffice', {
+  //       params: {
+  //         catecode: 'AAAA',
+  //       },
+  //     })
+  //     .then((res) => {
+  //       const options = { compact: true, spaces: 2 };
+  //       const result = xml2js(res.data, options);
+  //       console.log('boxofficeA', result);
+  //       setBoxOfAct(result.boxofs.boxof.slice(0, 5));
+  //     });
+  // }, []);
   return (
     <div className="Main">
       <section className="mini_calendar">

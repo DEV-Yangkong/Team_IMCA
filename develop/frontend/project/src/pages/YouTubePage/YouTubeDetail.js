@@ -10,6 +10,8 @@ const YouTubeDetail = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editedPost, setEditedPost] = useState({});
 
   const generateEmbedCode = (videoUrl) => {
     const videoId = videoUrl.split('v=')[1];
@@ -29,6 +31,26 @@ const YouTubeDetail = () => {
     const isoDateString = dateString;
     const formattedDateString = isoDateString.split('T')[0];
     return formattedDateString.replace(/\./g, '-');
+  };
+
+  const handleEditClick = () => {
+    setIsEditMode(true);
+    setEditedPost({ ...selectedPost });
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      const response = await axios.put(
+        `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
+        editedPost,
+      );
+      if (response.status === 200) {
+        setIsEditMode(false);
+        setSelectedPost(response.data);
+      }
+    } catch (error) {
+      console.error('Error updating post:', error);
+    }
   };
 
   const handleDelete = async () => {
@@ -71,7 +93,18 @@ const YouTubeDetail = () => {
 
   return (
     <div className={styles['youtube-detail']}>
-      <h2>{selectedPost.title}</h2>
+      <h2>
+        {isEditMode ? (
+          <input
+            value={editedPost.title}
+            onChange={(e) =>
+              setEditedPost({ ...editedPost, title: e.target.value })
+            }
+          />
+        ) : (
+          selectedPost.title
+        )}
+      </h2>
       <div className={styles['post-info']}>
         <span className={styles['post-date']}>
           {formatDate(selectedPost.created_at)}
@@ -88,16 +121,35 @@ const YouTubeDetail = () => {
           <p>{selectedPost.content}</p>
         </div>
       </div>
-      <div className={styles['delete-button-container']}>
-        <button className={styles['delete-button']} onClick={handleDelete}>
-          삭제
-        </button>
-        <button
-          className={styles['list-button']}
-          onClick={() => navigate('../youtube')}
-        >
-          목록
-        </button>
+      <div className={styles['button-container']}>
+        {isEditMode ? (
+          <>
+            <button className={styles['save-button']} onClick={handleSaveClick}>
+              저장
+            </button>
+            <button
+              className={styles['cancel-button']}
+              onClick={() => setIsEditMode(false)}
+            >
+              취소
+            </button>
+          </>
+        ) : (
+          <>
+            <button className={styles['edit-button']} onClick={handleEditClick}>
+              수정
+            </button>
+            <button className={styles['delete-button']} onClick={handleDelete}>
+              삭제
+            </button>
+            <button
+              className={styles['list-button']}
+              onClick={() => navigate('../youtube')}
+            >
+              목록
+            </button>
+          </>
+        )}
       </div>
       {isDeleteModalVisible && (
         <AlertModal

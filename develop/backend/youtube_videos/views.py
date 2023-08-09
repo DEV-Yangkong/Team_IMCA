@@ -7,10 +7,19 @@ from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
+    # ------------------------------------------ 추가한 코드 👇🏻 - 예은 -
+    HTTP_404_NOT_FOUND,
+    # ------------------------------------------ 추가한 코드 ☝🏻 - 예은 -
     HTTP_500_INTERNAL_SERVER_ERROR,
 )
 from django.db.models import F
 from datetime import datetime, timedelta
+
+# ------------------------------------------ 추가한 코드 👇🏻 - 예은 -
+from rest_framework import status
+# ------------------------------------------ 추가한 코드 ☝🏻 - 예은 -
+
+
 
 
 class Youtube_Videos(APIView):
@@ -64,13 +73,24 @@ class Youtube_VideoDetail(APIView):
         return response
         # return Response(serializer.data)
 
+
+# ------------------------------------------ 수정한 코드 👇🏻 - 예은 -
     def put(self, request, pk):
         youtube_video = self.get_object(pk)
         serializer = Youtube_VideoSerializer(youtube_video, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # ------------------------------------------ 수정한 코드 ☝🏻 - 예은 -
+
+    # def put(self, request, pk):
+    #     youtube_video = self.get_object(pk)
+    #     serializer = Youtube_VideoSerializer(youtube_video, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors)
 
     def delete(self, request, pk):
         youtube_video = self.get_object(pk)

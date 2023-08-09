@@ -115,22 +115,33 @@ const YouTubeDetail = () => {
       </div>
       <div className={styles['video-content-container']}>
         <div className={styles['video-container']}>
-          {generateEmbedCode(selectedPost.video_url)}
+          {generateEmbedCode(
+            isEditMode ? editedPost.video_url : selectedPost.video_url,
+          )}
         </div>
         <div className={styles['post-content']}>
-          <p>
-            {isEditMode ? (
-              <textarea
-                value={editedPost.content}
-                onChange={(e) =>
-                  setEditedPost({ ...editedPost, content: e.target.value })
-                }
-              />
-            ) : (
-              selectedPost.content
-            )}
-          </p>
+          {isEditMode ? (
+            <textarea
+              value={editedPost.content}
+              onChange={(e) =>
+                setEditedPost({ ...editedPost, content: e.target.value })
+              }
+            />
+          ) : (
+            selectedPost.content
+          )}
         </div>
+        {isEditMode && (
+          <div className={styles['video-url-container']}>
+            <input
+              className={styles['video-url-input']}
+              value={editedPost.video_url}
+              onChange={(e) =>
+                setEditedPost({ ...editedPost, video_url: e.target.value })
+              }
+            />
+          </div>
+        )}
       </div>
       <div className={styles['button-container']}>
         {isEditMode ? (

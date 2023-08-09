@@ -1,9 +1,6 @@
-/* Login.module.css */
-
 .login {
   width: 100vw;
 }
-
 .login_container {
   margin: 50px auto;
   width: 600px;
@@ -25,7 +22,6 @@
   width: 100%;
   max-width: 1240px;
 }
-
 .login_header {
   font-size: 40px;
   color: #134f2c;
@@ -66,19 +62,17 @@
 
   text-align: center;
 }
-
 .btn div {
   margin: 10px auto;
   margin-bottom: 0px;
 }
-
 .btn_join {
   display: flex;
   width: 100%;
   color: #134f2c;
 }
 
-.login_button {
+.btn_signup {
   width: 260px;
   height: 40px;
   background-color: #134f2c;
@@ -90,13 +84,8 @@
   margin-bottom: 10px;
   margin-top: 20px;
 }
-
-.login_button:hover {
+.btn_signup:hover {
   background-color: #134f2c4f;
   color: black;
   cursor: pointer;
-}
-
-.signup_button {
-  /* You can define styles for the signup button here */
 }

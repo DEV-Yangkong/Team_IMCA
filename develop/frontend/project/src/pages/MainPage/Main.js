@@ -171,55 +171,55 @@ const Main = () => {
   // useEffect(() => {
   //   axios.get(url).then((res) => res.data);
   // }, []);
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/public', {
-        params: {
-          cpage: 1,
-          rows: 30,
-          shcate: 'GGGA',
-          prfstate: '01',
-          prfpdfrom: '20230801',
-          prfpdto: '20230831',
-        },
-      })
-      .then((res) => {
-        // console.log(res.data);
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        console.log(result);
-        setMusicalArray(result.dbs.db);
-      })
-      .catch((error) => console.log('err', error));
-  }, []);
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/boxoffice', {
-        params: {
-          catecode: 'GGGA',
-        },
-      })
-      .then((res) => {
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        console.log('boxofficeM', result);
-        setBoxOfMusical(result.boxofs.boxof.slice(0, 5));
-      });
-  }, []);
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/boxoffice', {
-        params: {
-          catecode: 'AAAA',
-        },
-      })
-      .then((res) => {
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        console.log('boxofficeA', result);
-        setBoxOfAct(result.boxofs.boxof.slice(0, 5));
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:8000/API/public', {
+  //       params: {
+  //         cpage: 1,
+  //         rows: 30,
+  //         shcate: 'GGGA',
+  //         prfstate: '01',
+  //         prfpdfrom: '20230801',
+  //         prfpdto: '20230831',
+  //       },
+  //     })
+  //     .then((res) => {
+  //       // console.log(res.data);
+  //       const options = { compact: true, spaces: 2 };
+  //       const result = xml2js(res.data, options);
+  //       console.log(result);
+  //       setMusicalArray(result.dbs.db);
+  //     })
+  //     .catch((error) => console.log('err', error));
+  // }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:8000/API/boxoffice', {
+  //       params: {
+  //         catecode: 'GGGA',
+  //       },
+  //     })
+  //     .then((res) => {
+  //       const options = { compact: true, spaces: 2 };
+  //       const result = xml2js(res.data, options);
+  //       console.log('boxofficeM', result);
+  //       setBoxOfMusical(result.boxofs.boxof.slice(0, 5));
+  //     });
+  // }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:8000/API/boxoffice', {
+  //       params: {
+  //         catecode: 'AAAA',
+  //       },
+  //     })
+  //     .then((res) => {
+  //       const options = { compact: true, spaces: 2 };
+  //       const result = xml2js(res.data, options);
+  //       console.log('boxofficeA', result);
+  //       setBoxOfAct(result.boxofs.boxof.slice(0, 5));
+  //     });
+  // }, []);
   return (
     <div className="Main">
       <section className="mini_calendar">

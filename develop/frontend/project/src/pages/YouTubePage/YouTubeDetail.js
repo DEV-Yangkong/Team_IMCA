@@ -118,7 +118,18 @@ const YouTubeDetail = () => {
           {generateEmbedCode(selectedPost.video_url)}
         </div>
         <div className={styles['post-content']}>
-          <p>{selectedPost.content}</p>
+          <p>
+            {isEditMode ? (
+              <textarea
+                value={editedPost.content}
+                onChange={(e) =>
+                  setEditedPost({ ...editedPost, content: e.target.value })
+                }
+              />
+            ) : (
+              selectedPost.content
+            )}
+          </p>
         </div>
       </div>
       <div className={styles['button-container']}>

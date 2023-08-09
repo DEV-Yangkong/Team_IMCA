@@ -28,11 +28,11 @@ const Header = () => {
               </ul>
             </div>
             <div className="nav_item">
-              <div>커뮤니티</div>
+              <div onClick={() => navigate('/community_all')}>커뮤니티</div>
               <ul className="item_menu">
-                <li>자유게시판</li>
-                <li>공연 후기</li>
-                <li>동행 / 양도</li>
+                <li onClick={() => navigate('/freeboard')}> 자유게시판</li>
+                <li onClick={() => navigate('/concert_review')}>공연 후기</li>
+                <li onClick={() => navigate('/gather')}>동행 / 양도</li>
               </ul>
             </div>
             <div className="nav_item">

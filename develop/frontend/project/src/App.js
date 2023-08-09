@@ -10,7 +10,16 @@ import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
 import WritePost from './pages/YouTubePage/WritePost';
 import React, { useState } from 'react';
 
+import Community from './pages/Community/Community';
+import Board from './pages/Community/Board';
+import New from './pages/Community/New';
+import Edit from './pages/Community/Edit';
+import BoardPage from './pages/Community/BoardPage';
+
 const App = () => {
+  // Community List time
+  console.log(new Date().getTime());
+
   // YouTube 포스트 데이터
   const [youtubePosts, setYoutubePosts] = useState([
     // 포스트 정보들...
@@ -40,6 +49,11 @@ const App = () => {
               )}
             />
             <Route path="/write" element={<WritePost />} />
+            <Route path="/community_all" element={<Community />} />
+            <Route path="/:board" element={<BoardPage />} />
+            <Route path="/new" element={<New />} />
+            <Route path="/edit/:id" element={<Edit />} />
+            <Route path="/board/:id" element={<Board />} />
           </Routes>
         </div>
       </div>

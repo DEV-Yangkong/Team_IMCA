@@ -86,6 +86,10 @@ const TeamIntroduction = () => {
             <h4>양예은(양콩)</h4>
             <p className="role">💛 Frontend 💛</p>
             <p className="roleDevelop">" IMCA 소개 & 콘텐츠 "</p>
+            <p className="roleDevelop2">
+              " <span className="highlight3">콘텐츠</span>{' '}
+              <span className="highlight2">Backend Support</span>💙 "
+            </p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/hi._.yangkong/"

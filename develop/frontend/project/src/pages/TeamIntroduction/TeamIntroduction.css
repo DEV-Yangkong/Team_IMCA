@@ -122,6 +122,27 @@
   border-radius: 2px;
   letter-spacing: 0.3px;
 }
+.team-member .roleDevelop2 {
+  margin-top: 10px;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+}
+
+.highlight2 {
+  color: #134f2c;
+  font-weight: bolder;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-family: 'Noto Serif Vithkuqi', serif;
+}
+
+.highlight3 {
+  font-size: 15px;
+  font-family: 'Nanum Myeongjo', serif;
+}
 
 @media screen and (min-width: 768px) {
   .team-members {

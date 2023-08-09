@@ -114,6 +114,17 @@ const YouTubeDetail = () => {
         </span>
       </div>
       <div className={styles['video-content-container']}>
+        {isEditMode && (
+          <div className={styles['video-url-container']}>
+            <input
+              className={styles['video-url-input']}
+              value={editedPost.video_url}
+              onChange={(e) =>
+                setEditedPost({ ...editedPost, video_url: e.target.value })
+              }
+            />
+          </div>
+        )}
         <div className={styles['video-container']}>
           {generateEmbedCode(
             isEditMode ? editedPost.video_url : selectedPost.video_url,
@@ -131,17 +142,6 @@ const YouTubeDetail = () => {
             selectedPost.content
           )}
         </div>
-        {isEditMode && (
-          <div className={styles['video-url-container']}>
-            <input
-              className={styles['video-url-input']}
-              value={editedPost.video_url}
-              onChange={(e) =>
-                setEditedPost({ ...editedPost, video_url: e.target.value })
-              }
-            />
-          </div>
-        )}
       </div>
       <div className={styles['button-container']}>
         {isEditMode ? (

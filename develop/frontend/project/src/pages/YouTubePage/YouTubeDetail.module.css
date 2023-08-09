@@ -17,7 +17,7 @@
 }
 
 .video-content-container {
-  margin: 5px 0; /* content와 video 간의 여백 조정 */
+  margin: 5px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,10 +67,61 @@
   font-size: 14px;
 }
 
-.delete-button-container {
+.button-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-top: 15px;
+}
+
+.cancel-button {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #134f2c;
+  color: white;
+}
+
+.save-button {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #134f2c;
+  color: white;
+}
+
+.edit-button {
+  background-color: #fff;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #134f2c;
+  color: white;
 }
 
 .delete-button {
@@ -105,4 +156,30 @@
 .list-button:hover {
   background-color: #134f2c;
   color: white;
+}
+
+.video-url-container {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.video-url-input {
+  flex-grow: 1;
+  padding: 10px 260px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-top: 30px;
+}
+
+.post-content textarea {
+  flex-grow: 1;
+  padding: 100px 260px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 20px;
 }

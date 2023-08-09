@@ -166,20 +166,30 @@
 
 .video-url-input {
   flex-grow: 1;
-  padding: 10px 260px;
+  width: 560px;
+  padding: 10px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  margin-right: 10px;
   margin-top: 30px;
+}
+
+.edit-title-input {
+  flex-grow: 1;
+  width: 750px;
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 20px;
 }
 
 .post-content textarea {
   flex-grow: 1;
-  padding: 100px 260px;
+  width: 560px;
+  height: 100px;
+  padding: 10px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 14px;
-  margin-right: 10px;
   margin-bottom: 20px;
 }

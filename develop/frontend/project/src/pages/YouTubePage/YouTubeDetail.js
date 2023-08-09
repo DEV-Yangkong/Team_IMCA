@@ -96,6 +96,7 @@ const YouTubeDetail = () => {
       <h2>
         {isEditMode ? (
           <input
+            className={styles['edit-title-input']}
             value={editedPost.title}
             onChange={(e) =>
               setEditedPost({ ...editedPost, title: e.target.value })

@@ -14,7 +14,9 @@ const AlertModal = ({ isOpen, onClose, message }) => {
         <h2>⚠️알림⚠️</h2>
         <p>{message}</p>
         <div className={styles['modal-button-container']}>
-          <button onClick={onClose}>확인</button>
+          <button className={styles['modal-check-button']} onClick={onClose}>
+            확인
+          </button>
         </div>
       </div>
     </Modal>

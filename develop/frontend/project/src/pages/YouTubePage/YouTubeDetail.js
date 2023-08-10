@@ -12,19 +12,26 @@ const YouTubeDetail = () => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPost, setEditedPost] = useState({});
+  const [videoError, setVideoError] = useState(false);
 
   const generateEmbedCode = (videoUrl) => {
-    const videoId = videoUrl.split('v=')[1];
-    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-    return (
-      <iframe
-        className={styles['video-frame']}
-        src={embedUrl}
-        title={selectedPost.title}
-        frameBorder="0"
-        allowFullScreen
-      ></iframe>
-    );
+    try {
+      const videoId = videoUrl.split('v=')[1];
+      const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+      return (
+        <iframe
+          className={styles['video-frame']}
+          src={embedUrl}
+          title={selectedPost.title}
+          frameBorder="0"
+          allowFullScreen
+        ></iframe>
+      );
+    } catch (error) {
+      // 비디오 URL 파싱 오류 시 모달 표시
+      setVideoError(true);
+      return null;
+    }
   };
 
   const formatDate = (dateString) => {
@@ -50,6 +57,10 @@ const YouTubeDetail = () => {
       }
     } catch (error) {
       console.error('Error updating post:', error);
+      // 추가: 비디오 URL 오류 처리
+      if (error.response && error.response.status === 400) {
+        setVideoError(true);
+      }
     }
   };
 
@@ -127,6 +138,14 @@ const YouTubeDetail = () => {
           </div>
         )}
         <div className={styles['video-container']}>
+          {/* 비디오 URL 오류 시 모달 표시 */}
+          {videoError && (
+            <AlertModal
+              isOpen={videoError}
+              onClose={() => setVideoError(false)}
+              message="유효하지 않은 비디오 URL입니다."
+            />
+          )}
           {generateEmbedCode(
             isEditMode ? editedPost.video_url : selectedPost.video_url,
           )}

@@ -4,13 +4,13 @@ from rest_framework.response import Response
 from .models import Youtube_Video
 from .serializers import Youtube_VideoSerializer
 from rest_framework.status import (
+     # ------------------------------------------ 추가한 코드 👇🏻 - 예은 -
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
-    # ------------------------------------------ 추가한 코드 👇🏻 - 예은 -
     HTTP_404_NOT_FOUND,
-    # ------------------------------------------ 추가한 코드 ☝🏻 - 예은 -
     HTTP_500_INTERNAL_SERVER_ERROR,
+    # ------------------------------------------ 추가한 코드 ☝🏻 - 예은 -
 )
 from django.db.models import F
 from datetime import datetime, timedelta

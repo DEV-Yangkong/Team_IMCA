@@ -18,7 +18,7 @@ const WritePost = () => {
 
   // 모달이 열릴 때 스크린 리더가 메인 컨텐츠를 인식하지 못하도록 설정
   useEffect(() => {
-    Modal.setAppElement(null); // 모달의 앱 엘리먼트 설정을 제거
+    Modal.setAppElement('#root'); // 모달의 앱 엘리먼트 설정을 제거
   }, []);
 
   const handleTitleChange = (e) => {
@@ -98,10 +98,10 @@ const WritePost = () => {
     }
   };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-    setModalMessage('');
-  };
+  // const closeModal = () => {
+  //   setModalIsOpen(false);
+  //   setModalMessage('');
+  // };
 
   const handleCancel = () => {
     navigate('/youtube');

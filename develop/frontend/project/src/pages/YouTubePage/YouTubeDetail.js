@@ -70,12 +70,14 @@ const YouTubeDetail = () => {
         `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
       );
       if (response.status === 204) {
-        setIsDeleteModalVisible(true);
+        if (!isDeleteModalVisible) {
+          setIsDeleteModalVisible(true);
 
-        setTimeout(() => {
-          setIsDeleteModalVisible(false);
-          navigate('../youtube'); // 리스트 페이지로 이동합니다.
-        }, 1500);
+          setTimeout(() => {
+            setIsDeleteModalVisible(false);
+            navigate('../youtube'); // 리스트 페이지로 이동합니다.
+          }, 1500);
+        }
       }
     } catch (error) {
       console.error('Error deleting post:', error);

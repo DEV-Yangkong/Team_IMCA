@@ -16,7 +16,7 @@ import MyPage from './pages/Mypage/MyPage';
 
 const App = () => {
   // YouTube 포스트 데이터
-  const [youtubePosts, setYoutubePosts] = useState([
+  const [youtubePosts] = useState([
     // 포스트 정보들...
   ]);
 

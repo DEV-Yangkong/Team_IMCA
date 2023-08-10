@@ -11,6 +11,20 @@ const Header = () => {
           <div className={styles.top_logo} onClick={() => navigate('/')}>
             IMCA
           </div>
+          <div className={styles.joinUsBtn}>
+            <button
+              className={styles.joinUs}
+              onClick={() => navigate('/login')}
+            >
+              로그인
+            </button>
+            <button
+              className={styles.joinUs}
+              onClick={() => navigate('/signup')}
+            >
+              회원가입
+            </button>
+          </div>
         </div>
         <div className={styles.nav_container}>
           <div className={styles.nav_wrapper}>
@@ -42,8 +56,11 @@ const Header = () => {
               </ul>
             </div>
             <div className={styles.nav_item}>내 캘린더</div>
-            <div className={styles.nav_item} onClick={() => navigate('/login')}>
-              로그인
+            <div
+              className={styles.nav_item}
+              onClick={() => navigate('/mypage')}
+            >
+              마이페이지
             </div>
           </div>
         </div>

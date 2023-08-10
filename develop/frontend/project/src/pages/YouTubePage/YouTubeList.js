@@ -73,29 +73,29 @@ const YouTubeList = () => {
   const reversedFilteredPosts = [...filteredPosts].reverse();
   const postsToShow = reversedFilteredPosts.slice(startIndex, endIndex);
 
-  const handleViewCountClick = async (videoId) => {
-    try {
-      const response = await axios.post(
-        `http://127.0.0.1:8000/api/v1/youtube_videos/${videoId}/increase_views/`,
-      );
-      if (response.status === 200) {
-        // 조회수 증가 성공 시 프론트엔드 상태 업데이트
-        setYoutubePosts((prevPosts) => {
-          return prevPosts.map((post) => {
-            if (post.id === videoId) {
-              return {
-                ...post,
-                views_count: post.views_count + 1, // 조회수 증가
-              };
-            }
-            return post;
-          });
-        });
-      }
-    } catch (error) {
-      console.error('Error increasing view count:', error);
-    }
-  };
+  // const handleViewCountClick = async (videoId) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `http://127.0.0.1:8000/api/v1/youtube_videos/${videoId}/increase_views/`,
+  //     );
+  //     if (response.status === 200) {
+  //       // 조회수 증가 성공 시 프론트엔드 상태 업데이트
+  //       setYoutubePosts((prevPosts) => {
+  //         return prevPosts.map((post) => {
+  //           if (post.id === videoId) {
+  //             return {
+  //               ...post,
+  //               views_count: post.views_count + 1, // 조회수 증가
+  //             };
+  //           }
+  //           return post;
+  //         });
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error('Error increasing view count:', error);
+  //   }
+  // };
 
   return (
     <div className={styles['youtube-list']}>
@@ -125,7 +125,7 @@ const YouTubeList = () => {
               <Link
                 to={`/youtube/${post.id}`}
                 className={styles['post-title-link']}
-                onClick={() => handleViewCountClick(post.id)}
+                // onClick={() => handleViewCountClick(post.id)}
               >
                 <img src={post.thumbnail_url} alt={post.title} />
                 <div className={styles['post-title']}>{post.title}</div>

@@ -19,6 +19,7 @@
 .top_wrapper {
   margin: 0 auto;
   width: 100%;
+  /* position: relative; */
 
   display: flex;
   justify-content: center;
@@ -78,4 +79,30 @@
 
 .item_menu li {
   padding: 10px 0;
+}
+/* 로그인 회원가입 버튼 -민정 수정 */
+.joinUsBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  width: 120px;
+}
+
+.joinUs {
+  padding: 2px;
+  text-align: center;
+  font-weight: 500;
+  color: gray;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+}
+.joinUs:hover {
+  background-color: #e0dddd;
 }

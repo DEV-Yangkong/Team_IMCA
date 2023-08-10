@@ -11,6 +11,8 @@ import WritePost from './pages/YouTubePage/WritePost';
 import React, { useState } from 'react';
 // 민정 추가 파일👇🏻 오류해결필요
 import Login from './pages/LoginPage/Login';
+import SignUp from './pages/SignUpPage/SignUp';
+import MyPage from './pages/Mypage/MyPage';
 
 const App = () => {
   // YouTube 포스트 데이터
@@ -39,6 +41,8 @@ const App = () => {
             />
             {/* 민정 추가 파일👇🏻 오류해결필요 */}
             <Route path="/login" element={<Login />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>
       </div>

@@ -9,7 +9,7 @@ const MusicalList = ({ img, title, startDate, endDate, place }) => {
         </div>
         <div>{title}</div>
         <div>
-          <span>{startDate}</span>
+          <span>{startDate} - </span>
           <span>{endDate}</span>
         </div>
         <div>{place}</div>

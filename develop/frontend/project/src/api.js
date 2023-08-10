@@ -1,46 +1,49 @@
 import axios from 'axios';
+import { xml2js } from 'xml-js';
 
-const url =
-  'http://www.kopis.or.kr/openApi/restful/pblprfr?service=a587792556ca44c5af747c8652c82345&stdate=20230601&eddate=20230630&cpage=1&rows=5&prfstate=02&signgucode=11&signgucodesub=1111&kidstate=Y';
-// export const Data = axios.get(url).then((res) => {
-//   const xml = res.data;
-//   const options = { compact: true, ignoreComment: true, spaces: 4 };
-//   const xmlToJson = xml2json(xml, options);
-//   return xmlToJson;
-// });
+// const instance = () => {
+//   axios.create({ baseURL: 'http://localhost:8000/API' });
+// };
+export const getAllMusical = () => {
+  //전체 게시글을 가져오는 API
+  return axios
+    .get('http://localhost:8000/API/public', {
+      params: {
+        cpage: 1,
+        rows: 30,
+        shcate: 'GGGA',
+        prfstate: '01',
+        prfpdfrom: '20230801',
+        prfpdto: '20230831',
+      },
+    })
+    .then((res) => {
+      const options = { compact: true, spaces: 2 };
+      const result = xml2js(res.data, options);
+      console.log('musicalArray', result.dbs.db);
+      return result.dbs.db;
+    })
+    .catch((error) => console.log('err', error));
+};
+export const getAllAct = () => {
+  return axios
+    .get('http://localhost:8000/API/public', {
+      params: {
+        cpage: 1,
+        rows: 30,
+        shcate: 'AAAA',
+        prfstate: '01',
+        prfpdfrom: '20230801',
+        prfpdto: '20230831',
+      },
+    })
+    .then((res) => {
+      // console.log(res.data);
+      const options = { compact: true, spaces: 2 };
+      const result = xml2js(res.data, options);
 
-// export const Data = axios.get(url).then((res) => {
-//   const xmlString = res.data;
-//   const parser = new DOMParser();
-//   const xmlDOM = parser.parseFromString(xmlString, 'text/xml');
-//   const jsonData = parseXml(xmlDOM);
-//   return jsonData;
-// });
-
-// function parseXml(xmlNode) {
-//   // Check if the node is a text node
-//   if (xmlNode.nodeType === Node.TEXT_NODE) {
-//     return xmlNode.nodeValue.trim();
-//   }
-
-//   // Check if the node has child nodes
-//   if (xmlNode.childNodes.length > 0) {
-//     const jsonNode = {};
-
-//     xmlNode.childNodes.forEach((childNode) => {
-//       const nodeName = childNode.nodeName;
-
-//       if (!jsonNode[nodeName]) {
-//         jsonNode[nodeName] = parseXml(childNode);
-//       } else if (Array.isArray(jsonNode[nodeName])) {
-//         jsonNode[nodeName].push(parseXml(childNode));
-//       } else {
-//         jsonNode[nodeName] = [jsonNode[nodeName], parseXml(childNode)];
-//       }
-//     });
-
-//     return jsonNode;
-//   }
-
-//   return {};
-// }
+      console.log('actArray', result.dbs.db);
+      return result.dbs.db;
+    })
+    .catch((error) => console.log('err', error));
+};

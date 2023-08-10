@@ -2,7 +2,7 @@ import Calendar from 'react-calendar';
 import React, { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import './Main.css';
-import { Data } from '../../api';
+import { Data, getAllAct, getAllMusical } from '../../api';
 import dayjs from 'dayjs';
 import Ranking from '../../components/MainPage/Ranking';
 import CurCalendar from '../../components/MainPage/CurCalendar';
@@ -16,6 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'; // import Calendar from '@toast-ui/calendar';
 
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { useQuery } from '@tanstack/react-query';
 
 const Main = () => {
   const [date, setDate] = useState(new Date());
@@ -89,57 +90,22 @@ const Main = () => {
   // }, []);
 
   // 공공 데이터 public musical
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/public', {
-        params: {
-          cpage: 1,
-          rows: 30,
-          shcate: 'GGGA',
-          prfstate: '01',
-          prfpdfrom: '20230801',
-          prfpdto: '20230831',
-        },
-      })
-      .then((res) => {
-        // console.log(res.data);
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        setMusicalArray(result.dbs.db);
-        console.log('musicalArray', musicalArray);
-      })
-      .catch((error) => console.log('err', error));
-  }, []);
+  const { data: musicalData } = useQuery(['allMusical'], getAllMusical);
+
   // 공공 데이터 public act
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/public', {
-        params: {
-          cpage: 1,
-          rows: 30,
-          shcate: 'AAAA',
-          prfstate: '01',
-          prfpdfrom: '20230801',
-          prfpdto: '20230831',
-        },
-      })
-      .then((res) => {
-        // console.log(res.data);
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        setActArray(result.dbs.db);
-        console.log('actArray', actArray);
-      })
-      .catch((error) => console.log('err', error));
-  }, []);
-  console.log(actArray.concat(musicalArray));
+  const { data: actData } = useQuery(['allAct'], getAllAct);
+  // console.log(actArray.concat(musicalArray));
   // 달력에 일정 표시 위한 새로운 배열 세팅 ( 시작 날짜 )
   useEffect(() => {
+    setMusicalArray(musicalData);
+
     setCurMusicalList(musicalArray.map((it) => it.prfpdfrom._text));
-  }, [musicalArray]);
+  }, []);
   useEffect(() => {
+    setActArray(actData);
+
     setCurActList(actArray.map((it) => it.prfpdfrom._text));
-  }, [actArray]);
+  }, []);
 
   const hasMark = (date, markArray) => {
     return markArray.find((x) => x === dayjs(date).format('YYYY.MM.DD'));
@@ -214,15 +180,15 @@ const Main = () => {
   //       setBoxOfAct(result.boxofs.boxof.slice(0, 5));
   //     });
   // }, []);
-  useEffect(() => {
-    const text =
-      '화요일 ~ 금요일(20:00), 토요일(16:00,19:00), 일요일(15:00,18:00)';
+  // useEffect(() => {
+  //   const text =
+  //     '화요일 ~ 금요일(20:00), 토요일(16:00,19:00), 일요일(15:00,18:00)';
 
-    // 정규표현식을 사용하여 '요' 앞에 오는 글자 추출
-    const extractedChars = text.match(/(.)(?=요)/g);
+  //   // 정규표현식을 사용하여 '요' 앞에 오는 글자 추출
+  //   const extractedChars = text.match(/(.)(?=요)/g);
 
-    console.log(extractedChars); // ["화", "금", "토", "일"]
-  });
+  //   console.log(extractedChars); // ["화", "금", "토", "일"]
+  // });
   return (
     <div className="Main">
       <section className="mini_calendar">

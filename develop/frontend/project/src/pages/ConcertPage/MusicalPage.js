@@ -2,17 +2,30 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import MusicalList from '../../components/ConcertPage/MusicalList';
 import styles from './MusicalPage.module.css';
+import { xml2js } from 'xml-js';
 const MusicalPage = () => {
   const [musicalArray, setMusicalArray] = useState([]);
-  const callApi = async () => {
-    axios.get('http://localhost:5000/api').then((res) => {
-      console.log(res.data.dbs.db);
-      setMusicalArray(res.data.dbs.db);
-    });
-  };
-
+  // 공공 데이터 public musical
   useEffect(() => {
-    callApi();
+    axios
+      .get('http://localhost:8000/API/public', {
+        params: {
+          cpage: 1,
+          rows: 30,
+          shcate: 'GGGA',
+          prfstate: '01',
+          prfpdfrom: '20230801',
+          prfpdto: '20230831',
+        },
+      })
+      .then((res) => {
+        // console.log(res.data);
+        const options = { compact: true, spaces: 2 };
+        const result = xml2js(res.data, options);
+        setMusicalArray(result.dbs.db);
+        console.log('musicalArray', musicalArray);
+      })
+      .catch((error) => console.log('err', error));
   }, []);
   return (
     <div>

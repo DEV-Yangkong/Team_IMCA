@@ -47,4 +47,6 @@
 - node.js 사용
 - test.js/server.js 파일 참고
 - 공공데이터 kopis api 서비스 키 발급받아 사용 => 필수 형식을 갖추어 사용하기
--
+-   // const service = '585f52f2749f40d28894a4df722075be';
+  // const service = 'b14e78c0be214bfab93cc4988904cbb9'; 
+  // const service = '8e554316a3c34e3d9aae2b7c4f0a752b'; 서비스 키

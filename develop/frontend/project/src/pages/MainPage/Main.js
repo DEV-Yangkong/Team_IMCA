@@ -22,9 +22,12 @@ const Main = () => {
   const [data, setData] = useState([]);
   const [curDate, setCurDate] = useState(false);
   const [musicalArray, setMusicalArray] = useState([]);
+  const [actArray, setActArray] = useState([]);
   const [boxOfMusical, setBoxOfMusical] = useState([]);
   const [boxOfAct, setBoxOfAct] = useState([]);
-  const [curDayList, setCurDayList] = useState([]);
+  const [curMusicalList, setCurMusicalList] = useState([]);
+  const [curActList, setCurActList] = useState([]);
+  const [sumList, setSumList] = useState([]);
   // const getTileContent = ({ date }) => {
   //   const dateString = dayjs(date).format('YYYY-MM-DD'); // 'YYYY-MM-DD' 형태로 변환
   //   for (const { start, end } of dummyDateList) {
@@ -75,66 +78,77 @@ const Main = () => {
   // useEffect(() => {
   //   callApi();
   // }, []);
-  const dateStr = dayjs(date).format('YYYY-MM-DD');
+  const dateStr = dayjs(date).format('YYYY.MM.DD');
+
   // useEffect(() => {
   //   const curDayFunc = () => {
-  //     console.log(dateStr);
-  //     musicalArray.map((it) => {
-  //       console.log(it.prfpdfrom._text);
-  //       if (it.prfpdfrom._text <= dateStr && dateStr <= it.prfpdto._text) {
-  //         // setCurDayList({
-  //         //   startDate: it.prfpdfrom._text,
-  //         //   endDate: it.prfpdto._text,
-  //         //   title: it.prfnm._text,
-  //         //   place: it.fcltynm._text,
-  //         //   img: it.poster._text,
-  //         // });
-  //         setCurDayList([it.prfpdfrom._text, ...curDayList]);
-  //       }
-  //       console.log(curDayList);
-  //     }); // for문 돌리던지 , ...스프레드 써서 어떻게 해보자 curDayList라는 배열 안에 객체가 여러개 생성되도록
-  //   };
-  //   curDayFunc();
-  // }, []);
-  // useEffect(() => {
-  //   const curDayFunc = () => {
-  //     const newCurDayList = musicalArray.reduce((accumulator, it) => {
-  //       const formattedStartDate = it.prfpdfrom._text.split('.').join('');
-  //       const formattedEndDate = it.prfpdto._text.split('.').join('');
-  //       const formattedDateStr = dateStr.split('-').join('');
-  //       console.log('start date', formattedStartDate);
-  //       console.log('end date', formattedEndDate);
-  //       console.log('dateStr', formattedDateStr);
-  //       if (
-  //         formattedStartDate <= formattedDateStr &&
-  //         formattedDateStr <= formattedEndDate
-  //       ) {
-  //         console.log(it.prfpdfrom._text);
-  //         return [...accumulator, it.prfpdfrom._text];
-  //       }
-  //       return accumulator;
-  //     }, []);
+  //     const newCurDayList = musicalArray.map((it) => it.prfpdfrom._text);
   //     setCurDayList(newCurDayList);
-  //     console.log(newCurDayList);
   //   };
   //   curDayFunc();
   // }, []);
+
+  // 공공 데이터 public musical
   useEffect(() => {
-    const curDayFunc = () => {
-      const newCurDayList = musicalArray.map((it) => it.prfpdfrom._text);
-      setCurDayList(newCurDayList);
-    };
-    curDayFunc();
+    axios
+      .get('http://localhost:8000/API/public', {
+        params: {
+          cpage: 1,
+          rows: 30,
+          shcate: 'GGGA',
+          prfstate: '01',
+          prfpdfrom: '20230801',
+          prfpdto: '20230831',
+        },
+      })
+      .then((res) => {
+        // console.log(res.data);
+        const options = { compact: true, spaces: 2 };
+        const result = xml2js(res.data, options);
+        setMusicalArray(result.dbs.db);
+        console.log('musicalArray', musicalArray);
+      })
+      .catch((error) => console.log('err', error));
   }, []);
-  console.log(curDayList);
+  // 공공 데이터 public act
+  useEffect(() => {
+    axios
+      .get('http://localhost:8000/API/public', {
+        params: {
+          cpage: 1,
+          rows: 30,
+          shcate: 'AAAA',
+          prfstate: '01',
+          prfpdfrom: '20230801',
+          prfpdto: '20230831',
+        },
+      })
+      .then((res) => {
+        // console.log(res.data);
+        const options = { compact: true, spaces: 2 };
+        const result = xml2js(res.data, options);
+        setActArray(result.dbs.db);
+        console.log('actArray', actArray);
+      })
+      .catch((error) => console.log('err', error));
+  }, []);
+  console.log(actArray.concat(musicalArray));
+  // 달력에 일정 표시 위한 새로운 배열 세팅 ( 시작 날짜 )
+  useEffect(() => {
+    setCurMusicalList(musicalArray.map((it) => it.prfpdfrom._text));
+  }, [musicalArray]);
+  useEffect(() => {
+    setCurActList(actArray.map((it) => it.prfpdfrom._text));
+  }, [actArray]);
+
   const hasMark = (date, markArray) => {
     return markArray.find((x) => x === dayjs(date).format('YYYY.MM.DD'));
   };
-
+  // 미니 캘린더에 시작 날짜 표시
   const tileContent = ({ date, view }) => {
     const dateStr = dayjs(date).format('YYYY.MM.DD');
-    const hasMark1 = hasMark(dateStr, curDayList);
-    const hasMark2 = hasMark(dateStr, mark2);
+    const hasMark1 = hasMark(dateStr, curMusicalList);
+    const hasMark2 = hasMark(dateStr, curActList);
 
     return (
       <>
@@ -150,8 +164,8 @@ const Main = () => {
   // 메인 캘린더 날짜별 요소 추가, 일정 데이터 받아와서 들어가야함
   const mainTileContent = ({ date, view }) => {
     const dateStr = dayjs(date).format('YYYY.MM.DD');
-    const hasMark1 = hasMark(dateStr, curDayList);
-    const hasMark2 = hasMark(dateStr, mark2);
+    const hasMark1 = hasMark(dateStr, curMusicalList);
+    const hasMark2 = hasMark(dateStr, curActList);
     return (
       <div className="date_contents_container">
         {hasMark1 && (
@@ -172,35 +186,6 @@ const Main = () => {
   const onClickWholeCalendar = () => {
     setCurDate(false);
   };
-
-  // const service = '585f52f2749f40d28894a4df722075be';
-  // const service = 'b14e78c0be214bfab93cc4988904cbb9';
-  // const service = '8e554316a3c34e3d9aae2b7c4f0a752b';
-  // const url = `http://www.kopis.or.kr/openApi/restful/pblprfr?service=${service}&stdate=20230801&eddate=20230831&cpage=1&rows=20&shcate=GGGA&signgucode=11`;
-  // useEffect(() => {
-  //   axios.get(url).then((res) => res.data);
-  // }, []);
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/public', {
-        params: {
-          cpage: 1,
-          rows: 30,
-          shcate: 'GGGA',
-          prfstate: '01',
-          prfpdfrom: '20230801',
-          prfpdto: '20230831',
-        },
-      })
-      .then((res) => {
-        // console.log(res.data);
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        console.log('musicalArray', result);
-        setMusicalArray(result.dbs.db);
-      })
-      .catch((error) => console.log('err', error));
-  }, []);
   // useEffect(() => {
   //   axios
   //     .get('http://localhost:8000/API/boxoffice', {
@@ -229,6 +214,15 @@ const Main = () => {
   //       setBoxOfAct(result.boxofs.boxof.slice(0, 5));
   //     });
   // }, []);
+  useEffect(() => {
+    const text =
+      '화요일 ~ 금요일(20:00), 토요일(16:00,19:00), 일요일(15:00,18:00)';
+
+    // 정규표현식을 사용하여 '요' 앞에 오는 글자 추출
+    const extractedChars = text.match(/(.)(?=요)/g);
+
+    console.log(extractedChars); // ["화", "금", "토", "일"]
+  });
   return (
     <div className="Main">
       <section className="mini_calendar">
@@ -242,19 +236,22 @@ const Main = () => {
                   전체 달력
                 </div>
               </div>
-              {musicalArray.map(
-                (it) =>
-                  it.prfpdfrom._text <= dateStr &&
-                  dateStr <= it.prfpdto._text && (
-                    <CurCalendar
-                      startDate={it.prfpdfrom._text}
-                      endDate={it.prfpdto._text}
-                      title={it.prfnm._text}
-                      place={it.fcltynm._text}
-                      img={it.poster._text}
-                    />
-                  ),
-              )}
+              {actArray
+                .concat(musicalArray)
+                .map(
+                  (it, index) =>
+                    it.prfpdfrom._text <= dateStr &&
+                    dateStr <= it.prfpdto._text && (
+                      <CurCalendar
+                        key={index}
+                        startDate={it.prfpdfrom._text}
+                        endDate={it.prfpdto._text}
+                        title={it.prfnm._text}
+                        place={it.fcltynm._text}
+                        img={it.poster._text}
+                      />
+                    ),
+                )}
             </div>
           ) : (
             <Calendar

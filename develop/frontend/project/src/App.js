@@ -9,6 +9,10 @@ import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
 import WritePost from './pages/YouTubePage/WritePost';
 import React, { useState } from 'react';
+// 민정 추가 파일👇🏻 오류해결필요
+import Login from './pages/LoginPage/Login';
+import SignUp from './pages/SignUpPage/SignUp';
+import MyPage from './pages/Mypage/MyPage';
 
 import Community from './pages/Community/Community';
 import Board from './pages/Community/Board';
@@ -21,7 +25,7 @@ const App = () => {
   console.log(new Date().getTime());
 
   // YouTube 포스트 데이터
-  const [youtubePosts, setYoutubePosts] = useState([
+  const [youtubePosts] = useState([
     // 포스트 정보들...
   ]);
 
@@ -35,25 +39,27 @@ const App = () => {
             <Route path="/concert_act" element={<Act />} />
             <Route path="/concert_musical" element={<MusicalPage />} />
             <Route path="/team-introduction" element={<TeamIntroduction />} />
-            <Route path="/" element={<YouTubeList />} />
-            <Route path="/youtube" element={<YouTubeList />} />
             <Route
-              exact
-              path="/"
-              render={() => <YouTubeList youtubePosts={youtubePosts} />}
-            />
-            <Route
-              path="/youtube/:postId"
-              render={(props) => (
-                <YouTubeDetail {...props} youtubePosts={youtubePosts} />
-              )}
+              path="/youtube"
+              element={<YouTubeList youtubePosts={youtubePosts} />}
             />
             <Route path="/write" element={<WritePost />} />
+<<<<<<< HEAD
             <Route path="/community_all" element={<Community />} />
             <Route path="/:board" element={<BoardPage />} />
             <Route path="/new" element={<New />} />
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/board/:id" element={<Board />} />
+=======
+            <Route
+              path="/youtube/:postId"
+              element={<YouTubeDetail youtubePosts={youtubePosts} />}
+            />
+            {/* 민정 추가 파일👇🏻 오류해결필요 */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/signup" element={<SignUp />} />
+>>>>>>> d8c7f2f0c13031184065fde7db5e8490a34826ed
           </Routes>
         </div>
       </div>

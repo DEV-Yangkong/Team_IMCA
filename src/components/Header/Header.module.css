@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&family=Yeon+Sung&display=swap');
+
+/* Header */
+.Header {
+  /* position: fixed; */
+  /* left: 0;
+  right: 0; */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.header_wrapper {
+  /* margin: 0 auto;
+  width: 100%;
+  max-width: 1240px; */
+}
+
+/* Header - top */
+.top_wrapper {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  background-color: white;
+}
+
+.top_logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: #134f2c;
+  cursor: pointer;
+}
+
+/* Header - nav */
+.nav_container {
+  background-color: #134f2c;
+}
+.nav_wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1240px;
+  display: flex;
+}
+.nav_item {
+  padding: 0 10px;
+  color: white;
+  font-weight: bold;
+  position: relative;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.nav_item:nth-child(1) {
+  padding: 0 10px 0 0;
+}
+.item_menu {
+  display: none;
+  position: absolute;
+  width: 150%;
+  top: 100%;
+  left: 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 15px 0 15px 10px;
+  color: black;
+  z-index: 999;
+  background-color: white;
+  /* 폰트 볼드하게, 글자 여백 수정 - 예은 - */
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.nav_item:hover .item_menu {
+  display: block;
+}
+
+.item_menu li {
+  padding: 10px 0;
+}
+/* 로그인 회원가입 버튼 -민정 수정 */
+.joinUsBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  width: 120px;
+}
+
+.joinUs {
+  padding: 2px;
+  text-align: center;
+  font-weight: 500;
+  color: gray;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  cursor: pointer;
+}
+.joinUs:hover {
+  background-color: #e0dddd;
+}

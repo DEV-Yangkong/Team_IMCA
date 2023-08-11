@@ -3,6 +3,7 @@ import styles from './Pages.module.css';
 import Pagination from './Pagination';
 import { dataList } from '../../pages/Community/BoardPage';
 import { Navigate, useNavigate } from 'react-router-dom';
+import React from 'react';
 
 import { faComment, far } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons';

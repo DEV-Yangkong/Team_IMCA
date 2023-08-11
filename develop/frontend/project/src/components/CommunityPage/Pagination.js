@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
 
 const Nav = styled.nav`

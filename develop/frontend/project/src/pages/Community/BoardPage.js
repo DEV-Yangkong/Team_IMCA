@@ -1,4 +1,5 @@
 import Category from '../../components/CommunityPage/Category';
+import React from 'react';
 import styles from './BoardPage.module.css';
 import Pages from '../../components/CommunityPage/Pages';
 import Header from '../../components/CommunityPage/Header';
@@ -6,6 +7,9 @@ import Header from '../../components/CommunityPage/Header';
 export const dataList = [
   {
     id: 1,
+    user: {
+      profileImg: 'https://festivallife.kr/common/img/default_profile.png',
+    },
     img: 'https://i.pinimg.com/474x/12/10/74/121074634270ef317603a02120b1f2a9.jpg',
     title: '1번째 제목',
     content: '온라인 코딩테스트1',
@@ -16,6 +20,9 @@ export const dataList = [
   },
   {
     id: 2,
+    user: {
+      profileImg: 'https://festivallife.kr/common/img/default_profile.png',
+    },
     img: 'https://i.pinimg.com/474x/12/10/74/121074634270ef317603a02120b1f2a9.jpg',
     title: '2번째 제목',
     content: '온라인 코딩테스트2',
@@ -26,6 +33,9 @@ export const dataList = [
   },
   {
     id: 3,
+    user: {
+      profileImg: 'https://festivallife.kr/common/img/default_profile.png',
+    },
     img: 'https://i.pinimg.com/474x/12/10/74/121074634270ef317603a02120b1f2a9.jpg',
     title: '3번째 제목',
     content: '온라인 코딩테스트3',
@@ -36,6 +46,9 @@ export const dataList = [
   },
   {
     id: 4,
+    user: {
+      profileImg: 'https://festivallife.kr/common/img/default_profile.png',
+    },
     img: 'https://i.pinimg.com/474x/12/10/74/121074634270ef317603a02120b1f2a9.jpg',
     title: '4번째 제목',
     content: '온라인 코딩테스트4',

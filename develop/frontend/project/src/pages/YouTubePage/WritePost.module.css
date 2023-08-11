@@ -1,0 +1,138 @@
+.write-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 65vh;
+  border: 1px solid #ccc;
+  width: 60%;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.post-title {
+  font-size: 60px;
+  letter-spacing: 1.5px;
+  margin-top: 50px;
+  margin-bottom: 60px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 18px;
+  margin-bottom: 8px;
+  display: block;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 500px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+  max-width: 500px;
+  max-height: 300px;
+}
+
+.input:hover,
+.input:focus,
+.textarea:hover,
+.textarea:focus {
+  border-color: #134f2c;
+}
+
+.form-group textarea {
+  height: 300px;
+}
+
+.submit-button {
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 10px 10px;
+  font-size: 18px;
+  background-color: #ccc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.submit-button:hover {
+  transform: scale(1.05);
+  background-color: #134f2c;
+}
+
+.cancel-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #ccc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.cancel-button:hover {
+  background-color: #134f2c;
+  transform: scale(1.05);
+}
+
+/* 아래는 미디어 쿼리 */
+
+/* 화면 폭이 500px 미만일 때 스타일 변경 */
+@media (max-width: 500px) {
+  .write-post {
+    width: 80%;
+    margin: 20px auto;
+  }
+
+  .post-title {
+    font-size: 30px;
+    letter-spacing: 1.5px;
+    margin-top: 50px;
+    margin-bottom: 60px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* 화면 폭이 1000px 미만일 때 스타일 변경 */
+@media (max-width: 1000px) {
+  .write-post {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    max-width: none;
+  }
+
+  .post-title {
+    font-size: 30px;
+    letter-spacing: 1.5px;
+    margin-top: 50px;
+    margin-bottom: 60px;
+  }
+}

@@ -1,0 +1,279 @@
+.team-introduction {
+  text-align: center;
+  padding: 20px;
+}
+
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(50% - 15px);
+  margin: 5px;
+}
+
+.team-introduction h1 {
+  font-size: 70px;
+  font-weight: bold;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.frontEndDescription,
+.backEndDescription {
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.6;
+  margin: 40px;
+  margin-top: 70px;
+}
+
+.team-member h3 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.team-member-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  margin-top: 30px;
+}
+
+.team-member img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-member-content {
+  margin-top: 10px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-member-content .social-links {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin-top: 5px;
+}
+
+.team-member-content .social-links a {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-right: 20px;
+  margin-left: 25px;
+}
+
+.social-links a.instagram {
+  color: #000000;
+}
+
+.social-links a.instagram:hover {
+  transform: scale(1.5);
+  transition: transform 0.5s ease;
+}
+
+.social-links a.github {
+  color: #000000;
+}
+
+.social-links a.github:hover {
+  transform: scale(1.5);
+  transition: transform 0.5s ease;
+}
+
+.team-member h4 {
+  margin-top: 10px;
+  margin-bottom: 12px;
+  font-size: 25px;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.team-member .role {
+  font-family: 'Noto Serif Vithkuqi', serif;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 2.5px;
+}
+
+.team-member .roleDevelop {
+  margin-top: 20px;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+}
+.team-member .roleDevelop2 {
+  margin-top: 10px;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+}
+
+.highlight2 {
+  color: #134f2c;
+  font-weight: bolder;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-family: 'Noto Serif Vithkuqi', serif;
+}
+
+.highlight3 {
+  font-size: 15px;
+  font-family: 'Nanum Myeongjo', serif;
+}
+
+.top-button {
+  position: sticky;
+  bottom: 500px;
+  left: calc(100% + 100px);
+  width: 50px;
+  height: 50px;
+  padding: 8px 12px;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 12px;
+  font-weight: bolder;
+}
+
+.top-button:hover {
+  background-color: #134f2c;
+  color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .team-members {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1365px) {
+  .team-member {
+    width: calc(50% - 20px);
+    margin: 5px;
+  }
+
+  .frontEndDescription,
+  .backEndDescription {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 1366px) and (max-width: 1440px) {
+  .team-member {
+    width: calc(50% - 20px);
+    margin: 5px;
+  }
+
+  .frontEndDescription,
+  .backEndDescription {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .team-member {
+    width: calc(33.333% - 15px);
+    margin: 5px;
+  }
+
+  .frontEndDescription,
+  .backEndDescription {
+    font-size: 16px;
+  }
+}
+
+.frontEndDescription h2,
+.backEndDescription h2 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: 'Noto Serif Vithkuqi', serif;
+  margin: 15px 0;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.frontEndDescription h2::before,
+.backEndDescription h2::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #134f2c;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineAnimation 3s linear infinite;
+}
+
+@keyframes underlineAnimation {
+  0% {
+    transform: scaleX(0);
+  }
+  50% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+.frontEndDescription p,
+.backEndDescription p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-top: 15px;
+  letter-spacing: 1px;
+}
+
+.introParagraph {
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  line-height: 35px;
+}
+
+.addParagraph p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-top: 10px;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.highlight {
+  color: #134f2c;
+}
+
+.boldSpan {
+  font-weight: 900;
+  font-size: 18px;
+}

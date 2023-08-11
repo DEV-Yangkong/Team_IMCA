@@ -1,5 +1,4 @@
 import './MusicalList.css';
-import React from 'react';
 
 const MusicalList = ({ img, title, startDate, endDate, place }) => {
   return (

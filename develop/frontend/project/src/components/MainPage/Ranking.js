@@ -1,5 +1,4 @@
 import './Ranking.css';
-import React from 'react';
 
 const Ranking = ({ title }) => {
   return (

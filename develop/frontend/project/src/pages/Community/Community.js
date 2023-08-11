@@ -1,6 +1,5 @@
 import Category from '../../components/CommunityPage/Category';
 import styles from './Community.module.css';
-import React from 'react';
 
 const Community = () => {
   return (

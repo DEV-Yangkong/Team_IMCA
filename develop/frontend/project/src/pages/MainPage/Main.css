@@ -13,10 +13,11 @@
   width: 700px;
   border: 1px solid black;
 }
+/* 전체 캘린더 크기 */
 .react-calendar {
   width: 100%;
-  max-width: 500px;
-  height: 350px;
+  max-width: 432px;
+  height: 380px;
 }
 .react-calendar__navigation {
   height: 60px;
@@ -118,7 +119,7 @@
   padding: 1em 0 1em 0;
   border-top: 0.5px solid black;
   /* height: 100px; */
-  border-left: 0.5px solid black;
+
   /* border-right: 0.5px solid black; */
 }
 .date_contents_container {
@@ -139,9 +140,18 @@
 .date_contents_act {
   background-color: rgb(252, 213, 141);
 }
+
+.big_calendar_container {
+  margin-top: 30px;
+}
 .big_calendar_container .react-calendar__month-view__weekdays__weekday {
   font-size: 20px;
   font-weight: 500;
+  text-align: left;
+  padding: 16px 0;
+}
+.big_calendar_container .react-calendar__tile {
+  text-align: left;
 }
 /* 당장 클릭한 날짜에 대한 css */
 .big_calendar_container .react-calendar__tile:enabled:hover,
@@ -166,4 +176,39 @@
   font-size: 25px;
   font-weight: 500;
   line-height: 140%;
+}
+
+/* 날짜별 정보 */
+.current_calendar {
+  width: 432px;
+  height: 380px;
+  border: 1px solid black;
+  overflow-y: scroll;
+}
+.current_calendar_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #134f2c;
+  font-weight: bold;
+}
+
+.whole_btn {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 12px;
+  font-family: 'Roboto Condensed', sans-serif;
+  cursor: pointer;
+}
+.big_calendar_container .react-calendar__navigation__label > span {
+  padding: 10px;
+  border-radius: 15px;
+  background-color: rgba(5, 182, 49, 0.8);
+  color: white;
+  font-size: 20px;
 }

@@ -55,12 +55,7 @@ const Header = () => {
                 <li onClick={() => navigate('/youtube')}>YouTube</li>
               </ul>
             </div>
-            <div
-              className={styles.nav_item}
-              onClick={() => navigate('/my_calender')}
-            >
-              내 캘린더
-            </div>
+            <div className={styles.nav_item}>내 캘린더</div>
             <div
               className={styles.nav_item}
               onClick={() => navigate('/mypage')}

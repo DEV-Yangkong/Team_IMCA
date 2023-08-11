@@ -1,15 +1,15 @@
-import './MusicalList.css';
+import styles from './MusicalList.module.css';
 
 const MusicalList = ({ img, title, startDate, endDate, place }) => {
   return (
-    <div className="MusicalList">
-      <div className="musical_wrapper">
+    <div className={styles.MusicalList}>
+      <div className={styles.musical_wrapper}>
         <div>
-          <img className="musical_poster" alt="" src={img} />
+          <img className={styles.musical_poster} alt="" src={img} />
         </div>
         <div>{title}</div>
         <div>
-          <span>{startDate}</span>
+          <span>{startDate} - </span>
           <span>{endDate}</span>
         </div>
         <div>{place}</div>

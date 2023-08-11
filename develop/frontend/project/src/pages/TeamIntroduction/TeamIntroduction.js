@@ -85,7 +85,11 @@ const TeamIntroduction = () => {
           <div className="team-member-content">
             <h4>양예은(양콩)</h4>
             <p className="role">💛 Frontend 💛</p>
-            <p className="roleDevelop">" IMCA/ABOUTUS & 콘텐츠/YouTube "</p>
+            <p className="roleDevelop">" IMCA 소개 & 콘텐츠 "</p>
+            <p className="roleDevelop2">
+              " <span className="highlight3">콘텐츠</span>{' '}
+              <span className="highlight2">Backend Support</span>💙 "
+            </p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/hi._.yangkong/"
@@ -117,7 +121,7 @@ const TeamIntroduction = () => {
           <div className="team-member-content">
             <h4>김희은</h4>
             <p className="role">💛 Frontend 💛</p>
-            <p className="roleDevelop">" null "</p>
+            <p className="roleDevelop">" 메인페이지 & 공연소식 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/_hiniminih_/"
@@ -149,7 +153,7 @@ const TeamIntroduction = () => {
           <div className="team-member-content">
             <h4>박민정(민정잉)</h4>
             <p className="role">💛 Frontend 💛</p>
-            <p className="roleDevelop">" null "</p>
+            <p className="roleDevelop">" 내 캘린더 및 회원관리 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/minz0ey/"
@@ -181,7 +185,7 @@ const TeamIntroduction = () => {
           <div className="team-member-content">
             <h4>김산이</h4>
             <p className="role">💛 Frontend 💛</p>
-            <p className="roleDevelop">" 커뮤니티 전체, 관리자페이지 "</p>
+            <p className="roleDevelop">" 커뮤니티 & 관리자페이지 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/_tancong_"
@@ -234,7 +238,7 @@ const TeamIntroduction = () => {
           <div className="team-member-content">
             <h4>김진우(지이누)</h4>
             <p className="role">💙 Backend 💙</p>
-            <p className="roleDevelop">" null "</p>
+            <p className="roleDevelop">" 회원정보 & 캘린더 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/sds7629/"
@@ -266,7 +270,7 @@ const TeamIntroduction = () => {
           <div className="team-member-content">
             <h4>방민식(빵식)</h4>
             <p className="role">💙 Backend 💙</p>
-            <p className="roleDevelop">" null "</p>
+            <p className="roleDevelop">" 커뮤니티 & 컨텐츠 "</p>
             <div className="social-links">
               <a
                 href="https://www.instagram.com/spaceenterbs/"

@@ -25,7 +25,6 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
-API_KEY = env("API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,15 +39,7 @@ THIRDPARTY_APPS = [
     "rest_framework_simplejwt",
     "users.apps.UsersConfig",
     "calenders.apps.CalendersConfig",
-    "common.apps.CommonConfig",
-    "youtube_videos.apps.YoutubeVideosConfig",
-    "community_boards.apps.CommunityBoardsConfig",
-    "reviews.apps.ReviewsConfig",
-    "reviews_reviews.apps.ReviewsReviewsConfig",
     "corsheaders",
-    "apis.apps.ApisConfig",
-    "reports.apps.ReportsConfig",
-    "drf_yasg",
 ]
 
 DEFAULT_APPS = [
@@ -79,14 +70,12 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "BLACKLIST_AFTER_ROTATION": False,
-    "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
 }
 
 ROOT_URLCONF = "config.urls"
@@ -164,10 +153,11 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:3080",
     "http://127.0.0.1:3000",
-    "http://localhost:3001",
-    "http://127.0.0.1:3001",
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+AUTHENTICATION_BACKENDS = [
+    "users.custom_auth.CustomBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]

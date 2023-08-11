@@ -54,7 +54,7 @@
   height: 300px;
 }
 
-.submit-button {
+button[type='submit'] {
   margin-top: 20px;
   margin-right: 10px;
   padding: 10px 10px;
@@ -69,7 +69,7 @@
     transform 0.3s;
 }
 
-.submit-button:hover {
+button[type='submit']:hover {
   transform: scale(1.05);
   background-color: #134f2c;
 }
@@ -91,48 +91,4 @@
 .cancel-button:hover {
   background-color: #134f2c;
   transform: scale(1.05);
-}
-
-/* 아래는 미디어 쿼리 */
-
-/* 화면 폭이 500px 미만일 때 스타일 변경 */
-@media (max-width: 500px) {
-  .write-post {
-    width: 80%;
-    margin: 20px auto;
-  }
-
-  .post-title {
-    font-size: 30px;
-    letter-spacing: 1.5px;
-    margin-top: 50px;
-    margin-bottom: 60px;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-/* 화면 폭이 1000px 미만일 때 스타일 변경 */
-@media (max-width: 1000px) {
-  .write-post {
-    width: 90%;
-    margin: 30px auto;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    max-width: none;
-  }
-
-  .post-title {
-    font-size: 30px;
-    letter-spacing: 1.5px;
-    margin-top: 50px;
-    margin-bottom: 60px;
-  }
 }

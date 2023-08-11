@@ -1,31 +1,149 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import styles from './YouTubeList.module.css';
+import './YouTubeList.css';
 import 'font-awesome/css/font-awesome.min.css';
+
+function getPostsForPage(posts, currentPage, postsPerPage) {
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = Math.min(startIndex + postsPerPage, posts.length); // 수정된 부분
+  return posts.slice(startIndex, endIndex);
+}
 
 const YouTubeList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [scrollButtonVisible, setScrollButtonVisible] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [youtubePosts, setYoutubePosts] = useState([]);
+
+  const youtubePosts = [
+    {
+      id: 1, // 각 포스트에 고유한 ID 추가
+      title: '테스트1 2023 진주M2 페스티벌',
+      thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=BYhttUcMkYM',
+      date: '2023-08-05',
+      views: 128,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 2, // 각 포스트에 고유한 ID 추가
+      title: '테스트2 2023 진주M2 페스티벌',
+      thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=BYhttUcMkYM',
+      date: '2023-08-05',
+      views: 128,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 3,
+      title:
+        '2023 진주M2 페스티벌 l다이나믹듀오, 김연자, 길구봉구, 트라이비, 케이시, 포마스 l MUSIC & MEDIA',
+      thumbnailUrl: 'https://i.ytimg.com/vi/BYhttUcMkYM/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=BYhttUcMkYM',
+      date: '2023-08-05',
+      views: 128,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 4,
+      title: '[LIVE] 2023 경포썸머페스티벌 Day 6 경포 K-POP 콘서트 ',
+      thumbnailUrl: 'https://i.ytimg.com/vi/XtEhGI6Ka9g/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=XtEhGI6Ka9g',
+      date: '2023-08-05',
+      views: 128,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 5,
+      title: '이건 좋았고, 저건 실망스러웠던 ‘서울재즈페스티벌 2023’',
+      thumbnailUrl: 'https://i.ytimg.com/vi/CL1SkluCpnQ/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=CL1SkluCpnQ',
+      date: '2023-08-05',
+      views: 128,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 6,
+      title:
+        '2023년 EDM 페스티벌의 모든 것! (UMF / EDC / Cream Field Festival )',
+      thumbnailUrl: 'https://i.ytimg.com/vi/Tv68IxCjDhY/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=Tv68IxCjDhY/',
+      date: '2023-08-03',
+      views: 128,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 7,
+      title:
+        '2023 펜타포트 락페 예습 플리 (토요일) 🤘| 스트록스, 검정치마, 이디오테잎',
+      thumbnailUrl: 'https://i.ytimg.com/vi/lKqGJelgm6s/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=lKqGJelgm6s/',
+      date: '2023-08-02',
+      views: 82,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 8,
+      title:
+        '2023 펜타포트 락 페스티벌 라인업 읽어주는 남자🎸 Feat. 스트록스, 엘르가든, 검정치마',
+      thumbnailUrl: 'https://i.ytimg.com/vi/f0wrYy-qHgQ/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=f0wrYy-qHgQ/',
+      date: '2023-07-28',
+      views: 597,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 9,
+      title:
+        '올해도 대박난 라인업! 2023 펜타포트 락페스티벌 하이라이트 미리듣기',
+      thumbnailUrl: 'https://i.ytimg.com/vi/73Yg3h35-Co/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=73Yg3h35-Co/',
+      date: '2023-07-21',
+      views: 597,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 10,
+      title: '크리스토퍼(Christopher) - BAD | 서울재즈페스티벌 2023',
+      thumbnailUrl: 'https://i.ytimg.com/vi/TlKqiV-cENM/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=TlKqiV-cENM/',
+      date: '2023-07-20',
+      views: 1200,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 11,
+      title: '본격 음악 페스티벌 리뷰 채널 페벌리버!',
+      thumbnailUrl: 'https://i.ytimg.com/vi/zoceIksCY9E/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=zoceIksCY9E/',
+      date: '2022-09-01',
+      views: 2123,
+      likes: 50,
+      comments: 10,
+    },
+    {
+      id: 12,
+      title:
+        '미국여행 온 이유! 코첼라 페스티벌 2022 후기 DAY 2,3 빌리아일리시 투에니원 도자캣 Coachella festival 2022 VLOG💖',
+      thumbnailUrl: 'https://i.ytimg.com/vi/7cbFZiS-syo/maxresdefault.jpg',
+      videoUrl: 'https://www.youtube.com/watch?v=7cbFZiS-syo/',
+      date: '2022-08-31',
+      views: 78,
+      likes: 50,
+      comments: 10,
+    },
+  ];
 
   const postsPerPage = 9;
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'http://127.0.0.1:8000/api/v1/youtube_videos/',
-        );
-        setYoutubePosts(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,12 +172,6 @@ const YouTubeList = () => {
     });
   };
 
-  const formatDate = (dateString) => {
-    const isoDateString = dateString; // 예: '2023-08-08T11:59:01.894580+09:00'
-    const formattedDateString = isoDateString.split('T')[0]; // '2023-08-08'
-    return formattedDateString.replace(/\./g, '-'); // '.'을 '-'로 변경
-  };
-
   const filteredPosts = youtubePosts.filter(
     (post) =>
       searchTerm === '' ||
@@ -68,92 +180,57 @@ const YouTubeList = () => {
 
   const totalPageCount = Math.ceil(filteredPosts.length / postsPerPage);
 
-  const startIndex = (currentPage - 1) * postsPerPage;
-  const endIndex = Math.min(startIndex + postsPerPage, filteredPosts.length);
-  const reversedFilteredPosts = [...filteredPosts].reverse();
-  const postsToShow = reversedFilteredPosts.slice(startIndex, endIndex);
-
-  // const handleViewCountClick = async (videoId) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `http://127.0.0.1:8000/api/v1/youtube_videos/${videoId}/increase_views/`,
-  //     );
-  //     if (response.status === 200) {
-  //       // 조회수 증가 성공 시 프론트엔드 상태 업데이트
-  //       setYoutubePosts((prevPosts) => {
-  //         return prevPosts.map((post) => {
-  //           if (post.id === videoId) {
-  //             return {
-  //               ...post,
-  //               views_count: post.views_count + 1, // 조회수 증가
-  //             };
-  //           }
-  //           return post;
-  //         });
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error('Error increasing view count:', error);
-  //   }
-  // };
-
   return (
-    <div className={styles['youtube-list']}>
+    <div className="youtube-list">
       <h1>YouTube</h1>
-      <div className={styles['search-bar']}>
+      <div className="search-bar">
         <input
           type="text"
           placeholder="제목 검색"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <span className={styles['search-icon']}>
+        <span className="search-icon">
           <i className="fa fa-search"></i>
         </span>
       </div>
       {searchTerm && (
-        <div className={styles['search-result']}>
+        <div className="search-result">
           <p>검색 결과: "{searchTerm}"</p>
         </div>
       )}
       {filteredPosts.length === 0 && searchTerm !== '' ? (
-        <div className={styles['no-results']}>검색 결과가 없습니다.</div>
+        <div className="no-results">검색 결과가 없습니다.</div>
       ) : (
-        <div className={styles['post-list']}>
-          {postsToShow.map((post) => (
-            <div className={styles['post-item']} key={post.id}>
-              <Link
-                to={`/youtube/${post.id}`}
-                className={styles['post-title-link']}
-                // onClick={() => handleViewCountClick(post.id)}
-              >
-                <img src={post.thumbnail_url} alt={post.title} />
-                <div className={styles['post-title']}>{post.title}</div>
-              </Link>
-              <div className={styles['post-info']}>
-                <span className={styles['post-date']}>
-                  {formatDate(post.created_at)}
-                </span>
-                <span className={styles['post-views']}>
-                  조회수 {post.views_count}
-                </span>
+        <div className="post-list">
+          {getPostsForPage(filteredPosts, currentPage, postsPerPage).map(
+            (post, index) => (
+              <div className="post-item" key={post.id}>
+                <Link to={`/youtube/${post.id}`} className="post-title-link">
+                  <img src={post.thumbnailUrl} alt={post.title} />
+                  <div className="post-title">{post.title}</div>
+                </Link>
+                <div className="post-info">
+                  <span className="post-date">{post.date}</span>
+                  <span className="post-views">조회수 {post.views}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       )}
       {scrollButtonVisible && (
-        <button className={styles['top-button']} onClick={scrollToTop}>
+        <button className="top-button" onClick={scrollToTop}>
           TOP
         </button>
       )}
       {totalPageCount > 1 && (
-        <div className={styles['page-navigation']}>
+        <div className="page-navigation">
           {Array.from({ length: totalPageCount }, (_, i) => i + 1).map(
             (page) => (
               <button
                 key={page}
-                className={page === currentPage ? styles['active'] : ''}
+                className={page === currentPage ? 'active' : ''}
                 onClick={() => handlePageChange(page)}
               >
                 {page}
@@ -162,8 +239,8 @@ const YouTubeList = () => {
           )}
         </div>
       )}
-      <div className={styles['write-button-container']}>
-        <Link to="/write" className={styles['write-button']}>
+      <div className="write-button-container">
+        <Link to="/write" className="write-button">
           UPLOAD
         </Link>
       </div>

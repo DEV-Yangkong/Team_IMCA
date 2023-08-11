@@ -44,7 +44,7 @@
   margin-top: 15px;
   padding-left: 15px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
   font-weight: bold;
@@ -93,7 +93,7 @@
   margin-top: 15px;
   padding-left: 15px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
   font-weight: bold;

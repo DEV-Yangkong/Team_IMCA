@@ -10,14 +10,13 @@
   padding: 10px;
   font-size: 30px;
   font-weight: bold;
-  width: 100%;
+  /* width: 100%; */
 
   position: relative;
 }
 .MyCalendar_title {
   color: white;
-  width: 80%;
-  /* max-width: 1000px; */
+  width: 1000px;
 
   height: 50px;
   border-radius: 15px;
@@ -30,8 +29,8 @@
 .MyCalendar_Wrapper {
   border: 2px solid #134f2c;
   border-radius: 15px;
-  width: 90%;
-  max-width: 1050px;
+  width: 1300px;
+  max-width: 1350px;
   height: 700px;
   z-index: 11;
   position: absolute;
@@ -39,6 +38,7 @@
 }
 .MyCalendar_left {
   margin-top: 30px;
+  margin-left: 30px;
   width: 50%;
   height: 600px;
   border: 1px solid firebrick;

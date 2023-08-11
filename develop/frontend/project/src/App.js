@@ -16,6 +16,12 @@ import New from './pages/Community/New';
 import Edit from './pages/Community/Edit';
 import BoardPage from './pages/Community/BoardPage';
 
+import Login from './pages/LoginPage/Login';
+import SignUp from './pages/SignUpPage/SignUp';
+import MyPage from './pages/Mypage/MyPage';
+import MyCalendar from './pages/MyCalendarPage/MyCalendar';
+
+
 const App = () => {
   // Community List time
   console.log(new Date().getTime());
@@ -54,6 +60,10 @@ const App = () => {
             <Route path="/new" element={<New />} />
             <Route path="/edit/:id" element={<Edit />} />
             <Route path="/board/:id" element={<Board />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/my_calender" element={<MyCalendar />} />
           </Routes>
         </div>
       </div>

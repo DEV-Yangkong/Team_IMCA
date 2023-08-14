@@ -32,7 +32,7 @@ const Detail = () => {
         </div>
         <div className={styles.author}>
           <div className={styles.authorTop}>
-            <div className={styles.detailId}>{post.id}</div>
+            <div className={styles.detailId}>{post.user.name}</div>
           </div>
           <div className={styles.authorBottom}>
             <div className={styles.detailDate}>{post.date}</div>

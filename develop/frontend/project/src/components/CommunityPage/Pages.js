@@ -28,46 +28,44 @@ const Pages = () => {
   return (
     <div className={styles.Pages}>
       <main>
-        {posts
-          .slice(offset, offset + limit)
-          .map(({ img, id, user, title, date, views, like_num, reviews }) => (
-            <div className={styles.main} key={id}>
-              <div className={styles.left}>
-                <img src={img} alt={title} />
-              </div>
-              <div className={styles.column}>
-                <div className={styles.space}>
-                  <div
-                    className={styles.title}
-                    onClick={() => handleTitleClick(id)}
-                  >
-                    {title}
-                  </div>
-                  <div>
-                    <FontAwesomeIcon className={styles.icon} icon={faComment} />
-                    {reviews}
-                  </div>
-                </div>
-                <ul className={styles.bottom}>
-                  <li>{user.name}</li> {/* user.name 가져오기 */}
-                  <li>{date}</li>
-                  <li>조회수 {views}</li>
-                  <li>
-                    <FontAwesomeIcon
-                      className={styles.icon}
-                      style={{ color: 'tomato' }}
-                      icon={likeClick ? SolidHeart : far.faHeart}
-                      size="l"
-                      onClick={() => {
-                        SetLikeClick(!likeClick);
-                      }}
-                    />
-                    {like_num}
-                  </li>
-                </ul>
-              </div>
+        {posts.slice(offset, offset + limit).map((item, index) => (
+          <div className={styles.main} key={item.id}>
+            <div className={styles.left}>
+              <img src={item.img} alt={item.title} />
             </div>
-          ))}
+            <div className={styles.column}>
+              <div className={styles.space}>
+                <div
+                  className={styles.title}
+                  onClick={() => handleTitleClick(item.id)}
+                >
+                  {item.title}
+                </div>
+                <div>
+                  <FontAwesomeIcon className={styles.icon} icon={faComment} />
+                  {item.reviews}
+                </div>
+              </div>
+              <ul className={styles.bottom}>
+                <li>{item.user.name}</li> {/* user.name 가져오기 */}
+                <li>{item.date}</li>
+                <li>조회수 {item.views}</li>
+                <li>
+                  <FontAwesomeIcon
+                    className={styles.icon}
+                    style={{ color: 'tomato' }}
+                    icon={likeClick ? SolidHeart : far.faHeart}
+                    size="l"
+                    onClick={() => {
+                      SetLikeClick(!likeClick);
+                    }}
+                  />
+                  {item.like_num}
+                </li>
+              </ul>
+            </div>
+          </div>
+        ))}
       </main>
 
       <footer>

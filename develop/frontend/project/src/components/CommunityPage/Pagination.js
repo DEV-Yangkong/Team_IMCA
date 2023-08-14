@@ -1,4 +1,3 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -36,53 +35,32 @@ const Button = styled.button`
   }
 `;
 
-const Pagination = ({ total, limit, page, setPage }) => {
-  const navigate = useNavigate();
-  const { board } = useParams();
+function Pagination({ total, limit, page, setPage }) {
   const numPages = Math.ceil(total / limit);
-
-  const handlePageClick = (pageNumber) => {
-    if (pageNumber >= 1 && pageNumber <= numPages) {
-      setPage(pageNumber);
-      navigate(`/${board}?page=${pageNumber}`);
-    }
-  };
-
-  const buttonsPerPage = 10;
-  const totalPages = Math.ceil(total / limit);
-
-  const startPage =
-    Math.floor((page - 1) / buttonsPerPage) * buttonsPerPage + 1;
-  const endPage = Math.min(startPage + buttonsPerPage - 1, totalPages);
 
   return (
     <>
       <Nav>
-        <Button onClick={() => handlePageClick(page - 1)} disabled={page === 1}>
+        <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
           &lt;
         </Button>
-        {Array.from({ length: endPage - startPage + 1 }, (_, index) => {
-          const pageNumber = startPage + index;
-
-          return (
+        {Array(numPages)
+          .fill()
+          .map((_, i) => (
             <Button
-              key={pageNumber}
-              onClick={() => handlePageClick(pageNumber)}
-              aria-current={page === pageNumber ? 'page' : null}
+              key={i + 1}
+              onClick={() => setPage(i + 1)}
+              aria-current={page === i + 1 ? 'page' : null}
             >
-              {pageNumber}
+              {i + 1}
             </Button>
-          );
-        })}
-        <Button
-          onClick={() => handlePageClick(page + 1)}
-          disabled={page === numPages}
-        >
+          ))}
+        <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
           &gt;
         </Button>
       </Nav>
     </>
   );
-};
+}
 
 export default Pagination;

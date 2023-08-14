@@ -112,16 +112,6 @@ const MyPage = () => {
                   type="password"
                   name="password"
                   placeholder="대소문자, 특수문자 포함 8글자이상"
-                  // subtext={errors.password?.message}
-                  // {...register('password', {
-                  //   required: '8글자 이상 영문 대소문자, 숫자, 특수문자 포함',
-                  //   minLength: 8,
-                  //   pattern: {
-                  //     value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
-                  //     message:
-                  //       '8글자 이상으로 영문 대소문자, 숫자, 특수문자 포함. ',
-                  //   },
-                  // })}
                   {...register('password', { validate: validatePassword })}
                 />
               </div>
@@ -135,15 +125,6 @@ const MyPage = () => {
                   type="password"
                   name="confirmPassword"
                   value={passwordConfirm}
-                  // subtext={errors.passwordConfirm?.message}
-                  // {...register('passwordConfirm', {
-                  //   required: '8글자 이상 영문 대소문자, 숫자, 특수문자 포함',
-                  //   minLength: 8,
-                  //   pattern: {
-                  //     value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
-                  //     message:
-                  //       '8글자 이상으로 영문 대소문자, 숫자, 특수문자 포함. ',
-                  //   },
                   {...register('confirmPassword', {
                     validate: (value) =>
                       value === password || '비밀번호가 일치하지 않습니다.',
@@ -167,16 +148,6 @@ const MyPage = () => {
                   placeholder="닉네임"
                   name="nickname"
                   value={nickname}
-                  // subtext={errors.nickname?.message}
-                  // {...register('nickname', {
-                  //   required: '닉네임 입력하세요',
-                  //   minLength: { value: 3, message: '3글자 이상 입력하세요' },
-                  //   pattern: {
-                  //     value: /^[A-za-z0-9가-힣]{3,10}$/,
-                  //     message:
-                  //       '가능한 문자: 영문 대소문자, 글자 단위 한글, 숫자',
-                  //   },
-                  // })}
                   {...register('nickname', {
                     validate: { validateNickname },
                   })}
@@ -195,14 +166,6 @@ const MyPage = () => {
                   name="email"
                   value={`${email}`}
                   placeholder="IMCA@imca.com"
-                  // subtext={errors.email?.message}
-                  // {...register('email', {
-                  //   required: '이메일은 필수 입니다',
-                  //   pattern: {
-                  //     value: /\S+@\S+\.\S+/,
-                  //     message: '이메일 형식에 맞지 않습니다.',
-                  //   },
-                  // })}
                   {...register('email', { validate: validateEmail })}
                   onChange={(e) => {
                     setEmail(e.target.value);

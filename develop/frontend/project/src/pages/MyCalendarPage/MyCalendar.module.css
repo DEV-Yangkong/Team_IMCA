@@ -1,6 +1,7 @@
 .MyCalendar {
   box-sizing: border-box;
   width: 100%;
+  height: 100%;
 }
 .MyCalendar_Container {
   display: flex;
@@ -37,23 +38,12 @@
   top: 35px;
 }
 .MyCalendar_left {
-  margin-top: 30px;
+  margin-top: 35px;
   margin-left: 30px;
-  width: 500px;
-  height: 600px;
+  width: 50%;
+  height: 100%;
   box-sizing: content-box;
-  background-color: red;
 }
 
 .MyCalendar_right {
-}
-/* 전체 캘린더 크기 */
-.react-calendar {
-  width: 100%;
-  max-width: 432px;
-  height: 1000px;
-}
-.react-calendar__navigation {
-  height: 60px;
-  margin-bottom: 0.7em;
 }

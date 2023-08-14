@@ -15,24 +15,21 @@ const Button = styled.button`
   border-radius: 8px;
   padding: 8px;
   margin: 0;
-  background: black;
-  color: white;
+  background: white;
+  color: #ececece;
   font-size: 1rem;
 
   &:hover {
-    background: tomato;
     cursor: pointer;
     transform: translateY(-2px);
   }
 
   &[disabled] {
-    background: grey;
     cursor: revert;
     transform: revert;
   }
 
   &[aria-current] {
-    background: deeppink;
     font-weight: bold;
     cursor: revert;
     transform: revert;
@@ -51,31 +48,32 @@ const Pagination = ({ total, limit, page, setPage }) => {
     }
   };
 
+  const buttonsPerPage = 10;
+  const totalPages = Math.ceil(total / limit);
+
+  const startPage =
+    Math.floor((page - 1) / buttonsPerPage) * buttonsPerPage + 1;
+  const endPage = Math.min(startPage + buttonsPerPage - 1, totalPages);
+
   return (
     <>
       <Nav>
         <Button onClick={() => handlePageClick(page - 1)} disabled={page === 1}>
           &lt;
         </Button>
-        {Array(numPages)
-          .fill()
-          .map((_, i) => {
-            const pageNumber = i + 1;
+        {Array.from({ length: endPage - startPage + 1 }, (_, index) => {
+          const pageNumber = startPage + index;
 
-            if (pageNumber >= 10 && Math.abs(pageNumber - page) >= 10) {
-              return null;
-            }
-
-            return (
-              <Button
-                key={pageNumber}
-                onClick={() => handlePageClick(pageNumber)}
-                aria-current={page === pageNumber ? 'page' : null}
-              >
-                {pageNumber}
-              </Button>
-            );
-          })}
+          return (
+            <Button
+              key={pageNumber}
+              onClick={() => handlePageClick(pageNumber)}
+              aria-current={page === pageNumber ? 'page' : null}
+            >
+              {pageNumber}
+            </Button>
+          );
+        })}
         <Button
           onClick={() => handlePageClick(page + 1)}
           disabled={page === numPages}

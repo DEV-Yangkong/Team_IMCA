@@ -30,7 +30,7 @@ const Pages = () => {
       <main>
         {posts
           .slice(offset, offset + limit)
-          .map(({ img, id, title, date, views, like_num, reviews }) => (
+          .map(({ img, id, user, title, date, views, like_num, reviews }) => (
             <div className={styles.main} key={id}>
               <div className={styles.left}>
                 <img src={img} alt={title} />
@@ -49,7 +49,7 @@ const Pages = () => {
                   </div>
                 </div>
                 <ul className={styles.bottom}>
-                  <li>{id}</li>
+                  <li>{user.name}</li> {/* user.name 가져오기 */}
                   <li>{date}</li>
                   <li>조회수 {views}</li>
                   <li>

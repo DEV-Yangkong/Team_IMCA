@@ -9,10 +9,10 @@ import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';
 import WritePost from './pages/YouTubePage/WritePost';
 import React, { useState } from 'react';
-// 민정 추가 파일👇🏻 오류해결필요
 import Login from './pages/LoginPage/Login';
 import SignUp from './pages/SignUpPage/SignUp';
 import MyPage from './pages/Mypage/MyPage';
+import MyCalendar from './pages/MyCalendarPage/MyCalendar';
 
 const App = () => {
   // YouTube 포스트 데이터
@@ -39,9 +39,11 @@ const App = () => {
               path="/youtube/:postId"
               element={<YouTubeDetail youtubePosts={youtubePosts} />}
             />
-            {/* 민정 추가 파일👇🏻 오류해결필요 */}
-            <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/my_calender" element={<MyCalendar />} />
+
+            <Route path="/login" element={<Login />} />
+
             <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>

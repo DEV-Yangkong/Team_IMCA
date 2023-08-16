@@ -50,3 +50,25 @@
 .Pages .icon {
   padding: 0px 5px 0px 0px;
 }
+
+/* Button */
+
+.EditorDiv {
+  text-align: end;
+  margin-top: 15px;
+}
+
+.EditorButton {
+  cursor: pointer;
+  border: none;
+
+  background-color: #363636;
+  border-color: #363636;
+  color: #ffffff;
+  border-width: 1px;
+  padding: 8px 20px;
+  font-size: 12px;
+  border-radius: 2px;
+
+  white-space: nowrap;
+}

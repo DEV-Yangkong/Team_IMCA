@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './Detail.module.css';
 import { dataList } from '../../pages/Community/BoardPage';
 import { useState } from 'react';
@@ -9,6 +9,7 @@ import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Detail = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   // 배열에 일치한 ID를 찾아줌
   const post = dataList.find((post) => post.id === parseInt(id));

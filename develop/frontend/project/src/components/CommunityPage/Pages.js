@@ -19,7 +19,7 @@ const Pages = () => {
     SetLikeClick(true);
   };
 
-  const offset = (page - 1) * limit;
+  const offset = (page - 1) * limit; // 데이터 시작 번호
 
   const handleTitleClick = (id) => {
     navigate(`/board/${id}`); // 클릭한 게시물의 ID로 페이지 이동
@@ -67,11 +67,21 @@ const Pages = () => {
           </div>
         ))}
       </main>
-
       <footer>
+        <div className={styles.EditorDiv}>
+          <button
+            className={styles.EditorButton}
+            type="button"
+            onClick={() => {
+              navigate('/edit/:id');
+            }}
+          >
+            글쓰기
+          </button>
+        </div>
         <Pagination
           total={posts.length}
-          limit={limit}
+          limit={10}
           page={page}
           setPage={setPage}
         />

@@ -16,7 +16,7 @@ import MyCalendar from './pages/MyCalendarPage/MyCalendar';
 import Community from './pages/Community/Community';
 import Board from './pages/Community/Board';
 import New from './pages/Community/New';
-import Edit from './pages/Community/Edit';
+import Editor from './components/CommunityPage/Editor';
 import BoardPage from './pages/Community/BoardPage';
 
 const App = () => {
@@ -51,7 +51,7 @@ const App = () => {
             <Route path="/community_all" element={<Community />} />
             <Route path="/:board" element={<BoardPage />} />
             <Route path="/new" element={<New />} />
-            <Route path="/edit/:id" element={<Edit />} />
+            <Route path="/edit/:id" element={<Editor />} />
             <Route path="/board/:id" element={<Board />} />
           </Routes>
         </div>

@@ -3,3 +3,37 @@
   width: 100%;
   max-width: 1240px;
 }
+
+.EditorDiv {
+  display: flex;
+  justify-content: space-between;
+}
+
+.listButton {
+  cursor: pointer;
+  border: none;
+
+  background-color: #363636;
+  border-color: #363636;
+  color: #ffffff;
+  border-width: 1px;
+  padding: 8px 20px;
+  font-size: 12px;
+  border-radius: 2px;
+
+  white-space: nowrap;
+}
+.listEditorButton {
+  cursor: pointer;
+  border: none;
+
+  background-color: #363636;
+  border-color: #363636;
+  color: #ffffff;
+  border-width: 1px;
+  padding: 8px 20px;
+  font-size: 12px;
+  border-radius: 2px;
+
+  white-space: nowrap;
+}

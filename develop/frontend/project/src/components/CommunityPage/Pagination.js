@@ -6,7 +6,7 @@ const Nav = styled.nav`
   justify-content: center;
   align-items: center;
   gap: 4px;
-  margin: 16px;
+  margin: 20px 0px;
 `;
 
 const Button = styled.button`
@@ -35,8 +35,9 @@ const Button = styled.button`
   }
 `;
 
+// total(데이터 총 갯수), limit(한 페이지에 보여줄 갯수)
 function Pagination({ total, limit, page, setPage }) {
-  const numPages = Math.ceil(total / limit);
+  const numPages = Math.ceil(total / limit); // 총 페이지 수 올림
 
   return (
     <>
@@ -48,6 +49,7 @@ function Pagination({ total, limit, page, setPage }) {
           .fill()
           .map((_, i) => (
             <Button
+              value={1}
               key={i + 1}
               onClick={() => setPage(i + 1)}
               aria-current={page === i + 1 ? 'page' : null}

@@ -2,6 +2,7 @@
   width: 100%;
   max-width: 800px;
   height: 100%;
+  border: none;
 }
 .myCalendar_container .react-calendar__navigation {
   height: 80px;
@@ -20,10 +21,11 @@
 .myCalendar_container .react-calendar__month-view__weekdays__weekday {
   padding: 0.5em;
   background-color: #134f2c51;
+  margin-bottom: 10px;
 }
 .myCalendar_container .react-calendar__navigation__label__labelText {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
 }
 .myCalendar_container .react-calendar__month-view__days__day {
   border-radius: 20px;

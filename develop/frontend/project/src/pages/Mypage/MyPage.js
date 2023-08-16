@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 import styles from './MyPage.module.css';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 const MyPage = () => {
   const {
@@ -12,6 +13,7 @@ const MyPage = () => {
   } = useForm({ mode: 'onBlur' });
 
   const [userData, setUserData] = useState({
+    img: '',
     id: '',
     password: '',
     passwordConfirm: '',
@@ -20,12 +22,18 @@ const MyPage = () => {
     gender: '',
   });
 
-  // useEffect(() => {
-  //   //서버 api 호출하여 데이터 가져오기
-  //   axios.get('/api/user').then((response) => {
-  //     setUserData(response.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        //서버 api 호출 유저 데이터 가죠와
+        const response = await axios.get('/api/user_profile/');
+        setUserData(response.data);
+      } catch (error) {
+        console.error('error, 유저 데이터 실패', error);
+      }
+    };
+    fetchUserData(); //함수 실행
+  }, []);
 
   const password = watch('password', '');
 
@@ -36,11 +44,15 @@ const MyPage = () => {
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
 
-  const onSubmit = (data) => {
-    // axios.post('/api/upadateUser', data).then((response) => {
-    //   console.log(response.data);
-    // });
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('/api/updateUser', data);
+      console.log(response.data); //마이페이지 수정 성공
+    } catch (error) {
+      console.error('error, 내정보수정 실패', error);
+    }
   };
+
   const validatePassword = (value) => {
     if (!value) return '비밀번호 입력해주세요.';
     if (

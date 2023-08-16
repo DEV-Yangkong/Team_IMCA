@@ -1,5 +1,7 @@
 import styles from './SignUp.module.css';
 import { useForm } from 'react-hook-form';
+import React from 'react';
+import axios from 'axios';
 
 const SignUp = () => {
   const {
@@ -11,8 +13,14 @@ const SignUp = () => {
 
   const password = watch('password', '');
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('/api/accounts/signup/', data);
+      console.log(response.data.message);
+    } catch (error) {
+      console.error('error signup', error);
+    }
+    // console.log(data);
     // 회원가입 로직처리
   };
 
@@ -193,7 +201,7 @@ const SignUp = () => {
                 <p className={styles.erms}>{errors.gender.message}</p>
               )}
               <button className={styles.signUpBtn} type="submit">
-                가입완료
+                가입하기
               </button>
             </section>
           </form>

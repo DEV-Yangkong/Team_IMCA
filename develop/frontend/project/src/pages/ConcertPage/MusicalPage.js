@@ -3,34 +3,21 @@ import { useEffect, useState } from 'react';
 import MusicalList from '../../components/ConcertPage/MusicalList';
 import styles from './MusicalPage.module.css';
 import { xml2js } from 'xml-js';
+import { useQuery } from '@tanstack/react-query';
+import { getConcertData } from '../../api';
 const MusicalPage = () => {
   const [musicalArray, setMusicalArray] = useState([]);
-  // 공공 데이터 public musical
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/API/public', {
-        params: {
-          cpage: 1,
-          rows: 30,
-          shcate: 'GGGA',
-          prfstate: '01',
-          prfpdfrom: '20230801',
-          prfpdto: '20230831',
-        },
-      })
-      .then((res) => {
-        // console.log(res.data);
-        const options = { compact: true, spaces: 2 };
-        const result = xml2js(res.data, options);
-        setMusicalArray(result.dbs.db);
-        console.log('musicalArray', musicalArray);
-      })
-      .catch((error) => console.log('err', error));
-  }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { data: concertData } = useQuery(['concert', currentPage], () =>
+    getConcertData(currentPage),
+  );
+  const onHandlePage = (pageNumber) => {
+    setCurrentPage(pageNumber); // 페이지 번호 업데이트
+  };
   return (
     <div>
       <div className={styles.list_container}>
-        {musicalArray.map((it) => (
+        {concertData?.map((it) => (
           <MusicalList
             title={it.prfnm._text}
             startDate={it.prfpdfrom._text}
@@ -39,6 +26,47 @@ const MusicalPage = () => {
             img={it.poster._text}
           />
         ))}{' '}
+      </div>
+      <div
+        style={{
+          margin: '0 auto',
+          maxWidth: 1240,
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <ul style={{ display: 'flex', fontSize: 20 }}>
+          <li
+            style={{ padding: 20, cursor: 'pointer' }}
+            onClick={() => onHandlePage(1)}
+          >
+            1
+          </li>
+          <li
+            style={{ padding: 20, cursor: 'pointer' }}
+            onClick={() => onHandlePage(2)}
+          >
+            2
+          </li>
+          <li
+            style={{ padding: 20, cursor: 'pointer' }}
+            onClick={() => onHandlePage(3)}
+          >
+            3
+          </li>
+          <li
+            style={{ padding: 20, cursor: 'pointer' }}
+            onClick={() => onHandlePage(4)}
+          >
+            4
+          </li>
+          <li
+            style={{ padding: 20, cursor: 'pointer' }}
+            onClick={() => onHandlePage(5)}
+          >
+            5
+          </li>
+        </ul>
       </div>
     </div>
   );

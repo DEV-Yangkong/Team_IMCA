@@ -12,3 +12,10 @@
 
   white-space: nowrap;
 }
+
+.inputTitle {
+  width: 100%;
+  margin: 0 auto;
+  resize: none;
+  /* margin-bottom: 4rem; */
+}

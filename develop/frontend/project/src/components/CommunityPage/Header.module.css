@@ -1,0 +1,41 @@
+.Header {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1240px;
+}
+
+.Header .HeaderLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 14px;
+}
+
+.Header p {
+  font-size: 18px;
+}
+
+.Header .form_control {
+  padding: 6px 12px;
+}
+
+/* 크롬의 경우 */
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+  display: none;
+}
+
+.searchInputContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 import styles from './MyPage.module.css';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 const MyPage = () => {
   const {
@@ -12,6 +13,7 @@ const MyPage = () => {
   } = useForm({ mode: 'onBlur' });
 
   const [userData, setUserData] = useState({
+    img: '',
     id: '',
     password: '',
     passwordConfirm: '',
@@ -20,12 +22,18 @@ const MyPage = () => {
     gender: '',
   });
 
-  // useEffect(() => {
-  //   //서버 api 호출하여 데이터 가져오기
-  //   axios.get('/api/user').then((response) => {
-  //     setUserData(response.data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        //서버 api 호출 유저 데이터 가죠와
+        const response = await axios.get('/api/user_profile/');
+        setUserData(response.data);
+      } catch (error) {
+        console.error('error, 유저 데이터 실패', error);
+      }
+    };
+    fetchUserData(); //함수 실행
+  }, []);
 
   const password = watch('password', '');
 
@@ -36,11 +44,15 @@ const MyPage = () => {
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
 
-  const onSubmit = (data) => {
-    // axios.post('/api/upadateUser', data).then((response) => {
-    //   console.log(response.data);
-    // });
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('/api/updateUser', data);
+      console.log(response.data); //마이페이지 수정 성공
+    } catch (error) {
+      console.error('error, 내정보수정 실패', error);
+    }
   };
+
   const validatePassword = (value) => {
     if (!value) return '비밀번호 입력해주세요.';
     if (
@@ -112,16 +124,6 @@ const MyPage = () => {
                   type="password"
                   name="password"
                   placeholder="대소문자, 특수문자 포함 8글자이상"
-                  // subtext={errors.password?.message}
-                  // {...register('password', {
-                  //   required: '8글자 이상 영문 대소문자, 숫자, 특수문자 포함',
-                  //   minLength: 8,
-                  //   pattern: {
-                  //     value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
-                  //     message:
-                  //       '8글자 이상으로 영문 대소문자, 숫자, 특수문자 포함. ',
-                  //   },
-                  // })}
                   {...register('password', { validate: validatePassword })}
                 />
               </div>
@@ -135,15 +137,6 @@ const MyPage = () => {
                   type="password"
                   name="confirmPassword"
                   value={passwordConfirm}
-                  // subtext={errors.passwordConfirm?.message}
-                  // {...register('passwordConfirm', {
-                  //   required: '8글자 이상 영문 대소문자, 숫자, 특수문자 포함',
-                  //   minLength: 8,
-                  //   pattern: {
-                  //     value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
-                  //     message:
-                  //       '8글자 이상으로 영문 대소문자, 숫자, 특수문자 포함. ',
-                  //   },
                   {...register('confirmPassword', {
                     validate: (value) =>
                       value === password || '비밀번호가 일치하지 않습니다.',
@@ -167,16 +160,6 @@ const MyPage = () => {
                   placeholder="닉네임"
                   name="nickname"
                   value={nickname}
-                  // subtext={errors.nickname?.message}
-                  // {...register('nickname', {
-                  //   required: '닉네임 입력하세요',
-                  //   minLength: { value: 3, message: '3글자 이상 입력하세요' },
-                  //   pattern: {
-                  //     value: /^[A-za-z0-9가-힣]{3,10}$/,
-                  //     message:
-                  //       '가능한 문자: 영문 대소문자, 글자 단위 한글, 숫자',
-                  //   },
-                  // })}
                   {...register('nickname', {
                     validate: { validateNickname },
                   })}
@@ -195,14 +178,6 @@ const MyPage = () => {
                   name="email"
                   value={`${email}`}
                   placeholder="IMCA@imca.com"
-                  // subtext={errors.email?.message}
-                  // {...register('email', {
-                  //   required: '이메일은 필수 입니다',
-                  //   pattern: {
-                  //     value: /\S+@\S+\.\S+/,
-                  //     message: '이메일 형식에 맞지 않습니다.',
-                  //   },
-                  // })}
                   {...register('email', { validate: validateEmail })}
                   onChange={(e) => {
                     setEmail(e.target.value);

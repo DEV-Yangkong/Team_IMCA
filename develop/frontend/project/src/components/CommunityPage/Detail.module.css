@@ -1,0 +1,66 @@
+.detailHeader {
+  padding: 0px 0px 15px;
+}
+.detailTitle {
+  font-size: 20px;
+}
+
+.left {
+  display: flex;
+  padding: 8px 0px 20px;
+  border-bottom: 1px solid #ececec;
+}
+
+.detailUser {
+  padding: 0px 16px 0px 0px;
+}
+.detailUser img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.authorTop {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.authorBottom {
+  display: flex;
+
+  font-size: 13px;
+}
+
+.detailDate {
+  padding: 0px 10px 0px 0px;
+}
+
+.detailContent {
+  height: 100%;
+  padding: 22px 0px;
+}
+
+.detailImg img {
+  width: 100%;
+  height: auto;
+  left: auto;
+  padding: 5px 0px;
+}
+
+.detailNum {
+  display: flex;
+  font-size: 17px;
+}
+
+.detailLike {
+  margin: 0px 16px 0px 0px;
+  padding: 10px 0px;
+}
+.detailReviews {
+  margin: 0px 16px 0px 0px;
+  padding: 10px 0px;
+}
+
+.icon {
+  padding-right: 5px;
+}

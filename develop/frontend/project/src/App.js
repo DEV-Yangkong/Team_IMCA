@@ -13,6 +13,11 @@ import Login from './pages/LoginPage/Login';
 import SignUp from './pages/SignUpPage/SignUp';
 import MyPage from './pages/Mypage/MyPage';
 import MyCalendar from './pages/MyCalendarPage/MyCalendar';
+import Community from './pages/Community/Community';
+import Board from './pages/Community/Board';
+import New from './pages/Community/New';
+import Editor from './components/CommunityPage/Editor';
+import BoardPage from './pages/Community/BoardPage';
 
 const App = () => {
   // YouTube 포스트 데이터
@@ -41,10 +46,13 @@ const App = () => {
             />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/my_calender" element={<MyCalendar />} />
-
             <Route path="/login" element={<Login />} />
-
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/community_all" element={<Community />} />
+            <Route path="/:board" element={<BoardPage />} />
+            <Route path="/new" element={<New />} />
+            <Route path="/edit/:id" element={<Editor />} />
+            <Route path="/board/:id" element={<Board />} />
           </Routes>
         </div>
       </div>

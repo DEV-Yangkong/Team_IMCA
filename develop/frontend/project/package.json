@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/modal": "^2.3.0",
     "@chakra-ui/react": "^2.8.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
@@ -23,6 +24,7 @@
     "prettier": "^3.0.0",
     "react": "^18.2.0",
     "react-calendar": "^4.6.0",
+    "react-cookie": "^5.0.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.45.2",

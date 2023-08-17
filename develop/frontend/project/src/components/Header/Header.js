@@ -1,8 +1,24 @@
+import { useState } from 'react';
 import styles from './Header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
+
+  // 로그인 상태 관리
+  // 초기값은 로그아웃상태
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //로그인 버튼 클릭 시 호출되는 함수
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    navigate('/');
+  };
+
+  //로그아웃시
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
   return (
     <div className={styles.Header}>
@@ -12,7 +28,30 @@ const Header = () => {
             IMCA
           </div>
           <div className={styles.joinUsBtn}>
-            <button
+            {isLoggedIn ? (
+              <>
+                <div className={styles.joinUs}>유저이름</div>
+                <button className={styles.joinUs} onClick={handleLogout}>
+                  로그아웃
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  className={styles.joinUs}
+                  onClick={() => navigate('/login')}
+                >
+                  로그인
+                </button>
+                <button
+                  className={styles.joinUs}
+                  onClick={() => navigate('/signup')}
+                >
+                  회원가입
+                </button>
+              </>
+            )}
+            {/* <button
               className={styles.joinUs}
               onClick={() => navigate('/login')}
             >
@@ -23,7 +62,7 @@ const Header = () => {
               onClick={() => navigate('/signup')}
             >
               회원가입
-            </button>
+            </button> */}
           </div>
         </div>
         <div className={styles.nav_container}>

@@ -3,13 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock, faHandPointDown } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-
-import React, { useState } from 'react';
-import axios from 'axios';
 import { Modal } from '@chakra-ui/react';
 
-const Login = () => {
-  const [id, setId] = useState('');
+import React, { useEffect, useState, useRef } from 'react';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+
+const Login = (e) => {
+  const formRef = useRef();
+  const [cookies, setCookie] = useCookies(['id']);
+
+  const [login_id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   // 로그인 실패시 모달창으로 알람
@@ -19,19 +23,33 @@ const Login = () => {
     e.preventDefault();
     // 기본 폼 제출 동작 막음(새로고침)
     try {
-      const response = await axios.post('서버로그인API주소', { id, password });
+      const response = await axios
+        .post('/api/v1/users/Loginout', {
+          login_id: formRef.current.login_id.value,
+          password: formRef.current.password.value,
+        })
+        .then((res) => {
+          setCookie('id', res.data.token);
+        });
 
       if (response.status === 200) {
         //로그인 성공시
+        setCookie('id', response.data.userId, { maxAge: 3600, path: '/' });
         navigate('/');
       } else {
         //로그인 실패시
         setIsModalOpen(true);
       }
     } catch (error) {
-      console.log('Error during login', error);
+      console.log('로그인 중 오류', error);
     }
   };
+
+  useEffect(() => {
+    if (cookies.id) {
+      navigate('/');
+    }
+  }, [cookies.id, navigate]);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -40,7 +58,7 @@ const Login = () => {
 
   const onChange = (e) => {
     const { name, value } = e.currentTarget;
-    if (name === 'id') {
+    if (name === 'login_id') {
       setId(value);
     } else if (name === 'password') {
       setPassword(value);
@@ -58,10 +76,10 @@ const Login = () => {
               <input
                 className={styles.user}
                 type="text"
-                name="id"
-                value={id}
+                name="login_id"
+                value={login_id}
                 placeholder="아이디"
-                required
+                required="true"
                 onChange={onChange}
               />
             </div>

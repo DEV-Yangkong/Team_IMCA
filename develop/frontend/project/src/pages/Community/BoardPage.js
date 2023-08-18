@@ -3,6 +3,9 @@ import React from 'react';
 import styles from './BoardPage.module.css';
 import Pages from '../../components/CommunityPage/Pages';
 import Header from '../../components/CommunityPage/Header';
+import { useQuery } from '@tanstack/react-query';
+import { BoardPageApi } from '../../communityApi';
+import { useNavigate } from 'react-router-dom';
 
 export const dataList = [
   {
@@ -274,11 +277,28 @@ export const dataList = [
 ];
 
 const BoardPage = () => {
+  const navigate = useNavigate();
+  // 구조분해 할당
+  const { data: pageList } = useQuery(['pageList'], BoardPageApi);
+  console.log('pagelist', pageList);
   return (
     <div className={styles.BoardPage}>
       <Category />
       <Header />
-      <Pages />
+      {pageList?.map((item) => (
+        <Pages item={item} />
+      ))}
+      <div className={styles.EditorDiv}>
+        <button
+          className={styles.EditorButton}
+          type="button"
+          onClick={() => {
+            navigate('/edit/:id');
+          }}
+        >
+          글쓰기
+        </button>
+      </div>
     </div>
   );
 };

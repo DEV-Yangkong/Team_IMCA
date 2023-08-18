@@ -3,3 +3,25 @@
   width: 100%;
   max-width: 1240px;
 }
+
+/* button */
+
+.EditorDiv {
+  text-align: end;
+  margin-top: 15px;
+}
+
+.EditorButton {
+  cursor: pointer;
+  border: none;
+
+  background-color: #363636;
+  border-color: #363636;
+  color: #ffffff;
+  border-width: 1px;
+  padding: 8px 20px;
+  font-size: 12px;
+  border-radius: 2px;
+
+  white-space: nowrap;
+}

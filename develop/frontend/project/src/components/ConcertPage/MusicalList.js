@@ -1,9 +1,16 @@
 import styles from './MusicalList.module.css';
 
-const MusicalList = ({ img, title, startDate, endDate, place }) => {
+const MusicalList = ({
+  img,
+  title,
+  startDate,
+  endDate,
+  place,
+  onGoConcertDetail,
+}) => {
   return (
     <div className={styles.MusicalList}>
-      <div className={styles.musical_wrapper}>
+      <div onClick={onGoConcertDetail} className={styles.musical_wrapper}>
         <div>
           <img className={styles.musical_poster} alt="" src={img} />
         </div>

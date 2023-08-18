@@ -18,6 +18,7 @@ import Board from './pages/Community/Board';
 import New from './pages/Community/New';
 import Editor from './components/CommunityPage/Editor';
 import BoardPage from './pages/Community/BoardPage';
+import ConcertDetail from './pages/ConcertPage/ConcertDetail';
 
 const App = () => {
   // YouTube 포스트 데이터
@@ -34,6 +35,8 @@ const App = () => {
             <Route path="/" element={<Main />} />
             <Route path="/concert_act" element={<Act />} />
             <Route path="/concert_musical" element={<MusicalPage />} />
+            <Route path="/concert/:id" element={<ConcertDetail />} />
+
             <Route path="/team-introduction" element={<TeamIntroduction />} />
             <Route
               path="/youtube"

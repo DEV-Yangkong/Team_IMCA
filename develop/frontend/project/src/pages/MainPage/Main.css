@@ -122,27 +122,11 @@
 
   /* border-right: 0.5px solid black; */
 }
-.date_contents_container {
-  height: 150px;
-  padding: 10px 0;
-}
-
-.date_contents {
-  margin-bottom: 5px;
-  padding: 5px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.date_contents_musical {
-  background-color: #a4d9fc;
-}
-.date_contents_act {
-  background-color: rgb(252, 213, 141);
-}
 
 .big_calendar_container {
   margin-top: 40px;
+  /* position: relative;
+  z-index: 2; */
 }
 .big_calendar_container .react-calendar__month-view__weekdays__weekday {
   font-size: 20px;
@@ -152,6 +136,8 @@
 }
 .big_calendar_container .react-calendar__tile {
   text-align: left;
+  position: relative;
+  z-index: 2;
 }
 /* 당장 클릭한 날짜에 대한 css */
 .big_calendar_container .react-calendar__tile:enabled:hover,
@@ -211,4 +197,46 @@
   background-color: rgba(5, 182, 49, 0.8);
   color: white;
   font-size: 20px;
+}
+
+.date_contents_container {
+  height: 150px;
+  padding: 10px 0;
+}
+
+.date_contents {
+  margin-bottom: 5px;
+  padding: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a4d9fc;
+  position: relative;
+  z-index: 3;
+}
+
+.date_contents_act {
+  background-color: rgb(252, 213, 141);
+}
+/* 모달 창 작업 */
+.date_contents .contents_modal {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  bottom: 0;
+  border: 1px solid black;
+  z-index: 900;
+  background-color: white;
+}
+.date_contents_0 {
+  background-color: rgb(169, 248, 222);
+}
+.date_contents_1 {
+  background-color: rgb(181, 181, 238);
+}
+.date_contents_2 {
+  background-color: rgb(252, 213, 141);
+}
+.date_contents_3 {
+  background-color: #fca7a7;
 }

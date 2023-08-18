@@ -36,6 +36,8 @@
   - react-modal@latest
   - react-js-pagination
   - @tanstack/react-query
+  - @toast-ui/calendar
+  - @chakra-ui/react
 
 <!--(알림) 'One of your dependencies, babel-preset-react-app...'라는 메시지가 떠서 해결.
   'babel-preset-react-app' 패키지의 의존성 문제와 관련된 경고 메시지입니다.

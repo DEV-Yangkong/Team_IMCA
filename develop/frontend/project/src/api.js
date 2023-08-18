@@ -44,28 +44,19 @@ export const getConcertData = (currentPage) => {
     })
     .catch((error) => console.log('err', error));
 };
-// export const getAllAct = () => {
-//   return axios
-//     .get('http://localhost:8000/API/public', {
-//       params: {
-//         cpage: 1,
-//         rows: 30,
-//         shcate: 'AAAA',
-//         prfstate: '01',
-//         prfpdfrom: '20230801',
-//         prfpdto: '20231030',
-//       },
-//     })
-//     .then((res) => {
-//       // console.log(res.data);
-//       const options = { compact: true, spaces: 2 };
-//       const result = xml2js(res.data, options);
-
-//       console.log('actArray', result.dbs.db);
-//       return result.dbs.db;
-//     })
-//     .catch((error) => console.log('err', error));
-// };
+// const detailUrl = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/pblprfr/${dataId}?service=cabed641996245acbfb041c7c10c6a16`;
+export const getConcertDetail = (dataId) => {
+  return axios
+    .get(
+      `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/pblprfr/${dataId}?service=cabed641996245acbfb041c7c10c6a16`,
+    )
+    .then((res) => {
+      const options = { compact: true, spaces: 2 };
+      const result = xml2js(res.data, options);
+      console.log('detailArray', result);
+      return result.dbs.db;
+    });
+};
 const boxOfficeUrl = `https://cors-anywhere.herokuapp.com/http://kopis.or.kr/openApi/restful/boxoffice?service=${service}`;
 export const getConcertBoxOffice = () => {
   return axios

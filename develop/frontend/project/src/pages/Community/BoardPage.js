@@ -6,6 +6,7 @@ import Header from '../../components/CommunityPage/Header';
 import { useQuery } from '@tanstack/react-query';
 import { BoardPageApi } from '../../communityApi';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthContext';
 
 export const dataList = [
   {
@@ -277,15 +278,29 @@ export const dataList = [
 ];
 
 const BoardPage = () => {
+  const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
   // 구조분해 할당
-  const { data: pageList } = useQuery(['pageList'], BoardPageApi);
+  const {
+    data: pageList,
+    isLoading,
+    error,
+  } = useQuery(['pageList'], BoardPageApi);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   console.log('pagelist', pageList);
+
   return (
     <div className={styles.BoardPage}>
       <Category />
       <Header />
-      {pageList?.map((item) => (
+      {pageList?.results?.map((item) => (
         <Pages item={item} />
       ))}
       <div className={styles.EditorDiv}>
@@ -293,7 +308,11 @@ const BoardPage = () => {
           className={styles.EditorButton}
           type="button"
           onClick={() => {
-            navigate('/edit/:id');
+            if (!isLoggedIn) {
+              navigate('/login'); // 로그인 페이지로 이동
+            } else {
+              navigate('/edit/:id'); // 글쓰기 페이지로 이동
+            }
           }}
         >
           글쓰기

@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './components/Header/Header';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './AuthContext';
 import Main from './pages/MainPage/Main';
 import MusicalPage from './pages/ConcertPage/MusicalPage';
 import Act from './components/ConcertPage/Act';
@@ -18,45 +19,71 @@ import Board from './pages/Community/Board';
 import New from './pages/Community/New';
 import Editor from './components/CommunityPage/Editor';
 import BoardPage from './pages/Community/BoardPage';
+import Comment from './components/CommunityPage/Comment';
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
   // YouTube 포스트 데이터
   const [youtubePosts] = useState([
     // 포스트 정보들...
   ]);
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Header />
-        <div style={{ position: 'relative', zIndex: 1 }} className="test">
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/concert_act" element={<Act />} />
-            <Route path="/concert_musical" element={<MusicalPage />} />
-            <Route path="/team-introduction" element={<TeamIntroduction />} />
-            <Route
-              path="/youtube"
-              element={<YouTubeList youtubePosts={youtubePosts} />}
-            />
-            <Route path="/write" element={<WritePost />} />
-            <Route
-              path="/youtube/:postId"
-              element={<YouTubeDetail youtubePosts={youtubePosts} />}
-            />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/my_calender" element={<MyCalendar />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/community_all" element={<Community />} />
-            <Route path="/:board" element={<BoardPage />} />
-            <Route path="/new" element={<New />} />
-            <Route path="/edit/:id" element={<Editor />} />
-            <Route path="/board/:id" element={<Board />} />
-          </Routes>
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Header />
+          <div style={{ position: 'relative', zIndex: 1 }} className="test">
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/concert_act" element={<Act />} />
+              <Route path="/concert_musical" element={<MusicalPage />} />
+              <Route path="/team-introduction" element={<TeamIntroduction />} />
+              <Route
+                path="/youtube"
+                element={<YouTubeList youtubePosts={youtubePosts} />}
+              />
+              <Route path="/write" element={<WritePost />} />
+              <Route
+                path="/youtube/:postId"
+                element={<YouTubeDetail youtubePosts={youtubePosts} />}
+              />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/my_calender" element={<MyCalendar />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/community_all" element={<Community />} />
+              <Route path="/:board" element={<BoardPage />} />
+              <Route path="/new" element={<New />} />
+              <Route path="/edit/:id" element={<Editor />} />
+              <Route path="/board/:id" element={<Board />} />
+              <Route
+                path="/edit/:id"
+                element={
+                  isLoggedIn ? (
+                    <Editor />
+                  ) : (
+                    // 로그인이 필요하면 Login 페이지로 자동으로 이동
+                    <Login />
+                  )
+                }
+              />
+              <Route
+                path="/board/:id"
+                element={
+                  isLoggedIn ? (
+                    <Comment />
+                  ) : (
+                    // 로그인이 필요하면 Login 페이지로 자동으로 이동
+                    <Login />
+                  )
+                }
+              />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 };
 

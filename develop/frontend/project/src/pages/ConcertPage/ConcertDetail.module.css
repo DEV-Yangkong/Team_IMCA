@@ -1,0 +1,20 @@
+.detail_container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.detail_wrapper {
+  padding-bottom: 50px;
+}
+.title {
+  font-size: 25px;
+  color: #444444;
+  padding: 20px 0;
+}
+.concert_img {
+  padding: 40px 0 20px 0;
+}
+.concert_info > div {
+  padding: 8px 0;
+  font-size: 18px;
+}

@@ -1,6 +1,6 @@
 import styles from './Ranking.module.css';
 
-const Ranking = ({ title, boxOfArray }) => {
+const Ranking = ({ title, boxOfArray, onGoBoxOfficeDetail }) => {
   return (
     <div className={styles.Ranking}>
       <div className={styles.act_ranking_title}>
@@ -25,6 +25,7 @@ const Ranking = ({ title, boxOfArray }) => {
           <div className="act_ranking_item"></div> */}
           {boxOfArray?.map((it, index) => (
             <div
+              onClick={() => onGoBoxOfficeDetail(it.mt20id._text)}
               key={index}
               className={`${styles['act_ranking_item_' + it.rnum._text]}`}
             >

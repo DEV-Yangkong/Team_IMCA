@@ -229,14 +229,26 @@
   background-color: white;
 }
 .date_contents_0 {
-  background-color: rgb(169, 248, 222);
+  background-color: rgb(181, 253, 213);
 }
 .date_contents_1 {
-  background-color: rgb(181, 181, 238);
+  background-color: rgb(192, 192, 241);
 }
 .date_contents_2 {
   background-color: rgb(252, 213, 141);
 }
 .date_contents_3 {
   background-color: #fca7a7;
+}
+
+.calendar_heart {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  position: absolute;
+  z-index: 900;
+}
+.calendar_heart:checked {
+  background-color: red;
 }

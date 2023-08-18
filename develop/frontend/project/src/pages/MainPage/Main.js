@@ -127,12 +127,13 @@ const Main = () => {
                   setSelectedEvent(event);
                 }}
               >
-                <p>
+                <div style={{ fontSize: 12, padding: 3 }}>
                   <span key={index}>
-                    {index > 0 && ', '}
-                    {event.prfnm._text}
+                    {index > 0 && ' '}
+                    {event.prfnm._text.replace(/\s*[\[\(].*[\]\)]/, '')}
                   </span>
-                </p>
+                  <span className="calendar_heart"></span>
+                </div>
               </div>
             ))}
           </div>

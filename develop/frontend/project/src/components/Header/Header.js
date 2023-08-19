@@ -37,8 +37,7 @@ const Header = () => {
             <div className={styles.nav_item}>
               <div>공연 소식</div>
               <ul className={styles.item_menu}>
-                <li onClick={() => navigate('/concert_act')}>연극</li>
-                <li onClick={() => navigate('/concert_musical')}>뮤지컬</li>
+                <li onClick={() => navigate('/concert_all')}>공연/페스티벌</li>
               </ul>
             </div>
             <div className={styles.nav_item}>

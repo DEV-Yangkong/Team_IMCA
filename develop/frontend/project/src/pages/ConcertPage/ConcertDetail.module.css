@@ -7,9 +7,10 @@
   padding-bottom: 50px;
 }
 .title {
-  font-size: 25px;
+  font-size: 23px;
   color: #444444;
   padding: 20px 0;
+  font-weight: 350;
 }
 .concert_img {
   padding: 40px 0 20px 0;
@@ -17,4 +18,20 @@
 .concert_info > div {
   padding: 8px 0;
   font-size: 18px;
+}
+.concert_info {
+  padding: 0 0 20px 0;
+}
+.concert_list {
+  margin-top: 20px;
+  background-color: #363636;
+  color: white;
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+}
+.concert_list:hover {
+  background-color: white;
+  color: #363636;
+  border: 1px solid #363636;
 }

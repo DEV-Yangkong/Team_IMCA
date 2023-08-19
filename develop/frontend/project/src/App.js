@@ -33,8 +33,8 @@ const App = () => {
         <div style={{ position: 'relative', zIndex: 1 }} className="test">
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/concert_act" element={<Act />} />
-            <Route path="/concert_musical" element={<MusicalPage />} />
+
+            <Route path="/concert_all" element={<MusicalPage />} />
             <Route path="/concert/:id" element={<ConcertDetail />} />
 
             <Route path="/team-introduction" element={<TeamIntroduction />} />

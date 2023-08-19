@@ -28,9 +28,11 @@ const Pages = ({ item }) => {
     <div className={styles.Pages}>
       <main>
         <div className={styles.main} key={item.id}>
-          <div className={styles.left}>
-            <img src={item.photo} alt={item.title} />
-          </div>
+          {item.photo && ( // 이미지가 있을 때만 이미지 영역 렌더링
+            <div className={styles.left}>
+              <img src={item.photo} alt={item.title} />
+            </div>
+          )}
           <div className={styles.column}>
             <div className={styles.space}>
               <div
@@ -45,7 +47,7 @@ const Pages = ({ item }) => {
               </div>
             </div>
             <ul className={styles.bottom}>
-              <li>{/* {item.user.name} */}</li> {/* user.name 가져오기 */}
+              <li>{item.author.nickname}</li> {/* user.name 가져오기 */}
               <li>{item.created_at}</li>
               <li>조회수 {item.reviews_num}</li>
               <li>
@@ -66,7 +68,7 @@ const Pages = ({ item }) => {
       </main>
       <footer>
         {/* <Pagination
-          total={posts.length}
+          total={item.length}
           limit={10}
           page={page}
           setPage={setPage}

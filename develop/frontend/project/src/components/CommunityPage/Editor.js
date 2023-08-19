@@ -22,7 +22,10 @@ const Editor = () => {
             formData.append('file', file);
 
             axios
-              .post('http://localhost:8080/api/v0/file/upload', formData)
+              .post(
+                'https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/api/v1/',
+                formData,
+              )
               .then((res) => {
                 resolve({
                   default: res.data.data.uri,
@@ -52,35 +55,66 @@ const Editor = () => {
       content,
     };
 
-    axios.post('http://localhost:8080/api/v0/post', data).then((res) => {
-      if (res.status === 200) {
-        navigate('/', { replace: true });
-        return;
-      } else {
-        alert('업로드 실패.');
-        return;
-      }
-    });
+    axios
+      .post(
+        'https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/api/v1/post',
+        data,
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          navigate('/', { replace: true });
+          return;
+        } else {
+          alert('업로드 실패.');
+          return;
+        }
+      });
   };
 
   return (
     <div className={styles.Editor}>
+      <section>
+        <div className={styles.headerTitle}>
+          <p>자유게시판</p>
+          <div className={styles.controlBox}>
+            <div className={styles.cancelBtnWrapper}>
+              <button
+                className={styles.cancelButton}
+                onClick={() => navigate(-1, { replace: true })}
+              >
+                취소
+              </button>
+            </div>
+            <div className={styles.submitBtnWrapper}>
+              <button
+                className={styles.createButton}
+                type="black"
+                onClick={handleSubmit}
+              >
+                완료
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
       <section>
         <div className={styles.titleWrapper}>
           <textarea
             className={styles.inputTitle}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="제목을 입력하세요"
+            placeholder="제목"
             ref={titleRef}
           />
         </div>
       </section>
-      <section>
+      <section className={styles.Ckeditor}>
         <CKEditor
           editor={ClassicEditor}
           data=""
-          config={{ extraPlugins: [uploadPlugin] }}
+          config={{
+            extraPlugins: [uploadPlugin],
+          }}
           onReady={(editor) => {
             // You can store the "editor" and use when it is needed.
             console.log('Editor is ready to use!', editor);
@@ -96,25 +130,6 @@ const Editor = () => {
             console.log('Focus.', editor);
           }}
         />
-      </section>
-      <section>
-        <div className={styles.controlBox}>
-          <div className={styles.cancelBtnWrapper}>
-            <button
-              className={styles.cancelButton}
-              text={'취소'}
-              onClick={() => navigate(-1, { replace: true })}
-            />
-          </div>
-          <div className={styles.submitBtnWrapper}>
-            <button
-              className={styles.createButton}
-              text={'완료'}
-              type="black"
-              onClick={handleSubmit}
-            />
-          </div>
-        </div>
       </section>
     </div>
   );

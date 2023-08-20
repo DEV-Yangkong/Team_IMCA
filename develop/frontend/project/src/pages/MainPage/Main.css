@@ -289,7 +289,7 @@
 }
 .select_date > div {
   border: 1px solid rgb(165, 165, 165);
-  padding: 5px 10px;
+  padding: 5px 35px 5px 10px;
   border-radius: 10px;
 }
 .select_button {
@@ -315,4 +315,12 @@
   background-color: white;
   color: #ff635d;
   border: 1px solid #ff635d;
+}
+.mainPage_community_container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
+.mainPage_community_container > div {
+  padding: 10px 0;
 }

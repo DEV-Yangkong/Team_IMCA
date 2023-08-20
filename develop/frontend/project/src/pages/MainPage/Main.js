@@ -27,6 +27,9 @@ import {
   ChakraProvider,
 } from '@chakra-ui/react';
 import ModalDetail from '../../components/MainPage/ModalDetail';
+import { BoardPageApi } from '../../communityApi';
+import Pages from '../../components/CommunityPage/Pages';
+
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [mainDate, setMainDate] = useState(new Date());
@@ -161,7 +164,20 @@ const Main = () => {
       state: { eventData: eventId },
     });
   };
+  const {
+    data: pageList,
+    isLoading,
+    error,
+  } = useQuery(['pageList'], BoardPageApi);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+  console.log('pagelist', pageList);
   return (
     <div className="Main">
       <ChakraProvider>
@@ -335,6 +351,28 @@ const Main = () => {
             }
             onClickDay={handleClickMainDay}
           />
+        </div>
+      </section>
+      <section>
+        <div className="mainPage_community_container">
+          <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
+            커뮤니티
+          </div>{' '}
+          {pageList?.results?.slice(0, 8).map((item) => (
+            <div
+              key={item.id}
+              style={{
+                display: 'flex',
+                borderBottom: '1px solid rgb(185, 185, 185)',
+                fontSize: 18,
+                justifyContent: 'space-between',
+              }}
+            >
+              {' '}
+              <div>{item.title}</div>
+              <div>{dayjs(item.created_at).format('YYYY.MM.DD')}</div>
+            </div>
+          ))}
         </div>
       </section>
     </div>

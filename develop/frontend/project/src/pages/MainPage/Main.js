@@ -62,7 +62,7 @@ const Main = () => {
       [name]: value,
     }));
   };
-  // const dateStr = dayjs(date).format('YYYY.MM.DD');
+  const dateStr = dayjs(date).format('YYYY.MM.DD');
   const start = dayjs(state.startDate).format('YYYY.MM.DD');
   const end = dayjs(state.endDate).format('YYYY.MM.DD');
 
@@ -183,22 +183,16 @@ const Main = () => {
             </ModalBody>
 
             <ModalFooter>
-              <button colorScheme="blue" mr={3} onClick={onClose}>
+              {/* <button colorScheme="blue" mr={3} onClick={onClose}>
                 Close
-              </button>
+              </button> */}
+              <button className="modal_button">저장하기</button>
             </ModalFooter>
           </ModalContent>
         </Modal>
       </ChakraProvider>
       <section className="mini_calendar">
-        <div
-          className="add_container"
-          style={{
-            overflowY: 'scroll',
-            height: 380,
-            border: '1px solid rgb(165,165,165)',
-          }}
-        >
+        <div className="add_container">
           <div>
             <div
               style={{ display: 'flex', padding: 10, justifyContent: 'center' }}
@@ -269,16 +263,17 @@ const Main = () => {
           {curDate ? (
             <div className="current_calendar">
               <div className="current_calendar_header">
-                <div className="current_date">8월 7일</div>
+                <div className="current_date">{dateStr}</div>
                 <div onClick={onClickWholeCalendar} className="whole_btn">
                   전체 달력
                 </div>
               </div>
-              {allData?.map(
+              {curArray?.map(
                 (it, index) =>
-                  it.prfpdfrom._text <= start &&
-                  end <= it.prfpdto._text && (
+                  it.prfpdfrom._text <= dateStr &&
+                  dateStr <= it.prfpdto._text && (
                     <CurCalendar
+                      onGoDetail={() => onGoDetail(it.mt20id._text)}
                       key={index}
                       startDate={it.prfpdfrom._text}
                       endDate={it.prfpdto._text}

@@ -12,13 +12,16 @@
   box-sizing: border-box;
   max-width: 750px;
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  overflow-y: scroll;
+  height: 380px;
 }
 /* 전체 캘린더 크기 */
 .react-calendar {
   width: 100%;
   max-width: 432px;
   height: 380px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .react-calendar__navigation {
   height: 60px;
@@ -116,7 +119,7 @@
   /* width: 100%;
   max-width: 1240px; */
   border: none;
-  max-width: 1200px;
+  max-width: 1240px;
   height: 100%;
   margin: 0 auto;
 }
@@ -301,4 +304,15 @@
 }
 .mini_calendar .react-calendar__tile > abbr {
   color: rgb(114, 114, 114);
+}
+.modal_button {
+  background-color: #ff635d;
+  color: white;
+  padding: 7px;
+  font-size: 15px;
+}
+.modal_button:hover {
+  background-color: white;
+  color: #ff635d;
+  border: 1px solid #ff635d;
 }

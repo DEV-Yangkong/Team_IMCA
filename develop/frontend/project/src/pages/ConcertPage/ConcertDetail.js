@@ -34,7 +34,7 @@ const ConcertDetail = () => {
             <img
               alt=""
               src={info.poster._text}
-              style={{ width: 690, height: 950 }}
+              style={{ width: 600, height: 850 }}
             />
           </div>
           <div className={styles.concert_info}>

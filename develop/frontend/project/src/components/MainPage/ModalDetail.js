@@ -4,7 +4,7 @@ const ModalDetail = ({ selectedEvent, onGoDetail }) => {
   return (
     <>
       {selectedEvent && (
-        <div style={{ padding: 10 }}>
+        <div style={{ padding: '10px 10px 0 10px' }}>
           <h2
             style={{
               fontWeight: 'bold',

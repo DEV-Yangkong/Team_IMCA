@@ -45,7 +45,7 @@ export const getConcertData = (currentPage) => {
     .catch((error) => console.log('err', error));
 };
 // const detailUrl = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/pblprfr/${dataId}?service=cabed641996245acbfb041c7c10c6a16`;
-export const getConcertDetail = (dataId) => {
+export const getConcertDetail = (dataId, service) => {
   return axios
     .get(
       `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/pblprfr/${dataId}?service=cabed641996245acbfb041c7c10c6a16`,

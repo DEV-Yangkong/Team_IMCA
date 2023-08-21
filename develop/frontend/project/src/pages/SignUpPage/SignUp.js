@@ -2,6 +2,7 @@ import styles from './SignUp.module.css';
 import { useForm } from 'react-hook-form';
 import React from 'react';
 import axios from 'axios';
+import { signupApi } from '../../signupApi';
 
 const SignUp = () => {
   const {
@@ -15,9 +16,8 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        'http://localhost:8000/api/v1/users/Register/',
-
+      const response = await signupApi(
+        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/users/Register/',
         data,
         {
           headers: {

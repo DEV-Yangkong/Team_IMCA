@@ -1,0 +1,59 @@
+import { useQuery } from '@tanstack/react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { getConcertDetail } from '../../api';
+import styles from './ConcertDetail.module.css';
+import { useState } from 'react';
+const ConcertDetail = () => {
+  const [info, setInfo] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const eventData = location.state.eventData;
+  const { data, isLoading } = useQuery(
+    ['concertDetail', eventData],
+    () => getConcertDetail(eventData),
+    {
+      onSuccess: (data) => {
+        // 성공시 호출
+        setInfo(data);
+      },
+    },
+  );
+  const onGoList = () => {
+    navigate('/concert_all');
+  };
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+  return (
+    <div className={styles.detail_container}>
+      {info && (
+        <div className={styles.detail_wrapper}>
+          <div className={styles.title}>{info.prfnm._text}</div>
+          <hr />
+          <div className={styles.concert_img}>
+            <img
+              alt=""
+              src={info.poster._text}
+              style={{ width: 600, height: 850 }}
+            />
+          </div>
+          <div className={styles.concert_info}>
+            <div>
+              공연 날짜 : {info.prfpdfrom._text} - {info.prfpdto._text}
+            </div>
+            <div>공연 시간 : {info.dtguidance._text}</div>
+            <div>공연 장소 : {info.fcltynm._text}</div>
+            {info.prfruntime._text && (
+              <div>런타임 : {info.prfruntime._text}</div>
+            )}
+          </div>
+          <hr />
+          <div className={styles.concert_list} onClick={onGoList}>
+            목록
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+export default ConcertDetail;

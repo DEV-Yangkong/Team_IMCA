@@ -6,7 +6,7 @@ const instance = axios.create({
 
 // 생성한 인스턴스를 사용하여 요청 보내기
 export const BoardPageApi = () => {
-  return instance.get('api/v1/community_boards/').then((res) => {
+  return instance.get('api/v1/community_board/').then((res) => {
     console.log('api data check', res);
     return res.data;
   });

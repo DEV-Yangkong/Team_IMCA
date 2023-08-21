@@ -13,6 +13,9 @@
 
 .detailUser {
   padding: 0px 16px 0px 0px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 .detailUser img {
   border-radius: 50%;
@@ -45,58 +48,4 @@
   height: auto;
   left: auto;
   padding: 5px 0px;
-}
-
-.detailNum {
-  display: flex;
-  font-size: 17px;
-}
-
-.detailLike {
-  margin: 0px 16px 0px 0px;
-  padding: 10px 0px;
-}
-.detailReviews {
-  margin: 0px 16px 0px 0px;
-  padding: 10px 0px;
-}
-
-.icon {
-  padding-right: 5px;
-}
-
-/* button */
-
-.EditorDiv {
-  display: flex;
-  justify-content: space-between;
-}
-
-.listButton {
-  cursor: pointer;
-  border: none;
-
-  background-color: #363636;
-  border-color: #363636;
-  color: #ffffff;
-  border-width: 1px;
-  padding: 8px 20px;
-  font-size: 12px;
-  border-radius: 2px;
-
-  white-space: nowrap;
-}
-.listEditorButton {
-  cursor: pointer;
-  border: none;
-
-  background-color: #363636;
-  border-color: #363636;
-  color: #ffffff;
-  border-width: 1px;
-  padding: 8px 20px;
-  font-size: 12px;
-  border-radius: 2px;
-
-  white-space: nowrap;
 }

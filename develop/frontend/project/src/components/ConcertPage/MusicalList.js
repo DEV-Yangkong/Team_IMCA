@@ -14,9 +14,9 @@ const MusicalList = ({
         <div>
           <img className={styles.musical_poster} alt="" src={img} />
         </div>
-        <div>{title}</div>
+        <div className={styles.title}>{title}</div>
         <div>
-          <span>{startDate} - </span>
+          <span>{startDate}</span>
           <span>{endDate}</span>
         </div>
         <div>{place}</div>

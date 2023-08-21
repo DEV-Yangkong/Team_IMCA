@@ -4,5 +4,9 @@
 }
 .musical_poster {
   width: 100%;
-  height: 100%;
+  height: 330px;
+}
+.title {
+  padding: 10px 0;
+  font-size: 15px;
 }

@@ -29,9 +29,9 @@ const MusicalPage = () => {
           <MusicalList
             onGoConcertDetail={() => onGoDetail(it.mt20id._text)}
             title={it.prfnm._text}
-            startDate={it.prfpdfrom._text}
-            endDate={it.prfpdto._text}
-            place={it.fcltynm._text}
+            // startDate={it.prfpdfrom._text}
+            // endDate={it.prfpdto._text}
+            // place={it.fcltynm._text}
             img={it.poster._text}
           />
         ))}{' '}

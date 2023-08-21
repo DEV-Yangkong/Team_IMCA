@@ -1,21 +1,15 @@
 import styles from './CurCalendar.module.css';
 
-const CurCalendar = ({
-  title,
-  startDate,
-  endDate,
-  place,
-  img,
-  onDeTailSearch,
-}) => {
+const CurCalendar = ({ title, startDate, endDate, place, img, onGoDetail }) => {
   return (
-    <div className={styles.current_contents}>
+    <div
+      onClick={onGoDetail}
+      style={{ cursor: 'pointer' }}
+      className={styles.current_contents}
+    >
       <div className={styles.current_contents_item}>
         <div className={styles.cur_content_info}>
-          <div
-            className={`${styles.cur_content} ${styles.info_title}`}
-            onClick={onDeTailSearch}
-          >
+          <div className={`${styles.cur_content} ${styles.info_title}`}>
             {title}
           </div>
           <div className={`${styles.cur_content} ${styles.info_period}`}>

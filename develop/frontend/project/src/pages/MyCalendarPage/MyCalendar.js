@@ -3,6 +3,8 @@ import styles from './MyCalendar.module.css';
 import MyCalendarDate from '../../components/MyCalendarDatePage/MyCalendarDate';
 import TodoBoard from '../../components/MyCalendarDatePage/TodoBoard';
 
+// import TodoModal from '../../components/MyCalendarDatePage/TodoModal';
+
 const MyCalendar = () => {
   // todoitem 버튼 클릭시 추가
   const [todo, setTodo] = useState('');
@@ -10,6 +12,7 @@ const MyCalendar = () => {
   const addTodo = () => {
     setTodoItem([...todoItem, todo]);
   };
+
   return (
     <div className={styles.MyCalendar}>
       <div className={styles.MyCalendar_Container}>
@@ -20,18 +23,23 @@ const MyCalendar = () => {
             <MyCalendarDate />
           </section>
           <section className={styles.MyCalendar_right}>
-            <div className={styles.todoDate}>날짜</div>
-            <TodoBoard todoItem={todoItem} />
-            <textarea
-              value={todo}
-              type="text"
-              className={styles.todoInput}
-              onChange={(e) => setTodo(e.target.value)}
-            />
-            <button className={styles.todoBtn} onClick={addTodo}>
-              추가
-            </button>
+            <p className={styles.todoTitle}>날짜</p>
             {/* 캘린더 매모 */}
+            <div className={styles.todoItemBox}>
+              <TodoBoard todoItem={todoItem} />
+            </div>
+            <div className={styles.InputBox}>
+              <textarea
+                value={todo}
+                type="text"
+                className={styles.todoInput}
+                onChange={(e) => setTodo(e.target.value)}
+              />
+              <button className={styles.todoBtn} onClick={addTodo}>
+                +
+              </button>
+              {/* <TodoModal /> */}
+            </div>
           </section>
         </div>
       </div>

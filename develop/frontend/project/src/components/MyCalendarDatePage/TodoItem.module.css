@@ -1,14 +1,38 @@
+.TodoWrap {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  white-space: normal;
+  word-wrap: break-word;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
 .TodoItem {
   border: 2px solid #134f2c;
   border-radius: 15px;
-  width: 450px;
-  height: 80px;
+  width: 410px;
 
+  height: auto;
   padding: 15px;
-  font-size: 14px;
-  display: flex;
 
+  font-size: 14px;
+  /* 원본텍스트 그대로 표시 (줄바꿈인식)  */
+
+  display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  overflow: auto;
+  margin-bottom: 10px;
+}
+.TodoBtn {
+  width: 25px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+.TodoBtnDel {
+  width: 25px;
+  height: 25px;
 }

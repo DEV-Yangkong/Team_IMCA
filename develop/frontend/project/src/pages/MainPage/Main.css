@@ -1,7 +1,7 @@
 .mini_calendar {
   box-sizing: border-box;
-  padding: 50px 0;
-  border-bottom: 1px solid black;
+  padding: 50px 0 30px 0;
+
   margin: 0 auto;
   width: 100%;
   max-width: 1240px;
@@ -10,14 +10,20 @@
 }
 .add_container {
   box-sizing: border-box;
-  width: 700px;
-  border: 1px solid black;
+  max-width: 750px;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  overflow-y: hidden;
+  height: 380px;
+  border-radius: 10px;
 }
 /* 전체 캘린더 크기 */
 .react-calendar {
   width: 100%;
   max-width: 432px;
   height: 380px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
 }
 .react-calendar__navigation {
   height: 60px;
@@ -31,6 +37,7 @@
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.8em;
 }
+
 .react-calendar__navigation__label__labelText {
   font-weight: bold;
   font-size: 20px;
@@ -89,9 +96,12 @@
   background-color: #f8c736;
   border-radius: 50%;
 }
+.react-calendar__navigation__label > span {
+  color: #134f2c;
+}
 .dot {
-  height: 6px;
-  width: 6px;
+  height: 8px;
+  width: 8px;
   background-color: #f87171;
   border-radius: 50%;
   display: flex;
@@ -111,10 +121,11 @@
   /* width: 100%;
   max-width: 1240px; */
   border: none;
-  max-width: 1200px;
+  max-width: 1240px;
   height: 100%;
   margin: 0 auto;
 }
+
 .big_calendar_container .react-calendar .react-calendar__tile {
   padding: 1em 0 1em 0;
   border-top: 0.5px solid black;
@@ -133,6 +144,10 @@
   font-weight: 500;
   text-align: left;
   padding: 16px 0;
+}
+.big_calendar_container .react-calendar__month-view__weekdays__weekday > abbr {
+  text-decoration: none;
+  color: rgb(114, 114, 114);
 }
 .big_calendar_container .react-calendar__tile {
   text-align: left;
@@ -171,6 +186,9 @@
   border: 1px solid black;
   overflow-y: scroll;
 }
+.current_calendar_item:hover {
+  background-color: rgb(201, 200, 200);
+}
 .current_calendar_header {
   display: flex;
   justify-content: space-between;
@@ -194,13 +212,13 @@
 .big_calendar_container .react-calendar__navigation__label > span {
   padding: 10px;
   border-radius: 15px;
-  background-color: rgba(5, 182, 49, 0.8);
+  background-color: #134f2c;
   color: white;
   font-size: 20px;
 }
 
 .date_contents_container {
-  height: 150px;
+  height: 180px;
   padding: 10px 0;
 }
 
@@ -229,18 +247,24 @@
   background-color: white;
 }
 .date_contents_0 {
-  background-color: rgb(181, 253, 213);
+  background-color: #ebf7bc;
+  /* background-color: rgb(168, 236, 231); */
 }
 .date_contents_1 {
-  background-color: rgb(192, 192, 241);
+  background-color: #e7cee9;
 }
 .date_contents_2 {
-  background-color: rgb(252, 213, 141);
+  background-color: #fecfbf;
 }
 .date_contents_3 {
-  background-color: #fca7a7;
+  background-color: #f9bac6;
 }
-
+.date_contents_4 {
+  background-color: #fcf1b7;
+}
+.date_contents_5 {
+  background-color: #dde6f8;
+}
 .calendar_heart {
   display: inline-block;
   width: 10px;
@@ -251,4 +275,57 @@
 }
 .calendar_heart:checked {
   background-color: red;
+}
+.react-calendar__tile > abbr {
+  color: rgb(114, 114, 114);
+}
+/* react-calendar__tile react-calendar__month-view__days__day  */
+/* 달력 버튼 선택자, 메인과 미니 캘린더의 클래스 네임이 같아서 중복 클릭되는 문제 해결하기 */
+.select_date {
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-around;
+}
+.select_input {
+  margin-left: 30px;
+}
+.select_date > div:hover {
+  border: 1px solid #134f2c;
+}
+.select_date > div {
+  border: 1px solid rgb(165, 165, 165);
+  padding: 5px 35px 5px 10px;
+  border-radius: 10px;
+}
+.select_button {
+  color: white;
+  padding: 5px 8px;
+  border-radius: 10px;
+  background-color: #134f2c;
+}
+.mini_calendar_container .react-calendar__month-view__weekdays__weekday > abbr {
+  text-decoration: none;
+  color: rgb(114, 114, 114);
+}
+.mini_calendar .react-calendar__tile > abbr {
+  color: rgb(114, 114, 114);
+}
+.modal_button {
+  background-color: #ff635d;
+  color: white;
+  padding: 7px;
+  font-size: 15px;
+}
+.modal_button:hover {
+  background-color: white;
+  color: #ff635d;
+  border: 1px solid #ff635d;
+}
+.mainPage_community_container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
+.mainPage_community_container > div {
+  padding: 10px 0;
 }

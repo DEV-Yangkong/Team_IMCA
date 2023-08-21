@@ -3,58 +3,48 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock, faHandPointDown } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { Modal } from '@chakra-ui/react';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 
-const Login = (e) => {
-  const formRef = useRef();
-  const [cookies, setCookie] = useCookies(['id']);
-
+const Login = () => {
   const [login_id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // 로그인 실패시 모달창으로 알람
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // 기본 폼 제출 동작 막음(새로고침)
     try {
-      const response = await axios
-        .post('/api/v1/users/Loginout', {
-          login_id: formRef.current.login_id.value,
-          password: formRef.current.password.value,
-        })
-        .then((res) => {
-          setCookie('id', res.data.token);
-        });
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/users/Loginout',
+        { login_id: '아이디', password: '패스워드' },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
 
+      //로그인 성공시
       if (response.status === 200) {
-        //로그인 성공시
-        setCookie('id', response.data.userId, { maxAge: 3600, path: '/' });
+        //토큰 추출, 추출한 토큰을 쿠키에 저장 및 상태관리 라이브러리를 활용하여 저장
+        const { access_token, refresh_token } = response.data;
+        //토큰 쿠키에 저장
+        Cookies.set('access_token', access_token);
+        Cookies.set('refresh_token', refresh_token);
         navigate('/');
       } else {
         //로그인 실패시
-        setIsModalOpen(true);
+        window.alert('로그인에 실패했습니다.');
       }
     } catch (error) {
-      console.log('로그인 중 오류', error);
+      console.log('로그인 실패', error);
+      window.alert('로그인에 실패했습니다.');
     }
   };
-
-  useEffect(() => {
-    if (cookies.id) {
-      navigate('/');
-    }
-  }, [cookies.id, navigate]);
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-  //모달 닫기
 
   const onChange = (e) => {
     const { name, value } = e.currentTarget;
@@ -79,7 +69,7 @@ const Login = (e) => {
                 name="login_id"
                 value={login_id}
                 placeholder="아이디"
-                required="true"
+                required
                 onChange={onChange}
               />
             </div>
@@ -97,20 +87,18 @@ const Login = (e) => {
               />
             </div>
 
-            <button
-              type="submit"
-              value="로그인"
-              className={styles.btn_signup}
-              onSubmit={onSubmit}
-            >
+            <button type="submit" value="로그인" className={styles.btn_signup}>
               로그인
             </button>
           </form>
-          <Modal
-            isOpen={isModalOpen}
-            message="로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요."
-            onClose={closeModal}
-          />
+          {/* <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>로그인 실패</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>아이디와 비밀번호를 다시 확인해주세요.</ModalBody>
+            </ModalContent>
+          </Modal> */}
           <section className={styles.btn}>
             <div className={styles.btn_join}>
               <div>

@@ -28,7 +28,7 @@ const MyCalendar = () => {
             <div className={styles.todoItemBox}>
               <TodoBoard todoItem={todoItem} />
             </div>
-            <div>
+            <div className={styles.InputBox}>
               <textarea
                 value={todo}
                 type="text"
@@ -36,7 +36,7 @@ const MyCalendar = () => {
                 onChange={(e) => setTodo(e.target.value)}
               />
               <button className={styles.todoBtn} onClick={addTodo}>
-                추가
+                +
               </button>
               {/* <TodoModal /> */}
             </div>

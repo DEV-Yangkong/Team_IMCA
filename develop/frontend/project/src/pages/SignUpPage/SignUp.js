@@ -15,10 +15,20 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/api/v1/users/Register/', data);
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/users/Register/',
+
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
       console.log(response.data.message);
     } catch (error) {
-      console.error('error signup', error);
+      console.error('회원가입실패', error);
+      window.alert('회원가입 실패!');
     }
     // console.log(data);
     // 회원가입 로직처리
@@ -46,7 +56,11 @@ const SignUp = () => {
     if (!/\S+@\S+\.\S+/.test(value)) return '올바른 이메일 형식이 아닙니다.';
     return true;
   };
-
+  const validateName = (value) => {
+    if (!value) return '이름을 입력하세요.';
+    if (!/^[A-za-z0-9가-힣]{3,}$/.test(value)) return '2글자 이상 적어주세요.';
+    return true;
+  };
   const validateNickname = (value) => {
     if (!value) return '닉네임을 입력하세요.';
     if (!/^[A-za-z0-9가-힣]{3,}$/.test(value)) return '2글자 이상 적어주세요.';
@@ -116,7 +130,7 @@ const SignUp = () => {
                   type="text"
                   name="name"
                   placeholder="이름"
-                  {...register('name', { required: '이름을 입력해주세요.' })}
+                  {...register('name', { validate: { validateName } })}
                 />
                 {errors.name && (
                   <p className={styles.erms}>{errors.name.message}</p>

@@ -15,10 +15,20 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/api/accounts/signup/', data);
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/users/Register/',
+
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
       console.log(response.data.message);
     } catch (error) {
-      console.error('error signup', error);
+      console.error('회원가입실패', error);
+      window.alert('회원가입 실패!');
     }
     // console.log(data);
     // 회원가입 로직처리
@@ -46,7 +56,11 @@ const SignUp = () => {
     if (!/\S+@\S+\.\S+/.test(value)) return '올바른 이메일 형식이 아닙니다.';
     return true;
   };
-
+  const validateName = (value) => {
+    if (!value) return '이름을 입력하세요.';
+    if (!/^[A-za-z0-9가-힣]{3,}$/.test(value)) return '2글자 이상 적어주세요.';
+    return true;
+  };
   const validateNickname = (value) => {
     if (!value) return '닉네임을 입력하세요.';
     if (!/^[A-za-z0-9가-힣]{3,}$/.test(value)) return '2글자 이상 적어주세요.';
@@ -57,23 +71,6 @@ const SignUp = () => {
     if (!value) return '성별을 선택하세요.';
     return true;
   };
-  // const [img, setImg] = useState(null);
-  // const [formData, setFormData] = useState({
-  //   id: '',
-  //   password: '',
-  //   passwordConfirm: '',
-  //   name: '',
-  //   nickname: '',
-  //   email: '',
-  //   gender: '',
-  //   // 다른 필드도 추가하세요 (name, nickname, email, gender 등)
-  // });
-
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   const imageUrl = URL.createObjectURL(file);
-  //   setImg(imageUrl);
-  // };
 
   return (
     <div className={styles.SignUp}>
@@ -82,32 +79,17 @@ const SignUp = () => {
         <div className={styles.SignUp_wrapper}>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.SignUpForm}>
             <section>
-              {/* <div className={styles.userImg}>
-                <p className={styles.imgBox}>프로필 이미지</p>
-                {img && (
-                  <img src={img} alt="img" className={styles.uploadedImg} />
-                )}
-                <label className={styles.upload_button}>
-                  <input
-                    className={styles.input_field}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                  />
-                </label>
-              </div> */}
-
               <div className={styles.userText}>
                 아이디
                 <input
                   className={styles.input_field}
-                  name="id"
+                  name="login_id"
                   type="text"
                   placeholder="아이디를 입력해주세요."
-                  {...register('id', { validate: validateUserid })}
+                  {...register('login_id', { validate: validateUserid })}
                 />
-                {errors.id && (
-                  <p className={styles.erms}>{errors.id.message}</p>
+                {errors.login_id && (
+                  <p className={styles.erms}>{errors.login_id.message}</p>
                 )}
               </div>
               <div className={styles.userText}>
@@ -148,7 +130,7 @@ const SignUp = () => {
                   type="text"
                   name="name"
                   placeholder="이름"
-                  {...register('name', { required: '이름을 입력해주세요.' })}
+                  {...register('name', { validate: { validateName } })}
                 />
                 {errors.name && (
                   <p className={styles.erms}>{errors.name.message}</p>

@@ -6,41 +6,49 @@ import { useNavigate } from 'react-router-dom';
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Modal } from '@chakra-ui/react';
+import Cookies from 'js-cookie';
 
 const Login = () => {
-  const [id, setId] = useState('');
+  const [login_id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // 로그인 실패시 모달창으로 알람
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // 기본 폼 제출 동작 막음(새로고침)
     try {
-      const response = await axios.post('서버로그인API주소', { id, password });
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/users/Loginout',
+        { login_id: '아이디', password: '패스워드' },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
 
+      //로그인 성공시
       if (response.status === 200) {
-        //로그인 성공시
+        //토큰 추출, 추출한 토큰을 쿠키에 저장 및 상태관리 라이브러리를 활용하여 저장
+        const { access_token, refresh_token } = response.data;
+        //토큰 쿠키에 저장
+        Cookies.set('access_token', access_token);
+        Cookies.set('refresh_token', refresh_token);
         navigate('/');
       } else {
         //로그인 실패시
-        setIsModalOpen(true);
+        window.alert('로그인에 실패했습니다.');
       }
     } catch (error) {
-      console.log('Error during login', error);
+      console.log('로그인 실패', error);
+      window.alert('로그인에 실패했습니다.');
     }
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-  //모달 닫기
-
   const onChange = (e) => {
     const { name, value } = e.currentTarget;
-    if (name === 'id') {
+    if (name === 'login_id') {
       setId(value);
     } else if (name === 'password') {
       setPassword(value);
@@ -58,8 +66,8 @@ const Login = () => {
               <input
                 className={styles.user}
                 type="text"
-                name="id"
-                value={id}
+                name="login_id"
+                value={login_id}
                 placeholder="아이디"
                 required
                 onChange={onChange}
@@ -79,20 +87,18 @@ const Login = () => {
               />
             </div>
 
-            <button
-              type="submit"
-              value="로그인"
-              className={styles.btn_signup}
-              onSubmit={onSubmit}
-            >
+            <button type="submit" value="로그인" className={styles.btn_signup}>
               로그인
             </button>
           </form>
-          <Modal
-            isOpen={isModalOpen}
-            message="로그인에 실패하였습니다. 아이디와 비밀번호를 확인해주세요."
-            onClose={closeModal}
-          />
+          {/* <Modal isOpen={isModalOpen} onClose={closeModal}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>로그인 실패</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>아이디와 비밀번호를 다시 확인해주세요.</ModalBody>
+            </ModalContent>
+          </Modal> */}
           <section className={styles.btn}>
             <div className={styles.btn_join}>
               <div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
 import styles from './MyPage.module.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -14,7 +13,7 @@ const MyPage = () => {
 
   const [userData, setUserData] = useState({
     img: '',
-    id: '',
+    login_id: '',
     password: '',
     passwordConfirm: '',
     nickname: '',
@@ -23,16 +22,15 @@ const MyPage = () => {
   });
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        //서버 api 호출 유저 데이터 가죠와
-        const response = await axios.get('/api/user_profile/');
+    //마이페이지 데이터 불러오는 요청
+    axios
+      .get('/api/v1/users/mypage/')
+      .then((response) => {
         setUserData(response.data);
-      } catch (error) {
-        console.error('error, 유저 데이터 실패', error);
-      }
-    };
-    fetchUserData(); //함수 실행
+      })
+      .catch((error) => {
+        console.error('error data', error);
+      });
   }, []);
 
   const password = watch('password', '');
@@ -46,7 +44,7 @@ const MyPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('/api/updateUser', data);
+      const response = await axios.post('/api/v1/updateUser/', data);
       console.log(response.data); //마이페이지 수정 성공
     } catch (error) {
       console.error('error, 내정보수정 실패', error);
@@ -116,15 +114,24 @@ const MyPage = () => {
               </div>
               <div className={styles.user_item}>
                 아이디
-                <input disabled type="text" name="id" />
+                <input
+                  disabled
+                  type="text"
+                  name="login_id"
+                  value={userData.login_id}
+                />
               </div>
               <div className={styles.user_item}>
                 비밀번호
                 <input
                   type="password"
                   name="password"
+                  value={userData.password}
                   placeholder="대소문자, 특수문자 포함 8글자이상"
                   {...register('password', { validate: validatePassword })}
+                  onChange={(e) =>
+                    setUserData({ ...userData, password: e.target.value })
+                  }
                 />
               </div>
               {errors.password && (
@@ -151,7 +158,7 @@ const MyPage = () => {
               )}
               <div className={styles.user_item}>
                 이름
-                <input disabled name="name" value={`${name}`} />
+                <input disabled name="name" value={userData.name} />
               </div>
               <div className={styles.user_item}>
                 닉네임
@@ -159,12 +166,12 @@ const MyPage = () => {
                   type="text"
                   placeholder="닉네임"
                   name="nickname"
-                  value={nickname}
+                  value={userData.nickname}
                   {...register('nickname', {
                     validate: { validateNickname },
                   })}
                   onChange={(e) => {
-                    setNickName(e.target.value);
+                    setUserData({ ...userData, nickname: e.target.value });
                   }}
                 />
               </div>
@@ -176,11 +183,11 @@ const MyPage = () => {
                 <input
                   type="text"
                   name="email"
-                  value={`${email}`}
+                  value={userData.email}
                   placeholder="IMCA@imca.com"
                   {...register('email', { validate: validateEmail })}
                   onChange={(e) => {
-                    setEmail(e.target.value);
+                    setUserData({ ...userData, email: e.target.value });
                   }}
                 />
               </div>
@@ -192,13 +199,17 @@ const MyPage = () => {
                 <select
                   className={styles.select_gender}
                   name="gender"
+                  value={userData.gender}
                   {...register('gender', { validate: validateGender })}
+                  onChange={(e) => {
+                    setUserData({ ...userData, gender: e.target.value });
+                  }}
                 >
                   <option disabled value={''}>
                     성별선택
                   </option>
-                  <option value={'남'}>남</option>
-                  <option value={'여'}>여</option>
+                  <option value={'male'}>남</option>
+                  <option value={'female'}>여</option>
                 </select>
               </div>
               {errors.gender && (

@@ -1,8 +1,19 @@
 import styles from './Header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const navigate = useNavigate();
+  //로그인 상태
+  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get('token'));
+
+  //로그아웃
+  const handleLogout = () => {
+    Cookies.remove('token');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
   return (
     <div className={styles.Header}>
@@ -11,20 +22,34 @@ const Header = () => {
           <div className={styles.top_logo} onClick={() => navigate('/')}>
             IMCA
           </div>
-          <div className={styles.joinUsBtn}>
-            <button
-              className={styles.joinUs}
-              onClick={() => navigate('/login')}
-            >
-              로그인
-            </button>
-            <button
-              className={styles.joinUs}
-              onClick={() => navigate('/signup')}
-            >
-              회원가입
-            </button>
-          </div>
+          {isLoggedIn ? (
+            <div className={styles.joinUsBtn}>
+              <button
+                className={styles.joinUs}
+                onClick={() => navigate('/mypage')}
+              >
+                마이페이지
+              </button>
+              <button className={styles.joinUs} onClick={handleLogout}>
+                로그아웃
+              </button>
+            </div>
+          ) : (
+            <div className={styles.joinUsBtn}>
+              <button
+                className={styles.joinUs}
+                onClick={() => navigate('/login')}
+              >
+                로그인
+              </button>
+              <button
+                className={styles.joinUs}
+                onClick={() => navigate('/signup')}
+              >
+                회원가입
+              </button>
+            </div>
+          )}
         </div>
         <div className={styles.nav_container}>
           <div className={styles.nav_wrapper}>
@@ -60,12 +85,12 @@ const Header = () => {
             >
               내 캘린더
             </div>
-            <div
+            {/* <div
               className={styles.nav_item}
               onClick={() => navigate('/mypage')}
             >
               마이페이지
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

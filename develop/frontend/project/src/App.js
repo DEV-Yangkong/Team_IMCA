@@ -21,6 +21,7 @@ import Editor from './components/CommunityPage/Editor';
 import BoardPage from './pages/Community/BoardPage';
 import ConcertDetail from './pages/ConcertPage/ConcertDetail';
 import Comment from './components/CommunityPage/Comment';
+import AdminPage from './pages/Community/AdminPage';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
@@ -56,7 +57,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/community_all" element={<Community />} />
-              <Route path="/:board" element={<BoardPage />} />
+              <Route path="/:category" element={<BoardPage />} />
               <Route path="/new" element={<New />} />
               <Route path="/edit/:id" element={<Editor />} />
               <Route path="/board/:id" element={<Board />} />
@@ -82,6 +83,7 @@ const App = () => {
                   )
                 }
               />
+              <Route path="/admin" element={<AdminPage />} />
             </Routes>
           </div>
         </div>

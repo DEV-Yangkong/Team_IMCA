@@ -67,12 +67,12 @@ const Pages = ({ item }) => {
         </div>
       </main>
       <footer>
-        {/* <Pagination
+        <Pagination
           total={item.length}
           limit={10}
           page={page}
           setPage={setPage}
-        /> */}
+        />
       </footer>
     </div>
   );

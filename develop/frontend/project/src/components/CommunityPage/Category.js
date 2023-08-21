@@ -15,6 +15,9 @@ const Category = () => {
         <Link to="/gather" style={{ textDecoration: 'none' }}>
           <li>동행 / 양도</li>
         </Link>
+        <Link to="/admin" style={{ textDecoration: 'none' }}>
+          <li>관리자페이지</li>
+        </Link>
       </ul>
     </div>
   );

@@ -75,12 +75,6 @@ const MusicalPage = () => {
           >
             5
           </li>
-          <li
-            style={{ padding: 20, cursor: 'pointer' }}
-            onClick={() => onHandlePage(6)}
-          >
-            6
-          </li>
         </ul>
       </div>
     </div>

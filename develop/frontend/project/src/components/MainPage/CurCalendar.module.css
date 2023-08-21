@@ -32,8 +32,12 @@
 .current_contents_item {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  align-items: center;
+  padding: 10px 0;
   padding-right: 10px;
+}
+.current_contents_item:hover {
+  background-color: rgb(247, 247, 247);
 }
 .cur_content_info {
   font-size: 16px;

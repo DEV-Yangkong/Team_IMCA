@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getConcertDetail } from '../../api';
 import styles from './ConcertDetail.module.css';
 import { useState } from 'react';
+
 const ConcertDetail = () => {
   const [info, setInfo] = useState(null);
   const navigate = useNavigate();
@@ -45,6 +46,9 @@ const ConcertDetail = () => {
             <div>공연 장소 : {info.fcltynm._text}</div>
             {info.prfruntime._text && (
               <div>런타임 : {info.prfruntime._text}</div>
+            )}
+            {info.pcseguidance._text && (
+              <div>티켓 가격 : {info.pcseguidance._text}</div>
             )}
           </div>
           <hr />

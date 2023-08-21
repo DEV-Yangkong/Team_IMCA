@@ -25,11 +25,13 @@ import {
   ModalCloseButton,
   useDisclosure,
   ChakraProvider,
+  Button,
 } from '@chakra-ui/react';
+
 import ModalDetail from '../../components/MainPage/ModalDetail';
 import { BoardPageApi } from '../../communityApi';
 import Pages from '../../components/CommunityPage/Pages';
-
+import axios from 'axios';
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [mainDate, setMainDate] = useState(new Date());
@@ -43,10 +45,15 @@ const Main = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearched, setIsSearched] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [allData, setAllData] = useState();
   // 공연 데이터 가져오기
-  const { data: allData } = useQuery(
+  const { data } = useQuery(
     ['allData', state.startDate, state.endDate],
     () => getAllData(state.startDate, state.endDate),
+    // {
+    //   staleTime: 600000, // 10분 동안 데이터를 "느껴지게" 함
+    // },
+    { onSuccess: (data) => setAllData(data) },
   );
   const navigate = useNavigate();
 
@@ -69,10 +76,6 @@ const Main = () => {
   const start = dayjs(state.startDate).format('YYYY.MM.DD');
   const end = dayjs(state.endDate).format('YYYY.MM.DD');
 
-  // 검색버튼 눌렀을 때
-  const handleSearch = () => {
-    setIsSearched(true);
-  };
   // const allData = allDataQuery.data;
 
   const mainTileContent = ({ date }) => {
@@ -93,13 +96,14 @@ const Main = () => {
                 style={{ marginBottom: 5 }}
                 onClick={() => {
                   onOpen();
-                  setSelectedEvent(event);
+                  setSelectedEvent(event); // 비동기이기 때문에 아래의 콘솔이 먼저 찍힘
+                  console.log('selected Event', selectedEvent);
                 }}
               >
                 <div style={{ fontSize: 12, padding: 3 }}>
                   <span key={index}>
                     {index > 0 && ' '}
-                    {event.prfnm._text}
+                    {event.prfnm._text?.replace(/\([^)]*\)/g, '')}
                   </span>
                 </div>
               </div>
@@ -136,6 +140,7 @@ const Main = () => {
       setCurArray(filteredItems);
     }
   }, [allData, start, end]);
+
   //미니 캘린더 일정 추가
   const tileContent = ({ date }) => {
     if (curArray) {
@@ -159,11 +164,17 @@ const Main = () => {
       }
     }
   };
+  // 검색버튼 눌렀을 때
+  const handleSearch = () => {
+    setIsSearched(true);
+  };
+  // 상세 페이지로
   const onGoDetail = (eventId) => {
     navigate(`/concert/${eventId}`, {
       state: { eventData: eventId },
     });
   };
+  // 커뮤니티
   const {
     data: pageList,
     isLoading,
@@ -177,7 +188,25 @@ const Main = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log('pagelist', pageList);
+  // 저장기능
+
+  const onGoMyCalendar = () => {
+    axios
+      .post(
+        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
+        {
+          start_date: dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'),
+          end_date: dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'),
+          poster: selectedEvent.poster._text,
+          place: selectedEvent.fcltynm._text,
+          // runtime: selectedEvent.prfruntime?._text,
+          // price: selectedEvent.pcseguidance?._text,
+          name: selectedEvent.prfnm._text,
+        },
+      )
+      .then((res) => console.log('데이터 전송 완료', res))
+      .catch((err) => console.log('데이터 전송 에러', err));
+  };
   return (
     <div className="Main">
       <ChakraProvider>
@@ -202,77 +231,85 @@ const Main = () => {
               {/* <button colorScheme="blue" mr={3} onClick={onClose}>
                 Close
               </button> */}
-              <button className="modal_button">저장하기</button>
+              <button onClick={onGoMyCalendar} className="modal_button">
+                저장하기
+              </button>
             </ModalFooter>
           </ModalContent>
         </Modal>
       </ChakraProvider>
       <section className="mini_calendar">
         <div className="add_container">
-          <div>
-            <div
-              style={{ display: 'flex', padding: 10, justifyContent: 'center' }}
-            >
-              <span
+          <div style={{ overflowY: 'scroll', borderRadius: 10, height: 380 }}>
+            <div>
+              <div
                 style={{
-                  display: 'inline-block',
-                  fontSize: 20,
-                  fontWeight: 'bold',
-                  padding: 5,
-                  // borderRadius: '15px',
-                  color: '#134f2c',
-                  // border: '1px solid #134f2c',
+                  display: 'flex',
+                  padding: 10,
+                  justifyContent: 'center',
                 }}
               >
-                {' '}
-                기간별 공연 검색하기
-              </span>
-            </div>
-
-            <div className="select_date">
-              <div>
-                {' '}
-                시작 :{' '}
-                <input
-                  className="select_input"
-                  name="startDate"
-                  type="date"
-                  value={state.startDate}
-                  onChange={handleChangeState}
-                ></input>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    fontSize: 20,
+                    fontWeight: 'bold',
+                    padding: 5,
+                    // borderRadius: '15px',
+                    color: '#134f2c',
+                    // border: '1px solid #134f2c',
+                  }}
+                >
+                  {' '}
+                  기간별 공연 검색하기
+                </span>
               </div>
-              <div>
-                {' '}
-                종료 :{' '}
-                <input
-                  className="select_input"
-                  name="endDate"
-                  type="date"
-                  value={state.endDate}
-                  onChange={handleChangeState}
-                ></input>
-              </div>{' '}
-              <button className="select_button" onClick={handleSearch}>
-                검색
-              </button>
-            </div>
 
-            {isSearched &&
-              allData?.map(
-                (it, index) =>
-                  start <= it.prfpdfrom._text &&
-                  it.prfpdto._text <= end && (
-                    <CurCalendar
-                      onGoDetail={() => onGoDetail(it.mt20id._text)}
-                      key={index}
-                      startDate={it.prfpdfrom._text}
-                      endDate={it.prfpdto._text}
-                      title={it.prfnm._text}
-                      place={it.fcltynm._text}
-                      img={it.poster._text}
-                    />
-                  ),
-              )}
+              <div className="select_date">
+                <div>
+                  {' '}
+                  시작 :{' '}
+                  <input
+                    className="select_input"
+                    name="startDate"
+                    type="date"
+                    value={state.startDate}
+                    onChange={handleChangeState}
+                  ></input>
+                </div>
+                <div>
+                  {' '}
+                  종료 :{' '}
+                  <input
+                    className="select_input"
+                    name="endDate"
+                    type="date"
+                    value={state.endDate}
+                    onChange={handleChangeState}
+                  ></input>
+                </div>{' '}
+                <button className="select_button" onClick={handleSearch}>
+                  검색
+                </button>{' '}
+              </div>
+
+              {isSearched &&
+                allData?.map(
+                  (it, index) =>
+                    start <= it.prfpdfrom._text &&
+                    it.prfpdto._text <= end && (
+                      <CurCalendar
+                        onGoDetail={() => onGoDetail(it.mt20id._text)}
+                        key={index}
+                        startDate={it.prfpdfrom._text}
+                        endDate={it.prfpdto._text}
+                        title={it.prfnm._text}
+                        place={it.fcltynm._text}
+                        img={it.poster._text}
+                      />
+                    ),
+                )}
+            </div>
           </div>
         </div>
         <div className="calendar_container">

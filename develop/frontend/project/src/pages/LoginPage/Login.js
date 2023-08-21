@@ -18,11 +18,11 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app//api/v1/users/Loginout',
+        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/users/Loginout/',
         { login_id, password },
         {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
           },
         },
       );

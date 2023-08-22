@@ -25,8 +25,9 @@ const MusicalPage = () => {
   return (
     <div>
       <div className={styles.list_container}>
-        {concertData?.map((it) => (
+        {concertData?.map((it, index) => (
           <MusicalList
+            key={index}
             onGoConcertDetail={() => onGoDetail(it.mt20id._text)}
             title={it.prfnm._text}
             // startDate={it.prfpdfrom._text}

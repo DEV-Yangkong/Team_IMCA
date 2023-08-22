@@ -51,7 +51,7 @@ const Main = () => {
     ['allData', state.startDate, state.endDate],
     () => getAllData(state.startDate, state.endDate),
     // {
-    //   staleTime: 600000, // 10분 동안 데이터를 "느껴지게" 함
+    //   staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
     // },
     { onSuccess: (data) => setAllData(data) },
   );
@@ -143,7 +143,7 @@ const Main = () => {
 
   //미니 캘린더 일정 추가
   const tileContent = ({ date }) => {
-    if (curArray) {
+    if (curArray && isSearched) {
       for (const item of curArray) {
         const currentDate = dayjs(date).format('YYYY.MM.DD');
         const startDate = dayjs(item.prfpdfrom._text).format('YYYY.MM.DD');
@@ -165,9 +165,20 @@ const Main = () => {
     }
   };
   // 검색버튼 눌렀을 때
+  // const handleSearch = () => {
+  //   setIsSearched(true);
+  // };
   const handleSearch = () => {
-    setIsSearched(true);
+    if (state.startDate && state.endDate) {
+      setIsSearched(true);
+    }
   };
+  useEffect(() => {
+    if (isSearched) {
+      setIsSearched(false);
+    }
+  }, [state.startDate, state.endDate]);
+
   // 상세 페이지로
   const onGoDetail = (eventId) => {
     navigate(`/concert/${eventId}`, {
@@ -401,7 +412,7 @@ const Main = () => {
               style={{
                 display: 'flex',
                 borderBottom: '1px solid rgb(185, 185, 185)',
-                fontSize: 18,
+                fontSize: 15,
                 justifyContent: 'space-between',
               }}
             >
@@ -410,6 +421,13 @@ const Main = () => {
               <div>{dayjs(item.created_at).format('YYYY.MM.DD')}</div>
             </div>
           ))}
+        </div>
+      </section>
+      <section>
+        <div className="mainPage_community_container">
+          <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
+            컨텐츠
+          </div>
         </div>
       </section>
     </div>

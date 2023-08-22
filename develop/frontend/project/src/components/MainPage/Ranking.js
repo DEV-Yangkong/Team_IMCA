@@ -1,6 +1,14 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Ranking.module.css';
-
-const Ranking = ({ title, boxOfArray, onGoBoxOfficeDetail }) => {
+import { FaCaretLeft } from '@fortawesome/free-regular-svg-icons';
+import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+const Ranking = ({
+  title,
+  boxOfArray,
+  onGoBoxOfficeDetail,
+  onHandleNext,
+  onHandlePrev,
+}) => {
   return (
     <div className={styles.Ranking}>
       <div className={styles.act_ranking_title}>
@@ -20,9 +28,14 @@ const Ranking = ({ title, boxOfArray, onGoBoxOfficeDetail }) => {
 
       <div className={styles.act_ranking_container}>
         <div className={styles.act_ranking_wrapper}>
-          {/* <div className="act_ranking_item"></div>
-          <div className="act_ranking_item"></div>
-          <div className="act_ranking_item"></div> */}
+          <div className={styles.act_ranking_click}>
+            <div onClick={onHandlePrev} className={styles.act_ranking_prev}>
+              <FontAwesomeIcon icon={faCaretLeft} />
+            </div>
+            <div onClick={onHandleNext} className={styles.act_ranking_next}>
+              <FontAwesomeIcon icon={faCaretRight} />
+            </div>
+          </div>
           {boxOfArray?.map((it, index) => (
             <div
               onClick={() => onGoBoxOfficeDetail(it.mt20id._text)}

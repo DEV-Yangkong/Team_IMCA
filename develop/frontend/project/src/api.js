@@ -2,6 +2,7 @@ import axios from 'axios';
 import { xml2js } from 'xml-js';
 
 const service = 'cabed641996245acbfb041c7c10c6a16';
+// const service = 'b14e78c0be214bfab93cc4988904cbb9';
 const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/prffest?service=${service}`;
 // export const getAllData = (startDate, endDate) => {
 //   //전체 게시글을 가져오는 API
@@ -35,8 +36,8 @@ export const getAllData = async (startDate, endDate) => {
           cpage,
           rows: 30,
           shcate: 'CCCD',
-          prfpdfrom: startDate,
-          prfpdto: endDate,
+          stdate: '20230601',
+          eddate: '20231231',
         },
       });
 
@@ -61,8 +62,8 @@ export const getConcertData = (currentPage) => {
         cpage: currentPage,
         rows: 20,
         shcate: 'CCCD',
-        prfpdfrom: '20230301',
-        prfpdto: '20240301',
+        stdate: '20230301',
+        eddate: '20240301',
       },
     })
     .then((res) => {
@@ -100,7 +101,7 @@ export const getConcertBoxOffice = () => {
       const options = { compact: true, spaces: 2 };
       const result = xml2js(res.data, options);
       console.log('boxofficeM', result);
-      return result.boxofs.boxof.slice(0, 5);
+      return result.boxofs.boxof.slice(0, 10);
     });
 };
 // export const getActBoxOffice = () => {

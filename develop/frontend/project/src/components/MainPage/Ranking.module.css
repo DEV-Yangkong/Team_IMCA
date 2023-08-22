@@ -22,6 +22,51 @@
   margin: 0 auto;
   width: 100%;
   max-width: 1240px;
+  position: relative;
+  animation: fade-in 0.3s ease-in-out;
+}
+.act_ranking_click {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  right: 0;
+  top: 35%;
+  opacity: 0;
+  background-color: black;
+  width: 100%;
+  animation: fade-in 0.3s ease-in-out;
+}
+.act_ranking_wrapper:hover > .act_ranking_click {
+  opacity: 1;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.act_ranking_click > div {
+  font-size: 30px;
+  color: white;
+  position: absolute;
+  cursor: pointer;
+  z-index: 999;
+  border: 1px solid white;
+  border-radius: 50%;
+  padding: 0 10px;
+
+  animation: fade-in 0.3s ease-in-out; /* fade-in 애니메이션 적용 */
+}
+.act_ranking_prev {
+  position: absolute;
+  left: 10px;
+}
+.act_ranking_next {
+  position: absolute;
+  right: 10px;
 }
 .act_ranking_line {
   /* border-bottom: 1px solid black; */
@@ -67,6 +112,111 @@
 }
 .act_ranking_item_3::before {
   content: '3';
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  font-size: 35px;
+  color: white;
+  /* border: 1px solid white; */
+  padding: 5px;
+  font-weight: bold;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+.act_ranking_item_4 {
+  position: relative;
+}
+.act_ranking_item_4::before {
+  content: '4';
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  font-size: 35px;
+  color: white;
+  /* border: 1px solid white; */
+  padding: 5px;
+  font-weight: bold;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+.act_ranking_item_5 {
+  position: relative;
+}
+.act_ranking_item_5::before {
+  content: '5';
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  font-size: 35px;
+  color: white;
+  /* border: 1px solid white; */
+  padding: 5px;
+  font-weight: bold;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+.act_ranking_item_6 {
+  position: relative;
+}
+.act_ranking_item_6::before {
+  content: '6';
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  font-size: 35px;
+  color: white;
+  /* border: 1px solid white; */
+  padding: 5px;
+  font-weight: bold;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+.act_ranking_item_7 {
+  position: relative;
+}
+.act_ranking_item_7::before {
+  content: '7';
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  font-size: 35px;
+  color: white;
+  /* border: 1px solid white; */
+  padding: 5px;
+  font-weight: bold;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+.act_ranking_item_8 {
+  position: relative;
+}
+.act_ranking_item_8::before {
+  content: '8';
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  font-size: 35px;
+  color: white;
+  /* border: 1px solid white; */
+  padding: 5px;
+  font-weight: bold;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+.act_ranking_item_9 {
+  position: relative;
+}
+.act_ranking_item_9::before {
+  content: '9';
+  position: absolute;
+  left: 15px;
+  top: 5px;
+  font-size: 35px;
+  color: white;
+  /* border: 1px solid white; */
+  padding: 5px;
+  font-weight: bold;
+  /* background-color: rgba(255, 255, 255, 0.2); */
+}
+.act_ranking_item_10 {
+  position: relative;
+}
+.act_ranking_item_10::before {
+  content: '10';
   position: absolute;
   left: 15px;
   top: 5px;

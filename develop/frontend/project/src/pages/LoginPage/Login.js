@@ -6,24 +6,23 @@ import { useNavigate } from 'react-router-dom';
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
   const [login_id, setId] = useState('');
   const [password, setPassword] = useState('');
-
-  // 로그인 실패시 모달창으로 알람
+  const [cookies, setCookie] = useCookies(['access_token', 'refresh_token']);
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:8000/api/v1/users/Loginout',
-        { login_id: '아이디', password: '패스워드' },
+        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/users/Loginout/',
+        { login_id, password },
         {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
           },
         },
       );
@@ -33,8 +32,8 @@ const Login = () => {
         //토큰 추출, 추출한 토큰을 쿠키에 저장 및 상태관리 라이브러리를 활용하여 저장
         const { access_token, refresh_token } = response.data;
         //토큰 쿠키에 저장
-        Cookies.set('access_token', access_token);
-        Cookies.set('refresh_token', refresh_token);
+        setCookie.set('access_token', access_token);
+        setCookie.set('refresh_token', refresh_token);
         navigate('/');
       } else {
         //로그인 실패시

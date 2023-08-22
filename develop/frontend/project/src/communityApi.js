@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/',
+  baseURL: 'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app//',
 });
 
 // 생성한 인스턴스를 사용하여 요청 보내기

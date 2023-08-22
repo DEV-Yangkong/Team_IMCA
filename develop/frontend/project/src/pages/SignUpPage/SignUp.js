@@ -1,7 +1,10 @@
 import styles from './SignUp.module.css';
 import { useForm } from 'react-hook-form';
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { signupApi } from '../../signupApi';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const {
@@ -13,24 +16,44 @@ const SignUp = () => {
 
   const password = watch('password', '');
 
+  const [cookies, setCookie] = useCookies(['access_token', 'refresh_token']);
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        'http://localhost:8000/api/v1/users/Register/',
+      const signupData = {
+        login_id: data.login_id,
+        password: data.password,
+        nickname: data.nickname,
+        email: data.email,
+        gender: data.gender,
+        name: data.name,
+      };
+      //signupApi함수 호출 할때 데이터 객체 전달하기
+      const response = await signupApi(signupData);
+      // const response = await signupApi(
+      //   'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/users/Register/',
+      //   data,
+      //   {
+      //     withCredentials: true, // 쿠키 전달 설정
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //   },
+      // );
+      //회원가입 성공 시 쿠키설정
+      setCookie('access_token', response.token.access);
+      setCookie('refresh_token', response.token.refresh);
 
-        data,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      console.log(response.data.message);
+      console.log('와우11', response.message);
+      console.log('회원가입성공');
+
+      navigate('/');
     } catch (error) {
       console.error('회원가입실패', error);
       window.alert('회원가입 실패!');
     }
-    // console.log(data);
+    console.log(data);
     // 회원가입 로직처리
   };
 
@@ -86,7 +109,10 @@ const SignUp = () => {
                   name="login_id"
                   type="text"
                   placeholder="아이디를 입력해주세요."
-                  {...register('login_id', { validate: validateUserid })}
+                  {...register('login_id', {
+                    required: '아이디를 입력해주세요.',
+                    validate: validateUserid,
+                  })}
                 />
                 {errors.login_id && (
                   <p className={styles.erms}>{errors.login_id.message}</p>
@@ -99,7 +125,10 @@ const SignUp = () => {
                   type="password"
                   name="password"
                   placeholder="8글자, 영문 대소문자, 숫자, 특수문자 포함"
-                  {...register('password', { validate: validatePassword })}
+                  {...register('password', {
+                    required: '비밀번호를 입력해주세요.',
+                    validate: validatePassword,
+                  })}
                 />
                 {errors.password && (
                   <p className={styles.erms}>{errors.password.message}</p>
@@ -113,6 +142,7 @@ const SignUp = () => {
                   name="confirmPassword"
                   placeholder="비밀번호 재입력"
                   {...register('confirmPassword', {
+                    required: '비밀번호를 입력해주세요.',
                     validate: (value) =>
                       value === password || '비밀번호가 일치하지 않습니다.',
                   })}
@@ -130,7 +160,10 @@ const SignUp = () => {
                   type="text"
                   name="name"
                   placeholder="이름"
-                  {...register('name', { validate: { validateName } })}
+                  {...register('name', {
+                    required: '이름을 입력해주세요.',
+                    validate: { validateName },
+                  })}
                 />
                 {errors.name && (
                   <p className={styles.erms}>{errors.name.message}</p>
@@ -144,6 +177,7 @@ const SignUp = () => {
                   name="nickname"
                   placeholder="닉네임"
                   {...register('nickname', {
+                    required: '닉네임을 입력해주세요.',
                     validate: { validateNickname },
                   })}
                 />
@@ -159,7 +193,10 @@ const SignUp = () => {
                   type="text"
                   name="email"
                   placeholder="IMCA@imca.com"
-                  {...register('email', { validate: validateEmail })}
+                  {...register('email', {
+                    required: '이메일을 입력해주세요.',
+                    validate: validateEmail,
+                  })}
                 />
                 {errors.email && (
                   <p className={styles.erms}>{errors.email.message}</p>
@@ -170,13 +207,16 @@ const SignUp = () => {
                 <select
                   className={styles.select_field}
                   name="성별"
-                  {...register('gender', { validate: validateGender })}
+                  {...register('gender', {
+                    required: '성별을 선택해주세요.',
+                    validate: validateGender,
+                  })}
                 >
                   <option value={''} disabled>
                     성별선택
                   </option>
-                  <option value={'남'}>남</option>
-                  <option value={'여'}>여</option>
+                  <option value={'male'}>남</option>
+                  <option value={'female'}>여</option>
                 </select>
               </div>
               {errors.gender && (

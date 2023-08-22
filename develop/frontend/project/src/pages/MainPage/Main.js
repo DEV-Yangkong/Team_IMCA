@@ -44,21 +44,24 @@ const Main = () => {
   const [detailArray, setDetailArray] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearched, setIsSearched] = useState(false);
+  const [boxOfficeView, setBoxOfficeView] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [allData, setAllData] = useState();
+  // const [allData, setAllData] = useState();
   // 공연 데이터 가져오기
-  const { data } = useQuery(
-    ['allData', state.startDate, state.endDate],
-    () => getAllData(state.startDate, state.endDate),
-    // {
-    //   staleTime: 600000, // 10분 동안 데이터를 "느껴지게" 함
-    // },
-    { onSuccess: (data) => setAllData(data) },
+  const { data: allData } = useQuery(
+    ['allData'],
+    getAllData,
+    {
+      staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
+    },
+    { onSuccess: (allData) => console.log(allData) },
   );
   const navigate = useNavigate();
 
   // 박스 오피스 데이터 가져오기
-  const { data: boxOfficeData } = useQuery(['boxOffice'], getConcertBoxOffice);
+  const { data: boxOfficeData } = useQuery(['boxOffice'], getConcertBoxOffice, {
+    staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
+  });
 
   // 검색 폼 상태변화 함수
   // const handleChangeState = (e) => {
@@ -143,7 +146,7 @@ const Main = () => {
 
   //미니 캘린더 일정 추가
   const tileContent = ({ date }) => {
-    if (curArray) {
+    if (curArray && isSearched) {
       for (const item of curArray) {
         const currentDate = dayjs(date).format('YYYY.MM.DD');
         const startDate = dayjs(item.prfpdfrom._text).format('YYYY.MM.DD');
@@ -165,9 +168,20 @@ const Main = () => {
     }
   };
   // 검색버튼 눌렀을 때
+  // const handleSearch = () => {
+  //   setIsSearched(true);
+  // };
   const handleSearch = () => {
-    setIsSearched(true);
+    if (state.startDate && state.endDate) {
+      setIsSearched(true);
+    }
   };
+  useEffect(() => {
+    if (isSearched) {
+      setIsSearched(false);
+    }
+  }, [state.startDate, state.endDate]);
+
   // 상세 페이지로
   const onGoDetail = (eventId) => {
     navigate(`/concert/${eventId}`, {
@@ -206,6 +220,13 @@ const Main = () => {
       )
       .then((res) => console.log('데이터 전송 완료', res))
       .catch((err) => console.log('데이터 전송 에러', err));
+  };
+
+  const onHandleNext = () => {
+    setBoxOfficeView(!boxOfficeView);
+  };
+  const onHandlePrev = () => {
+    setBoxOfficeView(!boxOfficeView);
   };
   return (
     <div className="Main">
@@ -357,8 +378,14 @@ const Main = () => {
       <section className="ranking">
         <Ranking
           title="박스오피스"
-          boxOfArray={boxOfficeData}
+          boxOfArray={
+            boxOfficeView
+              ? boxOfficeData?.slice(5, 10)
+              : boxOfficeData?.slice(0, 5)
+          }
           onGoBoxOfficeDetail={onGoDetail}
+          onHandleNext={onHandleNext}
+          onHandlePrev={onHandlePrev}
         />
       </section>
       <section>
@@ -401,7 +428,7 @@ const Main = () => {
               style={{
                 display: 'flex',
                 borderBottom: '1px solid rgb(185, 185, 185)',
-                fontSize: 18,
+                fontSize: 15,
                 justifyContent: 'space-between',
               }}
             >
@@ -410,6 +437,13 @@ const Main = () => {
               <div>{dayjs(item.created_at).format('YYYY.MM.DD')}</div>
             </div>
           ))}
+        </div>
+      </section>
+      <section>
+        <div className="mainPage_community_container">
+          <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
+            컨텐츠
+          </div>
         </div>
       </section>
     </div>

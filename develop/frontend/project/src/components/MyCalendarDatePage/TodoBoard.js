@@ -1,21 +1,27 @@
 import React from 'react';
 import TodoItem from './TodoItem';
 
-function TodoBoard(props) {
+function TodoBoard({ todoItem, setTodoItem, selectedDate }) {
+  const filteredTodoItems = todoItem.filter(
+    (item) => item.date === selectedDate,
+  );
+  console.log(todoItem);
+  console.log('Selected Date in TodoBoard:', selectedDate);
+
   return (
     <div
-      style={
-        {
-          // width: ' 450px',
-          // display: 'flex',
-          // flexDirection: 'column',
-          // alignContent: 'center',
-          // justifyContent: 'center',
-        }
-      }
+    // style={
+    //   {
+    //     // width: ' 450px',
+    //     // display: 'flex',
+    //     // flexDirection: 'column',
+    //     // alignContent: 'center',
+    //     // justifyContent: 'center',
+    //   }
+    // }
     >
-      {props.todoItem.map((item) => (
-        <TodoItem item={item} />
+      {filteredTodoItems.map((item) => (
+        <TodoItem key={item.id} item={item} setTodoItem={setTodoItem} />
       ))}
     </div>
   );

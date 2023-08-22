@@ -14,3 +14,15 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+//민정
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+app.post('/api/v1/users/Register/', (req, res) => {
+  const userData = req.body;
+  res.status(200).json({ message: 'signUp success' });
+});
+app.listen(port, () => {
+  console.log('서버가 스웨그에서 실행중');
+});

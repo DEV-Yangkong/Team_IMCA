@@ -2,8 +2,15 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL: 'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/',
-  headers: {},
 });
+export const loginoutApi = async (data) => {
+  try {
+    const response = await instance.post('/api/v1/users/Loginout/', data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 // GET 요청 보내기
 // instance

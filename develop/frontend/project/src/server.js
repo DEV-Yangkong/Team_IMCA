@@ -15,8 +15,8 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
+//민정
 const bodyParser = require('body-parser');
-
 app.use(bodyParser.json());
 
 app.post('/api/v1/users/Register/', (req, res) => {

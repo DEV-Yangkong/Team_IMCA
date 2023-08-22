@@ -44,21 +44,24 @@ const Main = () => {
   const [detailArray, setDetailArray] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearched, setIsSearched] = useState(false);
+  const [boxOfficeView, setBoxOfficeView] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [allData, setAllData] = useState();
+  // const [allData, setAllData] = useState();
   // 공연 데이터 가져오기
-  const { data } = useQuery(
-    ['allData', state.startDate, state.endDate],
-    () => getAllData(state.startDate, state.endDate),
-    // {
-    //   staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
-    // },
-    { onSuccess: (data) => setAllData(data) },
+  const { data: allData } = useQuery(
+    ['allData'],
+    getAllData,
+    {
+      staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
+    },
+    { onSuccess: (allData) => console.log(allData) },
   );
   const navigate = useNavigate();
 
   // 박스 오피스 데이터 가져오기
-  const { data: boxOfficeData } = useQuery(['boxOffice'], getConcertBoxOffice);
+  const { data: boxOfficeData } = useQuery(['boxOffice'], getConcertBoxOffice, {
+    staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
+  });
 
   // 검색 폼 상태변화 함수
   // const handleChangeState = (e) => {
@@ -218,6 +221,13 @@ const Main = () => {
       .then((res) => console.log('데이터 전송 완료', res))
       .catch((err) => console.log('데이터 전송 에러', err));
   };
+
+  const onHandleNext = () => {
+    setBoxOfficeView(!boxOfficeView);
+  };
+  const onHandlePrev = () => {
+    setBoxOfficeView(!boxOfficeView);
+  };
   return (
     <div className="Main">
       <ChakraProvider>
@@ -368,8 +378,14 @@ const Main = () => {
       <section className="ranking">
         <Ranking
           title="박스오피스"
-          boxOfArray={boxOfficeData}
+          boxOfArray={
+            boxOfficeView
+              ? boxOfficeData?.slice(5, 10)
+              : boxOfficeData?.slice(0, 5)
+          }
           onGoBoxOfficeDetail={onGoDetail}
+          onHandleNext={onHandleNext}
+          onHandlePrev={onHandlePrev}
         />
       </section>
       <section>

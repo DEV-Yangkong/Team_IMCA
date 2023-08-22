@@ -5,26 +5,27 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import axios from 'axios'; // axios를 import
 
-const Comment = ({ postId }) => {
+const Comment = () => {
   useEffect(() => {
     // 게시글의 댓글 및 대댓글 데이터를 가져오는 API 호출
     axios
       .get(
-        `https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/api/v1/review/${postId}`,
+        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/review/`,
       )
       .then((response) => {
         setCommentsList(response.data); // API 응답 데이터를 commentsList 상태에 저장
+        console.log('댓글 데이터:', response.data);
       })
       .catch((error) => {
         console.error('Error fetching comments:', error);
       });
-  }, [postId]);
+  }, []);
 
   useEffect(() => {
     // 게시글의 댓글 및 대댓글 데이터를 가져오는 API 호출
     axios
       .get(
-        `https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/api/v1/bigreview/`,
+        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/bigreview/`,
       )
       .then((response) => {
         const allReviews = response.data; // 모든 댓글 데이터
@@ -39,7 +40,7 @@ const Comment = ({ postId }) => {
               content: review.content,
               작성시간: review.created_at,
               유저프로필: {
-                name: '유저', // 댓글 작성자 이름
+                // author: '유저', // 댓글 작성자 이름
                 avatarUrl: 'USER_AVATAR_URL', // 댓글 작성자 프로필 이미지 URL
               },
               대댓글: [],
@@ -56,7 +57,7 @@ const Comment = ({ postId }) => {
                 content: review.content,
                 작성시간: review.created_at,
                 유저프로필: {
-                  name: '유저', // 대댓글 작성자 이름
+                  // author: '유저', // 대댓글 작성자 이름
                   avatarUrl: 'USER_AVATAR_URL', // 대댓글 작성자 프로필 이미지 URL
                 },
               });
@@ -91,7 +92,7 @@ const Comment = ({ postId }) => {
       내용: comment,
       작성시간: new Date().toISOString(),
       유저프로필: {
-        name: '새로운 유저',
+        // author: '새로운 유저',
         avatarUrl: 'NEW_USER_AVATAR_URL',
       },
       이미지Url: 'NEW_IMAGE_URL',
@@ -111,7 +112,7 @@ const Comment = ({ postId }) => {
       내용: replyText,
       작성시간: new Date().toISOString(),
       유저프로필: {
-        name: '새로운 유저', // 로그인된 유저의 이름으로 변경하거나 사용자 정보를 가져와서 사용 가능
+        author: '새로운 유저', // 로그인된 유저의 이름으로 변경하거나 사용자 정보를 가져와서 사용 가능
         avatarUrl: 'NEW_USER_AVATAR_URL', // 유저의 프로필 이미지 URL로 변경하거나 사용자 정보를 가져와서 사용 가능
       },
     };
@@ -149,7 +150,7 @@ const Comment = ({ postId }) => {
               </div>
               <div>
                 <div className={styles.CommentTop}>
-                  <p>{comment.유저프로필.name}</p>
+                  {/* <p>{comment.유저프로필.author}</p> */}
                   <span className={styles.CommentTime}>{comment.작성시간}</span>
                 </div>
                 <div className={styles.CommentBottom}>

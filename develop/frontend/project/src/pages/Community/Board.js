@@ -9,23 +9,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { BoardPageApi } from '../../communityApi';
+import { getUserDetail } from '../../communityApi';
 import { useQuery } from '@tanstack/react-query';
 import Detail from '../../components/CommunityPage/Detail';
 
 const Board = () => {
   // (1) username 값을 어떻게 가져올 수 있을까? -> URL params
-  const { username } = useParams();
+  // const { nickname } = useParams();
   const { id } = useParams();
   const [likeClick, SetLikeClick] = useState(false);
 
-  console.log(username);
+  // console.log(id);
 
   // (2) 가져온 username 값을 어떻게 서버로 전달할 수 있을까?
-  const { data: detailArray } = useQuery(['getUserDetail'], BoardPageApi);
+  // const { data: detailArray } = useQuery(['detailArray', id], () =>
+  //   getUserDetail(id),
+  // );
 
   const navigate = useNavigate();
-  console.log('board data check', detailArray);
+  // console.log('board data check', detailArray);
   return (
     <div className={styles.Board}>
       <Category />

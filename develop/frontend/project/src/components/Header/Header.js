@@ -1,17 +1,25 @@
 import styles from './Header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
-import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 const Header = () => {
   const navigate = useNavigate();
-  //로그인 상태
-  const [isLoggedIn, setIsLoggedIn] = useState(!!Cookies.get('token'));
+
+  //쿠키
+  const [cookies, removeCookie] = useCookies(['access_token', 'refresh_token']);
+  //초기 로그인 상태설정
+  const [isLoggedIn, setIsLoggedIn] = useState(!!cookies.access_token);
+
+  //페이지 로드시나 로그인/로그아웃 후에 쿠키검사
+  useEffect(() => {
+    setIsLoggedIn(!!cookies.access_token);
+  }, [cookies]);
 
   //로그아웃
   const handleLogout = () => {
-    Cookies.remove('token');
-    setIsLoggedIn(false);
+    removeCookie('access_token', { path: '/' });
+    removeCookie('refresh_token', { path: '/' });
     navigate('/');
   };
 

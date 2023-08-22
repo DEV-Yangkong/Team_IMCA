@@ -6,13 +6,13 @@ const Category = () => {
   return (
     <div className={styles.Category}>
       <ul className={styles.category_list}>
-        <Link to="/freeboard" style={{ textDecoration: 'none' }}>
+        <Link to="/free" style={{ textDecoration: 'none' }}>
           <li>자유게시판</li>
         </Link>
-        <Link to="/review" style={{ textDecoration: 'none' }}>
+        <Link to="/after" style={{ textDecoration: 'none' }}>
           <li>공연후기</li>
         </Link>
-        <Link to="/gather" style={{ textDecoration: 'none' }}>
+        <Link to="/trade" style={{ textDecoration: 'none' }}>
           <li>동행 / 양도</li>
         </Link>
         <Link to="/admin" style={{ textDecoration: 'none' }}>

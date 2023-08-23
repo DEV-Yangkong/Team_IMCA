@@ -5,14 +5,16 @@ import { faLock, faHandPointDown } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 import React, { useState } from 'react';
-// import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { loginoutApi } from '../../loginoutApi';
 
 const Login = () => {
   const [login_id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const [cookies, setCookie] = useCookies(['access_token', 'refresh_token']);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    'access_token',
+    'refresh_token',
+  ]);
   const navigate = useNavigate();
 
   const onSubmit = async (e) => {
@@ -20,7 +22,6 @@ const Login = () => {
 
     try {
       const response = await loginoutApi(
-        // 'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/users/Loginout/',
         { login_id: login_id, password: password },
         // {
         //   withCredentials: true, // 쿠키 전달 설정
@@ -36,21 +37,27 @@ const Login = () => {
         //토큰 추출, 추출한 토큰을 쿠키에 저장 및 상태관리 라이브러리를 활용하여 저장
         const { access_token, refresh_token } = response.data;
         //토큰 쿠키에 저장
-        setCookie('access_token', access_token, { path: '/', maxAge: 86400 });
-        setCookie('refresh_token', refresh_token, { path: '/', maxAge: 86400 });
+        setCookie('access_token', access_token, {
+          path: '/',
+          maxAge: 10,
+        });
+        setCookie('refresh_token', refresh_token, {
+          path: '/',
+          maxAge: 86400,
+        });
         console.log(response.data);
       } else if (response.status === 500) {
         console.error('서버 내부 오류:', response.data);
         window.alert('서버 내부 오류가 발생했습니다.');
       } else {
         //로그인 실패시
-        console.error('로그인실패:', response.data);
+        console.error('로그인실패:', response);
         window.alert('로그인에 실패했습니다.');
       }
       navigate('/');
     } catch (error) {
       console.error('로그인 실패', error);
-      window.alert('로그인에 실패했습니다.');
+      window.alert('아이디와 비밀번호를 다시 확인해주세요.');
     }
   };
 

@@ -16,6 +16,7 @@ export const logoutApi = async () => {
     const response = await instance.delete('/api/v1/users/Loginout/', {
       withCredentials: true,
     });
+    console.log(response, '로그아웃요청');
     return response;
   } catch (error) {
     throw error;

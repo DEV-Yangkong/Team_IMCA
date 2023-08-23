@@ -22,10 +22,12 @@ import BoardPage from './pages/Community/BoardPage';
 import ConcertDetail from './pages/ConcertPage/ConcertDetail';
 import Comment from './components/CommunityPage/Comment';
 import AdminPage from './pages/Community/AdminPage';
-import { CookiesProvider } from 'react-cookie';
+import { CookiesProvider, useCookies } from 'react-cookie';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
+  const [cookie, getCookie] = useCookies(['access_token', 'refresh_token']);
+
   // YouTube 포스트 데이터
   const [youtubePosts] = useState([
     // 포스트 정보들...

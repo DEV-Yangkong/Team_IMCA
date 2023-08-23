@@ -9,7 +9,10 @@ const Header = () => {
   const navigate = useNavigate();
 
   //쿠키
-  const [cookies, removeCookie] = useCookies(['access_token', 'refresh_token']);
+  const [cookies, removeCookies] = useCookies([
+    'access_token',
+    'refresh_token',
+  ]);
   //초기 로그인 상태설정
   const [isLoggedIn, setIsLoggedIn] = useState(!!cookies.access_token);
 
@@ -22,11 +25,11 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       const response = await logoutApi();
-      console.log(response);
-      if (response.status === 200) {
-        removeCookie('access_token', { path: '/' });
-        removeCookie('refresh_token', { path: '/' });
-        setIsLoggedIn(false); //로그아웃 상태로 변경
+      console.log(response, '하이');
+      if (response?.status === 200) {
+        removeCookies('access_token', { path: '/' });
+        removeCookies('refresh_token', { path: '/' });
+        // setIsLoggedIn(false); //로그아웃 상태로 변경
         console.log(isLoggedIn);
         navigate('/');
       } else {
@@ -38,6 +41,10 @@ const Header = () => {
       window.alert('로그아웃실펠야!!');
     }
   };
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, [isLoggedIn]); // 이렇게 isLoggedIn이 변경될 때마다 출력
 
   return (
     <div className={styles.Header}>

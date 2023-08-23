@@ -99,7 +99,7 @@ export const getConcertBoxOffice = () => {
     .then((res) => {
       const options = { compact: true, spaces: 2 };
       const result = xml2js(res.data, options);
-      console.log('boxofficeM', result);
+      // console.log('boxofficeM', result);
       return result.boxofs.boxof.slice(0, 10);
     });
 };

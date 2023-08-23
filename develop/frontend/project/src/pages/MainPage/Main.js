@@ -32,7 +32,7 @@ import ModalDetail from '../../components/MainPage/ModalDetail';
 import { BoardPageApi } from '../../communityApi';
 import Pages from '../../components/CommunityPage/Pages';
 import axios from 'axios';
-
+import { useCookies } from 'react-cookie';
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [mainDate, setMainDate] = useState(new Date());
@@ -82,7 +82,7 @@ const Main = () => {
   const end = dayjs(state.endDate).format('YYYY.MM.DD');
 
   // const allData = allDataQuery.data;
-
+  const [cookies] = useCookies(['access_token']);
   const mainTileContent = ({ date }) => {
     if (allData) {
       const currentDate = dayjs(date).format('YYYY.MM.DD');
@@ -103,9 +103,9 @@ const Main = () => {
                 onClick={() => {
                   onOpen();
                   setSelectedEvent(event); // 비동기이기 때문에 아래의 콘솔이 먼저 찍힘
-                  console.log('selected Event', selectedEvent);
+                  // console.log('selected Event', selectedEvent);
                   setSelectedDate(currentStrDate);
-                  console.log(currentStrDate);
+                  // console.log(currentStrDate);
                 }}
               >
                 <div style={{ fontSize: 12, padding: 3 }}>
@@ -224,11 +224,57 @@ const Main = () => {
       .post(
         'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
         personalData,
+        {
+          // headers: cookies.access_token && cookies.access_token,
+          Authorization: `Bearer ${cookies.access_token}`,
+          withCredentials: true,
+        },
       )
       .then((res) => console.log('데이터 전송 완료', res))
       .catch((err) => console.log('데이터 전송 에러', err));
   };
+  useEffect(() => {
+    const checkMyCalendar = () => {
+      axios
+        .get(
+          'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
+          {
+            Authorization: `Bearer ${cookies.access_token}`,
+            withCredentials: true,
+          },
+        )
+        .then((res) => console.log('캘린더 응답', res))
+        .catch((err) => console.log('캘린더 에러', err));
+    };
+    checkMyCalendar();
+  }, [selectedEvent]);
 
+  // const onGoMyCalendar = () => {
+  //   const formData = new FormData();
+
+  //   formData.append('start_date', dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'));
+  //   formData.append('end_date', dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'));
+  //   formData.append('selected_date', selectedDate);
+  //   formData.append('poster', selectedEvent.poster._text);
+  //   formData.append('place', selectedEvent.fcltynm._text);
+  //   formData.append('name', selectedEvent.prfnm._text);
+
+  //   const headers = {
+  //     'Content-Type': 'multipart/form-data',
+  //     Authorization: `Bearer ${cookies.access_token}`, // 토큰 헤더 추가
+  //   };
+
+  //   axios
+  //     .post(
+  //       'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
+  //       formData,
+  //       {
+  //         headers: headers,
+  //       }
+  //     )
+  //     .then((res) => console.log('데이터 전송 완료', res))
+  //     .catch((err) => console.log('데이터 전송 에러', err));
+  // };
   const onHandleNext = () => {
     setBoxOfficeView(!boxOfficeView);
   };

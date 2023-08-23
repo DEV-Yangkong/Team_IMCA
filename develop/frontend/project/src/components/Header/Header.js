@@ -2,6 +2,8 @@ import styles from './Header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { logoutApi } from '../../loginoutApi';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -14,13 +16,27 @@ const Header = () => {
   //페이지 로드시나 로그인/로그아웃 후에 쿠키검사
   useEffect(() => {
     setIsLoggedIn(!!cookies.access_token);
-  }, [cookies]);
+  }, [cookies.access_token]);
 
   //로그아웃
-  const handleLogout = () => {
-    removeCookie('access_token', { path: '/' });
-    removeCookie('refresh_token', { path: '/' });
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      const response = await logoutApi();
+      console.log(response);
+      if (response.status === 200) {
+        removeCookie('access_token', { path: '/' });
+        removeCookie('refresh_token', { path: '/' });
+        setIsLoggedIn(false); //로그아웃 상태로 변경
+        console.log(isLoggedIn);
+        navigate('/');
+      } else {
+        console.error('로그아웃실패', response);
+        window.alert('로그아웃 실패했다!');
+      }
+    } catch (error) {
+      console.error('로그아웃실패라고', error);
+      window.alert('로그아웃실펠야!!');
+    }
   };
 
   return (
@@ -93,12 +109,6 @@ const Header = () => {
             >
               내 캘린더
             </div>
-            {/* <div
-              className={styles.nav_item}
-              onClick={() => navigate('/mypage')}
-            >
-              마이페이지
-            </div> */}
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ const Header = () => {
   useEffect(() => {
     axios
       .get(
-        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/',
+        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/',
       )
       .then((response) => {
         setPageList(response.data.results);

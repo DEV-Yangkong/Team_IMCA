@@ -13,14 +13,17 @@ import Category from '../../components/CommunityPage/Category';
 const BoardPage = () => {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
-  const { category } = useParams();
+  const params = useParams();
+  const category = params.category;
+  console.log('cate', category);
 
   // 구조분해 할당
+
   const {
     data: pageList,
     isLoading,
     error,
-  } = useQuery(['pageList', category], BoardPageApi);
+  } = useQuery(['pageList', category], () => BoardPageApi(category));
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -31,22 +34,21 @@ const BoardPage = () => {
   }
   console.log('pageList', pageList);
 
-  const filteredPageList = pageList?.results?.filter(
-    (item) => item.category === category,
-  );
+  // pageList.results 배열이 있다면 해당 배열의 데이터를 매핑하여 렌더링
+  const pagesToRender = pageList.results || [];
 
   return (
     <div className={styles.BoardPage}>
       <Category />
       <Header />
-      {filteredPageList?.map((item) => (
+      {pagesToRender?.map((item) => (
         <Pages
           key={item.id} // 각 아이템에 고유한 키 값 지정
           item={item} // 데이터 전달
         />
       ))}
       <div className={styles.EditorDiv}>
-        <button
+        {/* <button
           className={styles.EditorButton}
           type="button"
           onClick={() => {
@@ -55,6 +57,15 @@ const BoardPage = () => {
             } else {
               navigate('/edit/:id'); // 글쓰기 페이지로 이동
             }
+          }}
+        >
+          글쓰기
+        </button> */}
+        <button
+          className={styles.EditorButton}
+          type="button"
+          onClick={() => {
+            navigate('/edit/:id'); // 글쓰기 페이지로 이동
           }}
         >
           글쓰기

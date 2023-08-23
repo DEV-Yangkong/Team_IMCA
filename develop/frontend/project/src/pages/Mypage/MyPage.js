@@ -24,12 +24,14 @@ const MyPage = () => {
   useEffect(() => {
     //마이페이지 데이터 불러오는 요청
     axios
-      .get('/api/v1/users/mypage/')
+      .get(
+        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/users/mypage/',
+      )
       .then((response) => {
         setUserData(response.data);
       })
       .catch((error) => {
-        console.error('error data', error);
+        console.error('마이페이지 error data', error);
       });
   }, []);
 

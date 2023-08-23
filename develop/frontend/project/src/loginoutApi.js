@@ -11,7 +11,16 @@ export const loginoutApi = async (data) => {
     throw error;
   }
 };
-
+export const logoutApi = async () => {
+  try {
+    const response = await instance.delete('/api/v1/users/Loginout/', {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 // GET 요청 보내기
 // instance
 //   .get('/endpoint')

@@ -43,7 +43,7 @@ function Pagination({ total, limit, page, setPage }) {
     try {
       setLoading(true);
       const response = await fetch(
-        `api/v1/community_board/?page=${pageNumber}&limit=${limit}`,
+        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/?page=${pageNumber}&limit=${limit}`,
       );
 
       if (!response.ok) {
@@ -62,6 +62,7 @@ function Pagination({ total, limit, page, setPage }) {
   useEffect(() => {
     fetchData(page); // 페이지가 변경될 때마다 데이터를 가져옴
   }, [page]);
+  console.log('pagination', page);
 
   const numPages = Math.ceil(total / limit);
 

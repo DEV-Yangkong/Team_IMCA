@@ -23,7 +23,7 @@ const Pages = ({ item }) => {
   const handleTitleClick = (id) => {
     navigate(`/board/${id}`); // 클릭한 게시물의 ID로 페이지 이동
   };
-  console.log('title', item.title);
+  console.log('data', item);
   return (
     <div className={styles.Pages}>
       <main>
@@ -43,13 +43,13 @@ const Pages = ({ item }) => {
               </div>
               <div>
                 <FontAwesomeIcon className={styles.icon} icon={faComment} />
-                {item.reviews_num}
+                {item.reviews_count}
               </div>
             </div>
             <ul className={styles.bottom}>
               <li>{item.author.nickname}</li> {/* user.name 가져오기 */}
               <li>{item.created_at}</li>
-              <li>조회수 {item.reviews_num}</li>
+              <li>조회수 {item.views}</li>
               <li>
                 <FontAwesomeIcon
                   className={styles.icon}
@@ -60,19 +60,19 @@ const Pages = ({ item }) => {
                     SetLikeClick(!likeClick);
                   }}
                 />
-                {item.likes_num}
+                {item.likes_count}
               </li>
             </ul>
           </div>
         </div>
       </main>
       <footer>
-        <Pagination
+        {/* <Pagination
           total={item.length}
           limit={10}
           page={page}
           setPage={setPage}
-        />
+        /> */}
       </footer>
     </div>
   );

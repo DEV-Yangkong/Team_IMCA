@@ -36,14 +36,15 @@ const Login = () => {
         //토큰 추출, 추출한 토큰을 쿠키에 저장 및 상태관리 라이브러리를 활용하여 저장
         const { access_token, refresh_token } = response.data;
         //토큰 쿠키에 저장
-        setCookie('access_token', access_token, { path: '/' });
-        setCookie('refresh_token', refresh_token, { path: '/' });
+        setCookie('access_token', access_token, { path: '/', maxAge: 86400 });
+        setCookie('refresh_token', refresh_token, { path: '/', maxAge: 86400 });
+        console.log(response.data);
       } else if (response.status === 500) {
         console.error('서버 내부 오류:', response.data);
         window.alert('서버 내부 오류가 발생했습니다.');
       } else {
         //로그인 실패시
-        console.error('서버 내부 오류:', response.data);
+        console.error('로그인실패:', response.data);
         window.alert('로그인에 실패했습니다.');
       }
       navigate('/');

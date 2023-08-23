@@ -32,6 +32,7 @@ import ModalDetail from '../../components/MainPage/ModalDetail';
 import { BoardPageApi } from '../../communityApi';
 import Pages from '../../components/CommunityPage/Pages';
 import axios from 'axios';
+
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [mainDate, setMainDate] = useState(new Date());
@@ -45,6 +46,7 @@ const Main = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearched, setIsSearched] = useState(false);
   const [boxOfficeView, setBoxOfficeView] = useState(false);
+  const [selectedDate, setSelectedDate] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const [allData, setAllData] = useState();
   // 공연 데이터 가져오기
@@ -84,6 +86,7 @@ const Main = () => {
   const mainTileContent = ({ date }) => {
     if (allData) {
       const currentDate = dayjs(date).format('YYYY.MM.DD');
+      const currentStrDate = dayjs(date).format('YYYYMMDD');
       const matchingEvents = allData.filter(
         (item) =>
           currentDate >= dayjs(item.prfpdfrom._text).format('YYYY.MM.DD') &&
@@ -101,6 +104,8 @@ const Main = () => {
                   onOpen();
                   setSelectedEvent(event); // 비동기이기 때문에 아래의 콘솔이 먼저 찍힘
                   console.log('selected Event', selectedEvent);
+                  setSelectedDate(currentStrDate);
+                  console.log(currentStrDate);
                 }}
               >
                 <div style={{ fontSize: 12, padding: 3 }}>
@@ -205,18 +210,20 @@ const Main = () => {
   // 저장기능
 
   const onGoMyCalendar = () => {
+    const personalData = {
+      start_date: dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'),
+      end_date: dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'),
+      selected_date: selectedDate,
+      poster: selectedEvent.poster._text,
+      place: selectedEvent.fcltynm._text,
+      // runtime: selectedEvent.prfruntime?._text,
+      // price: selectedEvent.pcseguidance?._text,
+      name: selectedEvent.prfnm._text,
+    };
     axios
       .post(
         'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
-        {
-          start_date: dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'),
-          end_date: dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'),
-          poster: selectedEvent.poster._text,
-          place: selectedEvent.fcltynm._text,
-          // runtime: selectedEvent.prfruntime?._text,
-          // price: selectedEvent.pcseguidance?._text,
-          name: selectedEvent.prfnm._text,
-        },
+        personalData,
       )
       .then((res) => console.log('데이터 전송 완료', res))
       .catch((err) => console.log('데이터 전송 에러', err));

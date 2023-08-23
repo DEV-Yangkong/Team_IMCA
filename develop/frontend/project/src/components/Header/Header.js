@@ -2,6 +2,7 @@ import styles from './Header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import { logoutApi } from '../../loginoutApi';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,7 +10,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   //쿠키
-  const [cookies, removeCookie] = useCookies(['access_token', 'refresh_token']);
+  const [cookies] = useCookies(['access_token', 'refresh_token']);
   //초기 로그인 상태설정
   const [isLoggedIn, setIsLoggedIn] = useState(!!cookies.access_token);
 
@@ -19,25 +20,48 @@ const Header = () => {
   }, [cookies.access_token]);
 
   //로그아웃
-  const handleLogout = async () => {
-    try {
-      const response = await logoutApi();
-      console.log(response);
-      if (response.status === 200) {
-        removeCookie('access_token', { path: '/' });
-        removeCookie('refresh_token', { path: '/' });
-        setIsLoggedIn(false); //로그아웃 상태로 변경
-        console.log(isLoggedIn);
-        navigate('/');
-      } else {
-        console.error('로그아웃실패', response);
-        window.alert('로그아웃 실패했다!');
-      }
-    } catch (error) {
-      console.error('로그아웃실패라고', error);
-      window.alert('로그아웃실펠야!!');
-    }
+  // const handleLogout = async () => {
+  //   try {
+  //     const response = await logoutApi();
+  //     console.log(response, '하이');
+  //     if (response?.status === 200) {
+  //       removeCookies('access_token', { path: '/' });
+  //       removeCookies('refresh_token', { path: '/' });
+  //       // setIsLoggedIn(false); //로그아웃 상태로 변경
+  //       console.log(isLoggedIn);
+  //       navigate('/');
+  //     } else {
+  //       console.error('로그아웃실패', response);
+  //       window.alert('로그아웃 실패했다!');
+  //     }
+  //   } catch (error) {
+  //     console.error('로그아웃실패라고', error);
+  //     window.alert('로그아웃실펠야!!');
+  //   }
+  // };
+  const handleLogout = () => {
+    logoutApi()
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          Cookies.remove('access_token');
+          Cookies.remove('refresh_token');
+          setIsLoggedIn(false); // 로그아웃 상태로 변경
+          navigate('/');
+        } else {
+          console.error('로그아웃실패', response);
+          window.alert('로그아웃 실패했다!');
+        }
+      })
+      .catch((error) => {
+        console.error('로그아웃실패라고', error);
+        window.alert('로그아웃실펠야!!');
+      });
   };
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, [isLoggedIn]); // 이렇게 isLoggedIn이 변경될 때마다 출력
 
   return (
     <div className={styles.Header}>

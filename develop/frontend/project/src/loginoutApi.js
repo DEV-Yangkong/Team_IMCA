@@ -6,7 +6,7 @@ const instance = axios.create({
 export const loginoutApi = async (data) => {
   try {
     const response = await instance.post('/api/v1/users/Loginout/', data);
-    return response.data;
+    return response;
   } catch (error) {
     throw error;
   }
@@ -16,6 +16,7 @@ export const logoutApi = async () => {
     const response = await instance.delete('/api/v1/users/Loginout/', {
       withCredentials: true,
     });
+    console.log(response, '로그아웃요청');
     return response;
   } catch (error) {
     throw error;

@@ -189,19 +189,19 @@ const Main = () => {
     });
   };
   // 커뮤니티
-  const {
-    data: pageList,
-    isLoading,
-    error,
-  } = useQuery(['pageList'], BoardPageApi);
+  // const {
+  //   data: pageList,
+  //   isLoading,
+  //   error,
+  // } = useQuery(['pageList'], BoardPageApi);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // }
   // 저장기능
 
   const onGoMyCalendar = () => {
@@ -417,7 +417,7 @@ const Main = () => {
           />
         </div>
       </section>
-      <section>
+      {/* <section>
         <div className="mainPage_community_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
             커뮤니티
@@ -438,7 +438,7 @@ const Main = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
       <section>
         <div className="mainPage_community_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>

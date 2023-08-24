@@ -26,23 +26,23 @@ import { CookiesProvider, useCookies } from 'react-cookie';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
-  const [cookie, getCookie] = useCookies(['access_token', 'refresh_token']);
+  // const [cookie, getCookie] = useCookies(['access_token', 'refresh_token']);
 
   // YouTube 포스트 데이터
   const [youtubePosts] = useState([
     // 포스트 정보들...
   ]);
-  const [key, setKey] = useState(0);
-  const handleLogout = () => {
-    setKey((preKey) => preKey + 1);
-  };
+  // const [key, setKey] = useState(0);
+  // const handleLogout = () => {
+  //   setKey((preKey) => preKey + 1);
+  // };
 
   return (
     <AuthProvider>
       <BrowserRouter>
         <CookiesProvider>
           <div className="App">
-            <Header key={key} onLogout={handleLogout} />
+            <Header />
             <div style={{ position: 'relative', zIndex: 1 }} className="test">
               <Routes>
                 <Route path="/" element={<Main />} />

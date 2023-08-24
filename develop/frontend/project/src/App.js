@@ -23,6 +23,7 @@ import ConcertDetail from './pages/ConcertPage/ConcertDetail';
 import Comment from './components/CommunityPage/Comment';
 import AdminPage from './pages/Community/AdminPage';
 import { CookiesProvider, useCookies } from 'react-cookie';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
@@ -97,6 +98,7 @@ const App = () => {
                 <Route path="/admin" element={<AdminPage />} />
               </Routes>
             </div>
+            <Footer />
           </div>
         </CookiesProvider>
       </BrowserRouter>

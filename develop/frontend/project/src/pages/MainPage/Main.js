@@ -98,6 +98,7 @@ const Main = () => {
           <div className="date_contents_container ">
             {matchingEvents.map((event, index) => (
               <div
+                key={index}
                 className={'date_contents_' + `${index}`}
                 style={{ marginBottom: 5 }}
                 onClick={() => {
@@ -109,7 +110,7 @@ const Main = () => {
                 }}
               >
                 <div style={{ fontSize: 12, padding: 3 }}>
-                  <span key={index}>
+                  <span>
                     {index > 0 && ' '}
                     {event.prfnm._text?.replace(/\([^)]*\)/g, '')}
                   </span>
@@ -225,8 +226,9 @@ const Main = () => {
         'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
         personalData,
         {
-          // headers: cookies.access_token && cookies.access_token,
-          Authorization: `Bearer ${cookies.access_token}`,
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
           withCredentials: true,
         },
       )
@@ -239,7 +241,9 @@ const Main = () => {
         .get(
           'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
           {
-            Authorization: `Bearer ${cookies.access_token}`,
+            headers: {
+              Authorization: `Bearer ${cookies.access_token}`,
+            },
             withCredentials: true,
           },
         )
@@ -315,11 +319,56 @@ const Main = () => {
       <section className="mini_calendar">
         <div className="add_container">
           <div style={{ overflowY: 'scroll', borderRadius: 10, height: 380 }}>
-            <div>
+            <div className="select_date">
+              <div>
+                {' '}
+                시작 :{' '}
+                <input
+                  className="select_input"
+                  name="startDate"
+                  type="date"
+                  value={state.startDate}
+                  onChange={handleChangeState}
+                ></input>
+              </div>
+              <div>
+                {' '}
+                종료 :{' '}
+                <input
+                  className="select_input"
+                  name="endDate"
+                  type="date"
+                  value={state.endDate}
+                  onChange={handleChangeState}
+                ></input>
+              </div>{' '}
+              <button className="select_button" onClick={handleSearch}>
+                검색
+              </button>{' '}
+            </div>
+
+            {isSearched ? (
+              allData?.map(
+                (it, index) =>
+                  start <= it.prfpdfrom._text &&
+                  it.prfpdto._text <= end && (
+                    <CurCalendar
+                      onGoDetail={() => onGoDetail(it.mt20id._text)}
+                      key={index}
+                      startDate={it.prfpdfrom._text}
+                      endDate={it.prfpdto._text}
+                      title={it.prfnm._text}
+                      place={it.fcltynm._text}
+                      img={it.poster._text}
+                    />
+                  ),
+              )
+            ) : (
               <div
                 style={{
                   display: 'flex',
                   padding: 10,
+                  marginTop: 90,
                   justifyContent: 'center',
                 }}
               >
@@ -328,62 +377,17 @@ const Main = () => {
                     display: 'inline-block',
                     fontSize: 20,
                     fontWeight: 'bold',
-                    padding: 5,
-                    // borderRadius: '15px',
+                    padding: 10,
+                    borderRadius: '15px',
                     color: '#134f2c',
-                    // border: '1px solid #134f2c',
+                    border: '1px solid #134f2c',
                   }}
                 >
                   {' '}
-                  기간별 공연 검색하기
+                  기간별 공연을 검색하세요
                 </span>
               </div>
-
-              <div className="select_date">
-                <div>
-                  {' '}
-                  시작 :{' '}
-                  <input
-                    className="select_input"
-                    name="startDate"
-                    type="date"
-                    value={state.startDate}
-                    onChange={handleChangeState}
-                  ></input>
-                </div>
-                <div>
-                  {' '}
-                  종료 :{' '}
-                  <input
-                    className="select_input"
-                    name="endDate"
-                    type="date"
-                    value={state.endDate}
-                    onChange={handleChangeState}
-                  ></input>
-                </div>{' '}
-                <button className="select_button" onClick={handleSearch}>
-                  검색
-                </button>{' '}
-              </div>
-
-              {isSearched &&
-                allData?.map(
-                  (it, index) =>
-                    start <= it.prfpdfrom._text &&
-                    it.prfpdto._text <= end && (
-                      <CurCalendar
-                        onGoDetail={() => onGoDetail(it.mt20id._text)}
-                        key={index}
-                        startDate={it.prfpdfrom._text}
-                        endDate={it.prfpdto._text}
-                        title={it.prfnm._text}
-                        place={it.fcltynm._text}
-                        img={it.poster._text}
-                      />
-                    ),
-                )}
-            </div>
+            )}
           </div>
         </div>
         <div className="calendar_container">
@@ -400,8 +404,8 @@ const Main = () => {
                   it.prfpdfrom._text <= dateStr &&
                   dateStr <= it.prfpdto._text && (
                     <CurCalendar
-                      onGoDetail={() => onGoDetail(it.mt20id._text)}
                       key={index}
+                      onGoDetail={() => onGoDetail(it.mt20id._text)}
                       startDate={it.prfpdfrom._text}
                       endDate={it.prfpdto._text}
                       title={it.prfnm._text}

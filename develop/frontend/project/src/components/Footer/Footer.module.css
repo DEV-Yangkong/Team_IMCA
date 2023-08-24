@@ -1,5 +1,5 @@
 .footer_container {
-  height: 200px;
+  /* height: 200px; */
   width: 100%;
   background-color: #134f2c;
   display: flex;
@@ -7,13 +7,15 @@
   align-items: center;
   color: white;
   font-size: 15px;
+
+  bottom: 0;
   /* justify-content: center; */
 }
 .footer_names {
   display: flex;
 }
 .footer_names > div {
-  padding: 10px 30px;
+  padding: 10px 30px 30px 30px;
   display: flex;
   align-items: center;
 }
@@ -29,4 +31,7 @@
 }
 .footer_links > a {
   padding: 0 2px;
+}
+.footer_links {
+  display: flex;
 }

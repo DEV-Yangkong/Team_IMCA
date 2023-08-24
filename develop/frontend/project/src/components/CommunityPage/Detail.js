@@ -4,61 +4,70 @@ import { useQuery } from '@tanstack/react-query';
 
 import styles from './Detail.module.css';
 
-import { useState, useEffect } from 'react';
 import React from 'react';
 
 const Detail = () => {
-  const { id } = useParams();
+  const params = useParams();
+  const category = params.category;
+  const id = params.id;
+  console.log('category', category);
+  console.log('id', id);
   // Remove the unnecessary author variable
 
-  const { data: detailData } = useQuery(['detailData', id], () =>
-    getUserDetail(id),
+  const {
+    data: pageList,
+    isLoading,
+    isError,
+  } = useQuery(
+    ['pageList', category, id],
+    () => getUserDetail(category, id), // Pass the id to the getUserDetail function
   );
 
-  console.log('detail data check', detailData);
+  console.log('detail data check', pageList);
 
-  if (!detailData) {
-    return <div>Loading...</div>; // Add a loading indicator
+  if (isLoading) {
+    return <div>Loading...</div>; // Show a loading indicator
   }
 
-  const { title, author, file, created_at, views, photo, content } = detailData; // Destructure the data
+  if (isError || !pageList) {
+    return <div>Error loading data.</div>; // Handle errors
+  }
+
+  const { title, writer, file, created_at, views_count, photo, content } =
+    pageList; // Destructure the data
   // const { nickname } = author;
 
-  if (author && author.nickname) {
-    return (
-      <div className={styles.Detail}>
-        <div className={styles.detailHeader}>
-          <p className={styles.detailTitle}>{title}</p>
-        </div>
-        <div className={styles.left}>
-          <div>
-            <div className={styles.detailUser}>
-              <img src={file} />
-            </div>
-          </div>
-          <div className={styles.author}>
-            <div className={styles.authorTop}>
-              <div className={styles.detailId}>{author.nickname}</div>
-            </div>
-            <div className={styles.authorBottom}>
-              <div className={styles.detailDate}>{created_at}</div>
-              <div className={styles.detailViews}>조회수 {views}</div>
-            </div>
+  return (
+    <div className={styles.Detail}>
+      <div className={styles.detailHeader}>
+        <p className={styles.detailTitle}>{title}</p>
+      </div>
+      <div className={styles.left}>
+        <div>
+          <div className={styles.detailUser}>
+            <img src={file} />
           </div>
         </div>
-        <div className={styles.detailContent}>
-          {photo && (
-            <div className={styles.detailImg}>
-              <img src={photo} alt={title} />
-            </div>
-          )}
-          <div className={styles.detailContent}>{content}</div>
+        <div className={styles.author}>
+          <div className={styles.authorTop}>
+            <div className={styles.detailId}>{writer}</div>
+          </div>
+          <div className={styles.authorBottom}>
+            <div className={styles.detailDate}>{created_at}</div>
+            <div className={styles.detailViews}>조회수 {views_count}</div>
+          </div>
         </div>
       </div>
-    );
-  } else {
-    return <div>Author data is missing or incomplete.</div>;
-  }
+      <div className={styles.detailContent}>
+        {photo && (
+          <div className={styles.detailImg}>
+            <img src={photo} alt={title} />
+          </div>
+        )}
+        <div className={styles.detailContent}>{content}</div>
+      </div>
+    </div>
+  );
 };
 
 export default Detail;

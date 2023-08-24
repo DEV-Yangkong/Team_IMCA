@@ -35,36 +35,9 @@ const Button = styled.button`
   }
 `;
 
-function Pagination({ total, limit, page, setPage }) {
-  const [data, setData] = useState([]); // API에서 받아온 데이터를 저장하는 상태
-  const [loading, setLoading] = useState(true); // 데이터 로딩 상태
-
-  const fetchData = async (pageNumber) => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/?page=${pageNumber}&limit=${limit}`,
-      );
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-
-      const jsonData = await response.json();
-      setData(jsonData.results); // API에서 받아온 데이터의 results 필드를 저장
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData(page); // 페이지가 변경될 때마다 데이터를 가져옴
-  }, [page]);
-  console.log('pagination', page);
-
-  const numPages = Math.ceil(total / limit);
+function Pagination({ page, setPage, totalPage }) {
+  console.log('paginaiton', page);
+  const numPages = totalPage;
 
   return (
     <>
@@ -76,7 +49,6 @@ function Pagination({ total, limit, page, setPage }) {
           .fill()
           .map((_, i) => (
             <Button
-              value={1}
               key={i + 1}
               onClick={() => setPage(i + 1)}
               aria-current={page === i + 1 ? 'page' : null}
@@ -88,16 +60,6 @@ function Pagination({ total, limit, page, setPage }) {
           &gt;
         </Button>
       </Nav>
-      {/* API에서 받아온 데이터를 활용하여 표시 */}
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          {data.map((item) => (
-            <div key={item.id}>{item.name}</div>
-          ))}
-        </div>
-      )}
     </>
   );
 }

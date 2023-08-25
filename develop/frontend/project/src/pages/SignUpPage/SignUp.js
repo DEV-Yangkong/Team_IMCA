@@ -1,7 +1,6 @@
 import styles from './SignUp.module.css';
 import { useForm } from 'react-hook-form';
 import React from 'react';
-// import axios from 'axios';
 import { signupApi } from '../../signupApi';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';

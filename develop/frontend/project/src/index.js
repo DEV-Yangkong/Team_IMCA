@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import GlobalStyle from './GlobalStyle';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const queryClient = new QueryClient();
 

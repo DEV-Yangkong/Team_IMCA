@@ -218,7 +218,7 @@
 }
 
 .date_contents_container {
-  height: 180px;
+  height: 220px;
   padding: 10px 0;
 }
 
@@ -272,6 +272,9 @@
   border-left: 1.5px solid #a7b5d1;
 }
 .date_contents_6 {
+  background-color: #ddf8f6;
+}
+.date_contents_7 {
   background-color: #f8f3dd;
 }
 .calendar_heart {
@@ -291,7 +294,7 @@
 /* react-calendar__tile react-calendar__month-view__days__day  */
 /* 달력 버튼 선택자, 메인과 미니 캘린더의 클래스 네임이 같아서 중복 클릭되는 문제 해결하기 */
 .select_date {
-  padding: 0 10px;
+  padding: 30px 10px 20px 10px;
   display: flex;
   justify-content: space-around;
 }

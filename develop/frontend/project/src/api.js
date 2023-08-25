@@ -13,9 +13,8 @@ const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/
 //         cpage: 1,
 //         rows: 30,
 //         shcate: 'CCCD',
-//         prfpdfrom: startDate,
-//         prfpdto: endDate,
-
+//         stdate: '20230601',
+//         eddate: '20231231',
 //       },
 //     })
 //     .then((res) => {
@@ -29,7 +28,7 @@ const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/
 export const getAllData = async (startDate, endDate) => {
   const allData = [];
 
-  for (let cpage = 1; cpage <= 3; cpage++) {
+  for (let cpage = 1; cpage <= 2; cpage++) {
     try {
       const response = await axios.get(url, {
         params: {
@@ -100,7 +99,7 @@ export const getConcertBoxOffice = () => {
     .then((res) => {
       const options = { compact: true, spaces: 2 };
       const result = xml2js(res.data, options);
-      console.log('boxofficeM', result);
+      // console.log('boxofficeM', result);
       return result.boxofs.boxof.slice(0, 10);
     });
 };

@@ -4,10 +4,21 @@ import styles from './TodoItem.module.css';
 function TodoItem(props) {
   const handleDelete = () => {
     const updateTodoItems = props.todoItem.filter(
-      (item) => item.id !== props.item.id,
+      (item) =>
+        item.id != props.item.id && item.props.userId === props.user.login_id,
     );
     props.setTodoItem(updateTodoItems);
   };
+
+  // const handleDelete = () => {
+  //   if (props.todoItem) {
+  //     const updateTodoItems = props.todoItem.filter(
+  //       (item) => item.login_id !== props.item.login_id,
+  //     );
+  //     props.setTodoItem(updateTodoItems);
+  //   }
+  //   console.log(props.item);
+  // };
   return (
     <div className={styles.TodoWrap}>
       <div key={props.item.id} className={styles.TodoItem}>

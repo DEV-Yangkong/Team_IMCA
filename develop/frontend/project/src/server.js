@@ -15,7 +15,7 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
-//민정
+//민정(회원가입 경로로 post요청 들어왔을 때 해당요청 처리)
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
@@ -24,5 +24,5 @@ app.post('/api/v1/users/Register/', (req, res) => {
   res.status(200).json({ message: 'signUp success' });
 });
 app.listen(port, () => {
-  console.log('서버가 스웨그에서 실행중');
+  console.log('서버 실행중');
 });

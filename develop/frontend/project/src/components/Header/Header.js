@@ -14,31 +14,14 @@ const Header = () => {
   //초기 로그인 상태설정
   const [isLoggedIn, setIsLoggedIn] = useState(!!cookies.access_token);
 
+  // refresh_token 상태 처리
+  const [refreshToken, setRefreshToken] = useState(cookies.refresh_token);
+
   //페이지 로드시나 로그인/로그아웃 후에 쿠키검사
   useEffect(() => {
     setIsLoggedIn(!!cookies.access_token);
   }, [cookies.access_token]);
 
-  //로그아웃
-  // const handleLogout = async () => {
-  //   try {
-  //     const response = await logoutApi();
-  //     console.log(response, '하이');
-  //     if (response?.status === 200) {
-  //       removeCookies('access_token', { path: '/' });
-  //       removeCookies('refresh_token', { path: '/' });
-  //       // setIsLoggedIn(false); //로그아웃 상태로 변경
-  //       console.log(isLoggedIn);
-  //       navigate('/');
-  //     } else {
-  //       console.error('로그아웃실패', response);
-  //       window.alert('로그아웃 실패했다!');
-  //     }
-  //   } catch (error) {
-  //     console.error('로그아웃실패라고', error);
-  //     window.alert('로그아웃실펠야!!');
-  //   }
-  // };
   const handleLogout = () => {
     logoutApi()
       .then((response) => {
@@ -46,16 +29,17 @@ const Header = () => {
         if (response.status === 200) {
           Cookies.remove('access_token');
           Cookies.remove('refresh_token');
+          setRefreshToken(null); //refresh_token상태관리 업데이트
           setIsLoggedIn(false); // 로그아웃 상태로 변경
           navigate('/');
         } else {
           console.error('로그아웃실패', response);
-          window.alert('로그아웃 실패했다!');
+          window.alert('로그아웃 실패했습니다!');
         }
       })
       .catch((error) => {
         console.error('로그아웃실패라고', error);
-        window.alert('로그아웃실펠야!!');
+        window.alert('로그아웃을 다시 시도해주세요!!');
       });
   };
 

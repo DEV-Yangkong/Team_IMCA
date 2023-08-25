@@ -16,6 +16,8 @@ const Login = () => {
     'access_token',
     'refresh_token',
   ]);
+
+  const [refreshToken, setRefreshToken] = useState(cookies.refresh_token);
   const navigate = useNavigate();
 
   // const onSubmit = async (e) => {
@@ -69,11 +71,17 @@ const Login = () => {
           // const { access_token, refresh_token } = response.data;
           const access_token = response.data.token.access;
           const refresh_token = response.data.token.refresh;
-          setCookie('access_token', access_token, { path: '/', maxAge: 12600 });
+          const oneDay = 24 * 60 * 60 * 1000; //하루만
+          const expirationDate = new Date(Date.now() + oneDay);
+          setCookie('access_token', access_token, {
+            path: '/',
+            expires: expirationDate,
+          });
           setCookie('refresh_token', refresh_token, {
             path: '/',
-            maxAge: 86400,
           });
+          //쿠키 상태업데이트
+          setRefreshToken(refresh_token);
           console.log(response.data);
         } else if (response.status === 500) {
           console.error('서버 내부 오류:', response.data);

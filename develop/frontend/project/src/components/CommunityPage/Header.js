@@ -1,33 +1,16 @@
 import styles from './Header.module.css';
 import React, { useState, useEffect } from 'react'; // useEffect를 추가
-import { BoardPageApi } from '../../communityApi';
-import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const Header = () => {
+const Header = ({ postCount }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [pageList, setPageList] = useState([]); // pageList 상태 추가
 
-  useEffect(() => {
-    axios
-      .get(
-        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/',
-      )
-      .then((response) => {
-        setPageList(response.data.results);
-      })
-      .catch((error) => {
-        console.error('Error fetching pageList:', error);
-      });
-  }, []);
-
   const handleSearch = () => {
-    // 검색 처리 로직 작성
+    // 예시 검색 처리 로직
   };
-
-  const postCount = pageList.length; // pageList의 길이로 게시물 수 계산
 
   return (
     <div className={styles.Header}>

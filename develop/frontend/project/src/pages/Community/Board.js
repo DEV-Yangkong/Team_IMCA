@@ -1,5 +1,6 @@
 import Category from '../../components/CommunityPage/Category';
 import Comment from '../../components/CommunityPage/Comment';
+import Detail from '../../components/CommunityPage/Detail';
 
 import styles from './Board.module.css';
 import { faComment, far } from '@fortawesome/free-regular-svg-icons';
@@ -9,25 +10,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { getUserDetail } from '../../communityApi';
-import { useQuery } from '@tanstack/react-query';
-import Detail from '../../components/CommunityPage/Detail';
 
 const Board = () => {
-  // (1) username 값을 어떻게 가져올 수 있을까? -> URL params
-  // const { nickname } = useParams();
   const { id } = useParams();
   const [likeClick, SetLikeClick] = useState(false);
 
-  // console.log(id);
-
-  // (2) 가져온 username 값을 어떻게 서버로 전달할 수 있을까?
-  // const { data: detailArray } = useQuery(['detailArray', id], () =>
-  //   getUserDetail(id),
-  // );
-
   const navigate = useNavigate();
-  // console.log('board data check', detailArray);
+
   return (
     <div className={styles.Board}>
       <Category />

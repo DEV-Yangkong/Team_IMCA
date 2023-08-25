@@ -6,12 +6,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getCalendarDetail, postCalendarInput } from '../../mycalendarApi';
 import { useCookies } from 'react-cookie';
+import SelectedDate from '../../components/MyCalendarDatePage/SeletedDate';
 
 const MyCalendar = () => {
   const [cookies] = useCookies('access_token');
   // todoitem 버튼 클릭시 추가
   const [todo, setTodo] = useState('');
   const [todoItem, setTodoItem] = useState([]); //메모담는배열
+  const [mark, setMark] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null); // 추가: 선택된 날짜 상태
 
   const { data: onGoMyCalendar } = useQuery(['onGoMyCalendar', cookies], () =>
@@ -21,33 +23,39 @@ const MyCalendar = () => {
   useEffect(() => {
     if (onGoMyCalendar) {
       console.log('onGoMycalendar 데이터 수신', onGoMyCalendar);
+      setMark(onGoMyCalendar);
     }
-  }, []);
+  }, [onGoMyCalendar]);
 
-  const data = {
-    id: Date.now(),
-    content: todo,
-    date: selectedDate,
-  };
-  const addTodo = () => {
-    if (!selectedDate) {
-      alert('날짜를 선택해주세요!'); //선택한 날짜 없을때 경고문
-      return;
-    }
-    postCalendarInput({ data })
-      .then((response) => {
-        setTodoItem(response.data);
-        console.log('메모성공');
-      })
-      .catch((error) => {
-        console.error('메모 보내기 실패', error);
-      });
+  // const data = {
+  //   id: Date.now(),
+  //   content: todo,
+  //   date: selectedDate,
+  // };
+  // const addTodo = () => {
+  //   if (!selectedDate) {
+  //     alert('날짜를 선택해주세요!'); //선택한 날짜 없을때 경고문
+  //     return;
+  //   }
+  //   postCalendarInput({ data })
+  //     .then((response) => {
+  //       setTodoItem(response.data);
+  //       console.log('메모성공');
+  //     })
+  //     .catch((error) => {
+  //       console.error('메모 보내기 실패', error);
+  //     });
 
-    console.log(data);
+  //   console.log(data);
 
-    //선택한 날짜에 해당하는 메모만 추가
-    setTodoItem((prevTodoItems) => [...prevTodoItems, data]);
-    setTodo('');
+  //   //선택한 날짜에 해당하는 메모만 추가
+  //   setTodoItem((prevTodoItems) => [...prevTodoItems, data]);
+  //   setTodo('');
+  // };
+
+  const checkedList = ({ onGoMyCalendar }) => {
+    //선택한 날짜에 해당공연 정보 추출
+    const checkedItems = onGoMyCalendar.filters;
   };
 
   const handleDateChange = (date) => {
@@ -61,7 +69,7 @@ const MyCalendar = () => {
   //     setMemoData(data);
   //   });
   // }, []);
-  const filterTodoItem = todoItem.filter((item) => item.date === selectedDate);
+  //const filterTodoItem = todoItem.filter((item) => item.date === selectedDate);
 
   return (
     <div className={styles.MyCalendar}>
@@ -77,10 +85,10 @@ const MyCalendar = () => {
               {selectedDate
                 ? `
               - ${selectedDate} -`
-                : '한 줄 메모'}
+                : '저장한 공연 목록'}
             </p>
             {/* 캘린더 매모 */}
-
+            {/* 
             <div className={styles.todoItemBox}>
               <TodoBoard
                 todoItem={filterTodoItem}
@@ -98,8 +106,8 @@ const MyCalendar = () => {
               <button className={styles.todoBtn} onClick={addTodo}>
                 +
               </button>
-              {/* <TodoModal /> */}
-            </div>
+            </div> */}
+            <SelectedDate />
           </section>
         </div>
       </div>

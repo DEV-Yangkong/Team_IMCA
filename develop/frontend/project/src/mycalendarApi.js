@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
 const instance = axios.create({
-  baseURL: 'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/',
+  baseURL: 'http://imca.store/',
 });
 
 export const getCalendarDetail = (cookies) => {
@@ -13,17 +13,27 @@ export const getCalendarDetail = (cookies) => {
       },
       withCredentials: true,
     })
-    .then((res) => console.log('캘린더 데이터 수신 받음', res))
-    .catch((err) => console.log('캘린더 데이터 수신 거절', err));
+    .then((res) => {
+      console.log('캘린더 데이터 수신 받음', res);
+      return res.data; //데이터 반환
+    })
+    .catch((err) => {
+      console.log('캘린더 데이터 수신 거절', err);
+      throw err; // 에러처리
+    });
 };
 
-export const postCalendarInput = async (data) => {
+export const postCalendarInput = async (cookies) => {
   try {
-    const response = await instance.post('/api/v1/calendar/${id}/memo/', data, {
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await instance.post(
+      '/api/v1/calendar/${id}/memo/',
+      cookies,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
     return response;
   } catch (error) {
     throw error;

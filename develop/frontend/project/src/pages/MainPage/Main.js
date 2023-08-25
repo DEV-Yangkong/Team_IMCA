@@ -32,6 +32,7 @@ import ModalDetail from '../../components/MainPage/ModalDetail';
 import { BoardPageApi } from '../../communityApi';
 import Pages from '../../components/CommunityPage/Pages';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [mainDate, setMainDate] = useState(new Date());
@@ -45,6 +46,7 @@ const Main = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isSearched, setIsSearched] = useState(false);
   const [boxOfficeView, setBoxOfficeView] = useState(false);
+  const [selectedDate, setSelectedDate] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const [allData, setAllData] = useState();
   // 공연 데이터 가져오기
@@ -80,10 +82,11 @@ const Main = () => {
   const end = dayjs(state.endDate).format('YYYY.MM.DD');
 
   // const allData = allDataQuery.data;
-
+  const [cookies] = useCookies(['access_token']);
   const mainTileContent = ({ date }) => {
     if (allData) {
       const currentDate = dayjs(date).format('YYYY.MM.DD');
+      const currentStrDate = dayjs(date).format('YYYYMMDD');
       const matchingEvents = allData.filter(
         (item) =>
           currentDate >= dayjs(item.prfpdfrom._text).format('YYYY.MM.DD') &&
@@ -95,16 +98,19 @@ const Main = () => {
           <div className="date_contents_container ">
             {matchingEvents.map((event, index) => (
               <div
+                key={index}
                 className={'date_contents_' + `${index}`}
                 style={{ marginBottom: 5 }}
                 onClick={() => {
                   onOpen();
                   setSelectedEvent(event); // 비동기이기 때문에 아래의 콘솔이 먼저 찍힘
-                  console.log('selected Event', selectedEvent);
+                  // console.log('selected Event', selectedEvent);
+                  setSelectedDate(currentStrDate);
+                  // console.log(currentStrDate);
                 }}
               >
                 <div style={{ fontSize: 12, padding: 3 }}>
-                  <span key={index}>
+                  <span>
                     {index > 0 && ' '}
                     {event.prfnm._text?.replace(/\([^)]*\)/g, '')}
                   </span>
@@ -189,39 +195,90 @@ const Main = () => {
     });
   };
   // 커뮤니티
-  const {
-    data: pageList,
-    isLoading,
-    error,
-  } = useQuery(['pageList'], BoardPageApi);
+  // const {
+  //   data: pageList,
+  //   isLoading,
+  //   error,
+  // } = useQuery(['pageList'], BoardPageApi);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // }
   // 저장기능
 
   const onGoMyCalendar = () => {
+    const personalData = {
+      start_date: dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'),
+      end_date: dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'),
+      selected_date: selectedDate,
+      poster: selectedEvent.poster._text,
+      place: selectedEvent.fcltynm._text,
+      // runtime: selectedEvent.prfruntime?._text,
+      // price: selectedEvent.pcseguidance?._text,
+      name: selectedEvent.prfnm._text,
+    };
     axios
       .post(
         'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
+        personalData,
         {
-          start_date: dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'),
-          end_date: dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'),
-          poster: selectedEvent.poster._text,
-          place: selectedEvent.fcltynm._text,
-          // runtime: selectedEvent.prfruntime?._text,
-          // price: selectedEvent.pcseguidance?._text,
-          name: selectedEvent.prfnm._text,
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+          withCredentials: true,
         },
       )
       .then((res) => console.log('데이터 전송 완료', res))
       .catch((err) => console.log('데이터 전송 에러', err));
   };
+  useEffect(() => {
+    const checkMyCalendar = () => {
+      axios
+        .get(
+          'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.access_token}`,
+            },
+            withCredentials: true,
+          },
+        )
+        .then((res) => console.log('캘린더 응답', res))
+        .catch((err) => console.log('캘린더 에러', err));
+    };
+    checkMyCalendar();
+  }, [selectedEvent]);
 
+  // const onGoMyCalendar = () => {
+  //   const formData = new FormData();
+
+  //   formData.append('start_date', dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'));
+  //   formData.append('end_date', dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'));
+  //   formData.append('selected_date', selectedDate);
+  //   formData.append('poster', selectedEvent.poster._text);
+  //   formData.append('place', selectedEvent.fcltynm._text);
+  //   formData.append('name', selectedEvent.prfnm._text);
+
+  //   const headers = {
+  //     'Content-Type': 'multipart/form-data',
+  //     Authorization: `Bearer ${cookies.access_token}`, // 토큰 헤더 추가
+  //   };
+
+  //   axios
+  //     .post(
+  //       'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
+  //       formData,
+  //       {
+  //         headers: headers,
+  //       }
+  //     )
+  //     .then((res) => console.log('데이터 전송 완료', res))
+  //     .catch((err) => console.log('데이터 전송 에러', err));
+  // };
   const onHandleNext = () => {
     setBoxOfficeView(!boxOfficeView);
   };
@@ -262,11 +319,56 @@ const Main = () => {
       <section className="mini_calendar">
         <div className="add_container">
           <div style={{ overflowY: 'scroll', borderRadius: 10, height: 380 }}>
-            <div>
+            <div className="select_date">
+              <div>
+                {' '}
+                시작 :{' '}
+                <input
+                  className="select_input"
+                  name="startDate"
+                  type="date"
+                  value={state.startDate}
+                  onChange={handleChangeState}
+                ></input>
+              </div>
+              <div>
+                {' '}
+                종료 :{' '}
+                <input
+                  className="select_input"
+                  name="endDate"
+                  type="date"
+                  value={state.endDate}
+                  onChange={handleChangeState}
+                ></input>
+              </div>{' '}
+              <button className="select_button" onClick={handleSearch}>
+                검색
+              </button>{' '}
+            </div>
+
+            {isSearched ? (
+              allData?.map(
+                (it, index) =>
+                  start <= it.prfpdfrom._text &&
+                  it.prfpdto._text <= end && (
+                    <CurCalendar
+                      onGoDetail={() => onGoDetail(it.mt20id._text)}
+                      key={index}
+                      startDate={it.prfpdfrom._text}
+                      endDate={it.prfpdto._text}
+                      title={it.prfnm._text}
+                      place={it.fcltynm._text}
+                      img={it.poster._text}
+                    />
+                  ),
+              )
+            ) : (
               <div
                 style={{
                   display: 'flex',
                   padding: 10,
+                  marginTop: 90,
                   justifyContent: 'center',
                 }}
               >
@@ -275,62 +377,17 @@ const Main = () => {
                     display: 'inline-block',
                     fontSize: 20,
                     fontWeight: 'bold',
-                    padding: 5,
-                    // borderRadius: '15px',
+                    padding: 10,
+                    borderRadius: '15px',
                     color: '#134f2c',
-                    // border: '1px solid #134f2c',
+                    border: '1px solid #134f2c',
                   }}
                 >
                   {' '}
-                  기간별 공연 검색하기
+                  기간별 공연을 검색하세요
                 </span>
               </div>
-
-              <div className="select_date">
-                <div>
-                  {' '}
-                  시작 :{' '}
-                  <input
-                    className="select_input"
-                    name="startDate"
-                    type="date"
-                    value={state.startDate}
-                    onChange={handleChangeState}
-                  ></input>
-                </div>
-                <div>
-                  {' '}
-                  종료 :{' '}
-                  <input
-                    className="select_input"
-                    name="endDate"
-                    type="date"
-                    value={state.endDate}
-                    onChange={handleChangeState}
-                  ></input>
-                </div>{' '}
-                <button className="select_button" onClick={handleSearch}>
-                  검색
-                </button>{' '}
-              </div>
-
-              {isSearched &&
-                allData?.map(
-                  (it, index) =>
-                    start <= it.prfpdfrom._text &&
-                    it.prfpdto._text <= end && (
-                      <CurCalendar
-                        onGoDetail={() => onGoDetail(it.mt20id._text)}
-                        key={index}
-                        startDate={it.prfpdfrom._text}
-                        endDate={it.prfpdto._text}
-                        title={it.prfnm._text}
-                        place={it.fcltynm._text}
-                        img={it.poster._text}
-                      />
-                    ),
-                )}
-            </div>
+            )}
           </div>
         </div>
         <div className="calendar_container">
@@ -347,8 +404,8 @@ const Main = () => {
                   it.prfpdfrom._text <= dateStr &&
                   dateStr <= it.prfpdto._text && (
                     <CurCalendar
-                      onGoDetail={() => onGoDetail(it.mt20id._text)}
                       key={index}
+                      onGoDetail={() => onGoDetail(it.mt20id._text)}
                       startDate={it.prfpdfrom._text}
                       endDate={it.prfpdto._text}
                       title={it.prfnm._text}
@@ -417,7 +474,7 @@ const Main = () => {
           />
         </div>
       </section>
-      <section>
+      {/* <section>
         <div className="mainPage_community_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
             커뮤니티
@@ -438,7 +495,7 @@ const Main = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
       <section>
         <div className="mainPage_community_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>

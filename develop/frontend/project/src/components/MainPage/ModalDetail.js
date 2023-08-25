@@ -33,7 +33,7 @@ const ModalDetail = ({ selectedEvent, onGoDetail }) => {
           >
             자세히 보기
           </p>
-          <p>
+          {/* <p>
             <a
               href={`https://www.naver.com/search/${encodeURIComponent(
                 selectedEvent.prfnm._text,
@@ -41,7 +41,7 @@ const ModalDetail = ({ selectedEvent, onGoDetail }) => {
             >
               예매하기
             </a>
-          </p>
+          </p> */}
           {/* 기타 해당 이벤트에 관련된 정보 표시 */}
         </div>
       )}

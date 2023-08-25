@@ -109,7 +109,7 @@ const Main = () => {
                   // console.log(currentStrDate);
                 }}
               >
-                <div style={{ fontSize: 12, padding: 3 }}>
+                <div style={{ fontSize: 11, padding: 3 }}>
                   <span>
                     {index > 0 && ' '}
                     {event.prfnm._text?.replace(/\([^)]*\)/g, '')}
@@ -499,7 +499,7 @@ const Main = () => {
       <section>
         <div className="mainPage_community_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
-            컨텐츠
+            콘텐츠
           </div>
         </div>
       </section>

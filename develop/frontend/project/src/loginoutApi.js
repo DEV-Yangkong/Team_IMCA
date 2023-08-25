@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/',
+  baseURL: 'http://imca.store/',
 });
 export const loginoutApi = async (data) => {
   try {

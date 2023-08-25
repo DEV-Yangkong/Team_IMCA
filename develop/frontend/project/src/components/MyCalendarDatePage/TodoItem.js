@@ -9,6 +9,7 @@ function TodoItem(props) {
     );
     props.setTodoItem(updateTodoItems);
   };
+  console.log(props.todoItem);
 
   // const handleDelete = () => {
   //   if (props.todoItem) {

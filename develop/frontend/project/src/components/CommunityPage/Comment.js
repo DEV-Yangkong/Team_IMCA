@@ -43,17 +43,17 @@ const Comment = () => {
       return;
     }
 
-    const newComment = {
-      내용: comment,
-      작성시간: new Date().toISOString(),
-      유저프로필: {
-        // author: '새로운 유저',
-        avatarUrl: 'NEW_USER_AVATAR_URL',
-      },
-      이미지Url: 'NEW_IMAGE_URL',
-    };
+    // const newComment = {
+    //   내용: comment,
+    //   작성시간: new Date().toISOString(),
+    //   유저프로필: {
+    //     // author: '새로운 유저',
+    //     avatarUrl: 'NEW_USER_AVATAR_URL',
+    //   },
+    //   이미지Url: 'NEW_IMAGE_URL',
+    // };
 
-    setCommentsList([...commentsList, newComment]);
+    setCommentsList([...commentsList]);
     setComment('');
   };
 
@@ -92,26 +92,23 @@ const Comment = () => {
   return (
     <div className={styles.Comment}>
       <div className={styles.CommentList}>
-        {commentsList.map((comment) => (
-          <div key={comment.id} className={styles.CommentItem}>
-            {/* 댓글 내용 표시 */}
+        {commentList.map((item) => (
+          <div key={item.id} className={styles.CommentItem}>
             <div className={styles.CommentWrapper}>
               <div className={styles.profileBox}>
-                {/* {board.유저프로필 && (
+                {item.유저프로필 && (
                   <div className={styles.UserProfile}>
-                    <img src={board.d} alt="유저 프로필" />
+                    <img src={item.d} alt="유저 프로필" />
                   </div>
-                )} */}
+                )}
               </div>
               <div>
                 <div className={styles.CommentTop}>
-                  <p>{comment.author}</p>
-                  <span className={styles.CommentTime}>
-                    {comment.created_at}
-                  </span>
+                  <p>{item.review_author}</p>
+                  <span className={styles.CommentTime}>{item.created_at}</span>
                 </div>
                 <div className={styles.CommentBottom}>
-                  <p>{comment.content}</p>
+                  <p>{item.review_content}</p>
                 </div>
               </div>
               {/* {comment.이미지Url && (

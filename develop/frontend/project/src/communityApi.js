@@ -4,7 +4,7 @@ const instance = axios.create({
   baseURL: 'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/',
 });
 
-export function BoardPageApi(category, page) {
+export function BoardPageApi(category, page = ' ') {
   return instance
     .get(`community_board/category/${category}/`, { params: { page: page } })
     .then((res) => res.data);

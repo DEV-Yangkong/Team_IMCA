@@ -57,7 +57,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/community_all" element={<Community />} />
-              <Route path="/:category/:page" element={<BoardPage />} />
+              <Route path="/:category" element={<BoardPage />} />
               <Route path="/:category/detail/:id" element={<Board />} />
               <Route path="/new" element={<New />} />
               <Route path="/edit/:id" element={<Editor />} />

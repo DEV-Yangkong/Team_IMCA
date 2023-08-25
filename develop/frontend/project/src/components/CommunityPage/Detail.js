@@ -10,8 +10,6 @@ const Detail = () => {
   const params = useParams();
   const category = params.category;
   const id = params.id;
-  console.log('category', category);
-  console.log('id', id);
   // Remove the unnecessary author variable
 
   const {
@@ -22,8 +20,6 @@ const Detail = () => {
     ['pageList', category, id],
     () => getUserDetail(category, id), // Pass the id to the getUserDetail function
   );
-
-  console.log('detail data check', pageList);
 
   if (isLoading) {
     return <div>Loading...</div>; // Show a loading indicator

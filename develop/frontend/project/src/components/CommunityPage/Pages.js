@@ -1,29 +1,26 @@
-import { useState, useEffect } from 'react';
 import styles from './Pages.module.css';
-import Pagination from './Pagination';
-import { pageList } from '../../pages/Community/BoardPage';
-import { Navigate, useNavigate } from 'react-router-dom';
-import React from 'react';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { faComment, far } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useQuery } from '@tanstack/react-query';
+import { BoardPageApi } from '../../communityApi';
+import { useAuth } from '../../AuthContext';
 
-const Pages = ({ item }) => {
-  const navigate = useNavigate();
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(1);
-  const [likeClick, SetLikeClick] = useState(false);
-  const handleClick = () => {
-    SetLikeClick(true);
-  };
+const Pages = ({ item, handleTitleClick }) => {
+  const [likeClick, setLikeClick] = useState(false);
+  // const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
 
-  const offset = (page - 1) * limit; // 데이터 시작 번호
+  // 클릭 핸들러: 게시물 상세 페이지로 이동
+  // const handleTitleClick = (postId) => {
+  //   navigate(`/${category}/${postId}`); // 게시물의 상세 페이지로 이동
+  // };
+  // console.log('카테고리', category);
+  // console.log('data', item);
 
-  const handleTitleClick = (id) => {
-    navigate(`/board/${id}`); // 클릭한 게시물의 ID로 페이지 이동
-  };
-  console.log('data', item);
   return (
     <div className={styles.Pages}>
       <main>
@@ -47,17 +44,18 @@ const Pages = ({ item }) => {
               </div>
             </div>
             <ul className={styles.bottom}>
-              <li>{item.author.nickname}</li> {/* user.name 가져오기 */}
+              <li>{item.writer}</li> {/* user.name 가져오기 */}
               <li>{item.created_at}</li>
-              <li>조회수 {item.views}</li>
+              <li>조회수 {item.views_count}</li>
               <li>
                 <FontAwesomeIcon
                   className={styles.icon}
                   style={{ color: 'tomato' }}
                   icon={likeClick ? SolidHeart : far.faHeart}
+                  F
                   size="l"
                   onClick={() => {
-                    SetLikeClick(!likeClick);
+                    setLikeClick(!likeClick);
                   }}
                 />
                 {item.likes_count}
@@ -66,14 +64,6 @@ const Pages = ({ item }) => {
           </div>
         </div>
       </main>
-      <footer>
-        {/* <Pagination
-          total={item.length}
-          limit={10}
-          page={page}
-          setPage={setPage}
-        /> */}
-      </footer>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { loginoutApi } from '../../loginoutApi';
+import GoogleLoginButton from '../../components/SocialLogin/GoogleLoginButton';
 
 const Login = () => {
   const [login_id, setId] = useState('');
@@ -142,6 +143,9 @@ const Login = () => {
               로그인
             </button>
           </form>
+          <div>
+            <GoogleLoginButton />
+          </div>
           {/* <Modal isOpen={isModalOpen} onClose={closeModal}>
             <ModalOverlay />
             <ModalContent>

@@ -70,9 +70,9 @@ const App = () => {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/community_all" element={<Community />} />
                 <Route path="/:category" element={<BoardPage />} />
+                <Route path="/:category/detail/:id" element={<Board />} />
                 <Route path="/new" element={<New />} />
                 <Route path="/edit/:id" element={<Editor />} />
-                <Route path="/board/:id" element={<Board />} />
                 <Route
                   path="/edit/:id"
                   element={
@@ -85,7 +85,7 @@ const App = () => {
                   }
                 />
                 <Route
-                  path="/board/:id"
+                  path="/:category/:id"
                   element={
                     isLoggedIn ? (
                       <Comment />
@@ -98,7 +98,6 @@ const App = () => {
                 <Route path="/admin" element={<AdminPage />} />
               </Routes>
             </div>
-            <Footer />
           </div>
         </CookiesProvider>
       </BrowserRouter>

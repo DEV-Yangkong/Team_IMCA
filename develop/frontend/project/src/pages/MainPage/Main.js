@@ -109,7 +109,7 @@ const Main = () => {
                   // console.log(currentStrDate);
                 }}
               >
-                <div style={{ fontSize: 12, padding: 3 }}>
+                <div style={{ fontSize: 11, padding: 3 }}>
                   <span>
                     {index > 0 && ' '}
                     {event.prfnm._text?.replace(/\([^)]*\)/g, '')}
@@ -222,36 +222,32 @@ const Main = () => {
       name: selectedEvent.prfnm._text,
     };
     axios
-      .post(
-        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
-        personalData,
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-          },
-          withCredentials: true,
+      .post('http://imca.store/api/v1/calendar/', personalData, {
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
         },
-      )
+        withCredentials: true,
+      })
       .then((res) => console.log('데이터 전송 완료', res))
       .catch((err) => console.log('데이터 전송 에러', err));
   };
-  useEffect(() => {
-    const checkMyCalendar = () => {
-      axios
-        .get(
-          'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.access_token}`,
-            },
-            withCredentials: true,
-          },
-        )
-        .then((res) => console.log('캘린더 응답', res))
-        .catch((err) => console.log('캘린더 에러', err));
-    };
-    checkMyCalendar();
-  }, [selectedEvent]);
+  // useEffect(() => {
+  //   const checkMyCalendar = () => {
+  //     axios
+  //       .get(
+  //         'https://imca.store/api/v1/calendar/',
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${cookies.access_token}`,
+  //           },
+  //           withCredentials: true,
+  //         },
+  //       )
+  //       .then((res) => console.log('캘린더 응답', res))
+  //       .catch((err) => console.log('캘린더 에러', err));
+  //   };
+  //   checkMyCalendar();
+  // }, [selectedEvent]);
 
   // const onGoMyCalendar = () => {
   //   const formData = new FormData();
@@ -499,7 +495,7 @@ const Main = () => {
       <section>
         <div className="mainPage_community_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
-            컨텐츠
+            콘텐츠
           </div>
         </div>
       </section>

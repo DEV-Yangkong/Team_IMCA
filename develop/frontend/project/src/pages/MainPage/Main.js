@@ -222,36 +222,32 @@ const Main = () => {
       name: selectedEvent.prfnm._text,
     };
     axios
-      .post(
-        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
-        personalData,
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-          },
-          withCredentials: true,
+      .post('http://imca.store/api/v1/calendar/', personalData, {
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
         },
-      )
+        withCredentials: true,
+      })
       .then((res) => console.log('데이터 전송 완료', res))
       .catch((err) => console.log('데이터 전송 에러', err));
   };
-  useEffect(() => {
-    const checkMyCalendar = () => {
-      axios
-        .get(
-          'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.access_token}`,
-            },
-            withCredentials: true,
-          },
-        )
-        .then((res) => console.log('캘린더 응답', res))
-        .catch((err) => console.log('캘린더 에러', err));
-    };
-    checkMyCalendar();
-  }, [selectedEvent]);
+  // useEffect(() => {
+  //   const checkMyCalendar = () => {
+  //     axios
+  //       .get(
+  //         'https://imca.store/api/v1/calendar/',
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${cookies.access_token}`,
+  //           },
+  //           withCredentials: true,
+  //         },
+  //       )
+  //       .then((res) => console.log('캘린더 응답', res))
+  //       .catch((err) => console.log('캘린더 에러', err));
+  //   };
+  //   checkMyCalendar();
+  // }, [selectedEvent]);
 
   // const onGoMyCalendar = () => {
   //   const formData = new FormData();

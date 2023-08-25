@@ -2,15 +2,26 @@ import './MyCalendarDate.css';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
 import React, { useEffect, useState } from 'react';
+import { getCalendarDetail } from '../../mycalendarApi';
 import dayjs from 'dayjs';
+import { useQuery } from '@tanstack/react-query';
+import { useCookies } from 'react-cookie';
 
 const MyCalendarDate = ({ onSelectDate }) => {
+  const [cookies] = useCookies('access_token');
+
   const [date, setDate] = useState(new Date());
   // const [mark, setMark] = useState('');
 
   const [state, setState] = useState({
     markDate: '',
   });
+
+  const { data: onGoMyCalendar } = useQuery(
+    ['onGoMyCalendar', date, cookies],
+    () => getCalendarDetail(cookies),
+  );
+  // const {} = detailData;
 
   const handleDateChange = (date) => {
     const formattedDate = formatDate(date);
@@ -39,7 +50,15 @@ const MyCalendarDate = ({ onSelectDate }) => {
                 marginTop: 3,
               }}
             >
-              <div className="dot" />
+              <div
+                className="dot"
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  backgroundColor: 'orange',
+                  borderRadius: '50%',
+                }}
+              />
             </div>
           );
         }

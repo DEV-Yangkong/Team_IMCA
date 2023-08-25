@@ -6,8 +6,25 @@ const instance = axios.create({
 });
 
 export const getCalendarDetail = (cookies) => {
-  instance
-    .get('/api/v1/calendar/', {
+  return instance
+    .get('api/v1/calendar/menu/', {
+      headers: {
+        Authorization: `Bearer ${cookies.access_token}`,
+      },
+      withCredentials: true,
+    })
+    .then((res) => {
+      console.log('날짜 선택한 캘린더 데이터 수신 받음', res);
+      return res.data; //데이터 반환
+    })
+    .catch((err) => {
+      console.log('날짜 선택한 캘린더 데이터 수신 거절', err);
+      throw err; // 에러처리
+    });
+};
+export const getCalendar = (cookies) => {
+  return instance
+    .get('api/v1/calendar/', {
       headers: {
         Authorization: `Bearer ${cookies.access_token}`,
       },

@@ -4,20 +4,24 @@ import MyCalendarDate from '../../components/MyCalendarDatePage/MyCalendarDate';
 import TodoBoard from '../../components/MyCalendarDatePage/TodoBoard';
 import { useQuery } from '@tanstack/react-query';
 
-import { getCalendarDetail, postCalendarInput } from '../../mycalendarApi';
+import {
+  getCalendar,
+  getCalendarDetail,
+  postCalendarInput,
+} from '../../mycalendarApi';
 import { useCookies } from 'react-cookie';
 import SelectedDate from '../../components/MyCalendarDatePage/SeletedDate';
 
 const MyCalendar = () => {
   const [cookies] = useCookies('access_token');
   // todoitem 버튼 클릭시 추가
-  const [todo, setTodo] = useState('');
-  const [todoItem, setTodoItem] = useState([]); //메모담는배열
+  // const [todo, setTodo] = useState('');
+  // const [todoItem, setTodoItem] = useState([]); //메모담는배열
   const [mark, setMark] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null); // 추가: 선택된 날짜 상태
 
   const { data: onGoMyCalendar } = useQuery(['onGoMyCalendar', cookies], () =>
-    getCalendarDetail(cookies),
+    getCalendar(cookies),
   );
 
   useEffect(() => {
@@ -87,6 +91,7 @@ const MyCalendar = () => {
               - ${selectedDate} -`
                 : '저장한 공연 목록'}
             </p>
+
             {/* 캘린더 매모 */}
             {/* 
             <div className={styles.todoItemBox}>

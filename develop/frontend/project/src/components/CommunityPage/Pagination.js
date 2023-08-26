@@ -36,7 +36,6 @@ const Button = styled.button`
 `;
 
 function Pagination({ page, setPage, totalPage }) {
-  console.log('paginaiton', page);
   const numPages = totalPage;
 
   return (

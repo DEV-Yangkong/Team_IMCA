@@ -16,6 +16,24 @@ export function getUserDetail(category, id) {
     .then((res) => res.data);
 }
 
-export function CommentApi(category) {
-  return instance.get(`review/category/${category}/`).then((res) => res.data);
+export function SaveApi(category, board_id, postData) {
+  return instance
+    .post(`review/category/${category}/${board_id}/`, postData)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+export function CommentApi(category, board_id) {
+  return instance
+    .get(`review/category/${category}/${board_id}/`)
+    .then((res) => res.data);
+}
+
+export function replyCommentApi(category, review_id) {
+  return instance
+    .get(`bigreview/category/${category}/${review_id}/replies`)
+    .then((res) => res.data);
 }

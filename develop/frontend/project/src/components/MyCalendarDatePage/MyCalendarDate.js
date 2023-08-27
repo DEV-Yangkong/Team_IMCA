@@ -9,7 +9,6 @@ import { useCookies } from 'react-cookie';
 
 const MyCalendarDate = ({ onGoMyCalendar, handleDateChange }) => {
   const [date, setDate] = useState(new Date());
-  console.log(onGoMyCalendar, '온고');
 
   // onGoMyCalendar get해온 데이터 날짜 누르면 정보 출력
   // const handleDateChange = (date) => {
@@ -53,8 +52,12 @@ const MyCalendarDate = ({ onGoMyCalendar, handleDateChange }) => {
   return (
     <div className="myCalendar_container">
       <Calendar
-        onChange={setDate}
-        onClickDay={() => handleDateChange(date)}
+        onChange={(e) => {
+          console.log('e', e);
+          setDate(e);
+          handleDateChange(e);
+        }}
+        // onClickDay={() => handleDateChange(date)}
         formatDay={(locale, date) =>
           date.toLocaleString('en', { day: 'numeric' })
         } //날짜에 숫자만 들어가게 하기

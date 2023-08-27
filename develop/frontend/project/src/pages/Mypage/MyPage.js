@@ -37,7 +37,6 @@ const MyPage = () => {
   }, []);
 
   const password = watch('password', '');
-
   const [img, setImg] = useState(null);
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [name, setName] = useState('');
@@ -128,7 +127,7 @@ const MyPage = () => {
                 <input
                   type="password"
                   name="password"
-                  value={userData.password}
+                  value={userData.password || ''}
                   placeholder="대소문자, 특수문자 포함 8글자이상"
                   {...register('password', { validate: validatePassword })}
                   onChange={(e) =>

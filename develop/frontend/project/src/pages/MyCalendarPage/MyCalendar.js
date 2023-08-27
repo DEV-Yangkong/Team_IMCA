@@ -17,6 +17,7 @@ const MyCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(null); // 추가: 선택된 날짜 상태
   const [selectDay, setSelectDay] = useState();
   const [detailData, setDetailData] = useState();
+
   const { data: onGoMyCalendar } = useQuery(['onGoMyCalendar', cookies], () =>
     getCalendar(cookies),
   );
@@ -30,15 +31,14 @@ const MyCalendar = () => {
   console.log(onGoMyCalendar, '온고 기본값');
   console.log(formattedOnGoMyCalendar, '바뀐 온고값');
 
-  const handleDateChange = async (date) => {
+  const handleDateChange = (date) => {
     setSelectedDate(dayjs(date).format('YYYY.MM.DD')); //리액트캘린더에서 선택한 날짜업데이트
     const formattedDateDay = dayjs(date).format('YYYYMMDD'); // API에 보낼 형식으로 날짜를 변환
-    console.log(formattedDateDay);
-    setSelectDay(formattedDateDay);
-    await axios
+    // setSelectDay(formattedDateDay);
+    axios
       .get('http://imca.store/api/v1/calendar/menu/', {
         params: {
-          date: selectDay,
+          date: formattedDateDay,
         },
         headers: {
           Authorization: `Bearer ${cookies.access_token}`,
@@ -53,14 +53,13 @@ const MyCalendar = () => {
         console.log('날짜 선택한 캘린더 데이터 수신 거절', err);
         throw err; // 에러처리
       });
-    return detailData;
   };
 
   // const { data: detailData } = useQuery(
-  //   ['detailData', selectDay, cookies],
+  //   ['detailData', cookies, selectDay],
   //   () => getCalendarDetail(cookies, selectDay),
   // );
-  // console.log('gmldms', detailData);
+
   return (
     <div className={styles.MyCalendar}>
       <div className={styles.MyCalendar_Container}>
@@ -80,7 +79,6 @@ const MyCalendar = () => {
               - ${selectedDate} -`
                 : '저장한 공연 목록'}
             </p>
-            <p>{detailData && detailData[0].selected_date}</p>
             {/* 캘린더 매모 */}
 
             <SelectBoard selectedDate={selectedDate} detailData={detailData} />

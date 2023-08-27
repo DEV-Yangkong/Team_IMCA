@@ -7,6 +7,7 @@ import { getCalendar, getCalendarDetail } from '../../mycalendarApi';
 import { useCookies } from 'react-cookie';
 import dayjs from 'dayjs';
 import SelectBoard from '../../components/MyCalendarDatePage/SelectBoard';
+import SelectedMemoDate from '../../components/MyCalendarDatePage/SeletedMemoDate';
 
 const MyCalendar = () => {
   const [cookies] = useCookies('access_token');
@@ -81,7 +82,7 @@ const MyCalendar = () => {
             </p>
             {/* 캘린더 매모 */}
 
-            <SelectBoard selectedDate={selectedDate} detailData={detailData} />
+            <SelectedMemoDate detailData={detailData} />
           </section>
         </div>
       </div>

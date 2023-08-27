@@ -30,6 +30,7 @@ const SelectBoard = (props, detailData) => {
         {...SelectedMemoDate}
         detailData={detailData}
       />
+
       {/* ))} */}
     </div>
   );

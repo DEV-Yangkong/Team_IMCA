@@ -22,12 +22,15 @@ const SelectedMemoDate = ({ selectedDate, detailData }) => {
         <div className={styles.contentBox}>
           {/* 포스터 */}
           <div className={styles.poster}>
-            <img src={detailData[0]?.poster} />
+            <img
+              style={{ width: 50, height: 50 }}
+              src={detailData && detailData[0]?.poster}
+            />
             {/* <img src={calendarDetail?.poster} alt={calendarDetail?.name} /> */}
           </div>
           {/* 공연 상세정보 */}
           <div className={styles.detail}>
-            <div>{detailData[0]?.selected_date}</div>
+            <div>{detailData && detailData[0]?.selected_date}</div>
           </div>
         </div>
         <div className={styles.memoBox}>

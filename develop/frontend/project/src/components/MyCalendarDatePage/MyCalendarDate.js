@@ -56,7 +56,7 @@ const MyCalendarDate = ({ onGoMyCalendar, handleDateChange }) => {
           console.log('e', e);
           setDate(e);
           handleDateChange(e);
-        }}
+        }} // e로 바뀐 날짜 value가 들어옴. setDate에도 바뀐 value 주고 handleDateChange에도 ..
         // onClickDay={() => handleDateChange(date)}
         formatDay={(locale, date) =>
           date.toLocaleString('en', { day: 'numeric' })

@@ -210,7 +210,7 @@ const Main = () => {
   // }
   // 저장기능
 
-  const onGoMyCalendar = () => {
+  const onGoMyCalendar = async () => {
     const personalData = {
       start_date: dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'),
       end_date: dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'),
@@ -221,15 +221,51 @@ const Main = () => {
       // price: selectedEvent.pcseguidance?._text,
       name: selectedEvent.prfnm._text,
     };
-    axios
-      .post('http://imca.store/api/v1/calendar/', personalData, {
+    await axios
+      .get('http://imca.store/api/v1/calendar/menu', {
+        params: { date: selectedDate },
+
         headers: {
           Authorization: `Bearer ${cookies.access_token}`,
         },
         withCredentials: true,
       })
-      .then((res) => console.log('데이터 전송 완료', res))
-      .catch((err) => console.log('데이터 전송 에러', err));
+      .then((res) => {
+        if (res.data.length !== 0) {
+          for (let item of res.data) {
+            if (item.name === selectedEvent.prfnm._text) {
+              console.log(item.name, '확인용 이름');
+              alert('이미 저장된 데이터입니다');
+            } else {
+              axios
+                .post('http://imca.store/api/v1/calendar/', personalData, {
+                  headers: {
+                    Authorization: `Bearer ${cookies.access_token}`,
+                  },
+                  withCredentials: true,
+                })
+                .then((res) => {
+                  console.log('데이터 전송 완료', res);
+                  onClose();
+                })
+                .catch((err) => console.log('데이터 전송 에러', err));
+            }
+          }
+        } else {
+          axios
+            .post('http://imca.store/api/v1/calendar/', personalData, {
+              headers: {
+                Authorization: `Bearer ${cookies.access_token}`,
+              },
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log('데이터 전송 완료', res);
+              onClose();
+            })
+            .catch((err) => console.log('데이터 전송 에러', err));
+        }
+      });
   };
   // useEffect(() => {
   //   const checkMyCalendar = () => {

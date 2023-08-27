@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './MyCalendar.module.css';
 import MyCalendarDate from '../../components/MyCalendarDatePage/MyCalendarDate';
-import TodoBoard from '../../components/MyCalendarDatePage/TodoBoard';
 import { useQuery } from '@tanstack/react-query';
-
-import {
-  getCalendar,
-  getCalendarDetail,
-  postCalendarInput,
-} from '../../mycalendarApi';
+import axios from 'axios';
+import { getCalendar, getCalendarDetail } from '../../mycalendarApi';
 import { useCookies } from 'react-cookie';
-import SelectedDate from '../../components/MyCalendarDatePage/SeletedDate';
+import dayjs from 'dayjs';
+import SelectBoard from '../../components/MyCalendarDatePage/SelectBoard';
 
 const MyCalendar = () => {
   const [cookies] = useCookies('access_token');
@@ -19,62 +15,52 @@ const MyCalendar = () => {
   // const [todoItem, setTodoItem] = useState([]); //메모담는배열
   const [mark, setMark] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null); // 추가: 선택된 날짜 상태
-
+  const [selectDay, setSelectDay] = useState();
+  const [detailData, setDetailData] = useState();
   const { data: onGoMyCalendar } = useQuery(['onGoMyCalendar', cookies], () =>
     getCalendar(cookies),
   );
 
-  useEffect(() => {
-    if (onGoMyCalendar) {
-      console.log('onGoMycalendar 데이터 수신', onGoMyCalendar);
-      setMark(onGoMyCalendar);
-    }
-  }, [onGoMyCalendar]);
+  const formattedOnGoMyCalendar = onGoMyCalendar
+    ? onGoMyCalendar.map((item) => ({
+        ...item,
+        selected_date: dayjs(item.selected_date).format('YYYYMMDD'),
+      }))
+    : [];
+  console.log(onGoMyCalendar, '온고 기본값');
+  console.log(formattedOnGoMyCalendar, '바뀐 온고값');
 
-  // const data = {
-  //   id: Date.now(),
-  //   content: todo,
-  //   date: selectedDate,
-  // };
-  // const addTodo = () => {
-  //   if (!selectedDate) {
-  //     alert('날짜를 선택해주세요!'); //선택한 날짜 없을때 경고문
-  //     return;
-  //   }
-  //   postCalendarInput({ data })
-  //     .then((response) => {
-  //       setTodoItem(response.data);
-  //       console.log('메모성공');
-  //     })
-  //     .catch((error) => {
-  //       console.error('메모 보내기 실패', error);
-  //     });
-
-  //   console.log(data);
-
-  //   //선택한 날짜에 해당하는 메모만 추가
-  //   setTodoItem((prevTodoItems) => [...prevTodoItems, data]);
-  //   setTodo('');
-  // };
-
-  const checkedList = ({ onGoMyCalendar }) => {
-    //선택한 날짜에 해당공연 정보 추출
-    const checkedItems = onGoMyCalendar.filters;
+  const handleDateChange = async (date) => {
+    setSelectedDate(dayjs(date).format('YYYY.MM.DD')); //리액트캘린더에서 선택한 날짜업데이트
+    const formattedDateDay = dayjs(date).format('YYYYMMDD'); // API에 보낼 형식으로 날짜를 변환
+    console.log(formattedDateDay);
+    setSelectDay(formattedDateDay);
+    await axios
+      .get('http://imca.store/api/v1/calendar/menu/', {
+        params: {
+          date: selectDay,
+        },
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log('날짜 선택한 캘린더 데이터 수신 받음', res);
+        setDetailData(res.data);
+      })
+      .catch((err) => {
+        console.log('날짜 선택한 캘린더 데이터 수신 거절', err);
+        throw err; // 에러처리
+      });
+    return detailData;
   };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date); //리액트캘린더에서 선택한 날짜업데이트
-  };
-  // const [memoData, setMemoData] = useState([]);
-  // useEffect(() => {
-  //   const id = '1';
-
-  //   CalendarMemoData(id).then((data) => {
-  //     setMemoData(data);
-  //   });
-  // }, []);
-  //const filterTodoItem = todoItem.filter((item) => item.date === selectedDate);
-
+  // const { data: detailData } = useQuery(
+  //   ['detailData', selectDay, cookies],
+  //   () => getCalendarDetail(cookies, selectDay),
+  // );
+  // console.log('gmldms', detailData);
   return (
     <div className={styles.MyCalendar}>
       <div className={styles.MyCalendar_Container}>
@@ -82,7 +68,10 @@ const MyCalendar = () => {
         <div className={styles.MyCalendar_Wrapper}>
           <section className={styles.MyCalendar_left}>
             {/* 내캘린더 */}
-            <MyCalendarDate onSelectDate={handleDateChange} />
+            <MyCalendarDate
+              handleDateChange={handleDateChange}
+              onGoMyCalendar={onGoMyCalendar}
+            />
           </section>
           <section className={styles.MyCalendar_right}>
             <p className={styles.todoTitle}>
@@ -91,28 +80,10 @@ const MyCalendar = () => {
               - ${selectedDate} -`
                 : '저장한 공연 목록'}
             </p>
-
+            <p>{detailData && detailData[0].selected_date}</p>
             {/* 캘린더 매모 */}
-            {/* 
-            <div className={styles.todoItemBox}>
-              <TodoBoard
-                todoItem={filterTodoItem}
-                setTodoItem={setTodoItem}
-                selectedDate={selectedDate}
-              />
-            </div>
-            <div className={styles.InputBox}>
-              <input
-                value={todo}
-                type="text"
-                className={styles.todoInput}
-                onChange={(e) => setTodo(e.target.value)}
-              />
-              <button className={styles.todoBtn} onClick={addTodo}>
-                +
-              </button>
-            </div> */}
-            <SelectedDate />
+
+            <SelectBoard selectedDate={selectedDate} detailData={detailData} />
           </section>
         </div>
       </div>

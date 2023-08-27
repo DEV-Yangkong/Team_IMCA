@@ -1,0 +1,57 @@
+.container {
+  width: 100%;
+  height: 100%;
+}
+.wrapper {
+  width: 100%;
+  height: 300px;
+  border: 1px solid blue;
+  overflow: scroll;
+}
+.contentBox {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+.poster {
+  width: 40%;
+  height: 200px;
+  border: 1px solid pink;
+}
+.detail {
+  width: 50%;
+  height: 200px;
+  border: 1px solid pink;
+}
+.memoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  overflow: scroll;
+  font-size: 14px;
+}
+.memoList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px auto;
+}
+.memoItem {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+}
+.memoTextBox {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+}
+.memoInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  width: 100%;
+  height: 50px;
+}

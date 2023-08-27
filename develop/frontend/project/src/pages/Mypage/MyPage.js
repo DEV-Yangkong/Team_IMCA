@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './MyPage.module.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const MyPage = () => {
   const {
@@ -10,6 +11,7 @@ const MyPage = () => {
     formState: { errors },
     watch,
   } = useForm({ mode: 'onBlur' });
+  const [cookies] = useCookies('access_token');
 
   const [userData, setUserData] = useState({
     img: '',
@@ -22,16 +24,15 @@ const MyPage = () => {
   });
 
   useEffect(() => {
-    //마이페이지 데이터 불러오는 요청
     axios
-      .get(
-        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/users/mypage/',
-      )
+      .get(`http://imca.store/api/v1/users/info`, {
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
+        },
+        withCredentials: true,
+      })
       .then((response) => {
         setUserData(response.data);
-      })
-      .catch((error) => {
-        console.error('마이페이지 error data', error);
       });
   }, []);
 
@@ -43,15 +44,14 @@ const MyPage = () => {
   const [nickname, setNickName] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
-
-  const onSubmit = async (data) => {
-    try {
-      const response = await axios.post('/api/v1/updateUser/', data);
-      console.log(response.data); //마이페이지 수정 성공
-    } catch (error) {
-      console.error('error, 내정보수정 실패', error);
-    }
-  };
+  const onSubmit = [];
+  // const onSubmit = async (data) => {
+  //  axios.post('/api/v1/updateUser/', data);
+  //     console.log(response.data); //마이페이지 수정 성공
+  //   } catch (error) {
+  //     console.error('error, 내정보수정 실패', error);
+  //   }
+  // };
 
   const validatePassword = (value) => {
     if (!value) return '비밀번호 입력해주세요.';

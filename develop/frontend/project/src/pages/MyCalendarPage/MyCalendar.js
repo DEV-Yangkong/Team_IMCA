@@ -6,7 +6,6 @@ import axios from 'axios';
 import { getCalendar, getCalendarDetail } from '../../mycalendarApi';
 import { useCookies } from 'react-cookie';
 import dayjs from 'dayjs';
-import SelectBoard from '../../components/MyCalendarDatePage/SelectBoard';
 import SelectedMemoDate from '../../components/MyCalendarDatePage/SeletedMemoDate';
 
 const MyCalendar = () => {
@@ -26,7 +25,7 @@ const MyCalendar = () => {
   const formattedOnGoMyCalendar = onGoMyCalendar
     ? onGoMyCalendar.map((item) => ({
         ...item,
-        selected_date: dayjs(item.selected_date).format('YYYYMMDD'),
+        selected_date: dayjs(item.selected_date).format('YYYY.MM.DD'),
       }))
     : [];
   console.log(onGoMyCalendar, '온고 기본값');
@@ -80,6 +79,7 @@ const MyCalendar = () => {
               - ${selectedDate} -`
                 : '저장한 공연 목록'}
             </p>
+
             {/* 캘린더 매모 */}
 
             <SelectedMemoDate detailData={detailData} />

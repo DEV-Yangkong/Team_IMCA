@@ -46,7 +46,7 @@ export const getCalendar = (cookies) => {
     });
 };
 
-export const postCalendarInput = async (cookies) => {
+export const postCalendarMemoInput = async (cookies) => {
   try {
     const response = await instance.post(
       '/api/v1/calendar/${id}/memo/',

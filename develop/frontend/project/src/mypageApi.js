@@ -6,7 +6,7 @@ const instance = axios.create({
 
 export const mypageApi = async (data) => {
   try {
-    const response = await instance.get('/api/v1/users/', data);
+    const response = await instance.get('/api/v1/users/info', data);
     // console.log('wowww', response.data);
     return response.data;
   } catch (error) {

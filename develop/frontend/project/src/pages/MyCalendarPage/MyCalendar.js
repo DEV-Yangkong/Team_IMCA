@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import styles from './MyCalendar.module.css';
+import SelectedMemoDate from '../../components/MyCalendarDatePage/SeletedMemoDate';
 import MyCalendarDate from '../../components/MyCalendarDatePage/MyCalendarDate';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { getCalendar, getCalendarDetail } from '../../mycalendarApi';
 import { useCookies } from 'react-cookie';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faHandPointLeft } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
-import SelectedMemoDate from '../../components/MyCalendarDatePage/SeletedMemoDate';
 
 const MyCalendar = () => {
   const [cookies] = useCookies('access_token');
-  // todoitem 버튼 클릭시 추가
-  // const [todo, setTodo] = useState('');
-  // const [todoItem, setTodoItem] = useState([]); //메모담는배열
+
   const [mark, setMark] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null); // 추가: 선택된 날짜 상태
   const [selectDay, setSelectDay] = useState();
@@ -74,15 +75,38 @@ const MyCalendar = () => {
           </section>
           <section className={styles.MyCalendar_right}>
             <p className={styles.todoTitle}>
-              {selectedDate
-                ? `
+              {selectedDate ? (
+                `
               - ${selectedDate} -`
-                : '저장한 공연 목록'}
+              ) : (
+                <div className={styles.saveIcon}>
+                  <FontAwesomeIcon icon={faBookmark}></FontAwesomeIcon>
+                  <span> 저장된 공연 목록</span>
+                </div>
+              )}
             </p>
-
+            {detailData && detailData[0]?.name ? ( //detailData가 있는 경우
+              <SelectedMemoDate
+                detailData={detailData}
+                selectedDate={selectedDate}
+              />
+            ) : (
+              <div
+                style={{
+                  fontSize: '20px',
+                  height: '140px',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <FontAwesomeIcon
+                  style={{ padding: '10px' }}
+                  icon={faHandPointLeft}
+                />
+                날짜를 선택해주세요!
+              </div>
+            )}
             {/* 캘린더 매모 */}
-
-            <SelectedMemoDate detailData={detailData} />
           </section>
         </div>
       </div>

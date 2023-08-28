@@ -27,9 +27,13 @@ const ConcertDetail = () => {
   if (isLoading) {
     return (
       <div className={styles.detail_container}>
-        <span>
-          <FontAwesomeIcon icon={faSpinner} />
-        </span>
+        <div
+          style={{ padding: 100, display: 'flex', justifyContent: 'center' }}
+        >
+          <div>
+            <FontAwesomeIcon icon={faSpinner} size="xl" />
+          </div>
+        </div>
       </div>
     );
   }

@@ -72,17 +72,17 @@ export const dBData = async (access_token) => {
 
 //   return allData;
 // };
-export const getDbConcertData = (currentPage) => {
-  return axios
-    .get('http://imca.store/api/v1/apis', {
-      params: { page: currentPage },
-    })
-    .then((res) => {
-      console.log('db에서 페이지네이션 성공', res.data);
-      return res.data;
-    })
-    .catch((err) => console.log('db에서 페이지네이션 에러', err));
-};
+// export const getDbConcertData = (currentPage) => {
+//   return axios
+//     .get('http://imca.store/api/v1/apis', {
+//       params: { page: currentPage },
+//     })
+//     .then((res) => {
+//       console.log('db에서 페이지네이션 성공', res.data);
+//       return res.data;
+//     })
+//     .catch((err) => console.log('db에서 페이지네이션 에러', err));
+// };
 export const getConcertData = (currentPage) => {
   return axios
     .get(url, {

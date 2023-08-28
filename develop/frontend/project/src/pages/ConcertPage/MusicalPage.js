@@ -7,15 +7,17 @@ import { useQuery } from '@tanstack/react-query';
 import { dBData, getConcertData, getDbConcertData } from '../../api';
 import { useNavigate } from 'react-router';
 import { useCookies } from 'react-cookie';
+import { useIsSearched } from '../../components/ConcertPage/IsSearchedContext';
 const MusicalPage = () => {
   const [musicalArray, setMusicalArray] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState();
-  const [isSearched, setIsSearched] = useState(false);
+  // const [isSearched, setIsSearched] = useState(false);
   const [searchedData, setSearchedData] = useState();
   const [count, setCount] = useState({ startCount: 0, endCount: 20 });
   const navigate = useNavigate();
   const [cookies] = useCookies('access_token');
+  const { isSearched, setIsSearched } = useIsSearched();
   // const { data: concertData } = useQuery(['concert', currentPage], () =>
   //   getDbConcertData(currentPage),
   // );
@@ -41,7 +43,9 @@ const MusicalPage = () => {
     const filteredItem = realData.filter((item) => regex.test(item.name));
     setSearchedData(filteredItem);
   };
-
+  useEffect(() => {
+    setSearchValue('');
+  }, [isSearched]);
   return (
     <div>
       <div

@@ -13,13 +13,10 @@ const Detail = () => {
   // Remove the unnecessary author variable
 
   const {
-    data: pageList,
+    data: pageList, // Make sure 'pageList' is being populated correctly
     isLoading,
     isError,
-  } = useQuery(
-    ['pageList', category, id],
-    () => getUserDetail(category, id), // Pass the id to the getUserDetail function
-  );
+  } = useQuery(['pageList', category, id], () => getUserDetail(category, id));
 
   if (isLoading) {
     return <div>Loading...</div>; // Show a loading indicator
@@ -46,7 +43,7 @@ const Detail = () => {
         </div>
         <div className={styles.author}>
           <div className={styles.authorTop}>
-            <div className={styles.detailId}>{writer}</div>
+            <div className={styles.detailId}>{writer.nickname}</div>
           </div>
           <div className={styles.authorBottom}>
             <div className={styles.detailDate}>{created_at}</div>

@@ -12,7 +12,7 @@ export function BoardPageApi(category, page = ' ') {
 
 export function getUserDetail(category, id) {
   return instance
-    .get(`community_board/category/${category}/${id}/`)
+    .get(`community_board/category/${category}/detail/${id}/`)
     .then((res) => res.data);
 }
 
@@ -28,12 +28,6 @@ export function SaveApi(category, board_id, postData) {
 }
 export function CommentApi(category, board_id) {
   return instance
-    .get(`review/category/${category}/${board_id}/`)
-    .then((res) => res.data);
-}
-
-export function replyCommentApi(category, review_id) {
-  return instance
-    .get(`bigreview/category/${category}/${review_id}/replies`)
+    .get(`review/category_gather_review/${category}/${board_id}/`)
     .then((res) => res.data);
 }

@@ -37,7 +37,7 @@ const Pages = ({ item, handleTitleClick }) => {
               </div>
             </div>
             <ul className={styles.bottom}>
-              <li>{item.writer}</li> {/* user.name 가져오기 */}
+              <li>{item.writer.nickname}</li> {/* user.name 가져오기 */}
               <li>{item.created_at}</li>
               <li>조회수 {item.views_count}</li>
               <li>

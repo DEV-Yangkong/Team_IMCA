@@ -13,19 +13,18 @@ const ModalDetail = ({ selectedEvent, onGoDetail }) => {
               marginBottom: 10,
             }}
           >
-            {selectedEvent.prfnm._text}
+            {selectedEvent.name}
           </h2>
           <img
-            src={selectedEvent.poster._text}
+            src={selectedEvent.poster}
             alt=""
             style={{ marginBottom: 10, width: 320, height: 450 }}
           />
           <p style={{ fontSize: 18, marginBottom: 10 }}>
-            공연 날짜: {selectedEvent.prfpdfrom._text}~
-            {selectedEvent.prfpdto._text}
+            공연 날짜: {selectedEvent.start_date}~{selectedEvent.end_date}
           </p>
           <p style={{ fontSize: 18, marginBottom: 10 }}>
-            공연 장소 : {selectedEvent.fcltynm._text}
+            공연 장소 : {selectedEvent.place}
           </p>
           <p
             style={{ cursor: 'pointer', textDecoration: 'underline' }}

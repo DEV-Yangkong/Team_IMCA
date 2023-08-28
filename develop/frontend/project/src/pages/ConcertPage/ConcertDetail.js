@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { getConcertDetail } from '../../api';
 import styles from './ConcertDetail.module.css';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const ConcertDetail = () => {
   const [info, setInfo] = useState(null);
@@ -23,7 +25,13 @@ const ConcertDetail = () => {
     navigate('/concert_all');
   };
   if (isLoading) {
-    return <span>Loading...</span>;
+    return (
+      <div className={styles.detail_container}>
+        <span>
+          <FontAwesomeIcon icon={faSpinner} />
+        </span>
+      </div>
+    );
   }
   return (
     <div className={styles.detail_container}>

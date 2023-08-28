@@ -25,35 +25,64 @@ const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/
 //     })
 //     .catch((error) => console.log('err', error));
 // };
-export const getAllData = async (startDate, endDate) => {
-  const allData = [];
-
-  for (let cpage = 1; cpage <= 2; cpage++) {
+export const dBData = async (access_token) => {
+  const realData = [];
+  for (let page = 1; page <= 4; page++) {
     try {
-      const response = await axios.get(url, {
-        params: {
-          cpage,
-          rows: 30,
-          shcate: 'CCCD',
-          stdate: '20230601',
-          eddate: '20231231',
+      const response = await axios.get('http://imca.store/api/v1/apis', {
+        params: { page },
+        headers: {
+          Authorization: `Bearer ${access_token}`,
         },
+        withCredentials: true,
       });
-
-      const options = { compact: true, spaces: 2 };
-      const result = xml2js(response.data, options);
-      const pageData = result.dbs.db;
-      allData.push(...pageData);
-
-      console.log(`Page ${cpage} data`, pageData);
+      realData.push(...response.data);
+      console.log(`db에서 데이터 받아오기 ${page}`, response.data);
     } catch (error) {
-      console.log(`Error fetching page ${cpage}`, error);
+      console.log('db에서 데이터 못 받아옴', error);
     }
   }
-
-  return allData;
+  return realData;
 };
+// export const getAllData = async (startDate, endDate) => {
+//   const allData = [];
 
+//   for (let cpage = 1; cpage <= 3; cpage++) {
+//     try {
+//       const response = await axios.get(url, {
+//         params: {
+//           cpage,
+//           rows: 30,
+//           shcate: 'CCCD',
+//           stdate: '20230601',
+//           eddate: '20231231',
+//         },
+//       });
+
+//       const options = { compact: true, spaces: 2 };
+//       const result = xml2js(response.data, options);
+//       const pageData = result.dbs.db;
+//       allData.push(...pageData);
+
+//       console.log(`Page ${cpage} data`, pageData);
+//     } catch (error) {
+//       console.log(`Error fetching page ${cpage}`, error);
+//     }
+//   }
+
+//   return allData;
+// };
+export const getDbConcertData = (currentPage) => {
+  return axios
+    .get('http://imca.store/api/v1/apis', {
+      params: { page: currentPage },
+    })
+    .then((res) => {
+      console.log('db에서 페이지네이션 성공', res.data);
+      return res.data;
+    })
+    .catch((err) => console.log('db에서 페이지네이션 에러', err));
+};
 export const getConcertData = (currentPage) => {
   return axios
     .get(url, {

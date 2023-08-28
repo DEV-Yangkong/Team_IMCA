@@ -19,11 +19,11 @@ const Detail = () => {
   } = useQuery(['pageList', category, id], () => getUserDetail(category, id));
 
   if (isLoading) {
-    return <div>Loading...</div>; // Show a loading indicator
+    return <div>Loading...</div>;
   }
 
-  if (isError || !pageList) {
-    return <div>Error loading data.</div>; // Handle errors
+  if (isError || !pageList || !pageList.writer) {
+    return <div>Error loading data.</div>;
   }
 
   const { title, writer, file, created_at, views_count, photo, content } =

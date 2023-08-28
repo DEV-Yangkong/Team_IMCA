@@ -3,7 +3,12 @@ import MiniCalendar from 'react-calendar';
 import React, { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import './Main.css';
-import { getAllData, getConcertBoxOffice, getActBoxOffice } from '../../api';
+import {
+  getAllData,
+  getConcertBoxOffice,
+  getActBoxOffice,
+  dBData,
+} from '../../api';
 import dayjs from 'dayjs';
 import Ranking from '../../components/MainPage/Ranking';
 import CurCalendar from '../../components/MainPage/CurCalendar';
@@ -13,7 +18,6 @@ import {
   faCircleChevronRight,
 } from '@fortawesome/free-solid-svg-icons'; // import Calendar from '@toast-ui/calendar';
 import { useNavigate } from 'react-router-dom';
-import { far } from '@fortawesome/free-regular-svg-icons';
 import { useQuery } from '@tanstack/react-query';
 import {
   Modal,
@@ -47,8 +51,11 @@ const Main = () => {
   const [isSearched, setIsSearched] = useState(false);
   const [boxOfficeView, setBoxOfficeView] = useState(false);
   const [selectedDate, setSelectedDate] = useState();
+  // const [realData, setRealData] = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const [allData, setAllData] = useState();
+  // 헤더에 토큰 추가하여 인증 요청
+  const [cookies] = useCookies(['access_token']);
   // 공연 데이터 가져오기
   const { data: allData } = useQuery(
     ['allData'],
@@ -58,13 +65,86 @@ const Main = () => {
     },
     { onSuccess: (allData) => console.log(allData) },
   );
+
+  // 공공api에서 가져온 데이터 db에 보낼 수 있도록 transform
+  const transformData = (data) => {
+    return data?.map((item) => {
+      return {
+        api_id: item.mt20id._text,
+        start_date: dayjs(item.prfpdfrom._text).format('YYYYMMDD'),
+        end_date: dayjs(item.prfpdto._text).format('YYYYMMDD'),
+        poster: item.poster._text,
+        place: item.fcltynm._text,
+        name: item.prfnm._text,
+      };
+    });
+  };
+  // db로 post 요청
+  const apiPostRequest = (data) => {
+    if (data) {
+      axios
+        .post('http://imca.store/api/v1/apis/', data, {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+          withCredentials: true,
+        })
+        .then((res) => console.log('db로 데이터 전송 완료', res))
+        .catch((err) => console.log('db에 데이터 전송 실패', err));
+    }
+  };
+  // ////// 중요 //////// db로 보내는 함수 /////////
+  // useEffect(() => {
+  //   const transformedData = transformData(allData);
+  //   if (allData) {
+  //     for (let item of transformedData) {
+  //       apiPostRequest(item);
+  //     }
+  //   }
+
+  //   // apiPostRequest(transformedData);
+  // }, [allData]);
+
+  // db에서 데이터 받아오기 - api.js로 옮겨놓은 상태
+  // useEffect(() => {
+  //   const realData = [];
+  //   for (let page = 1; page <= 2; page++)
+  //     axios
+  //       .get('http://imca.store/api/v1/apis', {
+  //         params: { page: 1 },
+  //         headers: {
+  //           Authorization: `Bearer ${cookies.access_token}`,
+  //         },
+  //         withCredentials: true,
+  //       })
+  //       .then((res) => {
+  //         console.log(`db에서 데이터 받아오기 ${page}`, res.data);
+  //         realData.push(...res.data);
+  //       })
+  //       .catch((err) => console.log('db에서 데이터 못 받아옴', err));
+  // }, []);
+
+  // db에서 데이터 받아오기
+  const { data: realData } = useQuery(
+    ['realData', cookies.access_token],
+    () => dBData(cookies.access_token),
+    {
+      staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
+    },
+  );
+
   const navigate = useNavigate();
 
   // 박스 오피스 데이터 가져오기
   const { data: boxOfficeData } = useQuery(['boxOffice'], getConcertBoxOffice, {
     staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
   });
-
+  const onHandleNext = () => {
+    setBoxOfficeView(!boxOfficeView);
+  };
+  const onHandlePrev = () => {
+    setBoxOfficeView(!boxOfficeView);
+  };
   // 검색 폼 상태변화 함수
   // const handleChangeState = (e) => {
   //   setState({ ...state, [e.target.name]: e.target.value });
@@ -77,22 +157,21 @@ const Main = () => {
       [name]: value,
     }));
   };
-  const dateStr = dayjs(date).format('YYYY.MM.DD');
-  const start = dayjs(state.startDate).format('YYYY.MM.DD');
-  const end = dayjs(state.endDate).format('YYYY.MM.DD');
 
-  // const allData = allDataQuery.data;
-  const [cookies] = useCookies(['access_token']);
+  // 메인 달력 일정 추가 함수
+  // - 공연 시작일과 종료일 사이에 해당하는 각각의 날짜에 일정을 표시한다.
   const mainTileContent = ({ date }) => {
-    if (allData) {
-      const currentDate = dayjs(date).format('YYYY.MM.DD');
-      const currentStrDate = dayjs(date).format('YYYYMMDD');
-      const matchingEvents = allData.filter(
+    if (realData) {
+      const currentDate = dayjs(date).format('YYYYMMDD');
+      // mainTileContent 함수는 각각의 날짜마다 호출되므로, currentDate는 날짜마다 바뀜
+      // 예를 들어, currentDate 가 2023.08.04일 경우, 그 날짜가 공연의 시작일~종료일 중 포함되는
+      // 해당 공연이 matchingEvents에 담긴다.
+      const matchingEvents = realData.filter(
         (item) =>
-          currentDate >= dayjs(item.prfpdfrom._text).format('YYYY.MM.DD') &&
-          currentDate <= dayjs(item.prfpdto._text).format('YYYY.MM.DD'),
+          currentDate >= dayjs(item.start_date).format('YYYYMMDD') &&
+          currentDate <= dayjs(item.end_date).format('YYYYMMDD'),
       );
-
+      // matchingEvents가 하나라도 있을 때 일정을 표시
       if (matchingEvents.length > 0) {
         return (
           <div className="date_contents_container ">
@@ -105,15 +184,12 @@ const Main = () => {
                   onOpen();
                   setSelectedEvent(event); // 비동기이기 때문에 아래의 콘솔이 먼저 찍힘
                   // console.log('selected Event', selectedEvent);
-                  setSelectedDate(currentStrDate);
+                  setSelectedDate(currentDate); // 내 캘린더에 보낼 selectedDate
                   // console.log(currentStrDate);
                 }}
               >
                 <div style={{ fontSize: 11, padding: 3 }}>
-                  <span>
-                    {index > 0 && ' '}
-                    {event.prfnm._text?.replace(/\([^)]*\)/g, '')}
-                  </span>
+                  <span>{event.name?.replace(/\([^)]*\)/g, '')}</span>
                 </div>
               </div>
             ))}
@@ -123,40 +199,61 @@ const Main = () => {
     }
     return <div className="date_contents_container"></div>;
   };
-
+  // 미니캘린더 상세 => 전체 달력으로 전환
   const onClickWholeCalendar = () => {
     setCurDate(false);
   };
+  // 미니캘린더 전체 => 상세정보로 전환
+  // const handleClickDay = (clickedDate) => {
+  //   setDate(clickedDate);
+  //   setCurDate(true);
+  // };
+  //
+  // onClickDay 함수를 쓰지 않게 된 이유 - onChange도 날짜 클릭할때마다 value가 바뀌는 기능으로서 작용
+  // const handleClickMainDay = (clickedDate) => {
+  //   setMainDate(clickedDate);
+  // };
 
-  const handleClickDay = (clickedDate) => {
-    setDate(clickedDate);
-    setCurDate(true);
-  };
-  const handleClickMainDay = (clickedDate) => {
-    setMainDate(clickedDate);
-  };
   // 시작-종료 필터링해서 나온 일정들 새로운 배열에 추가 - 미니캘린더 dot용
+  const dateStr = dayjs(date).format('YYYY-MM-DD'); // 달력의 각각의 날짜
+  const start = dayjs(state.startDate).format('YYYY-MM-DD'); // 검색창에 입력한 시작일
+  const end = dayjs(state.endDate).format('YYYY-MM-DD'); // 검색창에 입력한 종료일
   useEffect(() => {
-    if (allData) {
+    if (realData) {
       const filteredItems = [];
 
-      for (const item of allData) {
-        if (start <= item.prfpdfrom._text && item.prfpdto._text <= end) {
+      for (const item of realData) {
+        if (start <= item.start_date && item.end_date <= end) {
           filteredItems.push(item);
         }
       }
 
       setCurArray(filteredItems);
     }
-  }, [allData, start, end]);
+    console.log('curArray', curArray);
+  }, [realData, start, end]);
+
+  // 검색버튼 눌렀을 때
+  const handleSearch = () => {
+    if (state.startDate && state.endDate) {
+      setIsSearched(true);
+    }
+  };
+  // 값이 하나라도 바뀌고, isSearched 가 true상태라면, 다시 검색버튼 눌렀을 때 true로
+  // 만들어주기 위해 false로 바꿔놓는다(초기화)
+  useEffect(() => {
+    if (isSearched) {
+      setIsSearched(false);
+    }
+  }, [state.startDate, state.endDate]);
 
   //미니 캘린더 일정 추가
   const tileContent = ({ date }) => {
     if (curArray && isSearched) {
       for (const item of curArray) {
         const currentDate = dayjs(date).format('YYYY.MM.DD');
-        const startDate = dayjs(item.prfpdfrom._text).format('YYYY.MM.DD');
-        const endDate = dayjs(item.prfpdto._text).format('YYYY.MM.DD');
+        const startDate = dayjs(item.start_date).format('YYYY.MM.DD');
+        const endDate = dayjs(item.end_date).format('YYYY.MM.DD');
         if (startDate <= currentDate && currentDate <= endDate) {
           return (
             <div
@@ -173,20 +270,6 @@ const Main = () => {
       }
     }
   };
-  // 검색버튼 눌렀을 때
-  // const handleSearch = () => {
-  //   setIsSearched(true);
-  // };
-  const handleSearch = () => {
-    if (state.startDate && state.endDate) {
-      setIsSearched(true);
-    }
-  };
-  useEffect(() => {
-    if (isSearched) {
-      setIsSearched(false);
-    }
-  }, [state.startDate, state.endDate]);
 
   // 상세 페이지로
   const onGoDetail = (eventId) => {
@@ -208,18 +291,18 @@ const Main = () => {
   // if (error) {
   //   return <div>Error: {error.message}</div>;
   // }
-  // 저장기능
 
+  // 저장기능(post)과 중복 저장 방지
   const onGoMyCalendar = async () => {
     const personalData = {
-      start_date: dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'),
-      end_date: dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'),
+      start_date: dayjs(selectedEvent.start_date).format('YYYYMMDD'),
+      end_date: dayjs(selectedEvent.end_date).format('YYYYMMDD'),
       selected_date: selectedDate,
-      poster: selectedEvent.poster._text,
-      place: selectedEvent.fcltynm._text,
+      poster: selectedEvent.poster,
+      place: selectedEvent.place,
       // runtime: selectedEvent.prfruntime?._text,
       // price: selectedEvent.pcseguidance?._text,
-      name: selectedEvent.prfnm._text,
+      name: selectedEvent.name,
     };
     await axios
       .get('http://imca.store/api/v1/calendar/menu', {
@@ -233,8 +316,7 @@ const Main = () => {
       .then((res) => {
         if (res.data.length !== 0) {
           for (let item of res.data) {
-            if (item.name === selectedEvent.prfnm._text) {
-              console.log(item.name, '확인용 이름');
+            if (item.name === selectedEvent.name) {
               alert('이미 저장된 데이터입니다');
             } else {
               axios
@@ -267,56 +349,7 @@ const Main = () => {
         }
       });
   };
-  // useEffect(() => {
-  //   const checkMyCalendar = () => {
-  //     axios
-  //       .get(
-  //         'https://imca.store/api/v1/calendar/',
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${cookies.access_token}`,
-  //           },
-  //           withCredentials: true,
-  //         },
-  //       )
-  //       .then((res) => console.log('캘린더 응답', res))
-  //       .catch((err) => console.log('캘린더 에러', err));
-  //   };
-  //   checkMyCalendar();
-  // }, [selectedEvent]);
 
-  // const onGoMyCalendar = () => {
-  //   const formData = new FormData();
-
-  //   formData.append('start_date', dayjs(selectedEvent.prfpdfrom._text).format('YYYYMMDD'));
-  //   formData.append('end_date', dayjs(selectedEvent.prfpdto._text).format('YYYYMMDD'));
-  //   formData.append('selected_date', selectedDate);
-  //   formData.append('poster', selectedEvent.poster._text);
-  //   formData.append('place', selectedEvent.fcltynm._text);
-  //   formData.append('name', selectedEvent.prfnm._text);
-
-  //   const headers = {
-  //     'Content-Type': 'multipart/form-data',
-  //     Authorization: `Bearer ${cookies.access_token}`, // 토큰 헤더 추가
-  //   };
-
-  //   axios
-  //     .post(
-  //       'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/calendar/',
-  //       formData,
-  //       {
-  //         headers: headers,
-  //       }
-  //     )
-  //     .then((res) => console.log('데이터 전송 완료', res))
-  //     .catch((err) => console.log('데이터 전송 에러', err));
-  // };
-  const onHandleNext = () => {
-    setBoxOfficeView(!boxOfficeView);
-  };
-  const onHandlePrev = () => {
-    setBoxOfficeView(!boxOfficeView);
-  };
   return (
     <div className="Main">
       <ChakraProvider>
@@ -333,7 +366,7 @@ const Main = () => {
             <ModalBody>
               <ModalDetail
                 selectedEvent={selectedEvent}
-                onGoDetail={() => onGoDetail(selectedEvent.mt20id._text)}
+                onGoDetail={() => onGoDetail(selectedEvent.api_id)}
               />
             </ModalBody>
 
@@ -380,18 +413,18 @@ const Main = () => {
             </div>
 
             {isSearched ? (
-              allData?.map(
+              realData?.map(
                 (it, index) =>
-                  start <= it.prfpdfrom._text &&
-                  it.prfpdto._text <= end && (
+                  start <= it.start_date &&
+                  it.end_date <= end && (
                     <CurCalendar
-                      onGoDetail={() => onGoDetail(it.mt20id._text)}
+                      onGoDetail={() => onGoDetail(it.api_id)}
                       key={index}
-                      startDate={it.prfpdfrom._text}
-                      endDate={it.prfpdto._text}
-                      title={it.prfnm._text}
-                      place={it.fcltynm._text}
-                      img={it.poster._text}
+                      startDate={it.start_date}
+                      endDate={it.end_date}
+                      title={it.name}
+                      place={it.place}
+                      img={it.poster}
                     />
                   ),
               )
@@ -433,16 +466,16 @@ const Main = () => {
               </div>
               {curArray?.map(
                 (it, index) =>
-                  it.prfpdfrom._text <= dateStr &&
-                  dateStr <= it.prfpdto._text && (
+                  it.start_date <= dateStr &&
+                  dateStr <= it.end_date && (
                     <CurCalendar
                       key={index}
-                      onGoDetail={() => onGoDetail(it.mt20id._text)}
-                      startDate={it.prfpdfrom._text}
-                      endDate={it.prfpdto._text}
-                      title={it.prfnm._text}
-                      place={it.fcltynm._text}
-                      img={it.poster._text}
+                      onGoDetail={() => onGoDetail(it.api_id)}
+                      startDate={it.start_date}
+                      endDate={it.end_date}
+                      title={it.name}
+                      place={it.place}
+                      img={it.poster}
                     />
                   ),
               )}
@@ -450,7 +483,10 @@ const Main = () => {
           ) : (
             <div className="mini_calendar_container">
               <MiniCalendar
-                onChange={setDate}
+                onChange={(e) => {
+                  setDate(e);
+                  setCurDate(true);
+                }}
                 value={date}
                 formatDay={(locale, date) =>
                   date.toLocaleString('en', { day: 'numeric' })
@@ -458,7 +494,7 @@ const Main = () => {
                 tileContent={tileContent}
                 next2Label={null} // 다음 년도 화살표
                 prev2Label={null} // 이전 년도 화살표
-                onClickDay={handleClickDay}
+                // onClickDay={handleClickDay}
               />
             </div>
           )}
@@ -480,8 +516,8 @@ const Main = () => {
       <section>
         <div className="big_calendar_container">
           <Calendar
-            onChange={setDate}
-            value={date}
+            onChange={(e) => setMainDate(e)}
+            value={mainDate}
             formatDay={(locale, date) =>
               date.toLocaleString('en', { day: 'numeric' })
             } //날짜에 숫자만 들어가게 하기
@@ -502,7 +538,7 @@ const Main = () => {
                 style={{ color: '#134f2c' }}
               />
             }
-            onClickDay={handleClickMainDay}
+            // onClickDay={handleClickMainDay}
           />
         </div>
       </section>

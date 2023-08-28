@@ -4,15 +4,16 @@ import MusicalList from '../../components/ConcertPage/MusicalList';
 import styles from './MusicalPage.module.css';
 import { xml2js } from 'xml-js';
 import { useQuery } from '@tanstack/react-query';
-import { getConcertData } from '../../api';
+import { getConcertData, getDbConcertData } from '../../api';
 import { useNavigate } from 'react-router';
 const MusicalPage = () => {
   const [musicalArray, setMusicalArray] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const { data: concertData } = useQuery(['concert', currentPage], () =>
-    getConcertData(currentPage),
+    getDbConcertData(currentPage),
   );
+
   const onHandlePage = (pageNumber) => {
     setCurrentPage(pageNumber); // 페이지 번호 업데이트
   };
@@ -28,12 +29,12 @@ const MusicalPage = () => {
         {concertData?.map((it, index) => (
           <MusicalList
             key={index}
-            onGoConcertDetail={() => onGoDetail(it.mt20id._text)}
-            title={it.prfnm._text}
+            onGoConcertDetail={() => onGoDetail(it.api_id)}
+            title={it.name}
             // startDate={it.prfpdfrom._text}
             // endDate={it.prfpdto._text}
             // place={it.fcltynm._text}
-            img={it.poster._text}
+            img={it.poster}
           />
         ))}{' '}
       </div>
@@ -69,12 +70,6 @@ const MusicalPage = () => {
             onClick={() => onHandlePage(4)}
           >
             4
-          </li>
-          <li
-            style={{ padding: 20, cursor: 'pointer' }}
-            onClick={() => onHandlePage(5)}
-          >
-            5
           </li>
         </ul>
       </div>

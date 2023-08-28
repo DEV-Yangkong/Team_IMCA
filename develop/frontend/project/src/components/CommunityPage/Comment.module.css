@@ -1,15 +1,18 @@
+/* 댓글 */
 .CommentWrapper {
   width: 100%;
   display: flex;
+  flex-direction: column;
   padding-top: 24px;
   border-top: 1px solid #ececec;
 }
+
 .CommentItem {
-  display: flex;
   padding: 24px 0px 0px;
-  height: 100%;
 }
+
 .UserProfile img {
+  border: 1px solid #ececec;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -28,6 +31,47 @@
   padding: 0px 0px 0px 5px;
 }
 
+.profileBox {
+  padding: 0px 16px 0px 0px;
+}
+
+/* 대댓글 */
+.BigCommentWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+  border-top: 1px solid #ececec;
+}
+.BigCommentItem {
+  padding: 24px 0px 0px;
+}
+
+.UserProfile img {
+  border: 1px solid #ececec;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.BigCommentTop {
+  display: flex;
+  font-size: 13px;
+}
+.BigCommentBottom {
+  padding: 8px 0px 0px;
+  font-size: 15px;
+}
+
+.BigCommentTime {
+  padding: 0px 0px 0px 5px;
+}
+
+.profileBox {
+  padding: 0px 16px 0px 0px;
+}
+
+/* 댓글 작성 */
 .CommentBox {
   height: 106px;
   position: relative;
@@ -36,10 +80,6 @@
   border: 1px solid rgba(128, 128, 128, 0.2);
   border-radius: 3px;
   margin-bottom: 24px;
-}
-
-.profileBox {
-  padding: 0px 16px 0px 0px;
 }
 
 .CommentInput {
@@ -65,4 +105,48 @@
   font-size: 12px;
   border-radius: 2px;
   float: right;
+}
+
+/* 답글 */
+.ReplyButton_top {
+  all: unset;
+  cursor: pointer;
+  margin: 8px 0px 0px;
+  font-size: 12px;
+  color: #757575;
+}
+
+.ReplyButton {
+  cursor: pointer;
+  background-color: #363636;
+  border-color: #363636;
+  color: #ffffff;
+  border-width: 1px;
+  padding: 8px 20px;
+  font-size: 12px;
+  border-radius: 2px;
+  float: right;
+}
+
+.ReplyInput {
+  border: none;
+  width: 100%;
+  outline-style: none;
+  resize: none;
+  overflow-y: hidden !important;
+  padding: 0;
+  background: transparent;
+  vertical-align: top;
+  border-radius: 3px 3px 0 0;
+  margin-bottom: 12px;
+  min-height: 62px;
+}
+
+.CommentForm {
+  height: 106px;
+  position: relative;
+  padding: 16px;
+  margin-top: 10px;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 3px;
 }

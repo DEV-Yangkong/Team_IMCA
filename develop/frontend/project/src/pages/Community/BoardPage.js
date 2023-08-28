@@ -23,8 +23,6 @@ const BoardPage = () => {
   // page 값이 존재한다면 해당 값을 사용하고, 그렇지 않다면 1을 사용합니다.
   const currentPage = searchParams.get('page') || '1';
 
-  console.log('page data', currentPage);
-
   // 구조분해 할당
   const {
     data: pageList,
@@ -37,7 +35,6 @@ const BoardPage = () => {
   const postCount = pageList?.count || 0;
   const itemsPerPage = pageList?.page_size || 0;
   const pageCount = pageList?.page_count || 0;
-  console.log('pageCount', pageCount);
 
   const setPage = (newPage) => {
     setSearchParams({ page: newPage }); // setSearchParams를 사용하여 쿼리 값을 변경합니다.
@@ -50,7 +47,6 @@ const BoardPage = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log('pageList', pageList);
 
   const pagesToRender = pageList.results || [];
 

@@ -11,15 +11,8 @@ import { useAuth } from '../../AuthContext';
 
 const Pages = ({ item, handleTitleClick }) => {
   const [likeClick, setLikeClick] = useState(false);
-  // const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
 
-  // 클릭 핸들러: 게시물 상세 페이지로 이동
-  // const handleTitleClick = (postId) => {
-  //   navigate(`/${category}/${postId}`); // 게시물의 상세 페이지로 이동
-  // };
-  // console.log('카테고리', category);
-  // console.log('data', item);
+  const { isLoggedIn } = useAuth();
 
   return (
     <div className={styles.Pages}>
@@ -44,7 +37,7 @@ const Pages = ({ item, handleTitleClick }) => {
               </div>
             </div>
             <ul className={styles.bottom}>
-              <li>{item.writer}</li> {/* user.name 가져오기 */}
+              <li>{item.writer.nickname}</li> {/* user.name 가져오기 */}
               <li>{item.created_at}</li>
               <li>조회수 {item.views_count}</li>
               <li>

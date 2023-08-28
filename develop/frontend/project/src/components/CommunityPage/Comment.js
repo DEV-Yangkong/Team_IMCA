@@ -1,143 +1,166 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './Comment.module.css';
-import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useAuth } from '../../AuthContext';
+import { useQuery, useMutation, QueryCache } from '@tanstack/react-query';
 import { CommentApi } from '../../communityApi';
-import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 
 const Comment = () => {
   const [comment, setComment] = useState('');
-  const [commentsList, setCommentsList] = useState([]);
-  const { isLoggedIn } = useAuth();
-  const navigate = useNavigate();
+  const [replyComment, setReplyComment] = useState('');
+  const [expandedReplyId, setExpandedReplyId] = useState(null); // 추가된 부분
   const params = useParams();
   const category = params.category;
-  console.log('cate', category);
+  const board_id = params.id;
 
-  // 구조분해 할당
-  // useQuery의 옵션으로 page를 전달
-  const {
-    data: commentList,
-    isLoading,
-    isError,
-  } = useQuery(['commentList', category], () => CommentApi(category));
-  console.log('commentList 데이터:', commentList); // 페이지 컴포넌트의 최상단에 추가
+  const { data: commentList } = useQuery(
+    ['commentList', category, board_id],
+    () => CommentApi(category, board_id),
+  );
 
-  if (isLoading) {
-    return <div>Loading...</div>; // Show a loading indicator
-  }
+  const addCommentMutation = useMutation(
+    (commentData) => CommentApi(category, commentData),
+    {
+      onSuccess: () => {
+        QueryCache.invalidateQueries(['commentList', category, board_id]);
+      },
+    },
+  );
 
-  if (isError || !commentList) {
-    return <div>Error loading data.</div>; // Handle errors
-  }
+  const addReplyCommentMutation = useMutation(
+    (replyData) => CommentApi(category, replyData),
+    {
+      onSuccess: () => {
+        QueryCache.invalidateQueries(['commentList', category, board_id]);
+      },
+    },
+  );
 
-  const handleSaveComment = () => {
-    if (!isLoggedIn) {
-      navigate('/login');
-      return;
-    }
-
+  const handleAddComment = () => {
     if (!comment) {
       alert('댓글을 입력해주세요.');
       return;
     }
 
-    // const newComment = {
-    //   내용: comment,
-    //   작성시간: new Date().toISOString(),
-    //   유저프로필: {
-    //     // author: '새로운 유저',
-    //     avatarUrl: 'NEW_USER_AVATAR_URL',
-    //   },
-    //   이미지Url: 'NEW_IMAGE_URL',
-    // };
+    const commentData = {
+      review_content: comment,
+    };
 
-    setCommentsList([...commentsList]);
+    addCommentMutation.mutate(commentData);
+
     setComment('');
+    setReplyComment('');
   };
 
-  // const handleSaveReply = (commentIndex, replyText) => {
-  //   if (!isLoggedIn) {
-  //     navigate('/login');
-  //     return;
-  //   }
+  const handleAddReplyComment = (parentId) => {
+    if (!replyComment) {
+      alert('답글을 입력해주세요.');
+      return;
+    }
 
-  //   const newReply = {
-  //     내용: replyText,
-  //     작성시간: new Date().toISOString(),
-  //     유저프로필: {
-  //       author: '새로운 유저', // 로그인된 유저의 이름으로 변경하거나 사용자 정보를 가져와서 사용 가능
-  //       avatarUrl: 'NEW_USER_AVATAR_URL', // 유저의 프로필 이미지 URL로 변경하거나 사용자 정보를 가져와서 사용 가능
-  //     },
-  //   };
+    const replyData = {
+      review_content: replyComment,
+      parent_id: parentId,
+    };
 
-  //   // 해당 댓글에 대댓글 추가하기
-  //   const updatedCommentsList = [...commentsList];
-  //   updatedCommentsList[commentIndex].대댓글 =
-  //     updatedCommentsList[commentIndex].대댓글 || [];
-  //   updatedCommentsList[commentIndex].대댓글.push(newReply);
+    addReplyCommentMutation.mutate(replyData);
 
-  //   setCommentsList(updatedCommentsList);
-  // };
-
-  // const handleReplyButtonClick = (commentIndex) => {
-  //   if (!isLoggedIn) {
-  //     navigate('/login');
-  //   } else {
-  //     // 대댓글 작성 로직
-  //   }
-  // };
+    setReplyComment('');
+    setExpandedReplyId(null); // 답글 작성 후 폼 숨기기
+  };
 
   return (
     <div className={styles.Comment}>
       <div className={styles.CommentList}>
-        {commentList.map((item) => (
+        {commentList?.map((item) => (
           <div key={item.id} className={styles.CommentItem}>
             <div className={styles.CommentWrapper}>
-              <div className={styles.profileBox}>
-                {item.유저프로필 && (
-                  <div className={styles.UserProfile}>
-                    <img src={item.d} alt="유저 프로필" />
-                  </div>
-                )}
-              </div>
+              {item.review_writer.profileImg && (
+                <div className={styles.UserProfile}>
+                  <img src={item.review_writer.profileImg} alt="유저 프로필" />
+                </div>
+              )}
               <div>
                 <div className={styles.CommentTop}>
-                  <p>{item.review_author}</p>
+                  <p>{item.review_writer.nickname}</p>
                   <span className={styles.CommentTime}>{item.created_at}</span>
                 </div>
                 <div className={styles.CommentBottom}>
                   <p>{item.review_content}</p>
                 </div>
               </div>
-              {/* {comment.이미지Url && (
-                <div>
-                  <img src={comment.이미지Url} alt="댓글 이미지" />
+              <button
+                className={styles.ReplyButton_top}
+                onClick={() =>
+                  setExpandedReplyId(
+                    expandedReplyId === item.id ? null : item.id,
+                  )
+                }
+              >
+                {expandedReplyId === item.id ? '취소' : '답글 달기'}
+              </button>
+              {expandedReplyId === item.id && (
+                <div className={styles.CommentForm}>
+                  <input
+                    type="text"
+                    className={styles.ReplyInput}
+                    placeholder="답글 달기"
+                    value={replyComment}
+                    onChange={(e) => setReplyComment(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    className={styles.ReplyButton}
+                    onClick={() => handleAddReplyComment(item.id)}
+                  >
+                    저장
+                  </button>
                 </div>
-              )} */}
+              )}
+              {item?.bigreviews && (
+                <div className={styles.BigCommentList}>
+                  {item?.bigreviews.map((bigreview) => (
+                    <div key={bigreview.id} className={styles.BigCommentItem}>
+                      <div className={styles.BigCommentWrapper}>
+                        {bigreview.bigreview_writer.profileImg && (
+                          <div className={styles.UserProfile}>
+                            <img
+                              src={bigreview.bigreview_writer.profileImg}
+                              alt="빅리뷰 작성자 프로필"
+                            />
+                          </div>
+                        )}
+                        <div>
+                          <div className={styles.BigCommentTop}>
+                            <p>{bigreview.bigreview_writer.nickname}</p>
+                            <span className={styles.BigCommentTime}>
+                              {bigreview.created_at}
+                            </span>
+                          </div>
+                          <div className={styles.BigCommentBottom}>
+                            <p>{bigreview.bigreview_content}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         ))}
       </div>
-
       <div className={styles.CommentBox}>
         <input
           type="text"
           className={styles.CommentInput}
-          placeholder={isLoggedIn ? '댓글 달기' : '로그인이 필요합니다.'}
+          placeholder="댓글 달기"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          onClick={() => {
-            if (!isLoggedIn) {
-              navigate('/login'); // 로그인 페이지로 이동
-            }
-          }}
         />
         <button
           type="button"
           className={styles.CommentButton}
-          onClick={handleSaveComment}
+          onClick={handleAddComment}
         >
           저장
         </button>

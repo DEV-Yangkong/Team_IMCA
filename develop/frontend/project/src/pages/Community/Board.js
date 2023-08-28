@@ -10,12 +10,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
+import { getUserDetail } from '../../communityApi';
+import { useQuery } from '@tanstack/react-query';
 
 const Board = () => {
-  const { id } = useParams();
   const [likeClick, SetLikeClick] = useState(false);
+  const params = useParams();
+  const category = params.category;
+  const id = params.id;
+  console.log('params data', params);
 
   const navigate = useNavigate();
+
+  const {
+    data: pageList, // Make sure 'pageList' is being populated correctly
+    isLoading,
+    isError,
+  } = useQuery(['pageList', category, id], () => getUserDetail(category, id));
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError || !pageList || !pageList) {
+    return <div>Error loading data.</div>;
+  }
+
+  const { likes_count, reviews_count } = pageList;
 
   return (
     <div className={styles.Board}>
@@ -32,11 +53,11 @@ const Board = () => {
               SetLikeClick(!likeClick);
             }}
           />
-          {id.likes_num}
+          {likes_count}
         </div>
         <div className={styles.detailReviews}>
           <FontAwesomeIcon className={styles.icon} icon={faComment} />
-          {id.reviews_num}
+          {reviews_count}
         </div>
       </div>
       <Comment />

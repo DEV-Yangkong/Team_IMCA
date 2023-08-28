@@ -23,7 +23,11 @@ const ConcertDetail = () => {
     navigate('/concert_all');
   };
   if (isLoading) {
-    return <span>Loading...</span>;
+    return (
+      <div className={styles.detail_container}>
+        <span>Loading...</span>
+      </div>
+    );
   }
   return (
     <div className={styles.detail_container}>

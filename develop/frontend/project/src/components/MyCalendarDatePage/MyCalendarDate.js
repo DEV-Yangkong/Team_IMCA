@@ -2,35 +2,29 @@ import './MyCalendarDate.css';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
 import React, { useEffect, useState } from 'react';
+import { getCalendarDetail } from '../../mycalendarApi';
 import dayjs from 'dayjs';
+import { useQuery } from '@tanstack/react-query';
+import { useCookies } from 'react-cookie';
 
-const MyCalendarDate = ({ onSelectDate }) => {
+const MyCalendarDate = ({ onGoMyCalendar, handleDateChange }) => {
   const [date, setDate] = useState(new Date());
-  // const [mark, setMark] = useState('');
 
-  const [state, setState] = useState({
-    markDate: '',
-  });
+  // onGoMyCalendar get해온 데이터 날짜 누르면 정보 출력
+  // const handleDateChange = (date) => {
+  //   const formattedDateDay = dayjs(date).format('YYYYMMDD'); // API에 보낼 형식으로 날짜를 변환
+  //   console.log(formattedDateDay);
+  //   setSelectDay(formattedDateDay);
+  // };
+  // const { data: detailData } = useQuery(['detailData'], () =>
+  //   getCalendarDetail(selectDay),
+  // );
 
-  const handleDateChange = (date) => {
-    const formattedDate = formatDate(date);
-    onSelectDate(formattedDate);
-  };
-
-  const formatDate = (date) => {
-    const year = date.getFullYear().toString().slice(2); // 연도의 뒤 2자리
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월을 두 자리로
-    const day = date.getDate().toString().padStart(2, '0'); // 일을 두 자리로
-    return `${year}.${month}.${day}`;
-  };
-
-  //캘린더 일정 추가
-  const tileContent = ({ date, onGoMyCalendar }) => {
-    const formattedDate = dayjs(date).format('YYYY.MM.DD');
-
+  const tileContent = ({ date }) => {
+    const formattedDate = dayjs(date).format('YYYY-MM-DD');
     if (onGoMyCalendar) {
-      for (const item of onGoMyCalendar) {
-        if (item.date === formattedDate) {
+      for (let item of onGoMyCalendar) {
+        if (item.selected_date === formattedDate) {
           return (
             <div
               style={{
@@ -39,7 +33,15 @@ const MyCalendarDate = ({ onSelectDate }) => {
                 marginTop: 3,
               }}
             >
-              <div className="dot" />
+              <div
+                className="dot"
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  backgroundColor: 'orange',
+                  borderRadius: '50%',
+                }}
+              />
             </div>
           );
         }
@@ -50,7 +52,12 @@ const MyCalendarDate = ({ onSelectDate }) => {
   return (
     <div className="myCalendar_container">
       <Calendar
-        onChange={handleDateChange}
+        onChange={(e) => {
+          console.log('e', e);
+          setDate(e);
+          handleDateChange(e);
+        }} // e로 바뀐 날짜 value가 들어옴. setDate에도 바뀐 value 주고 handleDateChange에도 ..
+        // onClickDay={() => handleDateChange(date)}
         formatDay={(locale, date) =>
           date.toLocaleString('en', { day: 'numeric' })
         } //날짜에 숫자만 들어가게 하기

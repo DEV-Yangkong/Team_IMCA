@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './AuthContext';
 import Main from './pages/MainPage/Main';
 import MusicalPage from './pages/ConcertPage/MusicalPage';
-import Act from './components/ConcertPage/Act';
+
 import TeamIntroduction from './pages/TeamIntroduction/TeamIntroduction';
 import YouTubeList from './pages/YouTubePage/YouTubeList';
 import YouTubeDetail from './pages/YouTubePage/YouTubeDetail';

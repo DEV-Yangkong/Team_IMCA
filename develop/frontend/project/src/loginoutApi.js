@@ -45,3 +45,18 @@ export const logoutApi = async () => {
 //   .catch((error) => {
 //     console.error('에러 발생:', error);
 //   });
+
+export const getUserMypage = (cookies) => {
+  return instance
+    .get('api/v1/user/info', {
+      withCredentials: true,
+    })
+    .then((res) => {
+      console.log('유저 데이터 수신 받음', res);
+      return res.data; //데이터 반환
+    })
+    .catch((err) => {
+      console.log('유저 데이터 수신 거절', err);
+      throw err; // 에러처리
+    });
+};

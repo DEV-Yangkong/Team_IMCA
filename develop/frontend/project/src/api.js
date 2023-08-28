@@ -25,10 +25,29 @@ const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/
 //     })
 //     .catch((error) => console.log('err', error));
 // };
+export const dBData = async (access_token) => {
+  const realData = [];
+  for (let page = 1; page <= 4; page++) {
+    try {
+      const response = await axios.get('http://imca.store/api/v1/apis', {
+        params: { page },
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        withCredentials: true,
+      });
+      realData.push(...response.data);
+      console.log(`db에서 데이터 받아오기 ${page}`, response.data);
+    } catch (error) {
+      console.log('db에서 데이터 못 받아옴', error);
+    }
+  }
+  return realData;
+};
 export const getAllData = async (startDate, endDate) => {
   const allData = [];
 
-  for (let cpage = 1; cpage <= 2; cpage++) {
+  for (let cpage = 1; cpage <= 3; cpage++) {
     try {
       const response = await axios.get(url, {
         params: {
@@ -53,7 +72,17 @@ export const getAllData = async (startDate, endDate) => {
 
   return allData;
 };
-
+export const getDbConcertData = (currentPage) => {
+  return axios
+    .get('http://imca.store/api/v1/apis', {
+      params: { page: currentPage },
+    })
+    .then((res) => {
+      console.log('db에서 페이지네이션 성공', res.data);
+      return res.data;
+    })
+    .catch((err) => console.log('db에서 페이지네이션 에러', err));
+};
 export const getConcertData = (currentPage) => {
   return axios
     .get(url, {

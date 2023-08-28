@@ -5,20 +5,43 @@ const instance = axios.create({
   baseURL: 'http://imca.store/',
 });
 
-export const getCalendarDetail = (cookies) => {
-  instance
-    .get('/api/v1/calendar/', {
+//날짜 선택 누르면 나오는 데이터
+// export const getCalendarDetail = (cookies, selectedDate) => {
+//   return instance
+//     .get('api/v1/calendar/menu/', {
+//       params: {
+//         date: selectedDate,
+//       },
+//       headers: {
+//         Authorization: `Bearer ${cookies.access_token}`,
+//       },
+//       withCredentials: true,
+//     })
+//     .then((res) => {
+//       console.log('날짜 선택한 캘린더 데이터 수신 받음', res);
+//       return res.data; //데이터 반환
+//     })
+//     .catch((err) => {
+//       console.log('날짜 선택한 캘린더 데이터 수신 거절', err);
+//       throw err; // 에러처리
+//     });
+// };
+
+//전체캘린더 점표시하는 api
+export const getCalendar = (cookies) => {
+  return instance
+    .get('api/v1/calendar/', {
       headers: {
         Authorization: `Bearer ${cookies.access_token}`,
       },
       withCredentials: true,
     })
     .then((res) => {
-      console.log('캘린더 데이터 수신 받음', res);
+      console.log('전체 캘린더 데이터 수신 받음', res);
       return res.data; //데이터 반환
     })
     .catch((err) => {
-      console.log('캘린더 데이터 수신 거절', err);
+      console.log('전체 캘린더 데이터 수신 거절', err);
       throw err; // 에러처리
     });
 };

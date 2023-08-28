@@ -44,34 +44,34 @@ export const dBData = async (access_token) => {
   }
   return realData;
 };
-export const getAllData = async (startDate, endDate) => {
-  const allData = [];
+// export const getAllData = async (startDate, endDate) => {
+//   const allData = [];
 
-  for (let cpage = 1; cpage <= 3; cpage++) {
-    try {
-      const response = await axios.get(url, {
-        params: {
-          cpage,
-          rows: 30,
-          shcate: 'CCCD',
-          stdate: '20230601',
-          eddate: '20231231',
-        },
-      });
+//   for (let cpage = 1; cpage <= 3; cpage++) {
+//     try {
+//       const response = await axios.get(url, {
+//         params: {
+//           cpage,
+//           rows: 30,
+//           shcate: 'CCCD',
+//           stdate: '20230601',
+//           eddate: '20231231',
+//         },
+//       });
 
-      const options = { compact: true, spaces: 2 };
-      const result = xml2js(response.data, options);
-      const pageData = result.dbs.db;
-      allData.push(...pageData);
+//       const options = { compact: true, spaces: 2 };
+//       const result = xml2js(response.data, options);
+//       const pageData = result.dbs.db;
+//       allData.push(...pageData);
 
-      console.log(`Page ${cpage} data`, pageData);
-    } catch (error) {
-      console.log(`Error fetching page ${cpage}`, error);
-    }
-  }
+//       console.log(`Page ${cpage} data`, pageData);
+//     } catch (error) {
+//       console.log(`Error fetching page ${cpage}`, error);
+//     }
+//   }
 
-  return allData;
-};
+//   return allData;
+// };
 export const getDbConcertData = (currentPage) => {
   return axios
     .get('http://imca.store/api/v1/apis', {

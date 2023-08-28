@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import './Main.css';
 import {
-  getAllData,
+  // getAllData,
   getConcertBoxOffice,
   getActBoxOffice,
   dBData,
@@ -57,14 +57,14 @@ const Main = () => {
   // 헤더에 토큰 추가하여 인증 요청
   const [cookies] = useCookies(['access_token']);
   // 공연 데이터 가져오기
-  const { data: allData } = useQuery(
-    ['allData'],
-    getAllData,
-    {
-      staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
-    },
-    { onSuccess: (allData) => console.log(allData) },
-  );
+  // const { data: allData } = useQuery(
+  //   ['allData'],
+  //   getAllData,
+  //   {
+  //     staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
+  //   },
+  //   { onSuccess: (allData) => console.log(allData) },
+  // );
 
   // 공공api에서 가져온 데이터 db에 보낼 수 있도록 transform
   const transformData = (data) => {
@@ -230,7 +230,7 @@ const Main = () => {
 
       setCurArray(filteredItems);
     }
-    console.log('curArray', curArray);
+    // console.log('curArray', curArray);
   }, [realData, start, end]);
 
   // 검색버튼 눌렀을 때

@@ -45,7 +45,7 @@
 }
 .MyCalendar_left {
   margin-left: 15px;
-  width: 50%;
+  width: 40%;
   height: 100%;
   margin-top: 74px;
   box-sizing: border-box;
@@ -55,7 +55,7 @@
 .MyCalendar_right {
   margin-right: 10px;
   margin-left: 10px;
-  width: 50%;
+  width: 60%;
   height: 90%;
   box-sizing: border-box;
   border: 1px solid whitesmoke;
@@ -102,4 +102,8 @@
   color: white;
   background-color: #134f2c;
   border-radius: 15px;
+}
+
+.saveIcon {
+  color: #134f2c;
 }

@@ -24,7 +24,7 @@ import Comment from './components/CommunityPage/Comment';
 import AdminPage from './pages/Community/AdminPage';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import Footer from './components/Footer/Footer';
-
+import { IsSearchedProvider } from './components/ConcertPage/IsSearchedContext';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
   // const [cookie, getCookie] = useCookies(['access_token', 'refresh_token']);
@@ -42,14 +42,15 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <CookiesProvider>
-          <div className="App">
-            <Header />
-            <div style={{ position: 'relative', zIndex: 1 }} className="test">
-              <Routes>
-                <Route path="/" element={<Main />} />
+          <IsSearchedProvider>
+            <div className="App">
+              <Header />
+              <div style={{ position: 'relative', zIndex: 1 }} className="test">
+                <Routes>
+                  <Route path="/" element={<Main />} />
 
-                <Route path="/concert_all" element={<MusicalPage />} />
-                <Route path="/concert/:id" element={<ConcertDetail />} />
+                  <Route path="/concert_all" element={<MusicalPage />} />
+                  <Route path="/concert/:id" element={<ConcertDetail />} />
 
                 <Route
                   path="/team-introduction"
@@ -98,7 +99,7 @@ const App = () => {
                 <Route path="/admin" element={<AdminPage />} />
               </Routes>
             </div>
-          </div>
+          </IsSearchedProvider>
         </CookiesProvider>
       </BrowserRouter>
     </AuthProvider>

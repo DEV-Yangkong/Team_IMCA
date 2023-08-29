@@ -62,7 +62,7 @@ const App = () => {
                   />
                   <Route path="/write" element={<WritePost />} />
                   <Route
-                    path="/youtube/:postId"
+                    path="/youtube/:id"
                     element={<YouTubeDetail youtubePosts={youtubePosts} />}
                   />
                   <Route path="/mypage" element={<MyPage />} />

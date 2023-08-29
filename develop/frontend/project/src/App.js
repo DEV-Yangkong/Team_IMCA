@@ -52,53 +52,52 @@ const App = () => {
                   <Route path="/concert_all" element={<MusicalPage />} />
                   <Route path="/concert/:id" element={<ConcertDetail />} />
 
-                  <Route
-                    path="/team-introduction"
-                    element={<TeamIntroduction />}
-                  />
-                  <Route
-                    path="/youtube"
-                    element={<YouTubeList youtubePosts={youtubePosts} />}
-                  />
-                  <Route path="/write" element={<WritePost />} />
-                  <Route
-                    path="/youtube/:postId"
-                    element={<YouTubeDetail youtubePosts={youtubePosts} />}
-                  />
-                  <Route path="/mypage" element={<MyPage />} />
-                  <Route path="/my_calender" element={<MyCalendar />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/community_all" element={<Community />} />
-                  <Route path="/:category" element={<BoardPage />} />
-                  <Route path="/:category/detail/:id" element={<Board />} />
-                  <Route path="/new" element={<New />} />
-                  <Route path="/edit/:id" element={<Editor />} />
-                  <Route
-                    path="/edit/:id"
-                    element={
-                      isLoggedIn ? (
-                        <Editor />
-                      ) : (
-                        // 로그인이 필요하면 Login 페이지로 자동으로 이동
-                        <Login />
-                      )
-                    }
-                  />
-                  <Route
-                    path="/:category/:id"
-                    element={
-                      isLoggedIn ? (
-                        <Comment />
-                      ) : (
-                        // 로그인이 필요하면 Login 페이지로 자동으로 이동
-                        <Login />
-                      )
-                    }
-                  />
-                  <Route path="/admin" element={<AdminPage />} />
-                </Routes>
-              </div>
+                <Route
+                  path="/team-introduction"
+                  element={<TeamIntroduction />}
+                />
+                <Route
+                  path="/youtube"
+                  element={<YouTubeList youtubePosts={youtubePosts} />}
+                />
+                <Route path="/write" element={<WritePost />} />
+                <Route
+                  path="/youtube/:postId"
+                  element={<YouTubeDetail youtubePosts={youtubePosts} />}
+                />
+                <Route path="/mypage" element={<MyPage />} />
+                <Route path="/my_calender" element={<MyCalendar />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/community_all" element={<Community />} />
+                <Route path="/:category" element={<BoardPage />} />
+                <Route path="/:category/detail/:id" element={<Board />} />
+                <Route path="/new" element={<New />} />
+                <Route path="/edit/:category" element={<Editor />} />
+                <Route
+                  path="/edit/:category"
+                  element={
+                    isLoggedIn ? (
+                      <Editor />
+                    ) : (
+                      // 로그인이 필요하면 Login 페이지로 자동으로 이동
+                      <Login />
+                    )
+                  }
+                />
+                <Route
+                  path="/:category/:id"
+                  element={
+                    isLoggedIn ? (
+                      <Comment />
+                    ) : (
+                      // 로그인이 필요하면 Login 페이지로 자동으로 이동
+                      <Login />
+                    )
+                  }
+                />
+                <Route path="/admin" element={<AdminPage />} />
+              </Routes>
             </div>
           </IsSearchedProvider>
         </CookiesProvider>

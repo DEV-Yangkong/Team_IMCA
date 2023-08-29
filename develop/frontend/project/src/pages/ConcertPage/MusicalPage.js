@@ -63,7 +63,7 @@ const MusicalPage = () => {
         <div>공연/페스티벌</div>
         <div>
           <input
-            style={{ height: '100%', marginRight: 10 }}
+            style={{ height: 30, marginRight: 10 }}
             value={searchValue}
             onChange={(e) => {
               setIsSearched(false);

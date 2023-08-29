@@ -16,7 +16,8 @@ const YouTubeList = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'http://127.0.0.1:8000/api/v1/youtube_videos/',
+          'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/youtube_video/',
+          // 'http://127.0.0.1:8000/api/v1/youtube_videos/',
         );
         setYoutubePosts(response.data);
       } catch (error) {
@@ -72,30 +73,6 @@ const YouTubeList = () => {
   const endIndex = Math.min(startIndex + postsPerPage, filteredPosts.length);
   const reversedFilteredPosts = [...filteredPosts].reverse();
   const postsToShow = reversedFilteredPosts.slice(startIndex, endIndex);
-
-  // const handleViewCountClick = async (videoId) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `http://127.0.0.1:8000/api/v1/youtube_videos/${videoId}/increase_views/`,
-  //     );
-  //     if (response.status === 200) {
-  //       // 조회수 증가 성공 시 프론트엔드 상태 업데이트
-  //       setYoutubePosts((prevPosts) => {
-  //         return prevPosts.map((post) => {
-  //           if (post.id === videoId) {
-  //             return {
-  //               ...post,
-  //               views_count: post.views_count + 1, // 조회수 증가
-  //             };
-  //           }
-  //           return post;
-  //         });
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error('Error increasing view count:', error);
-  //   }
-  // };
 
   return (
     <div className={styles['youtube-list']}>

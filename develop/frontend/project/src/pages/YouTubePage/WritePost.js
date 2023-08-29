@@ -49,7 +49,8 @@ const WritePost = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/v1/youtube_videos/',
+        'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/youtube_video/',
+        // 'http://127.0.0.1:8000/api/v1/youtube_videos/',
         {
           title,
           content,

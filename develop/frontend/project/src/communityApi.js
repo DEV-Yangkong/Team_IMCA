@@ -18,7 +18,7 @@ export function getUserDetail(category, id) {
 
 export function SaveApi(category, board_id, postData) {
   return instance
-    .post(`review/category/${category}/${board_id}/`, postData)
+    .post(`review/category_gather_review/${category}/${board_id}/`, postData)
     .then(function (response) {
       console.log(response);
     })

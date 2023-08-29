@@ -72,9 +72,9 @@ const App = () => {
                 <Route path="/:category" element={<BoardPage />} />
                 <Route path="/:category/detail/:id" element={<Board />} />
                 <Route path="/new" element={<New />} />
-                <Route path="/edit/:id" element={<Editor />} />
+                <Route path="/edit/:category" element={<Editor />} />
                 <Route
-                  path="/edit/:id"
+                  path="/edit/:category"
                   element={
                     isLoggedIn ? (
                       <Editor />

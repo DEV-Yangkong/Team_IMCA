@@ -80,7 +80,7 @@ const BoardPage = () => {
           className={styles.EditorButton}
           type="button"
           onClick={() => {
-            navigate('/edit/:id');
+            navigate(`/edit/${category}`);
           }}
         >
           글쓰기

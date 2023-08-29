@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './Editor.module.css';
 
 const Editor = () => {
@@ -12,6 +12,10 @@ const Editor = () => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+
+  const params = useParams();
+  const { category } = params;
+  console.log('Editor params', params);
 
   const customUploadAdapter = (loader) => {
     return {
@@ -23,7 +27,7 @@ const Editor = () => {
 
             axios
               .post(
-                'https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/api/v1/',
+                `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/${category}/`,
                 formData,
               )
               .then((res) => {
@@ -45,29 +49,30 @@ const Editor = () => {
   }
 
   const handleSubmit = () => {
-    if (title.length < 1) {
+    if (title.length < 1 || content.length < 1) {
       titleRef.current.focus();
       return;
     }
 
     const data = {
-      title,
-      content,
+      title: 'string',
+      content: 'string',
     };
 
+    const postApiEndpoint = `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/${category}/`;
+
     axios
-      .post(
-        'https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/api/v1/post',
-        data,
-      )
+      .post(postApiEndpoint, data)
       .then((res) => {
         if (res.status === 200) {
           navigate('/', { replace: true });
-          return;
         } else {
           alert('업로드 실패.');
-          return;
         }
+      })
+      .catch((error) => {
+        console.error('업로드 에러:', error);
+        alert('업로드 중 오류가 발생했습니다.');
       });
   };
 

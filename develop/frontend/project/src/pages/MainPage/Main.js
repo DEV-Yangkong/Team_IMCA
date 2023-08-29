@@ -569,7 +569,7 @@ const Main = () => {
         </div>
       </section>
       <section>
-        <div className="mainPage_community_container">
+        <div className="mainPage_contents_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
             콘텐츠
           </div>

@@ -342,3 +342,9 @@
 .mainPage_community_container > div {
   padding: 10px 0;
 }
+.mainPage_contents_container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}

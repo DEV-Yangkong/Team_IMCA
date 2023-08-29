@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Comment.module.css';
-import { useQuery, useMutation, QueryCache } from '@tanstack/react-query';
-import { CommentApi } from '../../communityApi';
+import { useQuery, useMutation, QueryClient } from '@tanstack/react-query';
+import { CommentApi, SaveApi } from '../../communityApi';
 import { useParams } from 'react-router-dom';
 
 const Comment = () => {
@@ -20,8 +20,10 @@ const Comment = () => {
   const addCommentMutation = useMutation(
     (commentData) => CommentApi(category, commentData),
     {
+      // 성공 시에 QueryCache 대신 onSuccess 내에서 invalidateQueries 사용
       onSuccess: () => {
-        QueryCache.invalidateQueries(['commentList', category, board_id]);
+        // 새로운 쿼리를 무효화합니다.
+        QueryClient.invalidateQueries(['commentList', category, board_id]);
       },
     },
   );
@@ -29,8 +31,10 @@ const Comment = () => {
   const addReplyCommentMutation = useMutation(
     (replyData) => CommentApi(category, replyData),
     {
+      // 성공 시에 QueryCache 대신 onSuccess 내에서 invalidateQueries 사용
       onSuccess: () => {
-        QueryCache.invalidateQueries(['commentList', category, board_id]);
+        // 새로운 쿼리를 무효화합니다.
+        QueryClient.invalidateQueries(['commentList', category, board_id]);
       },
     },
   );
@@ -45,7 +49,14 @@ const Comment = () => {
       review_content: comment,
     };
 
-    addCommentMutation.mutate(commentData);
+    SaveApi(category, commentData)
+      .then((savedComment) => {
+        console.log('반환된 댓글 객체:', savedComment);
+        // 이후 코드 계속
+      })
+      .catch((error) => {
+        console.error('댓글 저장 에러:', error);
+      });
 
     setComment('');
     setReplyComment('');
@@ -62,10 +73,22 @@ const Comment = () => {
       parent_id: parentId,
     };
 
-    addReplyCommentMutation.mutate(replyData);
+    SaveApi(category, replyData)
+      .then((savedReply) => {
+        if (savedReply.id !== undefined) {
+          console.log('새로운 답글 ID:', savedReply.id);
+          // 저장된 답글의 ID가 유효한 경우에만 mutate 함수 호출
+          addReplyCommentMutation.mutate();
+        } else {
+          console.error('저장된 답글의 ID가 없습니다.');
+        }
+      })
+      .catch((error) => {
+        console.error('답글 저장 에러:', error);
+      });
 
     setReplyComment('');
-    setExpandedReplyId(null); // 답글 작성 후 폼 숨기기
+    setExpandedReplyId(null);
   };
 
   return (

@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Ranking.module.css';
 import { FaCaretLeft } from '@fortawesome/free-regular-svg-icons';
-import { faCaretLeft, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCaretLeft,
+  faCaretRight,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons';
 const Ranking = ({
   title,
   boxOfArray,
@@ -27,30 +31,47 @@ const Ranking = ({
       </div>
 
       <div className={styles.act_ranking_container}>
-        <div className={styles.act_ranking_wrapper}>
-          <div className={styles.act_ranking_click}>
-            <div onClick={onHandlePrev} className={styles.act_ranking_prev}>
-              <FontAwesomeIcon icon={faCaretLeft} />
+        {boxOfArray ? (
+          <div className={styles.act_ranking_wrapper}>
+            <div className={styles.act_ranking_click}>
+              <div onClick={onHandlePrev} className={styles.act_ranking_prev}>
+                <FontAwesomeIcon icon={faCaretLeft} />
+              </div>
+              <div onClick={onHandleNext} className={styles.act_ranking_next}>
+                <FontAwesomeIcon icon={faCaretRight} />
+              </div>
             </div>
-            <div onClick={onHandleNext} className={styles.act_ranking_next}>
-              <FontAwesomeIcon icon={faCaretRight} />
+            {boxOfArray?.map((it, index) => (
+              <div
+                onClick={() => onGoBoxOfficeDetail(it.mt20id._text)}
+                key={index}
+                className={`${styles['act_ranking_item_' + it.rnum._text]}`}
+              >
+                <img
+                  style={{ width: '100%', height: '280px' }}
+                  alt=""
+                  src={'http://www.kopis.or.kr/' + `${it.poster._text}`}
+                ></img>
+                <div>{it.prfnm._text}</div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 1240,
+              display: 'flex',
+              justifyContent: 'center',
+              padding: '50px 0',
+              margin: '0 auto',
+            }}
+          >
+            <div>
+              <FontAwesomeIcon icon={faSpinner} size="xl" />
             </div>
           </div>
-          {boxOfArray?.map((it, index) => (
-            <div
-              onClick={() => onGoBoxOfficeDetail(it.mt20id._text)}
-              key={index}
-              className={`${styles['act_ranking_item_' + it.rnum._text]}`}
-            >
-              <img
-                style={{ width: '100%', height: '280px' }}
-                alt=""
-                src={'http://www.kopis.or.kr/' + `${it.poster._text}`}
-              ></img>
-              <div>{it.prfnm._text}</div>
-            </div>
-          ))}
-        </div>
+        )}
       </div>
     </div>
   );

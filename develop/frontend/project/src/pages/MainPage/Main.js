@@ -277,12 +277,12 @@ const Main = () => {
       state: { eventData: eventId },
     });
   };
-  // 커뮤니티
-  // const {
-  //   data: pageList,
-  //   isLoading,
-  //   error,
-  // } = useQuery(['pageList'], BoardPageApi);
+  // 커뮤니티;
+  const {
+    data: pageList,
+    isLoading,
+    error,
+  } = useQuery(['pageList', 'free', 1], () => BoardPageApi('free', 1));
 
   // if (isLoading) {
   //   return <div>Loading...</div>;
@@ -349,7 +349,9 @@ const Main = () => {
         }
       });
   };
-
+  const onGoCommunityDetail = (id) => {
+    navigate(`/free/detail/${id}`);
+  };
   return (
     <div className="Main">
       <ChakraProvider>
@@ -542,19 +544,21 @@ const Main = () => {
           />
         </div>
       </section>
-      {/* <section>
+      <section>
         <div className="mainPage_community_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
             커뮤니티
           </div>{' '}
           {pageList?.results?.slice(0, 8).map((item) => (
             <div
+              onClick={() => onGoCommunityDetail(item.id)}
               key={item.id}
               style={{
                 display: 'flex',
                 borderBottom: '1px solid rgb(185, 185, 185)',
                 fontSize: 15,
                 justifyContent: 'space-between',
+                cursor: 'pointer',
               }}
             >
               {' '}
@@ -563,7 +567,7 @@ const Main = () => {
             </div>
           ))}
         </div>
-      </section> */}
+      </section>
       <section>
         <div className="mainPage_community_container">
           <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>

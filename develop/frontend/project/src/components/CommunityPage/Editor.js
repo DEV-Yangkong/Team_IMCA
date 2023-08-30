@@ -2,8 +2,9 @@ import React, { useRef, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './Editor.module.css';
+import { useCookies } from 'react-cookie';
 
 const Editor = () => {
   const navigate = useNavigate();
@@ -12,6 +13,11 @@ const Editor = () => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [cookies] = useCookies(['access_token']);
+
+  const params = useParams();
+  const { category } = params;
+  console.log('Editor params', params);
 
   const customUploadAdapter = (loader) => {
     return {
@@ -23,8 +29,14 @@ const Editor = () => {
 
             axios
               .post(
-                'https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/api/v1/',
+                `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/${category}/`,
                 formData,
+                {
+                  headers: {
+                    Authorization: `Bearer ${cookies.access_token}`,
+                  },
+                  withCredentials: true,
+                },
               )
               .then((res) => {
                 resolve({
@@ -44,30 +56,34 @@ const Editor = () => {
     };
   }
 
-  const handleSubmit = () => {
-    if (title.length < 1) {
+  const handleSubmit = async () => {
+    if (title.length < 1 || content.length < 1) {
       titleRef.current.focus();
       return;
     }
-
     const data = {
-      title,
-      content,
+      title: title,
+      content: content,
+      category: category,
     };
-
-    axios
-      .post(
-        'https://port-0-imca-3prof2llkuol0db.sel4.cloudtype.app/api/v1/post',
-        data,
-      )
+    const postApiEndpoint = `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/${category}/`;
+    await axios
+      .post(postApiEndpoint, data, {
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
+        },
+        withCredentials: true,
+      })
       .then((res) => {
-        if (res.status === 200) {
-          navigate('/', { replace: true });
-          return;
+        if (res.status === 201) {
+          navigate(`/${category}`, { replace: true });
         } else {
           alert('업로드 실패.');
-          return;
         }
+      })
+      .catch((error) => {
+        console.error('업로드 에러:', error);
+        alert('업로드 중 오류가 발생했습니다.');
       });
   };
 
@@ -75,7 +91,15 @@ const Editor = () => {
     <div className={styles.Editor}>
       <section>
         <div className={styles.headerTitle}>
-          <p>자유게시판</p>
+          <p>
+            {category === 'free'
+              ? '자유게시판'
+              : category === 'after'
+              ? '공연후기'
+              : category === 'trade'
+              ? '동행/양도'
+              : ''}
+          </p>
           <div className={styles.controlBox}>
             <div className={styles.cancelBtnWrapper}>
               <button

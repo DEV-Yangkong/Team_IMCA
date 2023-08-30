@@ -5,7 +5,7 @@ import styles from './YouTubeDetail.module.css';
 import AlertModal from './AlertModal';
 
 const YouTubeDetail = () => {
-  const { postId } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [selectedPost, setSelectedPost] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +48,8 @@ const YouTubeDetail = () => {
   const handleSaveClick = async () => {
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
+        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/youtube_video/${id}/`,
+        // `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
         editedPost,
       );
       if (response.status === 200) {
@@ -67,7 +68,8 @@ const YouTubeDetail = () => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
+        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/youtube_video/${id}/`,
+        // `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
       );
       if (response.status === 204) {
         if (!isDeleteModalVisible) {
@@ -88,7 +90,8 @@ const YouTubeDetail = () => {
     const fetchPostDetail = async () => {
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
+          `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/youtube_video/${id}/`,
+          // `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
         );
         setSelectedPost(response.data);
         setIsLoading(false);
@@ -98,7 +101,7 @@ const YouTubeDetail = () => {
     };
 
     fetchPostDetail();
-  }, [postId]);
+  }, [id]);
 
   if (isLoading) {
     return <div>Loading...</div>;

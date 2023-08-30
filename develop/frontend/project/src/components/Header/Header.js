@@ -5,10 +5,10 @@ import { useCookies } from 'react-cookie';
 import Cookies from 'js-cookie';
 import { logoutApi } from '../../loginoutApi';
 import { faL } from '@fortawesome/free-solid-svg-icons';
-
+import { useIsSearched } from '../ConcertPage/IsSearchedContext';
 const Header = () => {
   const navigate = useNavigate();
-
+  const { isSearched, setIsSearched } = useIsSearched();
   //쿠키
   const [cookies] = useCookies(['access_token', 'refresh_token']);
   //초기 로그인 상태설정
@@ -94,15 +94,22 @@ const Header = () => {
             <div className={styles.nav_item}>
               <div>공연 소식</div>
               <ul className={styles.item_menu}>
-                <li onClick={() => navigate('/concert_all')}>공연/페스티벌</li>
+                <li
+                  onClick={() => {
+                    navigate('/concert_all');
+                    setIsSearched(false);
+                  }}
+                >
+                  공연/페스티벌
+                </li>
               </ul>
             </div>
             <div className={styles.nav_item}>
-              <div onClick={() => navigate('/community_all')}>커뮤니티</div>
+              <div>커뮤니티</div>
               <ul className={styles.item_menu}>
-                <li onClick={() => navigate('/freeboard')}> 자유게시판</li>
-                <li onClick={() => navigate('/concert_review')}>공연 후기</li>
-                <li onClick={() => navigate('/gather')}>동행 / 양도</li>
+                <li onClick={() => navigate('/free')}> 자유게시판</li>
+                <li onClick={() => navigate('/after')}>공연 후기</li>
+                <li onClick={() => navigate('/trade')}>동행 / 양도</li>
               </ul>
             </div>
             <div className={styles.nav_item}>

@@ -38,6 +38,7 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
       )
       .then((res) => {
         console.log('메모 전송 성공', res);
+        // window.location.reload();
       })
       .catch((error) => console.log('ㅁㅔ모전송 실패', error));
   };
@@ -63,9 +64,15 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
           withCredentials: true,
         },
       )
-      .then((res) => console.log('선택한 메모 삭제완료', res))
-      .catch((error) => console.log('선택한 메모 삭제 실패', error));
+      .then((res) => {
+        console.log('선택한 메모 삭제완료', res);
+      })
+      .catch((error) => {
+        window.location.reload();
+        console.log('선택한 메모 삭제 실패', error);
+      });
   };
+
   useEffect(() => {
     const fetchData = async () => {
       const newData = [];

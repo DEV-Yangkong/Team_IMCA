@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Cookies from 'js-cookie';
 import { logoutApi } from '../../loginoutApi';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { useIsSearched } from '../ConcertPage/IsSearchedContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Header = () => {
   const navigate = useNavigate();
   const { isSearched, setIsSearched } = useIsSearched();
@@ -60,7 +61,7 @@ const Header = () => {
                 className={styles.joinUs}
                 onClick={() => navigate('/mypage')}
               >
-                마이페이지
+                <FontAwesomeIcon icon={faCircleUser} />
               </button>
               <button className={styles.joinUs} onClick={handleLogout}>
                 로그아웃

@@ -10,10 +10,11 @@ import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { faHandPointLeft } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
 const MyCalendar = () => {
   const [cookies] = useCookies('access_token');
-
+  const navigate = useNavigate();
   const [mark, setMark] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null); // 추가: 선택된 날짜 상태
   const [selectDay, setSelectDay] = useState();
@@ -51,8 +52,9 @@ const MyCalendar = () => {
         setDetailData(res.data);
       })
       .catch((err) => {
+        alert('로그인이 필요합니다!');
+        navigate('/login');
         console.log('날짜 선택한 캘린더 데이터 수신 거절', err);
-        throw err; // 에러처리
       });
   };
 
@@ -85,6 +87,7 @@ const MyCalendar = () => {
                 </div>
               )}
             </p>
+
             {detailData && detailData[0]?.name ? ( //detailData가 있는 경우
               <SelectedMemoDate
                 detailData={detailData}

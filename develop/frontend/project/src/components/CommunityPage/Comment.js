@@ -3,7 +3,7 @@ import styles from './Comment.module.css';
 import { useQuery, useMutation, QueryClient } from '@tanstack/react-query';
 import { CommentApi, SaveApi } from '../../communityApi';
 import { useParams } from 'react-router-dom';
-
+import axios from 'axios';
 const Comment = () => {
   const [comment, setComment] = useState('');
   const [replyComment, setReplyComment] = useState('');
@@ -11,12 +11,10 @@ const Comment = () => {
   const params = useParams();
   const category = params.category;
   const board_id = params.id;
-
   const { data: commentList } = useQuery(
     ['commentList', category, board_id],
     () => CommentApi(category, board_id),
   );
-
   const addCommentMutation = useMutation(
     (commentData) => CommentApi(category, commentData),
     {
@@ -27,7 +25,6 @@ const Comment = () => {
       },
     },
   );
-
   const addReplyCommentMutation = useMutation(
     (replyData) => CommentApi(category, replyData),
     {
@@ -38,18 +35,26 @@ const Comment = () => {
       },
     },
   );
-
-  const handleAddComment = () => {
+  const handleAddComment = async () => {
     if (!comment) {
       alert('댓글을 입력해주세요.');
       return;
     }
-
     const commentData = {
       review_content: comment,
+      review_board: board_id,
     };
-
-    SaveApi(category, commentData)
+    axios
+      .post(
+        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/review/category_gather_review/${category}/${board_id}/`,
+        commentData,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQzNjM2LCJpYXQiOjE2OTMzMTU2MzYsImp0aSI6IjBiNDYyODI5MjliNjQ2ZjFiZDQ0NjlkMDRiM2NjYWIyIiwidXNlcl9pZCI6MX0.IJDo-1IOGUUi1kt-_LPy9Gn8H0EO8n1OtG5j3zQ5EPY`,
+          },
+          withCredentials: true,
+        },
+      )
       .then((savedComment) => {
         console.log('반환된 댓글 객체:', savedComment);
         // 이후 코드 계속
@@ -57,23 +62,30 @@ const Comment = () => {
       .catch((error) => {
         console.error('댓글 저장 에러:', error);
       });
-
     setComment('');
     setReplyComment('');
   };
-
   const handleAddReplyComment = (parentId) => {
     if (!replyComment) {
       alert('답글을 입력해주세요.');
       return;
     }
-
     const replyData = {
       review_content: replyComment,
       parent_id: parentId,
+      review_board: board_id,
     };
-
-    SaveApi(category, replyData)
+    axios
+      .post(
+        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/review/category_gather_review/${category}/${board_id}/`,
+        replyData,
+        {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQzNjM2LCJpYXQiOjE2OTMzMTU2MzYsImp0aSI6IjBiNDYyODI5MjliNjQ2ZjFiZDQ0NjlkMDRiM2NjYWIyIiwidXNlcl9pZCI6MX0.IJDo-1IOGUUi1kt-_LPy9Gn8H0EO8n1OtG5j3zQ5EPY`,
+          },
+          withCredentials: true,
+        },
+      )
       .then((savedReply) => {
         if (savedReply.id !== undefined) {
           console.log('새로운 답글 ID:', savedReply.id);
@@ -86,11 +98,9 @@ const Comment = () => {
       .catch((error) => {
         console.error('답글 저장 에러:', error);
       });
-
     setReplyComment('');
     setExpandedReplyId(null);
   };
-
   return (
     <div className={styles.Comment}>
       <div className={styles.CommentList}>
@@ -191,5 +201,4 @@ const Comment = () => {
     </div>
   );
 };
-
 export default Comment;

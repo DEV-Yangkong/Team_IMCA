@@ -105,11 +105,11 @@ const Header = () => {
               </ul>
             </div>
             <div className={styles.nav_item}>
-              <div onClick={() => navigate('/community_all')}>커뮤니티</div>
+              <div>커뮤니티</div>
               <ul className={styles.item_menu}>
-                <li onClick={() => navigate('/freeboard')}> 자유게시판</li>
-                <li onClick={() => navigate('/concert_review')}>공연 후기</li>
-                <li onClick={() => navigate('/gather')}>동행 / 양도</li>
+                <li onClick={() => navigate('/free')}> 자유게시판</li>
+                <li onClick={() => navigate('/after')}>공연 후기</li>
+                <li onClick={() => navigate('/trade')}>동행 / 양도</li>
               </ul>
             </div>
             <div className={styles.nav_item}>

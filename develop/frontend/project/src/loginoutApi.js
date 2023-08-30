@@ -3,6 +3,7 @@ import axios from 'axios';
 const instance = axios.create({
   baseURL: 'http://imca.store/',
 });
+// 로그인시
 export const loginoutApi = async (data) => {
   try {
     const response = await instance.post('/api/v1/users/Loginout/', data);
@@ -11,6 +12,8 @@ export const loginoutApi = async (data) => {
     throw error;
   }
 };
+
+// 로그아웃시
 export const logoutApi = async () => {
   try {
     const response = await instance.delete('/api/v1/users/Loginout/', {
@@ -22,6 +25,17 @@ export const logoutApi = async () => {
     throw error;
   }
 };
+// 토큰 재발행
+// export const refreshAccessToken = async (refresh_token) => {
+//   try {
+//     const response = await instance.post('/api/v1/users/Refresh/');
+//     return response;
+//   } catch (error) {
+//     console.log('리프레시 토큰발행 실패', error);
+//   }
+// };
+// 토큰 재발행
+
 // GET 요청 보내기
 // instance
 //   .get('/endpoint')

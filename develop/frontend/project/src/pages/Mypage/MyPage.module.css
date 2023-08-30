@@ -142,16 +142,54 @@
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+  box-shadow: 5px 5px gray;
 }
 
 .MyPage_btn:hover {
-  background-color: #23704390;
+  background-color: white;
   color: black;
   cursor: pointer;
+  border: 1px solid;
 }
 .erms {
   margin-top: 10px;
   font-size: 12px;
   color: red;
   text-align: center;
+}
+
+.modalPwBtn {
+  margin-left: 70px;
+  background-color: #f6f6f6;
+  height: 60px;
+  width: 250px;
+  font-weight: bold;
+  font-size: 16px;
+}
+.modalPwBtn:hover {
+  background-color: #134f2c;
+  color: white;
+  border-radius: 5px;
+}
+.cancelBtn {
+  width: 50px;
+  height: 30px;
+  margin-right: 15px;
+  border: 1px solid #134f2c;
+  border-radius: 5px;
+  box-shadow: 2px 2px gray;
+  font-weight: bold;
+}
+.modifyBtn {
+  width: 65px;
+  height: 30px;
+  border: 1px solid #134f2c;
+  border-radius: 5px;
+  box-shadow: 2px 2px gray;
+  font-weight: bold;
+}
+.cancelBtn:hover,
+.modifyBtn:hover {
+  background-color: #134f2c;
+  color: white;
 }

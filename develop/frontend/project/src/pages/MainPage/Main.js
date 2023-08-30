@@ -37,6 +37,8 @@ import { BoardPageApi } from '../../communityApi';
 import Pages from '../../components/CommunityPage/Pages';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import RecentYouTubePosts from '../YouTubePage/RecentYouTubePosts';
+
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [mainDate, setMainDate] = useState(new Date());
@@ -283,7 +285,12 @@ const Main = () => {
     isLoading,
     error,
   } = useQuery(['pageList', 'free', 1], () => BoardPageApi('free', 1));
-
+  const { data: afterList } = useQuery(['afterList', 'after', 1], () =>
+    BoardPageApi('after', 1),
+  );
+  const { data: tradeList } = useQuery(['tradeList', 'trade', 1], () =>
+    BoardPageApi('trade', 1),
+  );
   // if (isLoading) {
   //   return <div>Loading...</div>;
   // }
@@ -349,8 +356,14 @@ const Main = () => {
         }
       });
   };
-  const onGoCommunityDetail = (id) => {
+  const onGoFreeDetail = (id) => {
     navigate(`/free/detail/${id}`);
+  };
+  const onGoAfterDetail = (id) => {
+    navigate(`/after/detail/${id}`);
+  };
+  const onGoTradeDetail = (id) => {
+    navigate(`/trade/detail/${id}`);
   };
   return (
     <div className="Main">
@@ -546,33 +559,184 @@ const Main = () => {
       </section>
       <section>
         <div className="mainPage_community_container">
-          <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
-            커뮤니티
-          </div>{' '}
-          {pageList?.results?.slice(0, 8).map((item) => (
+          <div>
             <div
-              onClick={() => onGoCommunityDetail(item.id)}
-              key={item.id}
               style={{
                 display: 'flex',
-                borderBottom: '1px solid rgb(185, 185, 185)',
-                fontSize: 15,
-                justifyContent: 'space-between',
-                cursor: 'pointer',
+                alignItems: 'center',
+                padding: '0 0 20px 0 ',
               }}
             >
-              {' '}
-              <div>{item.title}</div>
-              <div>{dayjs(item.created_at).format('YYYY.MM.DD')}</div>
+              <div
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  color: '#134f2c',
+                  cursor: 'pointer',
+                }}
+                onClick={() => navigate('/free')}
+              >
+                자유게시판
+              </div>
+              <div className="community_line">
+                <div
+                  style={{
+                    border: '0.5px solid black',
+                    height: 1,
+                    backgroundColor: '#134f2c',
+                  }}
+                ></div>
+              </div>
             </div>
-          ))}
+
+            {pageList?.results?.slice(0, 8).map((item) => (
+              <div
+                onClick={() => onGoFreeDetail(item.id)}
+                key={item.id}
+                style={{
+                  display: 'flex',
+                  borderBottom: '1px solid rgb(185, 185, 185)',
+                  fontSize: 15,
+                  justifyContent: 'space-between',
+                  cursor: 'pointer',
+                  padding: '5px 0',
+                }}
+              >
+                {' '}
+                <div>{item.title}</div>
+                <div>{dayjs(item.created_at).format('YYYY.MM.DD')}</div>
+              </div>
+            ))}
+          </div>
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 0 20px 0 ',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  color: '#134f2c',
+                  cursor: 'pointer',
+                }}
+                onClick={() => navigate('/after')}
+              >
+                공연후기
+              </div>
+              <div className="community_line">
+                <div
+                  style={{
+                    border: '0.5px solid black',
+                    height: 1,
+                    backgroundColor: '#134f2c',
+                  }}
+                ></div>
+              </div>
+            </div>
+            {afterList?.results?.slice(0, 8).map((item) => (
+              <div
+                onClick={() => onGoAfterDetail(item.id)}
+                key={item.id}
+                style={{
+                  display: 'flex',
+                  borderBottom: '1px solid rgb(185, 185, 185)',
+                  fontSize: 15,
+                  justifyContent: 'space-between',
+                  cursor: 'pointer',
+                  padding: '5px 0',
+                }}
+              >
+                {' '}
+                <div>{item.title}</div>
+                <div>{dayjs(item.created_at).format('YYYY.MM.DD')}</div>
+              </div>
+            ))}
+          </div>
+          <div>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0 0 20px 0 ',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  color: '#134f2c',
+                  cursor: 'pointer',
+                }}
+                onClick={() => navigate('/trade')}
+              >
+                동행/양도
+              </div>
+              <div className="community_line">
+                <div
+                  style={{
+                    border: '0.5px solid black',
+                    height: 1,
+                    backgroundColor: '#134f2c',
+                  }}
+                ></div>
+              </div>
+            </div>
+            {tradeList?.results?.slice(0, 8).map((item) => (
+              <div
+                onClick={() => onGoTradeDetail(item.id)}
+                key={item.id}
+                style={{
+                  display: 'flex',
+                  borderBottom: '1px solid rgb(185, 185, 185)',
+                  fontSize: 15,
+                  justifyContent: 'space-between',
+                  cursor: 'pointer',
+                  padding: '5px 0',
+                }}
+              >
+                {' '}
+                <div>{item.title}</div>
+                <div>{dayjs(item.created_at).format('YYYY.MM.DD')}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
       <section>
-        <div className="mainPage_community_container">
-          <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
-            콘텐츠
+        <div className="mainPage_contents_container">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0 0 20px 0 ',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: '#134F2C',
+                marginBottom: 10,
+              }}
+            >
+              콘텐츠
+            </div>
+            <div className="community_line">
+              <div
+                style={{
+                  border: '0.5px solid black',
+                  height: 1,
+                  backgroundColor: '#134f2c',
+                }}
+              ></div>
+            </div>
           </div>
+
+          <RecentYouTubePosts />
         </div>
       </section>
     </div>

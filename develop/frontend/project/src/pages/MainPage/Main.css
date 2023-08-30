@@ -338,7 +338,23 @@
   width: 100%;
   margin: 0 auto;
   margin-bottom: 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
 }
 .mainPage_community_container > div {
   padding: 10px 0;
+}
+.mainPage_contents_container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+.community_line {
+  /* border-bottom: 1px solid black; */
+  height: 1px;
+  flex-grow: 1;
+  /* width: 100%; */
+  padding: 15px 0 15px 15px;
 }

@@ -4,9 +4,20 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     register,
     handleSubmit,
@@ -14,6 +25,13 @@ const MyPage = () => {
     watch,
   } = useForm({ mode: 'onBlur' });
   const [cookies] = useCookies('access_token');
+  const handleEnterKey = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // 엔터 키의 기본 동작 막기
+    }
+  };
+
+  const [editPassword, setEditPassword] = useState(false);
 
   const [userData, setUserData] = useState({
     img: '',
@@ -24,21 +42,59 @@ const MyPage = () => {
     email: '',
     gender: '',
   });
-  // 버튼을 눌러야지 비밀번호 입력창 나옴
-  const [showPasswordFields, setShowPasswordFields] = useState(false);
-  const [passwordChangeMode, setPasswordChangeMode] = useState(false);
 
-  const togglePasswordChangeMode = () => {
-    setPasswordChangeMode(!passwordChangeMode);
-    clearPasswordFields(); // Clear password fields when toggling
-  };
+  const password = watch('password', '');
+  // const [password, setPassword] = useState('');
+  const [img, setImg] = useState(null);
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  // const [name, setName] = useState('');
+  // const [nickname, setNickName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [gender, setGender] = useState('');
 
-  const [passwordValue, setPasswordValue] = useState('');
-  const [passwordConfirmValue, setPasswordConfirmValue] = useState('');
+  //모달 비밀번호 변경 안할 경우
+  const [new_password, setNewPassword] = useState('');
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
-  const clearPasswordFields = () => {
-    setPasswordValue('');
-    setPasswordConfirmValue('');
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    if (new_password === '') {
+      // 비밀번호를 변경하지 않은 경우, 이전 비밀번호를 사용하도록 설정
+      setNewPassword(password);
+    }
+    //변경 후 상태 업데이트
+    setPasswordChanged(false);
+
+    if (userData.password && new_password !== passwordConfirm) {
+      alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      return;
+    }
+
+    await axios
+      .put(
+        'http://imca.store/api/v1/users/change/',
+        { new_password: new_password },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        },
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setUserData(response.data);
+          alert('비밀번호가 변경되었습니다!');
+          onClose();
+          navigate('/');
+          // console.log(userData.password, 'dddkdkdk');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('동일한 비밀번호 입니다. 다시 변경해주세요!');
+      });
   };
   useEffect(() => {
     axios
@@ -49,67 +105,74 @@ const MyPage = () => {
         withCredentials: true,
       })
       .then((response) => {
+        console.log(response.data);
         setUserData(response.data);
-        alert('회원정보가 수정되었습니다!');
-        navigate('/');
       })
       .catch((error) => {
         console.error('정보수정에러', error);
       });
   }, []);
 
-  const updateUserData = () => {
-    // axios
-    //   .put('http://imca.store/api/v1/users/info', userData, {
+  const onSubmit = async () => {
+    const formData = new FormData();
+    formData.append('image', img); // img는 이미지 파일
+    formData.append('login_id', userData.login_id);
+    formData.append('name', userData.name);
+    formData.append('nickname', userData.nickname);
+    formData.append('email', userData.email);
+    formData.append('gender', userData.gender);
+    // await axios
+    //   .put('http://imca.store/api/v1/users/info', formData, {
     //     headers: {
     //       Authorization: `Bearer ${cookies.access_token}`,
+    //       'Content-Type': 'multipart/form-data',
     //     },
     //     withCredentials: true,
     //   })
     //   .then((response) => {
     //     setUserData(response.data);
-    //     alert('회원정보가 수정되었습니다!');
-    //     navigate('/');
-    //   });
-  };
-
-  const password = watch('password', '');
-  const [img, setImg] = useState(null);
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [name, setName] = useState('');
-  const [nickname, setNickName] = useState('');
-  const [email, setEmail] = useState('');
-  const [gender, setGender] = useState('');
-
-  const onSubmit = async (data) => {
-    if (showPasswordFields && passwordValue !== passwordConfirmValue) {
-      alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
-      return;
-    }
-
-    await axios
-      .put('http://imca.store/api/v1/users/info', userData, {
-        headers: {
-          Authorization: `Bearer ${cookies.access_token}`,
+    //   })
+    //   .catch((error) => console.log('정보수정에러', error));
+    try {
+      const response = await axios.put(
+        'http://imca.store/api/v1/users/info',
+        formData, // 수정한 부분이 없는 경우
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true,
         },
-        withCredentials: true,
-      })
-      .then((response) => {
-        setUserData(response.data);
-        alert('회원정보가 수정되었습니다!');
-        navigate('/');
-      });
+      );
+      setUserData(response.data);
+      console.log('정보 수정 성공', response.data);
+    } catch (error) {
+      console.log('정보수정 에러', error);
+    }
   };
 
-  const validatePassword = (value, passwordConfirmValue) => {
-    if (!value) return '비밀번호 입력해주세요.';
+  const validatePassword = (value) => {
+    if (!value)
+      return '영문 대소문자, 숫자, 특수 기호 사용하여 총 8글자 이상으로';
     if (
       !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
         value,
       )
     )
       return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
-    if (passwordValue && value !== passwordConfirmValue) return true;
+    if (password && value !== passwordConfirm) return true;
+  };
+  const validateNewPassword = (value) => {
+    if (!value)
+      return '영문 대소문자, 숫자, 특수 기호 사용하여 총 8글자 이상으로';
+    if (
+      !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        value,
+      )
+    )
+      return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
+    if (password && value !== passwordConfirm) return true;
   };
 
   const validateEmail = (value) => {
@@ -131,9 +194,9 @@ const MyPage = () => {
   };
   const validateGender = (value) => {
     if (!value) return '성별을 선택하세요.';
-    return true;
+    return '';
   };
-
+  console.log(userData.gender);
   return (
     <div className={styles.MyPage}>
       <div className={styles.MyPage_container}>
@@ -171,44 +234,188 @@ const MyPage = () => {
                   value={userData.login_id}
                 />
               </div>
-              {/* <div className={styles.user_item}>
-                비밀번호
-                <input
-                  type="password"
-                  name="password"
-                  value={userData.password || ''}
-                  placeholder="대소문자, 특수문자 포함 8글자이상"
-                  {...register('password', { validate: validatePassword })}
-                  onChange={(e) =>
-                    setUserData({ ...userData, password: e.target.value })
-                  }
-                />
-              </div>
-              {errors.password && (
-                <p className={styles.erms}>{errors.password.message}</p>
-              )}
-              <div className={styles.user_item}>
-                비밀번호확인
-                <input
-                  placeholder="한번 더 입력"
-                  type="password"
-                  name="confirmPassword"
-                  value={passwordConfirm}
-                  {...register('confirmPassword', {
-                    validate: (value) =>
-                      value === password || '비밀번호가 일치하지 않습니다.',
-                  })}
-                  onChange={(e) => {
-                    setPasswordConfirm(e.target.value);
-                  }}
-                />
-              </div>
-              {errors.confirmPassword && (
-                <p className={styles.erms}>{errors.confirmPassword.message}</p>
-              )} */}
+              {/* {editPassword ? (
+                <>
+                  <div className={styles.user_item}>
+                    비밀번호
+                    <input
+                      type="password"
+                      name="password"
+                      value={userData.password || ''}
+                      placeholder="대소문자, 특수문자 포함 8글자이상"
+                      {...register('password', {
+                        validate: validatePassword,
+                      })}
+                      onChange={(e) =>
+                        setUserData({ ...userData, password: e.target.value })
+                      }
+                    />
+                  </div>
+                  {errors.password && (
+                    <p className={styles.erms}>{errors.password.message}</p>
+                  )}
+                  <div className={styles.user_item}>
+                    비밀번호확인
+                    <input
+                      placeholder="한번 더 입력"
+                      type="password"
+                      name="confirmPassword"
+                      value={passwordConfirm}
+                      {...register('confirmPassword', {
+                        validate: (value) =>
+                          value === password || '비밀번호가 일치하지 않습니다.',
+                      })}
+                      onChange={(e) => {
+                        setPasswordConfirm(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <button>변경하기</button>
+                </>
+              ) : ( */}
+              <>
+                <div className={styles.user_item}>
+                  비밀번호
+                  {!editPassword && (
+                    <button className={styles.modalPwBtn} onClick={onOpen}>
+                      비밀번호 변경하기
+                      <Modal
+                        isOpen={isOpen}
+                        onClose={() => {
+                          onClose();
+                          setNewPassword();
+                          setPasswordConfirm();
+                        }}
+                      >
+                        <ModalOverlay />
+                        <ModalContent>
+                          <ModalHeader style={{ fontSize: '25px' }}>
+                            비밀번호 변경
+                          </ModalHeader>
+                          <ModalCloseButton />
+                          <ModalBody>
+                            {/* 비밀번호 입력 필드 */}
+                            <div
+                              style={{
+                                marginBottom: '10px',
+                              }}
+                              htmlF
+                            >
+                              <label
+                                style={{
+                                  fontWeight: 'bold',
+                                  fontSize: '18px',
+                                  marginBottom: '10px',
+                                }}
+                                htmlFor="new_password"
+                              >
+                                새 비밀번호 :
+                              </label>
+                              <input
+                                style={{ padding: '10px', width: '250px' }}
+                                type="password"
+                                name="new_password"
+                                placeholder="대소문자, 특수문자 포함 8글자이상"
+                                value={new_password}
+                                {...register('new_password', {
+                                  validate: validateNewPassword,
+                                })}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                              />
+                              {errors.new_password && (
+                                <p className={styles.error}>
+                                  {errors.new_password.message}
+                                </p>
+                              )}
+                            </div>
 
+                            {/* 비밀번호 확인 입력 필드 */}
+                            <div>
+                              <label
+                                style={{
+                                  fontWeight: 'bold',
+                                  fontSize: '18px',
+                                }}
+                                htmlFor="confirmPassword"
+                              >
+                                새 비밀번호 확인 :
+                              </label>
+                              <input
+                                style={{ padding: '10px', width: '250px' }}
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="한번 더 입력"
+                                value={passwordConfirm}
+                                {...register('confirmPassword', {
+                                  validate: (value) =>
+                                    value === new_password ||
+                                    '비밀번호가 일치하지 않습니다.',
+                                })}
+                                onChange={(e) => {
+                                  setPasswordConfirm(e.target.value);
+                                }}
+                              />
+                            </div>
+                          </ModalBody>
+
+                          <ModalFooter>
+                            <button
+                              className={styles.cancelBtn}
+                              colorScheme="blue"
+                              mr={3}
+                              onClick={onClose}
+                            >
+                              취소
+                            </button>
+                            <button
+                              className={styles.modifyBtn}
+                              type="button"
+                              onClick={handlePasswordChange}
+                            >
+                              변경하기
+                            </button>
+                          </ModalFooter>
+                        </ModalContent>
+                      </Modal>
+                    </button>
+                  )}
+                </div>
+              </>
+              {/* )} */}
               {/* <div className={styles.user_item}>
                 비밀번호 변경
+                {showPasswordFields && (
+                  <div className={styles.password_fields}>
+                    <div style={{ height: '50px', backgroundColor: 'red' }}>
+                      비밀번호
+                      <input
+                        type="password"
+                        name="password"
+                        // value={userData.password || ''}
+                        value={passwordValue}
+                        placeholder="대소문자, 특수문자 포함 8글자이상"
+                        onChange={(e) =>
+                          // setUserData({ ...userData, password: e.target.value
+                          setPasswordValue(e.target.value)
+                        }
+                      />
+                    </div>
+                    <div>
+                      비밀번호 확인
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        value={passwordConfirmValue}
+                        onChange={(e) => {
+                          setPasswordConfirmValue(e.target.value);
+                        }}
+                      />
+                    </div>
+                    {errors.password && (
+                      <p className={styles.erms}>{errors.password.message}</p>
+                    )}
+                  </div>
+                )}
                 <button
                   type="button"
                   className={styles.password_btn}
@@ -219,78 +426,7 @@ const MyPage = () => {
                 >
                   비밀번호 변경
                 </button>
-              </div>
-
-              {showPasswordFields && (
-                <div className={styles.password_fields}>
-                  <div>
-                    비밀번호
-                    <input
-                      type="password"
-                      name="password"
-                      // value={userData.password || ''}
-                      value={passwordValue}
-                      placeholder="대소문자, 특수문자 포함 8글자이상"
-                      onChange={(e) =>
-                        // setUserData({ ...userData, password: e.target.value
-                        setPasswordValue(e.target.value)
-                      }
-                    />
-                  </div>
-                  <div>
-                    비밀번호 확인
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={passwordConfirmValue}
-                      onChange={(e) => {
-                        setPasswordConfirmValue(e.target.value);
-                      }}
-                    />
-                  </div>
-                  {errors.password && (
-                    <p className={styles.erms}>{errors.password.message}</p>
-                  )}
-                </div>
-              )} */}
-
-              {passwordChangeMode ? (
-                <div className={styles.password_fields_horizontal}>
-                  <div className={styles.password_input}>
-                    <input
-                      type="password"
-                      name="password"
-                      value={passwordValue}
-                      placeholder="새로운 비밀번호"
-                      onChange={(e) => setPasswordValue(e.target.value)}
-                    />
-                  </div>
-                  <div className={styles.password_input}>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={passwordConfirmValue}
-                      placeholder="비밀번호 확인"
-                      onChange={(e) => setPasswordConfirmValue(e.target.value)}
-                    />
-                  </div>
-                  <div className={styles.change_password_btn}>
-                    <button type="button">비밀번호 변경하기</button>
-                  </div>
-                </div>
-              ) : (
-                <div className={styles.user_item}>
-                  비밀번호 변경
-                  <button
-                    type="button"
-                    className={styles.password_btn}
-                    onClick={togglePasswordChangeMode}
-                  >
-                    비밀번호 변경
-                  </button>
-                </div>
-              )}
-
+              </div> */}
               <div className={styles.user_item}>
                 이름
                 <input disabled name="name" value={userData.name} />
@@ -308,6 +444,7 @@ const MyPage = () => {
                   onChange={(e) => {
                     setUserData({ ...userData, nickname: e.target.value });
                   }}
+                  onKeyDown={handleEnterKey}
                 />
               </div>
               {errors.nickname && (
@@ -340,7 +477,7 @@ const MyPage = () => {
                     setUserData({ ...userData, gender: e.target.value });
                   }}
                 >
-                  <option disabled value={''}>
+                  <option disabled value={'/'}>
                     성별선택
                   </option>
                   <option value={'male'}>남</option>
@@ -350,7 +487,11 @@ const MyPage = () => {
               {errors.gender && (
                 <p className={styles.erms}>{errors.gender.message}</p>
               )}
-              <button type="submit" className={styles.MyPage_btn}>
+              <button
+                type="submit"
+                onClick={onSubmit}
+                className={styles.MyPage_btn}
+              >
                 수정하기
               </button>
             </section>

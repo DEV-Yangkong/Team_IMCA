@@ -24,6 +24,8 @@ import Comment from './components/CommunityPage/Comment';
 import AdminPage from './pages/Community/AdminPage';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import Footer from './components/Footer/Footer';
+import { ChakraProvider } from '@chakra-ui/react';
+
 import { IsSearchedProvider } from './components/ConcertPage/IsSearchedContext';
 import Modify from './pages/Community/Modify';
 const App = () => {
@@ -43,39 +45,43 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <CookiesProvider>
-          <IsSearchedProvider>
-            <div className="App">
-              <Header />
-              <div style={{ position: 'relative', zIndex: 1 }} className="test">
-                <Routes>
-                  <Route path="/" element={<Main />} />
+          <ChakraProvider>
+            <IsSearchedProvider>
+              <div className="App">
+                <Header />
+                <div
+                  style={{ position: 'relative', zIndex: 1 }}
+                  className="test"
+                >
+                  <Routes>
+                    <Route path="/" element={<Main />} />
 
-                  <Route path="/concert_all" element={<MusicalPage />} />
-                  <Route path="/concert/:id" element={<ConcertDetail />} />
+                    <Route path="/concert_all" element={<MusicalPage />} />
+                    <Route path="/concert/:id" element={<ConcertDetail />} />
 
-                  <Route
-                    path="/team-introduction"
-                    element={<TeamIntroduction />}
-                  />
-                  <Route
-                    path="/youtube"
-                    element={<YouTubeList youtubePosts={youtubePosts} />}
-                  />
-                  <Route path="/write" element={<WritePost />} />
-                  <Route
-                    path="/youtube/:id"
-                    element={<YouTubeDetail youtubePosts={youtubePosts} />}
-                  />
-                  <Route path="/mypage" element={<MyPage />} />
-                  <Route path="/my_calender" element={<MyCalendar />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/:category" element={<BoardPage />} />
-                  <Route path="/:category/detail/:id" element={<Board />} />
-                  <Route path="/new" element={<New />} />
-                  <Route path="/edit/:category" element={<Editor />} />
-                  <Route path="/:category/modify/:id" element={<Modify />} />
-                  {/* <Route
+                    <Route
+                      path="/team-introduction"
+                      element={<TeamIntroduction />}
+                    />
+                    <Route
+                      path="/youtube"
+                      element={<YouTubeList youtubePosts={youtubePosts} />}
+                    />
+                    <Route path="/write" element={<WritePost />} />
+                    <Route
+                      path="/youtube/:id"
+                      element={<YouTubeDetail youtubePosts={youtubePosts} />}
+                    />
+                    <Route path="/mypage" element={<MyPage />} />
+                    <Route path="/my_calender" element={<MyCalendar />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/:category" element={<BoardPage />} />
+                    <Route path="/:category/detail/:id" element={<Board />} />
+                    <Route path="/new" element={<New />} />
+                    <Route path="/edit/:category" element={<Editor />} />
+                    <Route path="/:category/modify/:id" element={<Modify />} />
+                    {/* <Route
                     path="/edit/:category"
                     element={
                       isLoggedIn ? (
@@ -97,11 +103,12 @@ const App = () => {
                       )
                     }
                   /> */}
-                  <Route path="/admin" element={<AdminPage />} />
-                </Routes>
+                    <Route path="/admin" element={<AdminPage />} />
+                  </Routes>
+                </div>
               </div>
-            </div>
-          </IsSearchedProvider>
+            </IsSearchedProvider>
+          </ChakraProvider>
         </CookiesProvider>
       </BrowserRouter>
     </AuthProvider>

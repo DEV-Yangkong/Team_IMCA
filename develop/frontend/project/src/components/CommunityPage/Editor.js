@@ -17,7 +17,6 @@ const Editor = () => {
 
   const params = useParams();
   const { category } = params;
-  console.log('Editor params', params);
 
   const customUploadAdapter = (loader) => {
     return {
@@ -29,7 +28,7 @@ const Editor = () => {
 
             axios
               .post(
-                `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/${category}/`,
+                `http://imca.store/api/v1/community_board/category/${category}/`,
                 formData,
                 {
                   headers: {
@@ -61,12 +60,13 @@ const Editor = () => {
       titleRef.current.focus();
       return;
     }
+    const contentWithoutPTags = content.replace(/<\/?p>/gi, '');
     const data = {
       title: title,
-      content: content,
+      content: contentWithoutPTags,
       category: category,
     };
-    const postApiEndpoint = `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/${category}/`;
+    const postApiEndpoint = `http://imca.store/api/v1/community_board/category/${category}/`;
     await axios
       .post(postApiEndpoint, data, {
         headers: {
@@ -135,12 +135,14 @@ const Editor = () => {
       <section className={styles.Ckeditor}>
         <CKEditor
           editor={ClassicEditor}
-          data=""
+          data={content}
           config={{
             extraPlugins: [uploadPlugin],
+            enterMode: 2,
+            shiftEnterMode: 1,
+            autoParagraph: false,
           }}
           onReady={(editor) => {
-            // You can store the "editor" and use when it is needed.
             console.log('Editor is ready to use!', editor);
           }}
           onChange={(event, editor) => {

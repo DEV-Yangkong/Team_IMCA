@@ -9,13 +9,9 @@ const AdminPage = () => {
   const { id } = useParams(); // 실제 API의 ID로 대체해야 합니다.
 
   useEffect(() => {
-    axios
-      .get(
-        `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/report/${id}/`,
-      )
-      .then((response) => {
-        setData(response.data);
-      });
+    axios.get(`http://imca.store/api/v1/report/${id}/`).then((response) => {
+      setData(response.data);
+    });
   }, [id]);
 
   return (

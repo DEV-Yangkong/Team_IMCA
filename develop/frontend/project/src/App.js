@@ -25,6 +25,7 @@ import AdminPage from './pages/Community/AdminPage';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import Footer from './components/Footer/Footer';
 import { IsSearchedProvider } from './components/ConcertPage/IsSearchedContext';
+import Modify from './pages/Community/Modify';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
   // const [cookie, getCookie] = useCookies(['access_token', 'refresh_token']);
@@ -73,7 +74,8 @@ const App = () => {
                   <Route path="/:category/detail/:id" element={<Board />} />
                   <Route path="/new" element={<New />} />
                   <Route path="/edit/:category" element={<Editor />} />
-                  <Route
+                  <Route path="/:category/modify/:id" element={<Modify />} />
+                  {/* <Route
                     path="/edit/:category"
                     element={
                       isLoggedIn ? (
@@ -94,7 +96,7 @@ const App = () => {
                         <Login />
                       )
                     }
-                  />
+                  /> */}
                   <Route path="/admin" element={<AdminPage />} />
                 </Routes>
               </div>

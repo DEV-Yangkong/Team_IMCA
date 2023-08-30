@@ -6,7 +6,8 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 const Comment = () => {
-  const [comment, setComment] = useState('');
+  const [addComment, setAddComment] = useState('');
+  const [updateComment, setUpdateComment] = useState('');
   const [replyComment, setReplyComment] = useState('');
   const [expandedReplyId, setExpandedReplyId] = useState(null); // 추가된 부분
   const [modifyMode, setModifyMode] = useState(false);
@@ -38,12 +39,12 @@ const Comment = () => {
     },
   );
   const handleAddComment = async () => {
-    if (!comment) {
+    if (!addComment) {
       alert('댓글을 입력해주세요.');
       return;
     }
     const commentData = {
-      review_content: comment,
+      review_content: addComment,
       review_board: board_id,
     };
     axios
@@ -65,7 +66,7 @@ const Comment = () => {
       .catch((error) => {
         console.error('댓글 저장 에러:', error);
       });
-    setComment('');
+    setAddComment('');
     setReplyComment('');
   };
 
@@ -113,13 +114,13 @@ const Comment = () => {
   };
 
   const handleUpdateComment = async () => {
-    if (!comment) {
+    if (!updateComment) {
       alert('댓글을 입력해주세요.');
       return;
     }
 
     const updatedCommentData = {
-      review_content: comment,
+      review_content: updateComment,
       review_board: board_id,
     };
 
@@ -137,7 +138,7 @@ const Comment = () => {
 
       console.log('수정된 댓글 객체:', response.data);
       queryClient.invalidateQueries('commentList');
-      setComment('');
+      setUpdateComment('');
       setModifyMode(false);
     } catch (error) {
       console.error('댓글 수정 에러:', error);
@@ -211,7 +212,7 @@ const Comment = () => {
                   <button
                     className={styles.ReplyButton_top}
                     onClick={() => {
-                      setComment(item.review_content); // Set the comment state to the existing content
+                      setUpdateComment(item.review_content); // 원래 댓글 내용을 수정하기 폼에 불러오기
                       toggleModifyMode(item.id);
                     }}
                   >
@@ -249,9 +250,11 @@ const Comment = () => {
                     type="text"
                     className={styles.modifyInput}
                     value={
-                      modifyMode === item.id ? comment : item.review_content
-                    } // 수정된 부분
-                    onChange={(e) => setComment(e.target.value)}
+                      modifyMode === item.id
+                        ? updateComment
+                        : item.review_content
+                    }
+                    onChange={(e) => setUpdateComment(e.target.value)}
                   />
                   <button
                     type="button"
@@ -302,8 +305,8 @@ const Comment = () => {
           type="text"
           className={styles.CommentInput}
           placeholder="댓글 달기"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          value={addComment}
+          onChange={(e) => setAddComment(e.target.value)}
         />
         <button
           type="button"

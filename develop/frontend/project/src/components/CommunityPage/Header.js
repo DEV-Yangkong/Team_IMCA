@@ -8,7 +8,9 @@ import { useParams } from 'react-router-dom';
 const Header = ({ postCount }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [pageList, setPageList] = useState([]); // pageList 상태 추가
+
   const { category } = useParams();
+
   const handleSearch = () => {
     // 예시 검색 처리 로직
   };

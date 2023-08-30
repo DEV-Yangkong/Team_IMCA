@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './Editor.module.css';
 import { useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 
 const Editor = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Editor = () => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [cookies] = useCookies(['access_token']);
 
   const params = useParams();
   const { category } = params;
@@ -30,6 +32,12 @@ const Editor = () => {
               .post(
                 `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/${category}/`,
                 formData,
+                {
+                  headers: {
+                    Authorization: `Bearer ${cookies.access_token}`,
+                  },
+                  withCredentials: true,
+                },
                 {
                   headers: {
                     Authorization: `Bearer ${cookies.access_token}`,
@@ -56,23 +64,24 @@ const Editor = () => {
   }
 
   const handleSubmit = async () => {
+  const handleSubmit = async () => {
     if (title.length < 1 || content.length < 1) {
       titleRef.current.focus();
       return;
     }
-
     const data = {
       title: title,
       content: content,
       category: category,
+      title: title,
+      content: content,
+      category: category,
     };
-
     const postApiEndpoint = `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/community_board/category/${category}/`;
-
     await axios
       .post(postApiEndpoint, data, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQzNjM2LCJpYXQiOjE2OTMzMTU2MzYsImp0aSI6IjBiNDYyODI5MjliNjQ2ZjFiZDQ0NjlkMDRiM2NjYWIyIiwidXNlcl9pZCI6MX0.IJDo-1IOGUUi1kt-_LPy9Gn8H0EO8n1OtG5j3zQ5EPY`,
+          Authorization: `Bearer ${cookies.access_token}`,
         },
         withCredentials: true,
       })

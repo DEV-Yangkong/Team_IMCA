@@ -4,7 +4,6 @@ import { useQuery, useMutation, QueryClient } from '@tanstack/react-query';
 import { CommentApi, SaveApi } from '../../communityApi';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
 const Comment = () => {
   const [comment, setComment] = useState('');
   const [replyComment, setReplyComment] = useState('');
@@ -12,12 +11,10 @@ const Comment = () => {
   const params = useParams();
   const category = params.category;
   const board_id = params.id;
-
   const { data: commentList } = useQuery(
     ['commentList', category, board_id],
     () => CommentApi(category, board_id),
   );
-
   const addCommentMutation = useMutation(
     (commentData) => CommentApi(category, commentData),
     {
@@ -28,7 +25,6 @@ const Comment = () => {
       },
     },
   );
-
   const addReplyCommentMutation = useMutation(
     (replyData) => CommentApi(category, replyData),
     {
@@ -39,18 +35,15 @@ const Comment = () => {
       },
     },
   );
-
   const handleAddComment = async () => {
     if (!comment) {
       alert('댓글을 입력해주세요.');
       return;
     }
-
     const commentData = {
       review_content: comment,
       review_board: board_id,
     };
-
     axios
       .post(
         `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/review/category_gather_review/${category}/${board_id}/`,
@@ -69,23 +62,20 @@ const Comment = () => {
       .catch((error) => {
         console.error('댓글 저장 에러:', error);
       });
-
     setComment('');
     setReplyComment('');
   };
-
   const handleAddReplyComment = (parentId) => {
     if (!replyComment) {
       alert('답글을 입력해주세요.');
       return;
     }
-
     const replyData = {
       review_content: replyComment,
       parent_id: parentId,
       review_board: board_id,
+      review_board: board_id,
     };
-
     axios
       .post(
         `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/review/category_gather_review/${category}/${board_id}/`,
@@ -109,11 +99,9 @@ const Comment = () => {
       .catch((error) => {
         console.error('답글 저장 에러:', error);
       });
-
     setReplyComment('');
     setExpandedReplyId(null);
   };
-
   return (
     <div className={styles.Comment}>
       <div className={styles.CommentList}>
@@ -214,5 +202,4 @@ const Comment = () => {
     </div>
   );
 };
-
 export default Comment;

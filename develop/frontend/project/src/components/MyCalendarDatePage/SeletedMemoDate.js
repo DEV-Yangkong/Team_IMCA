@@ -22,7 +22,7 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
       setMemo('');
     }
     const updateMemo = memo + '\n' + memo;
-    setMemo(updateMemo); //메모상태 업데이트
+    setMemo(updateMemo); //메모상태 줄바꿈업데이트
 
     await axios
       .post(
@@ -50,14 +50,11 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
   //     setMemo('');
   //   }
   //메모아이템 삭제
-  const handleDelete = (id) => {
-    const updateMemoList = memoList.filter((_, i) => i !== id);
-    setMemoList(updateMemoList);
-
+  const handleDelete = (calendar, id) => {
     axios
       .delete(
-        `http://imca.store/api/v1/calendar/${id}/memo/${id}`,
-        handleDelete,
+        `http://imca.store/api/v1/calendar/${calendar}/memo/${id}/`,
+
         {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`,
@@ -69,30 +66,60 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
       .then((res) => console.log('선택한 메모 삭제완료', res))
       .catch((error) => console.log('선택한 메모 삭제 실패', error));
   };
-
   useEffect(() => {
-    const testList = [];
-    calendarId.map((item) => {
-      axios
-        .get(`http://imca.store/api/v1/calendar/${item}/memo/`, {
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
-        })
-        .then((res) => {
-          const memoData = res.data;
-          // setMemoList(...memoData);
-          testList.push(...memoData);
-          console.log('메모불러오기 성공', res);
-          console.log(testList, 'memoList');
-        })
-        .catch((error) => {
-          console.log('err메모불러오기', error);
-        });
-    });
-  }, [calendarId]);
+    const fetchData = async () => {
+      const newData = [];
+      for (const id of calendarId) {
+        try {
+          const response = await axios.get(
+            `http://imca.store/api/v1/calendar/${id}/memo/`,
+            {
+              headers: {
+                Authorization: `Bearer ${cookies.access_token}`,
+                'Content-Type': 'application/json',
+              },
+              withCredentials: true,
+            },
+          );
+          newData.push(...response.data); // 응답 데이터를 배열에 추가
+          console.log(newData, 'sdjf;lskdjf');
+        } catch (error) {
+          console.log(`Error fetching data for calendar ID ${id}:`, error);
+        }
+      }
+      setMemoList(newData); // 모든 응답 데이터를 저장
+    };
+    fetchData();
+  }, [calendarId[0]]); // calendarId가 변할 때마다 호출
+  // useEffect(() => {
+  //   const testList = [];
+  //   Promise.all(
+  //     calendarId.map((item) => {
+  //       axios
+  //         .get(`http://imca.store/api/v1/calendar/${item}/memo/`, {
+  //           headers: {
+  //             Authorization: `Bearer ${cookies.access_token}`,
+  //             'Content-Type': 'application/json',
+  //           },
+  //           withCredentials: true,
+  //         })
+  //         .then((res) => {
+  //           const memoData = res.data;
+  //           // setMemoList(...memoData);
+  //           testList.push(...memoData);
+  //           console.log('메모불러오기 성공', res);
+  //           console.log(testList, 'testList');
+  //         })
+  //         .catch((error) => {
+  //           console.log('err메모불러오기', error);
+  //         });
+  //     }),
+  //   ).then(() => {
+  //     setMemoList(testList);
+  //     console.log(memoList, 'adf');
+  //   });
+  // }, [calendarId[0]]);
+  // console.log(memoList, 'adf');
 
   return (
     <div className={styles.container}>
@@ -166,23 +193,27 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
                 {/* 메모리스트나열 */}
 
                 <div className={styles.memoList}>
-                  {/* {testList?.map(
-                    (memoItem, index) => memoItem.calendarId
-                      // 선택한 날짜에 해당하는 메모만 표시
-                      memoItem.date === selectedDate && (
-                        <div className={styles.memoListBox} key={index}>
-                          <div className={styles.memoItem}>
-                            {memoItem.content}
-                          </div>
-                          <button
-                            className={styles.memoDelete}
-                            onClick={() => handleDelete(index, memo_pk)}
-                          >
-                            <FontAwesomeIcon icon={faTrashCan} />
-                          </button>
-                        </div>
-                      ),
-                  )} */}
+                  {memoList
+                    ? memoList?.map(
+                        (memoItem, index) =>
+                          // 선택한 날짜에 해당하는 메모만 표시
+                          memoItem.calendar === item.id && (
+                            <div className={styles.memoListBox} key={index}>
+                              <div className={styles.memoItem}>
+                                {memoItem.content}
+                              </div>
+                              <button
+                                className={styles.memoDelete}
+                                onClick={() =>
+                                  handleDelete(memoItem.calendar, memoItem.id)
+                                }
+                              >
+                                <FontAwesomeIcon icon={faTrashCan} />
+                              </button>
+                            </div>
+                          ),
+                      )
+                    : ''}
                 </div>
               </div>
             </div>

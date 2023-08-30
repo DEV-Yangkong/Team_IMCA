@@ -8,17 +8,21 @@ import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { loginoutApi } from '../../loginoutApi';
 import GoogleLoginButton from '../../components/SocialLogin/GoogleLoginButton';
+import axios from 'axios';
 
 const Login = () => {
   const [login_id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const [cookies, setCookie, removeCookie] = useCookies([
+  const [cookies, setCookie, getCookie, removeCookie] = useCookies([
     'access_token',
     'refresh_token',
   ]);
 
   const [refreshToken, setRefreshToken] = useState(cookies.refresh_token);
+
   const navigate = useNavigate();
+
+  // const refreshTokenApi = (refreshToken) => {};
 
   // const onSubmit = async (e) => {
   //   e.preventDefault(); // 새고고침막기
@@ -68,7 +72,6 @@ const Login = () => {
     loginoutApi({ login_id, password })
       .then((response) => {
         if (response.status === 200) {
-          // const { access_token, refresh_token } = response.data;
           const access_token = response.data.token.access;
           const refresh_token = response.data.token.refresh;
           const oneDay = 24 * 60 * 60 * 1000; //하루만
@@ -83,6 +86,21 @@ const Login = () => {
           //쿠키 상태업데이트
           setRefreshToken(refresh_token);
           console.log(response.data);
+          // async function refreshAccessToken(refresh_token) {
+          //   try {
+          //     const response = await axios.post(
+          //       `http://imca.store/api/v1/users/Refresh/`,
+          //       { refresh_token: refresh_token },
+          //     );
+          //     if (response.data.access_token) {
+          //       return response.data.access_token;
+          //     } else {
+          //       throw new Error('로그인을 다시 해주세요.');
+          //     }
+          //   } catch (error) {
+          //     throw new Error('로그아웃, 재로그인이 필요합니다.');
+          //   }
+          // }
         } else if (response.status === 500) {
           console.error('서버 내부 오류:', response.data);
           window.alert('서버 내부 오류가 발생했습니다.');
@@ -94,7 +112,9 @@ const Login = () => {
       })
       .catch((error) => {
         console.error('로그인 실패', error);
-        window.alert('로그인에 실패했습니다.');
+        window.alert(
+          '로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.',
+        );
       });
   };
 

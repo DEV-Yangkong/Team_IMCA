@@ -74,7 +74,6 @@ const Comment = () => {
       review_content: replyComment,
       parent_id: parentId,
       review_board: board_id,
-      review_board: board_id,
     };
     axios
       .post(

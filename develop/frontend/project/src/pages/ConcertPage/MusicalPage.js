@@ -100,6 +100,7 @@ const MusicalPage = () => {
       <div
         style={{
           margin: '0 auto',
+          padding: '20px 0 40px 0',
           maxWidth: 1240,
           display: 'flex',
           justifyContent: 'center',

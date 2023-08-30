@@ -33,9 +33,16 @@ const RecentYouTubePosts = () => {
   const recentPosts = reversedFilteredPosts.slice(0, 3);
 
   return (
-    <div className={styles['post-list']}>
+    <div
+      className={styles['post-list']}
+      style={{ justifyContent: 'space-between', margin: 0 }}
+    >
       {recentPosts.map((post) => (
-        <div className={styles['post-item']} key={post.id}>
+        <div
+          className={styles['post-item']}
+          key={post.id}
+          style={{ width: 390, margin: '0 0 80px 0' }}
+        >
           <Link
             to={`/youtube/${post.id}`}
             className={styles['post-title-link']}

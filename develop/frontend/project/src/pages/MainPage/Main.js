@@ -37,6 +37,8 @@ import { BoardPageApi } from '../../communityApi';
 import Pages from '../../components/CommunityPage/Pages';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import RecentYouTubePosts from '../YouTubePage/RecentYouTubePosts';
+
 const Main = () => {
   const [date, setDate] = useState(new Date());
   const [mainDate, setMainDate] = useState(new Date());
@@ -706,9 +708,35 @@ const Main = () => {
       </section>
       <section>
         <div className="mainPage_contents_container">
-          <div style={{ fontSize: 20, fontWeight: 'bold', color: '#134f2c' }}>
-            콘텐츠
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              padding: '0 0 20px 0 ',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: '#134F2C',
+                marginBottom: 10,
+              }}
+            >
+              콘텐츠
+            </div>
+            <div className="community_line">
+              <div
+                style={{
+                  border: '0.5px solid black',
+                  height: 1,
+                  backgroundColor: '#134f2c',
+                }}
+              ></div>
+            </div>
           </div>
+
+          <RecentYouTubePosts />
         </div>
       </section>
     </div>

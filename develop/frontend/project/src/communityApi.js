@@ -30,12 +30,12 @@ export function SaveApi(category, board_id, postData) {
   return instance
     .post(`review/category_gather_review/${category}/${board_id}/`, postData)
     .then(function (response) {
-      console.log(response);
+      console.log('댓글 혹은 대댓글 post 성공', response);
     })
     .catch(function (error) {
-      console.log(error);
+      console.log('댓글 혹은 대댓글 post 에러', error);
     });
-}
+} // 얘는 헤더가 필요하다
 export function CommentApi(category, board_id) {
   return instance
     .get(`review/category_gather_review/${category}/${board_id}/get/`)

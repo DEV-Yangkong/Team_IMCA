@@ -63,6 +63,45 @@ export const postCalendarMemoInput = async (cookies) => {
   }
 };
 
+//메모리스트 api
+export const postMemoApi = (cookies, id, memo) => {
+  try {
+    const response = instance.post(
+      `api/v1/calendar/${id}/memo/`,
+      { content: memo },
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMemoApi = (id, cookies) => {
+  try {
+    const response = instance.get(
+      `api/v1/calendar/${id}/memo/`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // export function postCalendarInput(id) {
 //   return instance.post('/api/v1/calendar/${id}/memo/').then((res) => res.data);
 // }

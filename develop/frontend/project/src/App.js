@@ -27,6 +27,7 @@ import Footer from './components/Footer/Footer';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import { IsSearchedProvider } from './components/ConcertPage/IsSearchedContext';
+import Modify from './pages/Community/Modify';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
   // const [cookie, getCookie] = useCookies(['access_token', 'refresh_token']);
@@ -79,32 +80,32 @@ const App = () => {
                     <Route path="/:category/detail/:id" element={<Board />} />
                     <Route path="/new" element={<New />} />
                     <Route path="/edit/:category" element={<Editor />} />
-                    <Route
-                      path="/edit/:category"
-                      element={
-                        isLoggedIn ? (
-                          <Editor />
-                        ) : (
-                          // 로그인이 필요하면 Login 페이지로 자동으로 이동
-                          <Login />
-                        )
-                      }
-                    />
-                    <Route
-                      path="/:category/:id"
-                      element={
-                        isLoggedIn ? (
-                          <Comment />
-                        ) : (
-                          // 로그인이 필요하면 Login 페이지로 자동으로 이동
-                          <Login />
-                        )
-                      }
-                    />
+                    <Route path="/:category/modify/:id" element={<Modify />} />
+                    {/* <Route
+                    path="/edit/:category"
+                    element={
+                      isLoggedIn ? (
+                        <Editor />
+                      ) : (
+                        // 로그인이 필요하면 Login 페이지로 자동으로 이동
+                        <Login />
+                      )
+                    }
+                  />
+                  <Route
+                    path="/:category/:id"
+                    element={
+                      isLoggedIn ? (
+                        <Comment />
+                      ) : (
+                        // 로그인이 필요하면 Login 페이지로 자동으로 이동
+                        <Login />
+                      )
+                    }
+                  /> */}
                     <Route path="/admin" element={<AdminPage />} />
                   </Routes>
                 </div>
-                <Footer />
               </div>
             </IsSearchedProvider>
           </ChakraProvider>

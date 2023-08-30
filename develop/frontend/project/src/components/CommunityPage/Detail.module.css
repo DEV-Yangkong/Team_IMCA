@@ -38,6 +38,10 @@
   padding: 0px 10px 0px 0px;
 }
 
+.detailViews {
+  padding: 0px 10px 0px 0px;
+}
+
 .detailContent {
   height: 100%;
   padding: 22px 0px;
@@ -48,4 +52,24 @@
   height: auto;
   left: auto;
   padding: 5px 0px;
+}
+
+.editButton {
+  align-items: center;
+  all: unset;
+  cursor: pointer;
+
+  padding-right: 10px;
+
+  font-size: 12px;
+  color: #757575;
+}
+
+.deleteButton {
+  align-items: center;
+  all: unset;
+  cursor: pointer;
+
+  font-size: 12px;
+  color: #757575;
 }

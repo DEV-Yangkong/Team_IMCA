@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styles from './Comment.module.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { CommentApi, SaveApi } from '../../communityApi';
+import { CommentApi } from '../../communityApi';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+
 const Comment = () => {
   const [addComment, setAddComment] = useState('');
   const [updateComment, setUpdateComment] = useState('');
@@ -12,6 +13,7 @@ const Comment = () => {
   const [expandedReplyId, setExpandedReplyId] = useState(null); // 추가된 부분
   const [modifyMode, setModifyMode] = useState(false);
   const [selectedCommentId, setSelectedCommentId] = useState(null);
+
   const params = useParams();
   const category = params.category;
   const board_id = params.id;
@@ -24,8 +26,9 @@ const Comment = () => {
     () => CommentApi(category, board_id),
   );
 
-  const toggleModifyMode = (commentId) => {
-    setModifyMode(modifyMode === commentId ? null : commentId);
+  const toggleModifyMode = (review_id) => {
+    setModifyMode(modifyMode === review_id ? null : review_id);
+    setSelectedCommentId(review_id); // 기존 댓글의 ID 저장
   };
 
   const addCommentMutation = useMutation(
@@ -81,6 +84,7 @@ const Comment = () => {
     },
   );
   const handleAddReplyComment = (parentId) => {
+    console.log('parentId:', parentId);
     if (!replyComment) {
       alert('답글을 입력해주세요.');
       return;
@@ -114,14 +118,15 @@ const Comment = () => {
   };
 
   const handleUpdateComment = async () => {
-    if (!updateComment) {
+    if (!updateComment || !selectedCommentId) {
       alert('댓글을 입력해주세요.');
       return;
     }
 
     const updatedCommentData = {
       review_content: updateComment,
-      review_board: board_id,
+      review_board: parseInt(board_id),
+      review_id: selectedCommentId,
     };
 
     try {
@@ -145,36 +150,41 @@ const Comment = () => {
     }
   };
 
-  const deleteComment = async (commentId) => {
-    const response = await axios.delete(
-      `http://imca.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.access_token}`,
-        },
-        withCredentials: true,
-      },
-    );
-    return response.data;
-  };
-
-  // Comment 컴포넌트 내부에서 삭제 함수 처리
-  const handleDeleteComment = async (commentId) => {
+  const deleteComment = async (item) => {
     try {
-      await deleteComment(commentId);
+      await axios.delete(
+        `http://imca.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`,
+          },
+          withCredentials: true,
+          data: {
+            review_id: item,
+          },
+        },
+      );
       queryClient.invalidateQueries('commentList');
     } catch (error) {
-      console.error('댓글 삭제 에러:', error);
+      console.error('삭제 에러:', error);
+      alert('삭제 중 오류가 발생했습니다.');
     }
   };
 
-  const openDeleteAlert = (commentId) => {
-    setSelectedCommentId(commentId);
-    const shouldDelete = window.confirm('정말로 삭제하시겠습니까?');
-    if (shouldDelete) {
-      handleDeleteComment(commentId); // 실제 삭제 함수 호출
+  const deleteMutation = useMutation(deleteComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('commentList');
+    },
+  });
+
+  const handleDeleteClick = (item) => {
+    const confirmDelete = window.confirm('정말 삭제하시겠습니까?');
+
+    if (confirmDelete) {
+      deleteMutation.mutate(item);
     }
   };
+
   return (
     <div className={styles.Comment}>
       <div className={styles.CommentList}>
@@ -212,7 +222,7 @@ const Comment = () => {
                   <button
                     className={styles.ReplyButton_top}
                     onClick={() => {
-                      setUpdateComment(item.review_content); // 원래 댓글 내용을 수정하기 폼에 불러오기
+                      setUpdateComment(item.review_content);
                       toggleModifyMode(item.id);
                     }}
                   >
@@ -220,7 +230,10 @@ const Comment = () => {
                   </button>
                   <button
                     className={styles.DeleteButton}
-                    onClick={() => openDeleteAlert(item.id)}
+                    onClick={() => {
+                      console.log('delete', item.id);
+                      handleDeleteClick(item.id);
+                    }} // 댓글의 ID를 인자로 넘김
                   >
                     삭제
                   </button>

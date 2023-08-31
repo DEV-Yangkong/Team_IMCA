@@ -38,6 +38,10 @@ const Button = styled.button`
 function Pagination({ page, setPage, totalPage }) {
   const numPages = totalPage;
 
+  if (numPages === 0) {
+    return null; // 페이지 네이션을 보여주지 않음
+  }
+
   return (
     <>
       <Nav>

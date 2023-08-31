@@ -28,3 +28,7 @@
   white-space: nowrap;
   /* margin-bottom: 130px; */
 }
+
+.click {
+  cursor: pointer;
+}

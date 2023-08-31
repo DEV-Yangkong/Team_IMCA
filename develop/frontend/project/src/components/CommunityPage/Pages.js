@@ -26,8 +26,8 @@ const Pages = ({ item, handleTitleClick }) => {
           <div className={styles.column}>
             <div className={styles.space}>
               <div
-                className={styles.title}
                 onClick={() => handleTitleClick(item.id)}
+                style={{ cursor: 'pointer' }} // 커서 스타일을 적용합니다
               >
                 {item.title}
               </div>

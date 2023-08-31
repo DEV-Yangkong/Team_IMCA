@@ -291,15 +291,6 @@ const Main = () => {
   const { data: tradeList } = useQuery(['tradeList', 'trade', 1], () =>
     BoardPageApi('trade', 1),
   );
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
-
-  // 저장기능(post)과 중복 저장 방지
   const onGoMyCalendar = async () => {
     const personalData = {
       start_date: dayjs(selectedEvent.start_date).format('YYYYMMDD'),
@@ -307,8 +298,6 @@ const Main = () => {
       selected_date: selectedDate,
       poster: selectedEvent.poster,
       place: selectedEvent.place,
-      // runtime: selectedEvent.prfruntime?._text,
-      // price: selectedEvent.pcseguidance?._text,
       name: selectedEvent.name,
     };
     await axios
@@ -334,7 +323,7 @@ const Main = () => {
                   withCredentials: true,
                 })
                 .then((res) => {
-                  console.log('데이터 전송 완료', res);
+                  // console.log('데이터 전송 완료', res);
                   onClose();
                 })
                 .catch((err) => console.log('데이터 전송 에러', err));
@@ -349,7 +338,7 @@ const Main = () => {
               withCredentials: true,
             })
             .then((res) => {
-              console.log('데이터 전송 완료', res);
+              // console.log('데이터 전송 완료', res);
               onClose();
             })
             .catch((err) => console.log('데이터 전송 에러', err));
@@ -376,7 +365,6 @@ const Main = () => {
         >
           <ModalOverlay />
           <ModalContent>
-            {/* <ModalHeader>Modal Title</ModalHeader> */}
             <ModalCloseButton />
             <ModalBody>
               <ModalDetail
@@ -386,9 +374,6 @@ const Main = () => {
             </ModalBody>
 
             <ModalFooter>
-              {/* <button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </button> */}
               <button onClick={onGoMyCalendar} className="modal_button">
                 저장하기
               </button>

@@ -37,9 +37,9 @@ export const dBData = async (access_token) => {
         withCredentials: true,
       });
       realData.push(...response.data);
-      // console.log(`db에서 데이터 받아오기 ${page}`, response.data);
+      console.log(`db에서 데이터 받아오기 ${page}`, response.data);
     } catch (error) {
-      console.log('db에서 데이터 못 받아옴', error);
+      // console.log('db에서 데이터 못 받아옴', error);
     }
   }
   return realData;

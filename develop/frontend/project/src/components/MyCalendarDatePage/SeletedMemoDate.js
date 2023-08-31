@@ -38,7 +38,7 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
       )
       .then((res) => {
         console.log('메모 전송 성공', res);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => console.log('ㅁㅔ모전송 실패', error));
   };

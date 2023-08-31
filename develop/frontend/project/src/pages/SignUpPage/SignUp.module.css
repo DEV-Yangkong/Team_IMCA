@@ -130,19 +130,21 @@
 .signUpBtn {
   width: 400px;
   height: 60px;
-  background-color: #134f2c;
+  background-color: gainsboro;
   border-radius: 5px;
-  color: white;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
+  color: black;
+
   text-align: center;
 
   margin-bottom: 10px;
   margin-top: 20px;
 }
 .signUpBtn:hover {
-  background-color: #5ad98f4f;
-  color: black;
+  background-color: #134f2c;
+  color: white;
+
   cursor: pointer;
 }
 .erms {

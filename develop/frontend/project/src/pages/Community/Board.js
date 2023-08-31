@@ -18,7 +18,6 @@ const Board = () => {
   const params = useParams();
   const category = params.category;
   const id = params.id;
-  console.log('params data', params);
 
   const navigate = useNavigate();
 

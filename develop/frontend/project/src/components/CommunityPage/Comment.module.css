@@ -16,9 +16,9 @@
 }
 
 .UserProfile img {
-  padding: 0px 16px 0px 0px;
-  width: 40px;
-  height: 40px;
+  padding: 0px 5px 0px 0px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 }
 
@@ -51,10 +51,9 @@
 }
 .Arrow {
   display: flex;
-  justify-content: center; /*가운데정렬*/
+  justify-content: center;
   align-items: center;
   padding-left: 24px;
-  padding-right: 18px;
 }
 .BigCommentItem {
   padding: 24px 0px 0px;

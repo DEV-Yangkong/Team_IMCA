@@ -24,9 +24,7 @@ const Modify = () => {
         setTitle(data.title);
         setContent(data.content);
       })
-      .catch((error) => {
-        console.error('Error fetching content:', error);
-      });
+      .catch((error) => {});
   }, [category, id]);
 
   const handleSubmit = async () => {
@@ -56,7 +54,6 @@ const Modify = () => {
         }
       })
       .catch((error) => {
-        console.error('업로드 에러:', error);
         alert('업로드 중 오류가 발생했습니다.');
       });
   };
@@ -110,9 +107,7 @@ const Modify = () => {
             shiftEnterMode: 1,
             autoParagraph: false, // Disable automatic <p> wrapping
           }}
-          onReady={(editor) => {
-            console.log('Editor is ready to use!', editor);
-          }}
+          onReady={(editor) => {}}
           onChange={(event, editor) => {
             setContent(editor.getData());
           }}

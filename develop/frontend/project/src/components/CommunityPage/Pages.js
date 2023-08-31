@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { faComment, far } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useQuery } from '@tanstack/react-query';
+
 import { BoardPageApi } from '../../communityApi';
 import { useAuth } from '../../AuthContext';
 

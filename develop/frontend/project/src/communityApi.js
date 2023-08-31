@@ -29,12 +29,8 @@ export function getUserDetail(category, id) {
 export function SaveApi(category, board_id, postData) {
   return instance
     .post(`review/category_gather_review/${category}/${board_id}/`, postData)
-    .then(function (response) {
-      console.log('댓글 혹은 대댓글 post 성공', response);
-    })
-    .catch(function (error) {
-      console.log('댓글 혹은 대댓글 post 에러', error);
-    });
+    .then(function (response) {})
+    .catch(function (error) {});
 } // 얘는 헤더가 필요하다
 
 export function CommentApi(category, board_id) {
@@ -46,10 +42,6 @@ export function CommentApi(category, board_id) {
 export function deleteUserDetail(category, id) {
   return instance
     .delete(`community_board/category/${category}/detail/${id}/`)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    .then(function (response) {})
+    .catch(function (error) {});
 }

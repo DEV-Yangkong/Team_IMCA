@@ -32,8 +32,7 @@ const Editor = () => {
                 formData,
                 {
                   headers: {
-                    Authorization:
-                      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MDQzNjM2LCJpYXQiOjE2OTMzMTU2MzYsImp0aSI6IjBiNDYyODI5MjliNjQ2ZjFiZDQ0NjlkMDRiM2NjYWIyIiwidXNlcl9pZCI6MX0.IJDo-1IOGUUi1kt-_LPy9Gn8H0EO8n1OtG5j3zQ5EPY',
+                    Authorization: `Bearer ${cookies.access_token}`,
                   },
                   withCredentials: true,
                 },
@@ -83,7 +82,6 @@ const Editor = () => {
         }
       })
       .catch((error) => {
-        console.error('업로드 에러:', error);
         alert('업로드 중 오류가 발생했습니다.');
       });
   };
@@ -143,19 +141,12 @@ const Editor = () => {
             shiftEnterMode: 1,
             autoParagraph: false,
           }}
-          onReady={(editor) => {
-            console.log('Editor is ready to use!', editor);
-          }}
+          onReady={(editor) => {}}
           onChange={(event, editor) => {
             setContent(editor.getData());
-            console.log({ event, editor, content });
           }}
-          onBlur={(event, editor) => {
-            console.log('Blur.', editor);
-          }}
-          onFocus={(event, editor) => {
-            console.log('Focus.', editor);
-          }}
+          onBlur={(event, editor) => {}}
+          onFocus={(event, editor) => {}}
         />
       </section>
     </div>

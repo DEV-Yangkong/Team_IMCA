@@ -41,7 +41,6 @@ const Detail = () => {
       queryClient.invalidateQueries('pageList');
       navigate(`/${category}`);
     } catch (error) {
-      console.error('삭제 에러:', error);
       alert('삭제 중 오류가 발생했습니다.');
     }
   };

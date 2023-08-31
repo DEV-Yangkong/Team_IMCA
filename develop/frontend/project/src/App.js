@@ -78,28 +78,6 @@ const App = () => {
                     <Route path="/:category/detail/:id" element={<Board />} />
                     <Route path="/edit/:category" element={<Editor />} />
                     <Route path="/:category/modify/:id" element={<Modify />} />
-                    {/* <Route
-                    path="/edit/:category"
-                    element={
-                      isLoggedIn ? (
-                        <Editor />
-                      ) : (
-                        // 로그인이 필요하면 Login 페이지로 자동으로 이동
-                        <Login />
-                      )
-                    }
-                  />
-                  <Route
-                    path="/:category/:id"
-                    element={
-                      isLoggedIn ? (
-                        <Comment />
-                      ) : (
-                        // 로그인이 필요하면 Login 페이지로 자동으로 이동
-                        <Login />
-                      )
-                    }
-                  /> */}
                   </Routes>
                 </div>
                 <Footer />

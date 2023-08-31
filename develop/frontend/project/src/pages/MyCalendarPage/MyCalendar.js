@@ -30,8 +30,8 @@ const MyCalendar = () => {
         selected_date: dayjs(item.selected_date).format('YYYY.MM.DD'),
       }))
     : [];
-  console.log(onGoMyCalendar, '온고 기본값');
-  console.log(formattedOnGoMyCalendar, '바뀐 온고값');
+  // console.log(onGoMyCalendar, '온고 기본값');
+  // console.log(formattedOnGoMyCalendar, '바뀐 온고값');
 
   const handleDateChange = (date) => {
     setSelectedDate(dayjs(date).format('YYYY.MM.DD')); //리액트캘린더에서 선택한 날짜업데이트
@@ -48,13 +48,13 @@ const MyCalendar = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('날짜 선택한 캘린더 데이터 수신 받음', res);
+        // console.log('날짜 선택한 캘린더 데이터 수신 받음', res);
         setDetailData(res.data);
       })
       .catch((err) => {
         alert('로그인이 필요합니다!');
         navigate('/login');
-        console.log('날짜 선택한 캘린더 데이터 수신 거절', err);
+        // console.log('날짜 선택한 캘린더 데이터 수신 거절', err);
       });
   };
 

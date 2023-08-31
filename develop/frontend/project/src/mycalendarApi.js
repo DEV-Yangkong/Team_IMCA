@@ -37,11 +37,11 @@ export const getCalendar = (cookies) => {
       withCredentials: true,
     })
     .then((res) => {
-      console.log('전체 캘린더 데이터 수신 받음', res);
+      // console.log('전체 캘린더 데이터 수신 받음', res);
       return res.data; //데이터 반환
     })
     .catch((err) => {
-      console.log('전체 캘린더 데이터 수신 거절', err);
+      // console.log('전체 캘린더 데이터 수신 거절', err);
       throw err; // 에러처리
     });
 };

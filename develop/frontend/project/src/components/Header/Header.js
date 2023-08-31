@@ -37,18 +37,18 @@ const Header = () => {
           setIsLoggedIn(false); // 로그아웃 상태로 변경
           navigate('/');
         } else {
-          console.error('로그아웃실패', response);
+          // console.error('로그아웃실패', response);
           window.alert('로그아웃 실패했습니다!');
         }
       })
       .catch((error) => {
-        console.error('로그아웃실패라고', error);
+        // console.error('로그아웃실패라고', error);
         window.alert('로그아웃을 다시 시도해주세요!!');
       });
   };
 
   useEffect(() => {
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
   }, [isLoggedIn]); // 이렇게 isLoggedIn이 변경될 때마다 출력
 
   return (

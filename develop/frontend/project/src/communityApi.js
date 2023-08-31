@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
 const instance = axios.create({
-  baseURL: 'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/',
+  baseURL: 'http://imca.store/api/v1/',
   withCredentials: true,
 });
 
@@ -40,4 +40,15 @@ export function CommentApi(category, board_id) {
   return instance
     .get(`review/category_gather_review/${category}/${board_id}/get/`)
     .then((res) => res.data);
+}
+
+export function deleteUserDetail(category, id) {
+  return instance
+    .delete(`community_board/category/${category}/detail/${id}/`)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }

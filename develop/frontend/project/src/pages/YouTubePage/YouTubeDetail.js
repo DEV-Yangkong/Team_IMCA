@@ -164,7 +164,13 @@ const YouTubeDetail = () => {
               }
             />
           ) : (
-            selectedPost.content
+            // HTML에서 줄바꿈 태그인 <br>을 사용하여 줄바꿈 표시
+            selectedPost.content.split('\n').map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))
           )}
         </div>
       </div>

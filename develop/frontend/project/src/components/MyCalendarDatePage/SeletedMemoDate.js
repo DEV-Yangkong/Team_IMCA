@@ -10,7 +10,7 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
   const [memo, setMemo] = useState(''); //입력메모
   const [memoList, setMemoList] = useState([]); //메모리스트
   // const { id } = useParams();
-  const [memo_pk, setMemoPk] = useState(0);
+  // const [memo_pk, setMemoPk] = useState(0);
   const [cookies] = useCookies('access_token');
 
   const calendarId = detailData.map((it) => it.id);
@@ -38,34 +38,29 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
       )
       .then((res) => {
         console.log('메모 전송 성공', res);
+        window.location.reload();
       })
       .catch((error) => console.log('ㅁㅔ모전송 실패', error));
   };
 
-  // const handleMemo = () => {
-  //   if (memo.trim() !== '') {
-  //     const newMemo = { date: selectedDate, text: memo }; // 새로운 메모 객체 생성
-  //     setMemoList([...memoList, newMemo]); // 새로운 메모 목록에 추가
-
-  //     setMemo('');
-  //   }
-  //메모아이템 삭제
   const handleDelete = (calendar, id) => {
     axios
-      .delete(
-        `http://imca.store/api/v1/calendar/${calendar}/memo/${id}/`,
-
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-            'Content-Type': 'application/json',
-          },
-          withCredentials: true,
+      .delete(`http://imca.store/api/v1/calendar/${calendar}/memo/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${cookies.access_token}`,
+          'Content-Type': 'application/json',
         },
-      )
-      .then((res) => console.log('선택한 메모 삭제완료', res))
-      .catch((error) => console.log('선택한 메모 삭제 실패', error));
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log('선택한 메모 삭제완료', res);
+      })
+      .catch((error) => {
+        window.location.reload();
+        console.log('선택한 메모 삭제 실패', error);
+      });
   };
+
   useEffect(() => {
     const fetchData = async () => {
       const newData = [];
@@ -82,7 +77,8 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
             },
           );
           newData.push(...response.data); // 응답 데이터를 배열에 추가
-          console.log(newData, 'sdjf;lskdjf');
+
+          console.log(newData, '메모추가업데이트');
         } catch (error) {
           console.log(`Error fetching data for calendar ID ${id}:`, error);
         }
@@ -91,35 +87,6 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
     };
     fetchData();
   }, [calendarId[0]]); // calendarId가 변할 때마다 호출
-  // useEffect(() => {
-  //   const testList = [];
-  //   Promise.all(
-  //     calendarId.map((item) => {
-  //       axios
-  //         .get(`http://imca.store/api/v1/calendar/${item}/memo/`, {
-  //           headers: {
-  //             Authorization: `Bearer ${cookies.access_token}`,
-  //             'Content-Type': 'application/json',
-  //           },
-  //           withCredentials: true,
-  //         })
-  //         .then((res) => {
-  //           const memoData = res.data;
-  //           // setMemoList(...memoData);
-  //           testList.push(...memoData);
-  //           console.log('메모불러오기 성공', res);
-  //           console.log(testList, 'testList');
-  //         })
-  //         .catch((error) => {
-  //           console.log('err메모불러오기', error);
-  //         });
-  //     }),
-  //   ).then(() => {
-  //     setMemoList(testList);
-  //     console.log(memoList, 'adf');
-  //   });
-  // }, [calendarId[0]]);
-  // console.log(memoList, 'adf');
 
   return (
     <div className={styles.container}>

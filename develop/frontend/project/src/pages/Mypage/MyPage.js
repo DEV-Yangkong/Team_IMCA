@@ -31,6 +31,22 @@ const MyPage = () => {
     }
   };
 
+  // 모달 열린 상태에서 엔터 키 처리
+  const handleModalEnterKey = (e) => {
+    if (e.key === 'Enter' && !isOpen) {
+      e.preventDefault(); // 엔터 키의 기본 동작 막기
+      //  엔터 키의 기본 동작 막기
+      // 엔터 키를 눌렀을 때 모달이 열리는 것을 막는 추가 로직
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keydown', handleEnterKey);
+
+    return () => {
+      window.removeEventListener('keydown', handleEnterKey);
+    };
+  }, []);
+
   const [editPassword, setEditPassword] = useState(false);
 
   const [userData, setUserData] = useState({
@@ -43,8 +59,8 @@ const MyPage = () => {
     gender: '',
   });
 
-  // const password = watch('password', '');
-  const [password, setPassword] = useState('');
+  const password = watch('password', '');
+  // const [password, setPassword] = useState('');
   const [img, setImg] = useState(null);
   const [passwordConfirm, setPasswordConfirm] = useState('');
   // const [name, setName] = useState('');
@@ -69,10 +85,6 @@ const MyPage = () => {
       alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
       return;
     }
-    // if (password !== new_password) {
-    //   alert('동일한 비밀번호를 사용할 수 없습니다.');
-    //   return;
-    // }
 
     await axios
       .put(
@@ -87,10 +99,19 @@ const MyPage = () => {
         },
       )
       .then((response) => {
-        setUserData(response.data);
-        alert('비밀번호가 변경되었습니다!');
-        onClose();
-        // console.log(userData.password, 'dddkdkdk');
+        if (response.status === 200) {
+          if (new_password === passwordConfirm) {
+            setUserData(response.data);
+            alert('비밀번호가 변경되었습니다!');
+            onClose();
+            navigate('/');
+          }
+          // console.log(userData.password, 'dddkdkdk');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('비밀번호 규칙처럼 변경해주세요!');
       });
   };
   useEffect(() => {
@@ -113,7 +134,7 @@ const MyPage = () => {
   const onSubmit = async () => {
     const formData = new FormData();
     formData.append('image', img); // img는 이미지 파일
-    formData.append('login_id', userData.login_id.slice(0, 30));
+    formData.append('login_id', userData.login_id);
     formData.append('name', userData.name);
     formData.append('nickname', userData.nickname);
     formData.append('email', userData.email);
@@ -142,15 +163,27 @@ const MyPage = () => {
           withCredentials: true,
         },
       );
-
       setUserData(response.data);
       console.log('정보 수정 성공', response.data);
+      alert('회원 정보 수정 완료!');
+      navigate('/');
     } catch (error) {
-      console.error('정보수정 에러', error);
+      console.log('정보수정 에러', error);
     }
   };
 
-  const validatePassword = (value) => {
+  // const validatePassword = (value) => {
+  //   if (!value)
+  //     return '영문 대소문자, 숫자, 특수 기호 사용하여 총 8글자 이상으로';
+  //   if (
+  //     !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+  //       value,
+  //     )
+  //   )
+  //     return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
+  //   if (password && value !== passwordConfirm) return true;
+  // };
+  const validateNewPassword = (value) => {
     if (!value)
       return '영문 대소문자, 숫자, 특수 기호 사용하여 총 8글자 이상으로';
     if (
@@ -158,8 +191,22 @@ const MyPage = () => {
         value,
       )
     )
-      return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
-    if (password && value !== passwordConfirm) return true;
+      if (new_password !== '')
+        return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
+    if (new_password !== value) {
+      return '비밀번호가 일치하지 않습니다.';
+    }
+    return true;
+  };
+  const validatePasswordConfirm = (value) => {
+    if (value !== new_password) {
+      if (new_password && value == passwordConfirm) {
+        return '비밀번호가 일치하지 않습니다.';
+      }
+      // return true;
+      return '비밀번호가 일치하지 않습니다.';
+    }
+    return true; // 유효성 검사를 통과한 경우 true 반환
   };
 
   const validateEmail = (value) => {
@@ -221,7 +268,7 @@ const MyPage = () => {
                   value={userData.login_id}
                 />
               </div>
-              {editPassword ? (
+              {/* {editPassword ? (
                 <>
                   <div className={styles.user_item}>
                     비밀번호
@@ -259,88 +306,114 @@ const MyPage = () => {
                   </div>
                   <button>변경하기</button>
                 </>
-              ) : (
-                <>
-                  <div className={styles.user_item}>
-                    비밀번호
-                    {!editPassword && (
-                      <button className={styles.modalPwBtn} onClick={onOpen}>
-                        비밀번호 변경하기
-                        <Modal isOpen={isOpen} onClose={onClose}>
-                          <ModalOverlay />
-                          <ModalContent>
-                            <ModalHeader>비밀번호 변경</ModalHeader>
-                            <ModalCloseButton />
-                            <ModalBody>
-                              {/* 비밀번호 입력 필드 */}
-                              <div>
-                                <label htmlFor="new_password">
-                                  새 비밀번호:
-                                </label>
-                                <input
-                                  type="password"
-                                  name="new_password"
-                                  placeholder="대소문자, 특수문자 포함 8글자이상"
-                                  value={new_password}
-                                  {...register('new_password', {
-                                    validate: validatePassword,
-                                  })}
-                                  onChange={(e) =>
-                                    setNewPassword(e.target.value)
-                                  }
-                                />
-                                {errors.new_password && (
-                                  <p className={styles.error}>
-                                    {errors.new_password.message}
-                                  </p>
-                                )}
-                              </div>
-
-                              {/* 비밀번호 확인 입력 필드 */}
-                              <div>
-                                <label htmlFor="confirmPassword">
-                                  새 비밀번호 확인:
-                                </label>
-                                <input
-                                  type="password"
-                                  name="confirmPassword"
-                                  placeholder="한번 더 입력"
-                                  value={passwordConfirm}
-                                  {...register('confirmPassword', {
-                                    validate: (value) =>
-                                      value === new_password ||
-                                      '비밀번호가 일치하지 않습니다.',
-                                  })}
-                                  onChange={(e) => {
-                                    setPasswordConfirm(e.target.value);
-                                  }}
-                                />
-                              </div>
-                            </ModalBody>
-
-                            <ModalFooter>
-                              <button
-                                colorScheme="blue"
-                                mr={3}
-                                onClick={onClose}
+              ) : ( */}
+              <>
+                <div className={styles.user_item}>
+                  비밀번호
+                  {!editPassword && (
+                    <button className={styles.modalPwBtn} onClick={onOpen}>
+                      비밀번호 변경하기
+                      <Modal
+                        isOpen={isOpen}
+                        onClose={() => {
+                          onClose();
+                          setNewPassword();
+                          setPasswordConfirm();
+                        }}
+                      >
+                        <ModalOverlay />
+                        <ModalContent>
+                          <ModalHeader style={{ fontSize: '25px' }}>
+                            비밀번호 변경
+                          </ModalHeader>
+                          <ModalCloseButton />
+                          <ModalBody>
+                            {/* 비밀번호 입력 필드 */}
+                            <div
+                              style={{
+                                marginBottom: '10px',
+                              }}
+                              htmlF
+                            >
+                              <label
+                                style={{
+                                  fontWeight: 'bold',
+                                  fontSize: '18px',
+                                  marginBottom: '10px',
+                                }}
+                                htmlFor="new_password"
                               >
-                                Close
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handlePasswordChange}
-                              >
-                                변경하기
-                              </button>
-                            </ModalFooter>
-                          </ModalContent>
-                        </Modal>
-                      </button>
-                    )}
-                  </div>
-                </>
-              )}
+                                새 비밀번호 :
+                              </label>
+                              <input
+                                style={{ padding: '10px', width: '250px' }}
+                                type="password"
+                                name="new_password"
+                                placeholder="대소문자, 특수문자 포함 8글자이상"
+                                value={new_password}
+                                {...register('new_password', {
+                                  validate: validateNewPassword,
+                                })}
+                                onChange={(e) => setNewPassword(e.target.value)}
+                              />
+                              {errors.new_password && (
+                                <p className={styles.error}>
+                                  {errors.new_password.message}
+                                </p>
+                              )}
+                            </div>
 
+                            {/* 비밀번호 확인 입력 필드 */}
+                            <div>
+                              <label
+                                style={{
+                                  fontWeight: 'bold',
+                                  fontSize: '18px',
+                                }}
+                                htmlFor="confirmPassword"
+                              >
+                                새 비밀번호 확인 :
+                              </label>
+                              <input
+                                style={{ padding: '10px', width: '250px' }}
+                                type="password"
+                                name="confirmPassword"
+                                placeholder="한번 더 입력"
+                                value={passwordConfirm}
+                                {...register('confirmPassword', {
+                                  validate: validatePasswordConfirm,
+                                })}
+                                onChange={(e) => {
+                                  setPasswordConfirm(e.target.value);
+                                }}
+                              />
+                            </div>
+                          </ModalBody>
+
+                          <ModalFooter>
+                            <button
+                              className={styles.cancelBtn}
+                              colorScheme="blue"
+                              mr={3}
+                              onClick={onClose}
+                            >
+                              취소
+                            </button>
+                            <button
+                              className={styles.modifyBtn}
+                              type="button"
+                              onClick={handlePasswordChange}
+                            >
+                              변경하기
+                            </button>
+                          </ModalFooter>
+                        </ModalContent>
+                      </Modal>
+                    </button>
+                  )}
+                </div>
+              </>
+              {/* )} */}
               {/* <div className={styles.user_item}>
                 비밀번호 변경
                 {showPasswordFields && (

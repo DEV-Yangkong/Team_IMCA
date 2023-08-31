@@ -1,13 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom'; // useHistory 추가
 import { getUserDetail } from '../../communityApi';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'; // useMutation과 useQueryClient 추가
 
 import styles from './Detail.module.css';
 
+import { Link } from 'react-router-dom';
+
 import React from 'react';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const Detail = () => {
+  const navigate = useNavigate();
   const params = useParams();
+  const queryClient = useQueryClient();
+  const [cookies] = useCookies(['access_token']);
+
   const category = params.category;
   const id = params.id;
   // Remove the unnecessary author variable
@@ -18,6 +26,38 @@ const Detail = () => {
     isError,
   } = useQuery(['pageList', category, id], () => getUserDetail(category, id));
 
+  const deleteUserDetail = async () => {
+    try {
+      await axios.delete(
+        // Use axios.delete for deletion
+        `http://imca.store/api/v1/community_board/category/${category}/detail/${id}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.access_token}`, // Replace with your actual access token
+          },
+        },
+      );
+
+      queryClient.invalidateQueries('pageList');
+      navigate(`/${category}`);
+    } catch (error) {
+      console.error('삭제 에러:', error);
+      alert('삭제 중 오류가 발생했습니다.');
+    }
+  };
+
+  const deleteMutation = useMutation(deleteUserDetail, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('pageList');
+      // You can manually change the URL here if needed
+      // window.location.href = '/';
+    },
+  });
+
+  const handleDeleteClick = () => {
+    deleteMutation.mutate();
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -26,8 +66,7 @@ const Detail = () => {
     return <div>Error loading data.</div>;
   }
 
-  const { title, writer, file, created_at, views_count, photo, content } =
-    pageList; // Destructure the data
+  const { title, writer, created_at, views_count, photo, content } = pageList; // Destructure the data
   // const { nickname } = author;
 
   return (
@@ -38,7 +77,7 @@ const Detail = () => {
       <div className={styles.left}>
         <div>
           <div className={styles.detailUser}>
-            <img src={file} />
+            <img src={`http://imca.store/${writer.profileImg}`} />
           </div>
         </div>
         <div className={styles.author}>
@@ -48,6 +87,20 @@ const Detail = () => {
           <div className={styles.authorBottom}>
             <div className={styles.detailDate}>{created_at}</div>
             <div className={styles.detailViews}>조회수 {views_count}</div>
+            <Link
+              to={`/${category}/modify/${id}`}
+              className={styles.editButton}
+            >
+              수정하기
+            </Link>
+            <div className={styles.detailActions}>
+              <button
+                className={styles.deleteButton}
+                onClick={handleDeleteClick}
+              >
+                삭제
+              </button>
+            </div>
           </div>
         </div>
       </div>

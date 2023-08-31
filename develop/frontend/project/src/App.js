@@ -16,12 +16,10 @@ import MyPage from './pages/Mypage/MyPage';
 import MyCalendar from './pages/MyCalendarPage/MyCalendar';
 
 import Board from './pages/Community/Board';
-import New from './pages/Community/New';
 import Editor from './components/CommunityPage/Editor';
 import BoardPage from './pages/Community/BoardPage';
 import ConcertDetail from './pages/ConcertPage/ConcertDetail';
 import Comment from './components/CommunityPage/Comment';
-import AdminPage from './pages/Community/AdminPage';
 import { CookiesProvider, useCookies } from 'react-cookie';
 import Footer from './components/Footer/Footer';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -78,32 +76,8 @@ const App = () => {
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/:category" element={<BoardPage />} />
                     <Route path="/:category/detail/:id" element={<Board />} />
-                    <Route path="/new" element={<New />} />
                     <Route path="/edit/:category" element={<Editor />} />
                     <Route path="/:category/modify/:id" element={<Modify />} />
-                    {/* <Route
-                    path="/edit/:category"
-                    element={
-                      isLoggedIn ? (
-                        <Editor />
-                      ) : (
-                        // 로그인이 필요하면 Login 페이지로 자동으로 이동
-                        <Login />
-                      )
-                    }
-                  />
-                  <Route
-                    path="/:category/:id"
-                    element={
-                      isLoggedIn ? (
-                        <Comment />
-                      ) : (
-                        // 로그인이 필요하면 Login 페이지로 자동으로 이동
-                        <Login />
-                      )
-                    }
-                  /> */}
-                    <Route path="/admin" element={<AdminPage />} />
                   </Routes>
                 </div>
                 <Footer />

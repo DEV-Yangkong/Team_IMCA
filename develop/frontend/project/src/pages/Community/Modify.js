@@ -16,7 +16,6 @@ const Modify = () => {
   const [cookies] = useCookies(['access_token']);
   const params = useParams();
   const { category, id } = params;
-  console.log('modify data', params);
 
   useEffect(() => {
     // Fetch the existing content data using 'id' and 'category'

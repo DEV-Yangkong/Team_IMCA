@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
 const instance = axios.create({
-  baseURL: 'http://imca.store/api/v1/',
+  baseURL: 'http://imcal.store/api/v1/',
   withCredentials: true,
 });
 

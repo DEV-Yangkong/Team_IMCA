@@ -2,8 +2,8 @@ import axios from 'axios';
 import { xml2js } from 'xml-js';
 
 const service = 'cabed641996245acbfb041c7c10c6a16';
-// const service = 'b14e78c0be214bfab93cc4988904cbb9';
 const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/prffest?service=${service}`;
+
 // export const getAllData = (startDate, endDate) => {
 //   //전체 게시글을 가져오는 API
 
@@ -29,7 +29,7 @@ const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/
 //   const realData = [];
 //   for (let page = 1; page <= 4; page++) {
 //     try {
-//       const response = await axios.get('http://imca.store/api/v1/apis', {
+//       const response = await axios.get('http://imcal.store/api/v1/apis', {
 //         params: { page },
 //         // headers: {
 //         //   Authorization: `Bearer ${access_token}`,
@@ -48,7 +48,7 @@ export const dBData = async () => {
   const realData = [];
   for (let page = 1; page <= 4; page++) {
     await axios
-      .get('http://imca.store/api/v1/apis', {
+      .get('http://imcal.store/api/v1/apis', {
         params: { page: page },
       })
       .then((res) => {
@@ -89,7 +89,7 @@ export const dBData = async () => {
 // };
 // export const getDbConcertData = (currentPage) => {
 //   return axios
-//     .get('http://imca.store/api/v1/apis', {
+//     .get('http://imcal.store/api/v1/apis', {
 //       params: { page: currentPage },
 //     })
 //     .then((res) => {

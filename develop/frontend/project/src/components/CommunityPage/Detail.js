@@ -30,7 +30,7 @@ const Detail = () => {
     try {
       await axios.delete(
         // Use axios.delete for deletion
-        `http://imca.store/api/v1/community_board/category/${category}/detail/${id}/`,
+        `http://imcal.store/api/v1/community_board/category/${category}/detail/${id}/`,
         {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`, // Replace with your actual access token
@@ -80,7 +80,7 @@ const Detail = () => {
       <div className={styles.left}>
         <div>
           <div className={styles.detailUser}>
-            <img src={`http://imca.store/${writer.profileImg}`} />
+            <img src={`http://imcal.store/${writer.profileImg}`} />
           </div>
         </div>
         <div className={styles.author}>

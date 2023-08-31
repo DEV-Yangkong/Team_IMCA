@@ -25,22 +25,37 @@ const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/
 //     })
 //     .catch((error) => console.log('err', error));
 // };
-export const dBData = async (access_token) => {
+// export const dBData = async () => {
+//   const realData = [];
+//   for (let page = 1; page <= 4; page++) {
+//     try {
+//       const response = await axios.get('http://imca.store/api/v1/apis', {
+//         params: { page },
+//         // headers: {
+//         //   Authorization: `Bearer ${access_token}`,
+//         // },
+//         withCredentials: true,
+//       });
+//       realData.push(...response.data);
+//       console.log(`db에서 데이터 받아오기 ${page}`, response.data);
+//     } catch (error) {
+//       console.log('db에서 데이터 못 받아옴', error);
+//     }
+//   }
+//   return realData;
+// };
+export const dBData = async () => {
   const realData = [];
   for (let page = 1; page <= 4; page++) {
-    try {
-      const response = await axios.get('http://imca.store/api/v1/apis', {
-        params: { page },
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        withCredentials: true,
-      });
-      realData.push(...response.data);
-      // console.log(`db에서 데이터 받아오기 ${page}`, response.data);
-    } catch (error) {
-      console.log('db에서 데이터 못 받아옴', error);
-    }
+    await axios
+      .get('http://imca.store/api/v1/apis', {
+        params: { page: page },
+      })
+      .then((res) => {
+        realData.push(...res.data);
+        console.log(`db에서 데이터 받아오기 ${page}`, res.data);
+      })
+      .catch((err) => console.log('db에서 데이터 못 받아옴', err));
   }
   return realData;
 };

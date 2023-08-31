@@ -82,19 +82,19 @@ const Main = () => {
     });
   };
   // db로 post 요청
-  const apiPostRequest = (data) => {
-    if (data) {
-      axios
-        .post('http://imca.store/api/v1/apis/', data, {
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-          },
-          withCredentials: true,
-        })
-        .then((res) => console.log('db로 데이터 전송 완료', res))
-        .catch((err) => console.log('db에 데이터 전송 실패', err));
-    }
-  };
+  // const apiPostRequest = (data) => {
+  //   if (data) {
+  //     axios
+  //       .post('http://imca.store/api/v1/apis/', data, {
+  //         headers: {
+  //           Authorization: `Bearer ${cookies.access_token}`,
+  //         },
+  //         withCredentials: true,
+  //       })
+  //       .then((res) => console.log('db로 데이터 전송 완료', res))
+  //       .catch((err) => console.log('db에 데이터 전송 실패', err));
+  //   }
+  // };
   // ////// 중요 //////// db로 보내는 함수 /////////
   // useEffect(() => {
   //   const transformedData = transformData(allData);
@@ -127,13 +127,9 @@ const Main = () => {
   // }, []);
 
   // db에서 데이터 받아오기
-  const { data: realData } = useQuery(
-    ['realData', cookies.access_token],
-    () => dBData(cookies.access_token),
-    {
-      staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
-    },
-  );
+  const { data: realData } = useQuery(['realData'], dBData, {
+    staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
+  });
 
   const navigate = useNavigate();
 
@@ -168,11 +164,13 @@ const Main = () => {
       // mainTileContent 함수는 각각의 날짜마다 호출되므로, currentDate는 날짜마다 바뀜
       // 예를 들어, currentDate 가 2023.08.04일 경우, 그 날짜가 공연의 시작일~종료일 중 포함되는
       // 해당 공연이 matchingEvents에 담긴다.
-      const matchingEvents = realData.filter(
-        (item) =>
-          currentDate >= dayjs(item.start_date).format('YYYYMMDD') &&
-          currentDate <= dayjs(item.end_date).format('YYYYMMDD'),
-      );
+      const matchingEvents =
+        realData &&
+        realData.filter(
+          (item) =>
+            currentDate >= dayjs(item.start_date).format('YYYYMMDD') &&
+            currentDate <= dayjs(item.end_date).format('YYYYMMDD'),
+        );
       // matchingEvents가 하나라도 있을 때 일정을 표시
       if (matchingEvents.length > 0) {
         return (

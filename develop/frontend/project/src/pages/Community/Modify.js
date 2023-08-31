@@ -53,9 +53,7 @@ const Modify = () => {
           alert('업로드 실패.');
         }
       })
-      .catch((error) => {
-        alert('업로드 중 오류가 발생했습니다.');
-      });
+      .catch((error) => {});
   };
 
   return (

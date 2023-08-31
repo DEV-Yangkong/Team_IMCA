@@ -66,7 +66,7 @@ const Comment = () => {
         // 이후 코드 계속
       })
       .catch((error) => {
-        console.error('댓글 저장 에러:', error);
+        // console.error('댓글 저장 에러:', error);
       });
     setAddComment('');
     setReplyComment('');
@@ -83,7 +83,7 @@ const Comment = () => {
     },
   );
   const handleAddReplyComment = (parentId) => {
-    console.log('parentId:', parentId);
+    // console.log('parentId:', parentId);
     if (!replyComment) {
       alert('답글을 입력해주세요.');
       return;

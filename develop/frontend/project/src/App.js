@@ -106,6 +106,7 @@ const App = () => {
                     <Route path="/admin" element={<AdminPage />} />
                   </Routes>
                 </div>
+                <Footer />
               </div>
             </IsSearchedProvider>
           </ChakraProvider>

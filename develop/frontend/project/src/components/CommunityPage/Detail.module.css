@@ -12,15 +12,12 @@
 }
 
 .detailUser {
-  padding: 0px 16px 0px 0px;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  padding: 0px 5px 0px 0px;
 }
 .detailUser img {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
 }
 
 .authorTop {

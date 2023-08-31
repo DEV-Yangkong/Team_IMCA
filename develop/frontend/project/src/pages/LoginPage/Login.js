@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { loginoutApi } from '../../loginoutApi';
-import GoogleLoginButton from '../../components/SocialLogin/GoogleLoginButton';
 import axios from 'axios';
 
 const Login = () => {
@@ -85,7 +84,7 @@ const Login = () => {
           });
           //쿠키 상태업데이트
           setRefreshToken(refresh_token);
-          console.log(response.data);
+          // console.log(response.data);
           // async function refreshAccessToken(refresh_token) {
           //   try {
           //     const response = await axios.post(
@@ -102,16 +101,16 @@ const Login = () => {
           //   }
           // }
         } else if (response.status === 500) {
-          console.error('서버 내부 오류:', response.data);
+          // console.error('서버 내부 오류:', response.data);
           window.alert('서버 내부 오류가 발생했습니다.');
         } else {
-          console.error('로그인 실패:', response.data);
+          // console.error('로그인 실패:', response.data);
           window.alert('로그인에 실패했습니다.');
         }
         navigate('/');
       })
       .catch((error) => {
-        console.error('로그인 실패', error);
+        // console.error('로그인 실패', error);
         window.alert(
           '로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.',
         );
@@ -134,7 +133,6 @@ const Login = () => {
           <div className={styles.ltBox}>
             <img
               className={styles.photo}
-              // src="https://img.freepik.com/free-vector/line-art-poster-hand-draw-minimalist-creative-boho-wall-decor-shapes-modern-graphic-with-line-vector_90220-1027.jpg?w=1380&t=st=1693418024~exp=1693418624~hmac=90093c14f82536401a947877542f946d9e870c891462bf6cbaae4dfa1c2c041e"
               src="https://img.freepik.com/free-vector/memphis-shape-template-badge-colorful-graphic-design-sticker-psd_53876-157852.jpg?w=1480&t=st=1693417986~exp=1693418586~hmac=b328da7ccd02747ec33c0db2fa89fd6e1747df7e9f5f4d5904e95a96436a93b1"
             />
           </div>

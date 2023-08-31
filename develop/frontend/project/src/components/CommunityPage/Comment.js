@@ -62,12 +62,11 @@ const Comment = () => {
         },
       )
       .then((savedComment) => {
-        console.log('반환된 댓글 객체:', savedComment);
         queryClient.invalidateQueries('commentList');
         // 이후 코드 계속
       })
       .catch((error) => {
-        console.error('댓글 저장 에러:', error);
+        // console.error('댓글 저장 에러:', error);
       });
     setAddComment('');
     setReplyComment('');
@@ -84,7 +83,7 @@ const Comment = () => {
     },
   );
   const handleAddReplyComment = (parentId) => {
-    console.log('parentId:', parentId);
+    // console.log('parentId:', parentId);
     if (!replyComment) {
       alert('답글을 입력해주세요.');
       return;
@@ -105,14 +104,11 @@ const Comment = () => {
         },
       )
       .then((savedReply) => {
-        console.log('새로운 답글 ID:', savedReply.id);
         // 저장된 답글의 ID가 유효한 경우에만 mutate 함수 호출
         addReplyCommentMutation.mutate();
         queryClient.invalidateQueries('commentList');
       })
-      .catch((error) => {
-        console.error('답글 저장 에러:', error);
-      });
+      .catch((error) => {});
     setReplyComment('');
     setExpandedReplyId(null);
   };
@@ -141,13 +137,10 @@ const Comment = () => {
         },
       );
 
-      console.log('수정된 댓글 객체:', response.data);
       queryClient.invalidateQueries('commentList');
       setUpdateComment('');
       setModifyMode(false);
-    } catch (error) {
-      console.error('댓글 수정 에러:', error);
-    }
+    } catch (error) {}
   };
 
   const deleteComment = async (item) => {
@@ -166,7 +159,6 @@ const Comment = () => {
       );
       queryClient.invalidateQueries('commentList');
     } catch (error) {
-      console.error('삭제 에러:', error);
       alert('삭제 중 오류가 발생했습니다.');
     }
   };
@@ -231,7 +223,6 @@ const Comment = () => {
                   <button
                     className={styles.DeleteButton}
                     onClick={() => {
-                      console.log('delete', item.id);
                       handleDeleteClick(item.id);
                     }} // 댓글의 ID를 인자로 넘김
                   >

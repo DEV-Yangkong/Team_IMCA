@@ -112,10 +112,10 @@ export const getConcertData = (currentPage) => {
     .then((res) => {
       const options = { compact: true, spaces: 2 };
       const result = xml2js(res.data, options);
-      console.log('concert1year', result.dbs.db);
+      // console.log('concert1year', result.dbs.db);
       return result.dbs.db;
     })
-    .catch((error) => console.log('err', error));
+    .catch(function (error) {});
 };
 // const detailUrl = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/pblprfr/${dataId}?service=cabed641996245acbfb041c7c10c6a16`;
 export const getConcertDetail = (dataId, service) => {
@@ -126,7 +126,7 @@ export const getConcertDetail = (dataId, service) => {
     .then((res) => {
       const options = { compact: true, spaces: 2 };
       const result = xml2js(res.data, options);
-      console.log('detailArray', result);
+      // console.log('detailArray', result);
       return result.dbs.db;
     });
 };

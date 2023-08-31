@@ -29,7 +29,7 @@ const Header = () => {
   const handleLogout = () => {
     logoutApi()
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
           Cookies.remove('access_token');
           Cookies.remove('refresh_token');

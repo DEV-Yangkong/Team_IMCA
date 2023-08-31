@@ -30,29 +30,16 @@ const SignUp = () => {
       };
       //signupApi함수 호출 할때 데이터 객체 전달하기
       const response = await signupApi(signupData);
-      // const response = await signupApi(
-      //   'https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/users/Register/',
-      //   data,
-      //   {
-      //     withCredentials: true, // 쿠키 전달 설정
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //   },
-      // );
       //회원가입 성공 시 쿠키설정
       setCookie('access_token', response.token.access);
       setCookie('refresh_token', response.token.refresh);
 
-      console.log('와우11', response.message);
-      console.log('회원가입성공');
-
       navigate('/');
     } catch (error) {
-      console.error('회원가입실패', error);
+      // console.error('회원가입실패', error);
       window.alert('회원가입 실패!');
     }
-    console.log(data);
+    // console.log(data);
     // 회원가입 로직처리
   };
 

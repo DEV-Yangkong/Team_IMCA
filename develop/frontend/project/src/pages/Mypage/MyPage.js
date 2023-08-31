@@ -31,6 +31,22 @@ const MyPage = () => {
     }
   };
 
+  // 모달 열린 상태에서 엔터 키 처리
+  const handleModalEnterKey = (e) => {
+    if (e.key === 'Enter' && !isOpen) {
+      e.preventDefault(); // 엔터 키의 기본 동작 막기
+      //  엔터 키의 기본 동작 막기
+      // 엔터 키를 눌렀을 때 모달이 열리는 것을 막는 추가 로직
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keydown', handleEnterKey);
+
+    return () => {
+      window.removeEventListener('keydown', handleEnterKey);
+    };
+  }, []);
+
   const [editPassword, setEditPassword] = useState(false);
 
   const [userData, setUserData] = useState({
@@ -84,16 +100,18 @@ const MyPage = () => {
       )
       .then((response) => {
         if (response.status === 200) {
-          setUserData(response.data);
-          alert('비밀번호가 변경되었습니다!');
-          onClose();
-          navigate('/');
+          if (new_password === passwordConfirm) {
+            setUserData(response.data);
+            alert('비밀번호가 변경되었습니다!');
+            onClose();
+            navigate('/');
+          }
           // console.log(userData.password, 'dddkdkdk');
         }
       })
       .catch((error) => {
         console.log(error);
-        alert('동일한 비밀번호 입니다. 다시 변경해주세요!');
+        alert('비밀번호 규칙처럼 변경해주세요!');
       });
   };
   useEffect(() => {
@@ -147,22 +165,24 @@ const MyPage = () => {
       );
       setUserData(response.data);
       console.log('정보 수정 성공', response.data);
+      alert('회원 정보 수정 완료!');
+      navigate('/');
     } catch (error) {
       console.log('정보수정 에러', error);
     }
   };
 
-  const validatePassword = (value) => {
-    if (!value)
-      return '영문 대소문자, 숫자, 특수 기호 사용하여 총 8글자 이상으로';
-    if (
-      !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-        value,
-      )
-    )
-      return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
-    if (password && value !== passwordConfirm) return true;
-  };
+  // const validatePassword = (value) => {
+  //   if (!value)
+  //     return '영문 대소문자, 숫자, 특수 기호 사용하여 총 8글자 이상으로';
+  //   if (
+  //     !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+  //       value,
+  //     )
+  //   )
+  //     return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
+  //   if (password && value !== passwordConfirm) return true;
+  // };
   const validateNewPassword = (value) => {
     if (!value)
       return '영문 대소문자, 숫자, 특수 기호 사용하여 총 8글자 이상으로';
@@ -171,8 +191,22 @@ const MyPage = () => {
         value,
       )
     )
-      return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
-    if (password && value !== passwordConfirm) return true;
+      if (new_password !== '')
+        return '8글자 이상의 영문 대문자, 소문자, 숫자, 특수기호만 허용됩니다.';
+    if (new_password !== value) {
+      return '비밀번호가 일치하지 않습니다.';
+    }
+    return true;
+  };
+  const validatePasswordConfirm = (value) => {
+    if (value !== new_password) {
+      if (new_password && value == passwordConfirm) {
+        return '비밀번호가 일치하지 않습니다.';
+      }
+      // return true;
+      return '비밀번호가 일치하지 않습니다.';
+    }
+    return true; // 유효성 검사를 통과한 경우 true 반환
   };
 
   const validateEmail = (value) => {
@@ -347,9 +381,7 @@ const MyPage = () => {
                                 placeholder="한번 더 입력"
                                 value={passwordConfirm}
                                 {...register('confirmPassword', {
-                                  validate: (value) =>
-                                    value === new_password ||
-                                    '비밀번호가 일치하지 않습니다.',
+                                  validate: validatePasswordConfirm,
                                 })}
                                 onChange={(e) => {
                                   setPasswordConfirm(e.target.value);

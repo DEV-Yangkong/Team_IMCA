@@ -211,7 +211,7 @@ const SignUp = () => {
                     validate: validateGender,
                   })}
                 >
-                  <option value={''} disabled>
+                  <option value="" disabled selected>
                     성별선택
                   </option>
                   <option value={'male'}>남</option>

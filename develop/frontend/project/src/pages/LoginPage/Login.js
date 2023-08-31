@@ -177,12 +177,7 @@ const Login = () => {
                   </button>
                 </div>
               </form>
-            </div>
-            <div className={styles.rtWrapper}>
               <section className={styles.register}>
-                <div className={styles.google}>
-                  <GoogleLoginButton />
-                </div>
                 <div className={styles.btn_join}>
                   <div>
                     <FontAwesomeIcon icon={faHandPointDown} />

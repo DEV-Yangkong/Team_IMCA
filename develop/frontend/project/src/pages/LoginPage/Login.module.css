@@ -7,6 +7,7 @@
   margin: 80px auto;
   width: 60%;
   height: 600px;
+  border-radius: 25px;
   box-shadow:
     14px 15px 5px -5px gainsboro,
     -5px 0 15px -5px gainsboro,
@@ -48,7 +49,6 @@
 .rtWrapper {
   width: 100%;
   height: 100%;
-  background-color: darblue;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,9 +58,7 @@
   font-size: 40px;
   color: #134f2c;
   font-weight: bold;
-
-  /* margin-top: 60px; */
-  margin-bottom: 30px;
+  margin: 0;
   box-sizing: border-box;
 }
 
@@ -85,7 +83,6 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
   /* padding-left: 20px; */
   margin: 0 auto;
   width: 100%;
@@ -111,14 +108,15 @@
   align-items: center;
   border-radius: 15px;
   width: 100%;
+  height: 40px;
   background-color: gainsboro;
 }
 .login_item input {
   border: none;
   margin-left: 20px;
   padding: 10px;
-  width: 70%;
-  height: 70%;
+  width: 60%;
+  height: 25%;
   font-size: 15px;
   background-color: gainsboro;
 }
@@ -146,19 +144,12 @@
 } */
 .register {
   width: 60%;
-  height: 150px;
-  margin: -40px auto 0 auto;
+  height: 100px;
+  margin: 0 auto 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-}
-
-.google {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-  /* height: 30%; */
 }
 
 .btn_join {

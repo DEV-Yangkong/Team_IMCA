@@ -54,16 +54,22 @@ const MusicalPage = () => {
           width: '100%',
           maxWidth: 1240,
           padding: '30px 0 10px 0',
-          fontSize: 23,
+          fontSize: 21,
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
       >
         <div>공연/페스티벌</div>
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <input
-            style={{ height: 30, marginRight: 10 }}
+            style={{
+              height: 29,
+              marginRight: 10,
+              border: '1px solid rgba(0, 0, 0, 0.2)',
+              padding: 5,
+              fontSize: 15,
+            }}
             value={searchValue}
             onChange={(e) => {
               setIsSearched(false);
@@ -71,7 +77,16 @@ const MusicalPage = () => {
             }}
             placeholder="search"
           ></input>
-          <button style={{ padding: 5 }} onClick={handleClick}>
+          <button
+            style={{
+              padding: 6,
+              fontSize: 15,
+              border: '1px solid grey',
+              backgroundColor: '#363636',
+              color: 'white',
+            }}
+            onClick={handleClick}
+          >
             검색
           </button>
         </div>

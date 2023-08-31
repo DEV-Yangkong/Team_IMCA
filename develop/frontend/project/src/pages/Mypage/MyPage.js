@@ -110,7 +110,7 @@ const MyPage = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         alert('비밀번호 규칙처럼 변경해주세요!');
       });
   };
@@ -123,11 +123,12 @@ const MyPage = () => {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setUserData(response.data);
       })
       .catch((error) => {
-        console.error('정보수정에러', error);
+        // console.error('정보수정에러', error);
+        alert('다시 시도해주세요!');
       });
   }, []);
 
@@ -164,11 +165,12 @@ const MyPage = () => {
         },
       );
       setUserData(response.data);
-      console.log('정보 수정 성공', response.data);
+      // console.log('정보 수정 성공', response.data);
       alert('회원 정보 수정 완료!');
       navigate('/');
     } catch (error) {
-      console.log('정보수정 에러', error);
+      // console.log('정보수정 에러', error);
+      alert('회원 정수 수정 실패!');
     }
   };
 
@@ -230,7 +232,7 @@ const MyPage = () => {
     if (!value) return '성별을 선택하세요.';
     return '';
   };
-  console.log(userData.gender);
+  // console.log(userData.gender);
   return (
     <div className={styles.MyPage}>
       <div className={styles.MyPage_container}>

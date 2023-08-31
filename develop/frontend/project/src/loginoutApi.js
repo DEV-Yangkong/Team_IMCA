@@ -19,7 +19,7 @@ export const logoutApi = async () => {
     const response = await instance.delete('/api/v1/users/Loginout/', {
       withCredentials: true,
     });
-    console.log(response, '로그아웃요청');
+    // console.log(response, '로그아웃요청');
     return response;
   } catch (error) {
     throw error;
@@ -66,11 +66,11 @@ export const getUserMypage = (cookies) => {
       withCredentials: true,
     })
     .then((res) => {
-      console.log('유저 데이터 수신 받음', res);
+      // console.log('유저 데이터 수신 받음', res);
       return res.data; //데이터 반환
     })
     .catch((err) => {
-      console.log('유저 데이터 수신 거절', err);
+      // console.log('유저 데이터 수신 거절', err);
       throw err; // 에러처리
     });
 };

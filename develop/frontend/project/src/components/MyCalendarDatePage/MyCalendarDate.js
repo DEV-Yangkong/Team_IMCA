@@ -2,10 +2,11 @@ import './MyCalendarDate.css';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
 import React, { useEffect, useState } from 'react';
-import { getCalendarDetail } from '../../mycalendarApi';
 import dayjs from 'dayjs';
-import { useQuery } from '@tanstack/react-query';
-import { useCookies } from 'react-cookie';
+
+// import { getCalendarDetail } from '../../mycalendarApi';
+// import { useQuery } from '@tanstack/react-query';
+// import { useCookies } from 'react-cookie';
 
 const MyCalendarDate = ({ onGoMyCalendar, handleDateChange }) => {
   const [date, setDate] = useState(new Date());
@@ -53,7 +54,7 @@ const MyCalendarDate = ({ onGoMyCalendar, handleDateChange }) => {
     <div className="myCalendar_container">
       <Calendar
         onChange={(e) => {
-          console.log('e', e);
+          // console.log('e', e);
           setDate(e);
           handleDateChange(e);
         }} // e로 바뀐 날짜 value가 들어옴. setDate에도 바뀐 value 주고 handleDateChange에도 ..

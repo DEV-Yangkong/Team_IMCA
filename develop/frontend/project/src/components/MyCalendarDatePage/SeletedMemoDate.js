@@ -37,7 +37,7 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
         },
       )
       .then((res) => {
-        console.log('메모 전송 성공', res);
+        // console.log('메모 전송 성공', res);
         window.location.reload();
       })
       .catch((error) => console.log('ㅁㅔ모전송 실패', error));
@@ -53,11 +53,13 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('선택한 메모 삭제완료', res);
+        // console.log('선택한 메모 삭제완료', res);
       })
       .catch((error) => {
+        alert('삭제완료');
+
         window.location.reload();
-        console.log('선택한 메모 삭제 실패', error);
+        // console.log('선택한 메모 삭제 실패', error);
       });
   };
 
@@ -78,9 +80,10 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
           );
           newData.push(...response.data); // 응답 데이터를 배열에 추가
 
-          console.log(newData, '메모추가업데이트');
+          // console.log(newData, '메모추가업데이트');
         } catch (error) {
-          console.log(`Error fetching data for calendar ID ${id}:`, error);
+          alert('불러오기 실패');
+          // console.log(`Error fetching data for calendar ID ${id}:`, error);
         }
       }
       setMemoList(newData); // 모든 응답 데이터를 저장

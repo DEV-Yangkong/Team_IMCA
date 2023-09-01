@@ -33,7 +33,7 @@ const Detail = () => {
         `http://imcal.store/api/v1/community_board/category/${category}/detail/${id}/`,
         {
           headers: {
-            Authorization: `Bearer ${cookies.access_token}`, // Replace with your actual access token
+            Authorization: `Bearer ${cookies.access_token}`,
           },
         },
       );
@@ -48,8 +48,6 @@ const Detail = () => {
   const deleteMutation = useMutation(deleteUserDetail, {
     onSuccess: () => {
       queryClient.invalidateQueries('pageList');
-      // You can manually change the URL here if needed
-      // window.location.href = '/';
     },
   });
 

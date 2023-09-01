@@ -38,7 +38,7 @@ const Modify = () => {
       content: contentWithoutPTags,
       category: category,
     };
-    const putApiEndpoint = `http://imca.store/api/v1/community_board/category/${category}/detail/${id}/`;
+    const putApiEndpoint = `http://imcal.store/api/v1/community_board/category/${category}/detail/${id}/`;
     await axios
       .put(putApiEndpoint, data, {
         headers: {

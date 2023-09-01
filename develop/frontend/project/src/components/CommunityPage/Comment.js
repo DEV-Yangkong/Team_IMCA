@@ -52,7 +52,7 @@ const Comment = () => {
     };
     axios
       .post(
-        `http://imca.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
+        `http://imcal.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
         commentData,
         {
           headers: {
@@ -94,7 +94,7 @@ const Comment = () => {
     };
     axios
       .post(
-        `http://imca.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
+        `http://imcal.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
         replyData,
         {
           headers: {
@@ -127,7 +127,7 @@ const Comment = () => {
 
     try {
       const response = await axios.put(
-        `http://imca.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
+        `http://imcal.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
         updatedCommentData,
         {
           headers: {
@@ -146,7 +146,7 @@ const Comment = () => {
   const deleteComment = async (item) => {
     try {
       await axios.delete(
-        `http://imca.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
+        `http://imcal.store/api/v1/review/category_gather_review/${category}/${board_id}/`,
         {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`,
@@ -187,7 +187,7 @@ const Comment = () => {
                 {item.review_writer.profileImg && (
                   <div className={styles.UserProfile}>
                     <img
-                      src={`http://imca.store/${item.review_writer.profileImg}`}
+                      src={`http://imcal.store/${item.review_writer.profileImg}`}
                     />
                   </div>
                 )}
@@ -279,7 +279,7 @@ const Comment = () => {
                           {bigreview.bigreview_writer.profileImg && (
                             <div className={styles.UserProfile}>
                               <img
-                                src={`http://imca.store/${bigreview.bigreview_writer.profileImg}`}
+                                src={`http://imcal.store/${bigreview.bigreview_writer.profileImg}`}
                               />
                             </div>
                           )}

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://imca.store/',
+  baseURL: 'http://imcal.store/',
 });
 // 로그인시
 export const loginoutApi = async (data) => {

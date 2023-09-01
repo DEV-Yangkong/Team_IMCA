@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://imca.store/',
+  baseURL: 'http://imcal.store/',
 });
 
 export const signupApi = async (data) => {

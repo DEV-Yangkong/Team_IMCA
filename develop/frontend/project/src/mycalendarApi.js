@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
 const instance = axios.create({
-  baseURL: 'http://imca.store/',
+  baseURL: 'http://imcal.store/',
 });
 
 //날짜 선택 누르면 나오는 데이터

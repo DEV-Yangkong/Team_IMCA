@@ -38,7 +38,7 @@ const MyCalendar = () => {
     const formattedDateDay = dayjs(date).format('YYYYMMDD'); // API에 보낼 형식으로 날짜를 변환
     // setSelectDay(formattedDateDay);
     axios
-      .get('http://imca.store/api/v1/calendar/menu/', {
+      .get('http://imcal.store/api/v1/calendar/menu/', {
         params: {
           date: formattedDateDay,
         },

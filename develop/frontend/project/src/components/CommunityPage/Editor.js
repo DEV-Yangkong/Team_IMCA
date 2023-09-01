@@ -28,7 +28,7 @@ const Editor = () => {
 
             axios
               .post(
-                `http://imca.store/api/v1/community_board/category/${category}/`,
+                `http://imcal.store/api/v1/community_board/category/${category}/`,
                 formData,
                 {
                   headers: {
@@ -66,7 +66,7 @@ const Editor = () => {
       content: contentWithoutPTags,
       category: category,
     };
-    const postApiEndpoint = `http://imca.store/api/v1/community_board/category/${category}/`;
+    const postApiEndpoint = `http://imcal.store/api/v1/community_board/category/${category}/`;
     await axios
       .post(postApiEndpoint, data, {
         headers: {

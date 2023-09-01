@@ -88,7 +88,7 @@ const MyPage = () => {
 
     await axios
       .put(
-        'http://imca.store/api/v1/users/change/',
+        'http://imcal.store/api/v1/users/change/',
         { new_password: new_password },
         {
           headers: {
@@ -116,7 +116,7 @@ const MyPage = () => {
   };
   useEffect(() => {
     axios
-      .get(`http://imca.store/api/v1/users/info`, {
+      .get(`http://imcal.store/api/v1/users/info`, {
         headers: {
           Authorization: `Bearer ${cookies.access_token}`,
         },
@@ -141,7 +141,7 @@ const MyPage = () => {
     formData.append('email', userData.email);
     formData.append('gender', userData.gender);
     // await axios
-    //   .put('http://imca.store/api/v1/users/info', formData, {
+    //   .put('http://imcal.store/api/v1/users/info', formData, {
     //     headers: {
     //       Authorization: `Bearer ${cookies.access_token}`,
     //       'Content-Type': 'multipart/form-data',
@@ -154,7 +154,7 @@ const MyPage = () => {
     //   .catch((error) => console.log('정보수정에러', error));
     try {
       const response = await axios.put(
-        'http://imca.store/api/v1/users/info',
+        'http://imcal.store/api/v1/users/info',
         formData, // 수정한 부분이 없는 경우
         {
           headers: {

@@ -21,9 +21,7 @@ const ConcertDetail = () => {
       },
     },
   );
-  const onGoList = () => {
-    navigate('/concert_all');
-  };
+
   if (isLoading) {
     return (
       <div className={styles.detail_container}>
@@ -37,6 +35,10 @@ const ConcertDetail = () => {
       </div>
     );
   }
+
+  const onGoList = () => {
+    navigate('/concert_all');
+  };
   return (
     <div className={styles.detail_container}>
       {info && (

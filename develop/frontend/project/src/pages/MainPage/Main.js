@@ -69,33 +69,34 @@ const Main = () => {
   // );
 
   // 공공api에서 가져온 데이터 db에 보낼 수 있도록 transform
-  const transformData = (data) => {
-    return data?.map((item) => {
-      return {
-        api_id: item.mt20id._text,
-        start_date: dayjs(item.prfpdfrom._text).format('YYYYMMDD'),
-        end_date: dayjs(item.prfpdto._text).format('YYYYMMDD'),
-        poster: item.poster._text,
-        place: item.fcltynm._text,
-        name: item.prfnm._text,
-      };
-    });
-  };
+  // const transformData = (data) => {
+  //   return data?.map((item) => {
+  //     return {
+  //       api_id: item.mt20id._text,
+  //       start_date: dayjs(item.prfpdfrom._text).format('YYYYMMDD'),
+  //       end_date: dayjs(item.prfpdto._text).format('YYYYMMDD'),
+  //       poster: item.poster._text,
+  //       place: item.fcltynm._text,
+  //       name: item.prfnm._text,
+  //     };
+  //   });
+  // };
+
   // db로 post 요청
-  const apiPostRequest = (data) => {
-    if (data) {
-      axios
-        .post('http://imca.store/api/v1/apis/', data, {
-          headers: {
-            Authorization: `Bearer ${cookies.access_token}`,
-          },
-          withCredentials: true,
-        })
-        .then((res) => console.log('db로 데이터 전송 완료', res))
-        .catch((err) => console.log('db에 데이터 전송 실패', err));
-    }
-  };
-  // ////// 중요 //////// db로 보내는 함수 /////////
+  // const apiPostRequest = (data) => {
+  //   if (data) {
+  //     axios
+  //       .post('http://imcal.store/api/v1/apis/', data, {
+  //         headers: {
+  //           Authorization: `Bearer ${cookies.access_token}`,
+  //         },
+  //         withCredentials: true,
+  //       })
+  //       .then((res) => console.log('db로 데이터 전송 완료', res))
+  //       .catch((err) => console.log('db에 데이터 전송 실패', err));
+  //   }
+  // };
+  // // db로 보내는 함수
   // useEffect(() => {
   //   const transformedData = transformData(allData);
   //   if (allData) {
@@ -103,8 +104,6 @@ const Main = () => {
   //       apiPostRequest(item);
   //     }
   //   }
-
-  //   // apiPostRequest(transformedData);
   // }, [allData]);
 
   // db에서 데이터 받아오기 - api.js로 옮겨놓은 상태
@@ -112,7 +111,7 @@ const Main = () => {
   //   const realData = [];
   //   for (let page = 1; page <= 2; page++)
   //     axios
-  //       .get('http://imca.store/api/v1/apis', {
+  //       .get('http://imcal.store/api/v1/apis', {
   //         params: { page: 1 },
   //         headers: {
   //           Authorization: `Bearer ${cookies.access_token}`,
@@ -127,13 +126,9 @@ const Main = () => {
   // }, []);
 
   // db에서 데이터 받아오기
-  const { data: realData } = useQuery(
-    ['realData', cookies.access_token],
-    () => dBData(cookies.access_token),
-    {
-      staleTime: 300000, // 5분 동안 데이터를 "느껴지게" 함
-    },
-  );
+  const { data: realData } = useQuery(['realData'], dBData, {
+    staleTime: 300000,
+  });
 
   const navigate = useNavigate();
 
@@ -168,11 +163,13 @@ const Main = () => {
       // mainTileContent 함수는 각각의 날짜마다 호출되므로, currentDate는 날짜마다 바뀜
       // 예를 들어, currentDate 가 2023.08.04일 경우, 그 날짜가 공연의 시작일~종료일 중 포함되는
       // 해당 공연이 matchingEvents에 담긴다.
-      const matchingEvents = realData.filter(
-        (item) =>
-          currentDate >= dayjs(item.start_date).format('YYYYMMDD') &&
-          currentDate <= dayjs(item.end_date).format('YYYYMMDD'),
-      );
+      const matchingEvents =
+        realData &&
+        realData.filter(
+          (item) =>
+            currentDate >= dayjs(item.start_date).format('YYYYMMDD') &&
+            currentDate <= dayjs(item.end_date).format('YYYYMMDD'),
+        );
       // matchingEvents가 하나라도 있을 때 일정을 표시
       if (matchingEvents.length > 0) {
         return (
@@ -301,7 +298,7 @@ const Main = () => {
       name: selectedEvent.name,
     };
     await axios
-      .get('http://imca.store/api/v1/calendar/menu', {
+      .get('http://imcal.store/api/v1/calendar/menu', {
         params: { date: selectedDate },
 
         headers: {
@@ -316,7 +313,7 @@ const Main = () => {
               alert('이미 저장된 데이터입니다');
             } else {
               axios
-                .post('http://imca.store/api/v1/calendar/', personalData, {
+                .post('http://imcal.store/api/v1/calendar/', personalData, {
                   headers: {
                     Authorization: `Bearer ${cookies.access_token}`,
                   },
@@ -331,7 +328,7 @@ const Main = () => {
           }
         } else {
           axios
-            .post('http://imca.store/api/v1/calendar/', personalData, {
+            .post('http://imcal.store/api/v1/calendar/', personalData, {
               headers: {
                 Authorization: `Bearer ${cookies.access_token}`,
               },
@@ -538,7 +535,6 @@ const Main = () => {
                 style={{ color: '#134f2c' }}
               />
             }
-            // onClickDay={handleClickMainDay}
           />
         </div>
       </section>

@@ -26,7 +26,7 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
 
     await axios
       .post(
-        `http://imca.store/api/v1/calendar/${id}/memo/`,
+        `http://imcal.store/api/v1/calendar/${id}/memo/`,
         { content: memo },
         {
           headers: {
@@ -45,7 +45,7 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
 
   const handleDelete = (calendar, id) => {
     axios
-      .delete(`http://imca.store/api/v1/calendar/${calendar}/memo/${id}/`, {
+      .delete(`http://imcal.store/api/v1/calendar/${calendar}/memo/${id}/`, {
         headers: {
           Authorization: `Bearer ${cookies.access_token}`,
           'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const SelectedMemoDate = ({ detailData, selectedDate, id }) => {
       for (const id of calendarId) {
         try {
           const response = await axios.get(
-            `http://imca.store/api/v1/calendar/${id}/memo/`,
+            `http://imcal.store/api/v1/calendar/${id}/memo/`,
             {
               headers: {
                 Authorization: `Bearer ${cookies.access_token}`,

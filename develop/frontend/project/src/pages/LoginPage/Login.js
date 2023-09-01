@@ -84,11 +84,11 @@ const Login = () => {
           });
           //쿠키 상태업데이트
           setRefreshToken(refresh_token);
-          console.log(response.data);
+          // console.log(response.data);
           // async function refreshAccessToken(refresh_token) {
           //   try {
           //     const response = await axios.post(
-          //       `http://imca.store/api/v1/users/Refresh/`,
+          //       `http://imcal.store/api/v1/users/Refresh/`,
           //       { refresh_token: refresh_token },
           //     );
           //     if (response.data.access_token) {

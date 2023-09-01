@@ -29,7 +29,8 @@ const Detail = () => {
   const deleteUserDetail = async () => {
     try {
       await axios.delete(
-        `http://imca.store/api/v1/community_board/category/${category}/detail/${id}/`,
+        // Use axios.delete for deletion
+        `http://imcal.store/api/v1/community_board/category/${category}/detail/${id}/`,
         {
           headers: {
             Authorization: `Bearer ${cookies.access_token}`,
@@ -77,7 +78,7 @@ const Detail = () => {
       <div className={styles.left}>
         <div>
           <div className={styles.detailUser}>
-            <img src={`http://imca.store/${writer.profileImg}`} />
+            <img src={`http://imcal.store/${writer.profileImg}`} />
           </div>
         </div>
         <div className={styles.author}>

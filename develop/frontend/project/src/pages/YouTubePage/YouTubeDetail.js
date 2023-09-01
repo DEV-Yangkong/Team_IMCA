@@ -13,6 +13,7 @@ const YouTubeDetail = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPost, setEditedPost] = useState({});
   const [videoError, setVideoError] = useState(false);
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
 
   const generateEmbedCode = (videoUrl) => {
     try {
@@ -43,22 +44,25 @@ const YouTubeDetail = () => {
   const handleEditClick = () => {
     setIsEditMode(true);
     setEditedPost({ ...selectedPost });
+    extractThumbnailUrl(selectedPost.video_url);
   };
 
   const handleSaveClick = async () => {
     try {
+      // 썸네일 URL 업데이트
+      const updatedPost = { ...editedPost, thumbnail_url: thumbnailUrl };
+
       const response = await axios.put(
         `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/youtube_video/${id}/`,
-        // `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
-        editedPost,
+        updatedPost, // 업데이트된 포스트 정보 사용
       );
       if (response.status === 200) {
         setIsEditMode(false);
         setSelectedPost(response.data);
+        extractThumbnailUrl(response.data.video_url);
       }
     } catch (error) {
       console.error('Error updating post:', error);
-      // 추가: 비디오 URL 오류 처리
       if (error.response && error.response.status === 400) {
         setVideoError(true);
       }
@@ -69,7 +73,6 @@ const YouTubeDetail = () => {
     try {
       const response = await axios.delete(
         `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/youtube_video/${id}/`,
-        // `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
       );
       if (response.status === 204) {
         if (!isDeleteModalVisible) {
@@ -86,15 +89,26 @@ const YouTubeDetail = () => {
     }
   };
 
+  const extractThumbnailUrl = (url) => {
+    const videoId = url.match(/v=([^&]+)/);
+    if (videoId) {
+      const thumbnailUrl = `https://i.ytimg.com/vi/${videoId[1]}/maxresdefault.jpg`;
+      console.log('Thumbnail URL:', thumbnailUrl); // 디버깅용 출력
+      setThumbnailUrl(thumbnailUrl);
+    } else {
+      setThumbnailUrl('');
+    }
+  };
+
   useEffect(() => {
     const fetchPostDetail = async () => {
       try {
         const response = await axios.get(
           `https://port-0-imca-3prof2llkuok2wj.sel4.cloudtype.app/api/v1/youtube_video/${id}/`,
-          // `http://127.0.0.1:8000/api/v1/youtube_videos/${postId}/`,
         );
         setSelectedPost(response.data);
         setIsLoading(false);
+        extractThumbnailUrl(response.data.video_url);
       } catch (error) {
         console.error('Error fetching post detail:', error);
       }
@@ -136,9 +150,13 @@ const YouTubeDetail = () => {
             <input
               className={styles['video-url-input']}
               value={editedPost.video_url}
-              onChange={(e) =>
-                setEditedPost({ ...editedPost, video_url: e.target.value })
-              }
+              onChange={(e) => {
+                const newVideoUrl = e.target.value;
+                setEditedPost({ ...editedPost, video_url: newVideoUrl });
+                console.log('New Video URL:', newVideoUrl); // 디버깅용 출력
+                extractThumbnailUrl(newVideoUrl);
+              }}
+              onBlur={() => extractThumbnailUrl(editedPost.video_url)}
             />
           </div>
         )}

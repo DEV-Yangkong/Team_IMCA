@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { xml2js } from 'xml-js';
 
-const service = 'cabed641996245acbfb041c7c10c6a16';
-const url = `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/prffest?service=${service}`;
+// const service = 'cabed641996245acbfb041c7c10c6a16';
+const service = '4dca0778060340a49ed8500abc9271a3';
+const url = `http://www.kopis.or.kr/openApi/restful/prffest?service=${service}`;
 
 // export const getAllData = (startDate, endDate) => {
 //   //전체 게시글을 가져오는 API
@@ -121,7 +122,7 @@ export const getConcertData = (currentPage) => {
 export const getConcertDetail = (dataId, service) => {
   return axios
     .get(
-      `https://cors-anywhere.herokuapp.com/http://www.kopis.or.kr/openApi/restful/pblprfr/${dataId}?service=cabed641996245acbfb041c7c10c6a16`,
+      `http://www.kopis.or.kr/openApi/restful/pblprfr/${dataId}?service=cabed641996245acbfb041c7c10c6a16`,
     )
     .then((res) => {
       const options = { compact: true, spaces: 2 };
@@ -130,7 +131,7 @@ export const getConcertDetail = (dataId, service) => {
       return result.dbs.db;
     });
 };
-const boxOfficeUrl = `https://cors-anywhere.herokuapp.com/http://kopis.or.kr/openApi/restful/boxoffice?service=${service}`;
+const boxOfficeUrl = `http://kopis.or.kr/openApi/restful/boxoffice?service=${service}`;
 export const getConcertBoxOffice = () => {
   return axios
     .get(boxOfficeUrl, {

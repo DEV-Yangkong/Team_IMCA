@@ -272,9 +272,13 @@ const Main = () => {
 
   // 상세 페이지로
   const onGoDetail = (eventId) => {
-    navigate(`/concert/${eventId}`, {
-      state: { eventData: eventId },
-    });
+    if (!cookies.access_token) {
+      alert('로그인 후 이용해주세요');
+    } else {
+      navigate(`/concert/${eventId}`, {
+        state: { eventData: eventId },
+      });
+    }
   };
   // 커뮤니티;
   const {

@@ -93,7 +93,6 @@ const YouTubeDetail = () => {
     const videoId = url.match(/v=([^&]+)/);
     if (videoId) {
       const thumbnailUrl = `https://i.ytimg.com/vi/${videoId[1]}/maxresdefault.jpg`;
-      console.log('Thumbnail URL:', thumbnailUrl); // 디버깅용 출력
       setThumbnailUrl(thumbnailUrl);
     } else {
       setThumbnailUrl('');
@@ -153,7 +152,6 @@ const YouTubeDetail = () => {
               onChange={(e) => {
                 const newVideoUrl = e.target.value;
                 setEditedPost({ ...editedPost, video_url: newVideoUrl });
-                console.log('New Video URL:', newVideoUrl); // 디버깅용 출력
                 extractThumbnailUrl(newVideoUrl);
               }}
               onBlur={() => extractThumbnailUrl(editedPost.video_url)}

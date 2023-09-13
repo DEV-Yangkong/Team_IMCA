@@ -4,6 +4,10 @@
 
 Team_IMCA는 "I am Calendar"의 약자로, 예술 커뮤니티를 위한 서비스를 개발하는 팀입니다. 우리의 목표는 연극과 뮤지컬의 일정을 캘린더로 표시하고 정보를 제공하여 예술 관련 이벤트를 즐기는 사람들에게 유용한 서비스를 제공하는 것입니다.
 
+<img width="80%" src="./팀소개 복사본.gif"/>
+
+`IMCA 후기`<a href="https://dev-yangkong.tistory.com/67"> click here! </a>
+
 ---
 
 ## 주요 기능
